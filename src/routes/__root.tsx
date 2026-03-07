@@ -1,7 +1,16 @@
-import { HeadContent, Outlet, createRootRoute } from "@tanstack/react-router";
+import type { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {
+  HeadContent,
+  Outlet,
+  createRootRouteWithContext,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+export interface MyRouterContext {
+  queryClient: QueryClient;
+}
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: RootComponent,
   head: () => {
     const url = import.meta.env.VITE_APP_URL || "http://localhost:5173";
@@ -45,6 +54,7 @@ function RootComponent() {
     <>
       <HeadContent />
       <Outlet />
+      <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
     </>
   );
