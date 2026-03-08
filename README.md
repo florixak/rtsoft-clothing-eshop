@@ -116,7 +116,7 @@ Součástí odevzdání je PDF dokumentace, která obsahuje:
 
 > **Poznámka:** Při hodnocení je kladen důraz především na kvalitu návrhu GUI, jeho srozumitelnost, konzistenci a přiměřenou komplexnost odpovídající zvolenému tématu.
 
-*Poslední změna: 06.02.2026*
+_Poslední změna: 06.02.2026_
 
 ---
 
