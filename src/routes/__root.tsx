@@ -13,8 +13,6 @@ export interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: RootComponent,
   head: () => {
-    const url = import.meta.env.VITE_APP_URL || "http://localhost:5173";
-
     return {
       meta: [
         { title: "RTSoft Clothing Eshop" },
@@ -41,10 +39,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         },
         { name: "twitter:image", content: "/og-image.jpg" },
       ],
-      links: [
-        { rel: "icon", href: "/favicon.ico" },
-        { rel: "canonical", href: url },
-      ],
+      links: [{ rel: "icon", href: "/favicon.ico" }],
     };
   },
 });
