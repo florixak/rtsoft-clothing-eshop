@@ -100,11 +100,17 @@ export type OrderStatus =
   | "completed"
   | "cancelled";
 
+export type RevenueDataPoint = {
+  date: `${number}-${number}-${number}`;
+  revenue: number;
+};
+
 export type DashboardStats = {
   period: "day" | "week" | "month" | "all";
   totalOrders: number;
   totalRevenue: number;
   topProducts: TopProduct[];
+  revenueOverTime: RevenueDataPoint[];
 };
 
 export type TopProduct = {
