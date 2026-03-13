@@ -30,7 +30,7 @@ export const products: Product[] = [
   {
     id: "prod-2",
     slug: {
-      cs: "graficke-tricko-rtsoft-cerné",
+      cs: "graficke-tricko-rtsoft-cerne",
       en: "graphic-tee-rtsoft-black",
     },
     name: {
