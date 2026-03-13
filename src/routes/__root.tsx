@@ -6,6 +6,8 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import "@/lib/i18n";
+
 export interface MyRouterContext {
   queryClient: QueryClient;
 }
