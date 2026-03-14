@@ -10,11 +10,11 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      en: {
-        common: enCommon,
-      },
       cs: {
         common: csCommon,
+      },
+      en: {
+        common: enCommon,
       },
     },
     lng: "cs",
