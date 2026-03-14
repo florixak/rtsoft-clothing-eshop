@@ -5,5 +5,11 @@ export const Route = createFileRoute("/{-$locale}/admin/orders/$orderId")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/-$locale/admin/orders/$orderId"!</div>;
+  const { locale, orderId } = Route.useParams();
+
+  return (
+    <div>
+      Hello "/{locale ?? "cs"}/admin/orders/{orderId}"!
+    </div>
+  );
 }
