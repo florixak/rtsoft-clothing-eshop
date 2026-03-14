@@ -5,5 +5,5 @@ export const Route = createFileRoute("/{-$locale}/account/")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/-$locale/user/"!</div>;
+  return <div>Hello "/-$locale/account/"!</div>;
 }
