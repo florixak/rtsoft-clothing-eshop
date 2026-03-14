@@ -1,5 +1,157 @@
 {
-  "nav": {
+  "header": {
+    "search": {
+      "placeholder": "Hledat produkty..."
+    },
+    "aria": {
+      "wishlist": "Oblíbené",
+      "cart": "Nákupní košík",
+      "account": "Účet",
+      "logo": "Přejít na úvodní stránku",
+      "toggleTheme": "Přepnout motiv",
+      "selectLanguage": "Vybrat jazyk",
+      "openMenu": "Otevřít menu",
+      "closeMenu": "Zavřít menu"
+    },
+    "cart": {
+      "itemCount": "{{count}} položka v košíku",
+      "itemCount_few": "{{count}} položky v košíku",
+      "itemCount_other": "{{count}} položek v košíku"
+    }
+  },
+  "footer": {
+    "description": "Popis obchodu",
+    "shop": {
+      "title": "Obchod",
+      "products": "Produkty",
+      "cart": "Košík"
+    },
+    "account": {
+      "title": "Účet",
+      "login": "Přihlásit se",
+      "orders": "Objednávky"
+    },
+    "support": {
+      "title": "Podpora",
+      "contact": "Kontakt",
+      "privacy": "Ochrana soukromí",
+      "terms": "Podmínky použití"
+    },
+    "copyright": "© {{year}} {{name}}. Všechna práva vyhrazena."
+  },
+  "language": {
+    "en": "Angličtina",
+    "cs": "Čeština"
+  },
+  "theme": {
+    "light": "Světlý motiv",
+    "dark": "Tmavý motiv"
+  },
+  "buttons": {
+    "cancel": "Zrušit",
+    "confirm": "Potvrdit",
+    "back": "Zpět",
+    "next": "Další",
+    "previous": "Předchozí",
+    "submit": "Odeslat",
+    "edit": "Upravit",
+    "delete": "Smazat",
+    "close": "Zavřít",
+    "apply": "Použít",
+    "reset": "Resetovat",
+    "loadMore": "Načíst více",
+    "tryAgain": "Zkusit znovu",
+    "continue": "Pokračovat",
+    "goHome": "Přejít na úvodní stránku"
+  },
+  "states": {
+    "loading": "Načítání...",
+    "saving": "Ukládání...",
+    "processing": "Zpracování...",
+    "pleaseWait": "Prosím čekejte..."
+  },
+  "errors": {
+    "generic": "Něco se pokazilo. Zkuste to prosím znovu.",
+    "notFound": "Stránka nebyla nalezena.",
+    "unauthorized": "Nemáte oprávnění zobrazit tuto stránku.",
+    "forbidden": "Přístup odepřen.",
+    "network": "Chyba sítě. Zkontrolujte připojení a zkuste to znovu.",
+    "server": "Chyba serveru. Zkuste to prosím později."
+  },
+  "empty": {
+    "generic": "Zatím zde nic není.",
+    "noResults": "Žádné výsledky.",
+    "noResultsFor": "Žádné výsledky pro „{{query}}“.",
+    "tryDifferent": "Zkuste jiný výraz nebo upravte filtry."
+  },
+  "validation": {
+    "required": "Toto pole je povinné.",
+    "invalidEmail": "Zadejte platnou e-mailovou adresu.",
+    "passwordTooShort": "Heslo musí mít alespoň {{min}} znaků.",
+    "passwordMismatch": "Hesla se neshodují.",
+    "invalidPhone": "Zadejte platné telefonní číslo.",
+    "invalidPostalCode": "Zadejte platné PSČ.",
+    "maxLength": "Maximální délka je {{max}} znaků.",
+    "minLength": "Minimální délka je {{min}} znaků.",
+    "onlyLetters": "Toto pole může obsahovat pouze písmena.",
+    "onlyNumbers": "Toto pole může obsahovat pouze čísla."
+  },
+  "toast": {
+    "success": "Úspěch!",
+    "error": "Chyba!",
+    "warning": "Upozornění!",
+    "info": "Informace",
+    "savedChanges": "Změny byly úspěšně uloženy.",
+    "deletedItem": "Položka byla úspěšně smazána.",
+    "genericError": "Něco se pokazilo. Zkuste to prosím znovu.",
+    "sessionExpired": "Vaše relace vypršela. Přihlaste se prosím znovu.",
+    "copied": "Zkopírováno do schránky!"
+  },
+  "dialog": {
+    "confirmDelete": "Opravdu chcete tuto položku smazat?",
+    "confirmDeleteDescription": "Tuto akci nelze vrátit zpět.",
+    "confirmLogout": "Opravdu se chcete odhlásit?",
+    "unsavedChanges": "Máte neuložené změny.",
+    "unsavedChangesDescription": "Opravdu chcete odejít? Vaše změny budou ztraceny."
+  },
+  "pagination": {
+    "previous": "Předchozí",
+    "next": "Další",
+    "page": "Stránka",
+    "of": "z",
+    "pageOf": "Stránka {{current}} z {{total}}",
+    "showing": "Zobrazeno {{from}}–{{to}} z {{total}} výsledků",
+    "rowsPerPage": "Řádků na stránku"
+  },
+  "filters": {
+    "title": "Filtry",
+    "sort": "Seřadit podle",
+    "sortOptions": {
+      "newest": "Nejnovější",
+      "priceAsc": "Cena: od nejnižší",
+      "priceDesc": "Cena: od nejvyšší",
+      "nameAsc": "Název: A–Z",
+      "nameDesc": "Název: Z–A",
+      "popularity": "Nejoblíbenější"
+    },
+    "priceRange": "Cenové rozpětí",
+    "from": "Od",
+    "to": "Do",
+    "clear": "Vymazat filtry",
+    "clearAll": "Vymazat vše",
+    "apply": "Použít filtry",
+    "activeFilters": "{{count}} aktivní filtr",
+    "activeFilters_few": "{{count}} aktivní filtry",
+    "activeFilters_other": "{{count}} aktivních filtrů",
+    "noFilters": "Žádné filtry nejsou aktivní."
+  },
+  "breadcrumbs": {
     "home": "Domů"
+  },
+  "meta": {
+    "notFound": {
+      "title": "404 – Stránka nenalezena",
+      "description": "Stránka, kterou hledáte, neexistuje."
+    }
   }
 }
