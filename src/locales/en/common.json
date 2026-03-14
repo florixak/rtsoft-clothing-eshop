@@ -11,9 +11,7 @@
       "toggleTheme": "Toggle theme",
       "selectLanguage": "Select language",
       "openMenu": "Open menu",
-      "closeMenu": "Close menu",
-      "openFilters": "Open filters",
-      "closeFilters": "Close filters"
+      "closeMenu": "Close menu"
     },
     "cart": {
       "itemCount": "{{count}} item in cart",

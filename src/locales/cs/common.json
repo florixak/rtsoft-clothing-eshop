@@ -11,9 +11,7 @@
       "toggleTheme": "Přepnout motiv",
       "selectLanguage": "Vybrat jazyk",
       "openMenu": "Otevřít menu",
-      "closeMenu": "Zavřít menu",
-      "openFilters": "Otevřít filtry",
-      "closeFilters": "Zavřít filtry"
+      "closeMenu": "Zavřít menu"
     },
     "cart": {
       "itemCount": "{{count}} položka v košíku",
