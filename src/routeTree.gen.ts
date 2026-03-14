@@ -11,6 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125CheckoutIndexRouteImport } from './routes/{-$locale}/checkout/index'
+import { Route as Char123LocaleChar125CartIndexRouteImport } from './routes/{-$locale}/cart/index'
+import { Route as Char123LocaleChar125AdminIndexRouteImport } from './routes/{-$locale}/admin/index'
+import { Route as Char123LocaleChar125AccountIndexRouteImport } from './routes/{-$locale}/account/index'
+import { Route as Char123LocaleChar125ProductProductSlugRouteImport } from './routes/{-$locale}/product/$productSlug'
+import { Route as Char123LocaleChar125CheckoutSuccessRouteImport } from './routes/{-$locale}/checkout/success'
+import { Route as Char123LocaleChar125AdminProductsRouteImport } from './routes/{-$locale}/admin/products'
+import { Route as Char123LocaleChar125AccountOrderIdRouteImport } from './routes/{-$locale}/account/$orderId'
+import { Route as Char123LocaleChar125AdminOrdersIndexRouteImport } from './routes/{-$locale}/admin/orders/index'
+import { Route as Char123LocaleChar125AdminOrdersOrderIdRouteImport } from './routes/{-$locale}/admin/orders/$orderId'
 
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
@@ -24,25 +34,151 @@ const Char123LocaleChar125IndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
+const Char123LocaleChar125CheckoutIndexRoute =
+  Char123LocaleChar125CheckoutIndexRouteImport.update({
+    id: '/checkout/',
+    path: '/checkout/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125CartIndexRoute =
+  Char123LocaleChar125CartIndexRouteImport.update({
+    id: '/cart/',
+    path: '/cart/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AdminIndexRoute =
+  Char123LocaleChar125AdminIndexRouteImport.update({
+    id: '/admin/',
+    path: '/admin/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AccountIndexRoute =
+  Char123LocaleChar125AccountIndexRouteImport.update({
+    id: '/account/',
+    path: '/account/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125ProductProductSlugRoute =
+  Char123LocaleChar125ProductProductSlugRouteImport.update({
+    id: '/product/$productSlug',
+    path: '/product/$productSlug',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125CheckoutSuccessRoute =
+  Char123LocaleChar125CheckoutSuccessRouteImport.update({
+    id: '/checkout/success',
+    path: '/checkout/success',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AdminProductsRoute =
+  Char123LocaleChar125AdminProductsRouteImport.update({
+    id: '/admin/products',
+    path: '/admin/products',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AccountOrderIdRoute =
+  Char123LocaleChar125AccountOrderIdRouteImport.update({
+    id: '/account/$orderId',
+    path: '/account/$orderId',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AdminOrdersIndexRoute =
+  Char123LocaleChar125AdminOrdersIndexRouteImport.update({
+    id: '/admin/orders/',
+    path: '/admin/orders/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AdminOrdersOrderIdRoute =
+  Char123LocaleChar125AdminOrdersOrderIdRouteImport.update({
+    id: '/admin/orders/$orderId',
+    path: '/admin/orders/$orderId',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/account/$orderId': typeof Char123LocaleChar125AccountOrderIdRoute
+  '/{-$locale}/admin/products': typeof Char123LocaleChar125AdminProductsRoute
+  '/{-$locale}/checkout/success': typeof Char123LocaleChar125CheckoutSuccessRoute
+  '/{-$locale}/product/$productSlug': typeof Char123LocaleChar125ProductProductSlugRoute
+  '/{-$locale}/account/': typeof Char123LocaleChar125AccountIndexRoute
+  '/{-$locale}/admin/': typeof Char123LocaleChar125AdminIndexRoute
+  '/{-$locale}/cart/': typeof Char123LocaleChar125CartIndexRoute
+  '/{-$locale}/checkout/': typeof Char123LocaleChar125CheckoutIndexRoute
+  '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
+  '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/account/$orderId': typeof Char123LocaleChar125AccountOrderIdRoute
+  '/{-$locale}/admin/products': typeof Char123LocaleChar125AdminProductsRoute
+  '/{-$locale}/checkout/success': typeof Char123LocaleChar125CheckoutSuccessRoute
+  '/{-$locale}/product/$productSlug': typeof Char123LocaleChar125ProductProductSlugRoute
+  '/{-$locale}/account': typeof Char123LocaleChar125AccountIndexRoute
+  '/{-$locale}/admin': typeof Char123LocaleChar125AdminIndexRoute
+  '/{-$locale}/cart': typeof Char123LocaleChar125CartIndexRoute
+  '/{-$locale}/checkout': typeof Char123LocaleChar125CheckoutIndexRoute
+  '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
+  '/{-$locale}/admin/orders': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/account/$orderId': typeof Char123LocaleChar125AccountOrderIdRoute
+  '/{-$locale}/admin/products': typeof Char123LocaleChar125AdminProductsRoute
+  '/{-$locale}/checkout/success': typeof Char123LocaleChar125CheckoutSuccessRoute
+  '/{-$locale}/product/$productSlug': typeof Char123LocaleChar125ProductProductSlugRoute
+  '/{-$locale}/account/': typeof Char123LocaleChar125AccountIndexRoute
+  '/{-$locale}/admin/': typeof Char123LocaleChar125AdminIndexRoute
+  '/{-$locale}/cart/': typeof Char123LocaleChar125CartIndexRoute
+  '/{-$locale}/checkout/': typeof Char123LocaleChar125CheckoutIndexRoute
+  '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
+  '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/{-$locale}' | '/{-$locale}/'
+  fullPaths:
+    | '/{-$locale}'
+    | '/{-$locale}/'
+    | '/{-$locale}/account/$orderId'
+    | '/{-$locale}/admin/products'
+    | '/{-$locale}/checkout/success'
+    | '/{-$locale}/product/$productSlug'
+    | '/{-$locale}/account/'
+    | '/{-$locale}/admin/'
+    | '/{-$locale}/cart/'
+    | '/{-$locale}/checkout/'
+    | '/{-$locale}/admin/orders/$orderId'
+    | '/{-$locale}/admin/orders/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/{-$locale}'
-  id: '__root__' | '/{-$locale}' | '/{-$locale}/'
+  to:
+    | '/{-$locale}'
+    | '/{-$locale}/account/$orderId'
+    | '/{-$locale}/admin/products'
+    | '/{-$locale}/checkout/success'
+    | '/{-$locale}/product/$productSlug'
+    | '/{-$locale}/account'
+    | '/{-$locale}/admin'
+    | '/{-$locale}/cart'
+    | '/{-$locale}/checkout'
+    | '/{-$locale}/admin/orders/$orderId'
+    | '/{-$locale}/admin/orders'
+  id:
+    | '__root__'
+    | '/{-$locale}'
+    | '/{-$locale}/'
+    | '/{-$locale}/account/$orderId'
+    | '/{-$locale}/admin/products'
+    | '/{-$locale}/checkout/success'
+    | '/{-$locale}/product/$productSlug'
+    | '/{-$locale}/account/'
+    | '/{-$locale}/admin/'
+    | '/{-$locale}/cart/'
+    | '/{-$locale}/checkout/'
+    | '/{-$locale}/admin/orders/$orderId'
+    | '/{-$locale}/admin/orders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -65,16 +201,114 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
+    '/{-$locale}/checkout/': {
+      id: '/{-$locale}/checkout/'
+      path: '/checkout'
+      fullPath: '/{-$locale}/checkout/'
+      preLoaderRoute: typeof Char123LocaleChar125CheckoutIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/cart/': {
+      id: '/{-$locale}/cart/'
+      path: '/cart'
+      fullPath: '/{-$locale}/cart/'
+      preLoaderRoute: typeof Char123LocaleChar125CartIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/admin/': {
+      id: '/{-$locale}/admin/'
+      path: '/admin'
+      fullPath: '/{-$locale}/admin/'
+      preLoaderRoute: typeof Char123LocaleChar125AdminIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/account/': {
+      id: '/{-$locale}/account/'
+      path: '/account'
+      fullPath: '/{-$locale}/account/'
+      preLoaderRoute: typeof Char123LocaleChar125AccountIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/product/$productSlug': {
+      id: '/{-$locale}/product/$productSlug'
+      path: '/product/$productSlug'
+      fullPath: '/{-$locale}/product/$productSlug'
+      preLoaderRoute: typeof Char123LocaleChar125ProductProductSlugRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/checkout/success': {
+      id: '/{-$locale}/checkout/success'
+      path: '/checkout/success'
+      fullPath: '/{-$locale}/checkout/success'
+      preLoaderRoute: typeof Char123LocaleChar125CheckoutSuccessRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/admin/products': {
+      id: '/{-$locale}/admin/products'
+      path: '/admin/products'
+      fullPath: '/{-$locale}/admin/products'
+      preLoaderRoute: typeof Char123LocaleChar125AdminProductsRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/account/$orderId': {
+      id: '/{-$locale}/account/$orderId'
+      path: '/account/$orderId'
+      fullPath: '/{-$locale}/account/$orderId'
+      preLoaderRoute: typeof Char123LocaleChar125AccountOrderIdRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/admin/orders/': {
+      id: '/{-$locale}/admin/orders/'
+      path: '/admin/orders'
+      fullPath: '/{-$locale}/admin/orders/'
+      preLoaderRoute: typeof Char123LocaleChar125AdminOrdersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/admin/orders/$orderId': {
+      id: '/{-$locale}/admin/orders/$orderId'
+      path: '/admin/orders/$orderId'
+      fullPath: '/{-$locale}/admin/orders/$orderId'
+      preLoaderRoute: typeof Char123LocaleChar125AdminOrdersOrderIdRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
   }
 }
 
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
+  Char123LocaleChar125AccountOrderIdRoute: typeof Char123LocaleChar125AccountOrderIdRoute
+  Char123LocaleChar125AdminProductsRoute: typeof Char123LocaleChar125AdminProductsRoute
+  Char123LocaleChar125CheckoutSuccessRoute: typeof Char123LocaleChar125CheckoutSuccessRoute
+  Char123LocaleChar125ProductProductSlugRoute: typeof Char123LocaleChar125ProductProductSlugRoute
+  Char123LocaleChar125AccountIndexRoute: typeof Char123LocaleChar125AccountIndexRoute
+  Char123LocaleChar125AdminIndexRoute: typeof Char123LocaleChar125AdminIndexRoute
+  Char123LocaleChar125CartIndexRoute: typeof Char123LocaleChar125CartIndexRoute
+  Char123LocaleChar125CheckoutIndexRoute: typeof Char123LocaleChar125CheckoutIndexRoute
+  Char123LocaleChar125AdminOrdersOrderIdRoute: typeof Char123LocaleChar125AdminOrdersOrderIdRoute
+  Char123LocaleChar125AdminOrdersIndexRoute: typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
   {
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
+    Char123LocaleChar125AccountOrderIdRoute:
+      Char123LocaleChar125AccountOrderIdRoute,
+    Char123LocaleChar125AdminProductsRoute:
+      Char123LocaleChar125AdminProductsRoute,
+    Char123LocaleChar125CheckoutSuccessRoute:
+      Char123LocaleChar125CheckoutSuccessRoute,
+    Char123LocaleChar125ProductProductSlugRoute:
+      Char123LocaleChar125ProductProductSlugRoute,
+    Char123LocaleChar125AccountIndexRoute:
+      Char123LocaleChar125AccountIndexRoute,
+    Char123LocaleChar125AdminIndexRoute: Char123LocaleChar125AdminIndexRoute,
+    Char123LocaleChar125CartIndexRoute: Char123LocaleChar125CartIndexRoute,
+    Char123LocaleChar125CheckoutIndexRoute:
+      Char123LocaleChar125CheckoutIndexRoute,
+    Char123LocaleChar125AdminOrdersOrderIdRoute:
+      Char123LocaleChar125AdminOrdersOrderIdRoute,
+    Char123LocaleChar125AdminOrdersIndexRoute:
+      Char123LocaleChar125AdminOrdersIndexRoute,
   }
 
 const Char123LocaleChar125RouteRouteWithChildren =
