@@ -5,5 +5,5 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 
 function HomeComponent() {
-  return <main></main>;
+  return <main>Hello "/-$locale/"!</main>;
 }
