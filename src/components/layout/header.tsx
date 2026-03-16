@@ -46,7 +46,7 @@ const Header = () => {
               {/*<LanguageSwitcher />} */}
             </li>
             <li className="hidden md:block -ml-6">{/*<ThemeSwitcher /> */}</li>
-            <li className="md:hidden" aria-label={t("header.aria.openMenu")}>
+            <li className="md:hidden">
               <MobileMenuDrawer />
             </li>
           </ul>

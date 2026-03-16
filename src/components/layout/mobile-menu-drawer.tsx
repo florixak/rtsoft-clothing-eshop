@@ -32,8 +32,12 @@ const MobileMenuDrawer = () => {
   return (
     <Drawer direction="left" open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Menu />
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={t("header.aria.openMenu")}
+        >
+          <Menu aria-hidden="true" />
         </Button>
       </DrawerTrigger>
       <DrawerContent className="gap-8">
