@@ -22,6 +22,8 @@
       "wishlist": "Wishlist",
       "cart": "Cart",
       "settingsAndPreferences": "Settings & Preferences",
+      "theme": "Preferences",
+      "language": "Language",
       "cartItemCount": "{{count}} ITEM",
       "cartItemCount_few": "{{count}} ITEMS",
       "cartItemCount_other": "{{count}} ITEMS"

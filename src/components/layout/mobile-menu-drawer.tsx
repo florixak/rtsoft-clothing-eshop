@@ -17,7 +17,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "../ui/drawer";
-import ThemeSwitcher from "./theme-switcher";
+import { MobileThemeSwitcher } from "./theme-switcher";
 import LanguageSwitcher from "./language-switcher";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
@@ -109,7 +109,7 @@ const MobileMenuDrawer = () => {
             {t("header.menu.settingsAndPreferences")}
           </span>
           <div>
-            <ThemeSwitcher />
+            <MobileThemeSwitcher />
             <LanguageSwitcher />
           </div>
         </DrawerFooter>
