@@ -17,7 +17,6 @@ i18n
         common: enCommon,
       },
     },
-    lng: "cs",
     fallbackLng: "cs",
     defaultNS: "common",
     interpolation: { escapeValue: false },
