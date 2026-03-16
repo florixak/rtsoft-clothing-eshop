@@ -22,6 +22,8 @@
       "wishlist": "Oblíbené",
       "cart": "Košík",
       "settingsAndPreferences": "Nastavení a Preference",
+      "theme": "Preference",
+      "language": "Jazyk",
       "cartItemCount": "{{count}} POLOŽKA",
       "cartItemCount_few": "{{count}} POLOŽKY",
       "cartItemCount_other": "{{count}} POLOŽEK"
