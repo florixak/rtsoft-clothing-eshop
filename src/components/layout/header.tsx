@@ -4,6 +4,7 @@ import { Heart, ShoppingBag, ShoppingCart, UserCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import MobileMenuDrawer from "./mobile-menu-drawer";
 import { ThemeSwitcher } from "./theme-switcher";
+import { LanguageSwitcher } from "./language-switcher";
 
 const Header = () => {
   const { t } = useTranslation("common");
@@ -43,7 +44,9 @@ const Header = () => {
                 <UserCircle size={24} />
               </Link>
             </li>
-            <li className="hidden md:block">{/*<LanguageSwitcher />} */}</li>
+            <li className="hidden md:block">
+              <LanguageSwitcher />
+            </li>
             <li className="hidden md:block">
               <ThemeSwitcher />
             </li>
