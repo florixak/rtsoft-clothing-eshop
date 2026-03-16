@@ -30,6 +30,8 @@ const MobileMenuDrawer = () => {
     setOpen(false);
   };
 
+  const itemCartCount = 2;
+
   return (
     <Drawer direction="left" open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
@@ -95,7 +97,10 @@ const MobileMenuDrawer = () => {
               {t("header.menu.cart")}
               <div className="flex items-center gap-2 ml-auto">
                 <span className="text-muted-foreground">
-                  {t("header.menu.cartItemCount", { count: 0 })}
+                  {t(
+                    `header.menu.${itemCartCount === 1 ? "cartItemCount" : itemCartCount > 5 ? "cartItemCount_other" : "cartItemCount_few"}`,
+                    { count: itemCartCount },
+                  )}
                 </span>
                 <ArrowRight size={16} />
               </div>

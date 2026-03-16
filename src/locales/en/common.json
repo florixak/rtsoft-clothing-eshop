@@ -22,7 +22,9 @@
       "wishlist": "Wishlist",
       "cart": "Cart",
       "settingsAndPreferences": "Settings & Preferences",
-      "cartItemCount": "{{count}} ITEMS"
+      "cartItemCount": "{{count}} ITEM",
+      "cartItemCount_few": "{{count}} ITEMS",
+      "cartItemCount_other": "{{count}} ITEMS"
     },
     "cart": {
       "itemCount": "{{count}} item in cart",

@@ -22,7 +22,9 @@
       "wishlist": "Oblíbené",
       "cart": "Košík",
       "settingsAndPreferences": "Nastavení a Preference",
-      "cartItemCount": "{{count}} POLOŽEK"
+      "cartItemCount": "{{count}} POLOŽKA",
+      "cartItemCount_few": "{{count}} POLOŽKY",
+      "cartItemCount_other": "{{count}} POLOŽEK"
     },
     "cart": {
       "itemCount": "{{count}} položka v košíku",
