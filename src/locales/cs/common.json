@@ -1,7 +1,11 @@
 {
   "header": {
     "search": {
-      "placeholder": "Hledat produkty..."
+      "placeholder": "Hledat produkty...",
+      "sections": {
+        "products": "Odpovídající produkty",
+        "hints": "Zkuste hledat"
+      }
     },
     "aria": {
       "wishlist": "Oblíbené",
@@ -12,6 +16,13 @@
       "selectLanguage": "Vybrat jazyk",
       "openMenu": "Otevřít menu",
       "closeMenu": "Zavřít menu"
+    },
+    "menu": {
+      "account": "Účet",
+      "wishlist": "Oblíbené",
+      "cart": "Košík",
+      "settingsAndPreferences": "Nastavení a Preference",
+      "cartItemCount": "{{count}} POLOŽEK"
     },
     "cart": {
       "itemCount": "{{count}} položka v košíku",
@@ -40,12 +51,13 @@
     "copyright": "© {{year}} {{name}}. Všechna práva vyhrazena."
   },
   "language": {
-    "en": "Angličtina",
-    "cs": "Čeština"
+    "en": "EN",
+    "cs": "CS"
   },
   "theme": {
     "light": "Světlý motiv",
-    "dark": "Tmavý motiv"
+    "dark": "Tmavý motiv",
+    "system": "Systémový motiv"
   },
   "buttons": {
     "cancel": "Zrušit",

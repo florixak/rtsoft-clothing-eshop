@@ -1,7 +1,11 @@
 {
   "header": {
     "search": {
-      "placeholder": "Search for products..."
+      "placeholder": "Search for products...",
+      "sections": {
+        "products": "Product matches",
+        "hints": "Try searching for"
+      }
     },
     "aria": {
       "wishlist": "Wishlist",
@@ -12,6 +16,13 @@
       "selectLanguage": "Select language",
       "openMenu": "Open menu",
       "closeMenu": "Close menu"
+    },
+    "menu": {
+      "account": "Account",
+      "wishlist": "Wishlist",
+      "cart": "Cart",
+      "settingsAndPreferences": "Settings & Preferences",
+      "cartItemCount": "{{count}} ITEMS"
     },
     "cart": {
       "itemCount": "{{count}} item in cart",
@@ -40,12 +51,13 @@
     "copyright": "© {{year}} {{name}}. All rights reserved."
   },
   "language": {
-    "en": "English",
-    "cs": "Czech"
+    "en": "EN",
+    "cs": "CS"
   },
   "theme": {
     "light": "Light mode",
-    "dark": "Dark mode"
+    "dark": "Dark mode",
+    "system": "System mode"
   },
   "buttons": {
     "cancel": "Cancel",
