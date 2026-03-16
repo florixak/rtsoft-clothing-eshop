@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Heart,
   Menu,
+  ShoppingBag,
   ShoppingCart,
   UserCircle,
   X,
@@ -44,10 +45,10 @@ const MobileMenuDrawer = () => {
         <DrawerHeader className="flex flex-row items-center justify-between pl-4">
           <Link
             to="/{-$locale}"
-            className="flex-1"
+            className="flex-1 flex items-center"
             aria-label={t("header.aria.logo")}
-            onClick={closeDrawer}
           >
+            <ShoppingBag size={32} className="inline-block mr-2" />
             <h1 className="text-3xl font-heading">E-Shop</h1>
           </Link>
           <DrawerClose asChild>
@@ -67,7 +68,7 @@ const MobileMenuDrawer = () => {
               className="flex items-center"
             >
               <UserCircle size={24} className="inline-block mr-2" />
-              Account
+              {t("header.menu.account")}
               <ArrowRight size={16} className="inline-block ml-auto" />
             </Link>
           </li>
@@ -79,7 +80,7 @@ const MobileMenuDrawer = () => {
               className="flex items-center"
             >
               <Heart size={24} className="inline-block mr-2" />
-              Wishlist
+              {t("header.menu.wishlist")}
               <ArrowRight size={16} className="inline-block ml-auto" />
             </Link>
           </li>
@@ -91,9 +92,11 @@ const MobileMenuDrawer = () => {
               className="flex items-center"
             >
               <ShoppingCart size={24} className="inline-block mr-2" />
-              Cart
+              {t("header.menu.cart")}
               <div className="flex items-center gap-2 ml-auto">
-                <span className="text-muted-foreground">0 ITEMS</span>
+                <span className="text-muted-foreground">
+                  {t("header.menu.cartItemCount", { count: 0 })}
+                </span>
                 <ArrowRight size={16} />
               </div>
             </Link>
@@ -101,7 +104,7 @@ const MobileMenuDrawer = () => {
         </ul>
         <DrawerFooter className="bg-footer">
           <span className="text-muted-foreground">
-            SETTINGS &amp; PREFERENCES
+            {t("header.menu.settingsAndPreferences")}
           </span>
           <div>
             <ThemeSwitcher />
