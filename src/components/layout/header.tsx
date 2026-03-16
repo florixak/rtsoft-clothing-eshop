@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Heart, ShoppingBag, ShoppingCart, UserCircle } from "lucide-react";
 
 import { useTranslation } from "react-i18next";
+import MobileMenuDrawer from "./mobile-menu-drawer";
 
 const Header = () => {
   const { t } = useTranslation("common");
@@ -46,7 +47,7 @@ const Header = () => {
             </li>
             <li className="hidden md:block -ml-6">{/*<ThemeSwitcher /> */}</li>
             <li className="md:hidden" aria-label={t("header.aria.openMenu")}>
-              {/*<MobileMenuDrawer /> */}
+              <MobileMenuDrawer />
             </li>
           </ul>
         </nav>
