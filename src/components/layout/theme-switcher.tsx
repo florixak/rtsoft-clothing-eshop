@@ -46,7 +46,7 @@ const MobileThemeSwitcher = () => {
 
   return (
     <div className="flex flex-row items-center justify-between">
-      <div className="flex items-center gap-2 text-sm font-medium">
+      <div className="relative flex items-center gap-2 text-sm font-medium">
         <Sun
           size={24}
           className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
