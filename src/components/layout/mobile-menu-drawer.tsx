@@ -55,7 +55,7 @@ const MobileMenuDrawer = () => {
           </Link>
           <DrawerClose asChild>
             <Button variant="ghost" size="icon">
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{t("header.aria.closeMenu")}</span>
               <X />
             </Button>
           </DrawerClose>
