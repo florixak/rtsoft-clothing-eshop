@@ -41,7 +41,7 @@ const ThemeSwitcher = () => {
 };
 
 const MobileThemeSwitcher = () => {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
   const { t } = useTranslation("common");
 
   return (
@@ -59,21 +59,21 @@ const MobileThemeSwitcher = () => {
       </div>
       <ButtonGroup>
         <Button
-          variant="outline"
+          variant={theme === "light" ? "default" : "outline"}
           onClick={() => setTheme("light")}
           aria-label={t("theme.light")}
         >
           <Sun size={16} className="h-[1.2rem] w-[1.2rem]" />
         </Button>
         <Button
-          variant="outline"
+          variant={theme === "dark" ? "default" : "outline"}
           onClick={() => setTheme("dark")}
           aria-label={t("theme.dark")}
         >
           <Moon size={16} className="h-[1.2rem] w-[1.2rem]" />
         </Button>
         <Button
-          variant="outline"
+          variant={theme === "system" ? "default" : "outline"}
           onClick={() => setTheme("system")}
           aria-label={t("theme.system")}
         >
