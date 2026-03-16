@@ -1,3 +1,4 @@
+import Header from "@/components/layout/header";
 import "@/lib/i18n";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -51,6 +52,7 @@ function RootComponent() {
   return (
     <>
       <HeadContent />
+      <Header />
       <Outlet />
       <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
