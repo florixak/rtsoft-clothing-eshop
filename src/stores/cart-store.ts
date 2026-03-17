@@ -49,6 +49,7 @@ export const useCartStore = create<CartStore>()(
         ),
 
       addItem: ({ variantId, priceSnapshot, quantity = 1 }) => {
+        if (!Number.isFinite(priceSnapshot) || priceSnapshot < 0) return;
         if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
         quantity = Math.max(1, Math.floor(quantity));
         if (quantity <= 0) return;
