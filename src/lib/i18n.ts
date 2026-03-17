@@ -5,18 +5,22 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import csCommon from "@/locales/cs/common.json";
 import enCommon from "@/locales/en/common.json";
 
+const resources = {
+  cs: {
+    common: csCommon,
+  },
+  en: {
+    common: enCommon,
+  },
+};
+
+export type Languages = keyof typeof resources;
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      cs: {
-        common: csCommon,
-      },
-      en: {
-        common: enCommon,
-      },
-    },
+    resources,
     fallbackLng: "cs",
     defaultNS: "common",
     interpolation: { escapeValue: false },
