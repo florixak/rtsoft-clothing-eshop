@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import MobileMenuDrawer from "./mobile-menu-drawer";
 import { ThemeSwitcher } from "./theme-switcher";
 import { LanguageSwitcher } from "./language-switcher";
+import { useCartStore } from "@/stores/cart-store";
 
 const Header = () => {
   const { t } = useTranslation("common");
+  const { itemsCount } = useCartStore();
 
   return (
     <header className="border-b bg-header px-4 py-3">
@@ -33,7 +35,7 @@ const Header = () => {
                 <ShoppingCart size={24} />
               </Link>
               <span className="absolute -top-1 -right-1 text-xs bg-primary text-white rounded-full px-1">
-                3
+                {itemsCount()}
               </span>
             </li>
             <li className="hidden md:block">
