@@ -21,16 +21,16 @@ import { MobileThemeSwitcher } from "./theme-switcher";
 import { MobileLanguageSwitcher } from "./language-switcher";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useCartStore } from "@/stores/cart-store";
 
 const MobileMenuDrawer = () => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation("common");
+  const { itemsCount } = useCartStore();
 
   const closeDrawer = () => {
     setOpen(false);
   };
-
-  const itemCartCount = 2;
 
   return (
     <Drawer direction="left" open={open} onOpenChange={setOpen}>
@@ -97,7 +97,7 @@ const MobileMenuDrawer = () => {
               {t("header.menu.cart")}
               <div className="flex items-center gap-2 ml-auto">
                 <span className="text-muted-foreground">
-                  {t("header.menu.cartItemCount", { count: itemCartCount })}
+                  {t("header.menu.cartItemCount", { count: itemsCount() })}
                 </span>
                 <ArrowRight size={16} />
               </div>
