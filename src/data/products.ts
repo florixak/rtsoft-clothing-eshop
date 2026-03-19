@@ -1,13 +1,18 @@
-import type { Product, ProductOption } from "../types";
+import type {
+  LocalizedString,
+  Product,
+  ProductOption,
+  SizeCode,
+  TypeCode,
+} from "../types";
 
 type OptionDef = {
-  code: string;
-  labelCs: string;
-  labelEn: string;
+  code: TypeCode;
+  label: LocalizedString;
   priceAdjustment: number;
 };
 
-const sizeLabelByCode: Record<string, { cs: string; en: string }> = {
+const sizeLabelByCode: Record<SizeCode, LocalizedString> = {
   xs: { cs: "XS", en: "XS" },
   s: { cs: "S", en: "S" },
   m: { cs: "M", en: "M" },
@@ -18,29 +23,37 @@ const sizeLabelByCode: Record<string, { cs: string; en: string }> = {
 
 const createSizeOptions = (
   productId: string,
-  sizes: Array<{ code: string; priceAdjustment: number }>,
-): ProductOption[] => {
-  return sizes.map((size) => ({
-    id: `${productId}-size-${size.code}`,
-    code: size.code,
-    label: sizeLabelByCode[size.code],
-    priceAdjustment: size.priceAdjustment,
-  }));
+  sizes: Array<{ code: SizeCode; priceAdjustment: number }>,
+): ProductOption<SizeCode>[] => {
+  return sizes.map((size) => {
+    const label = sizeLabelByCode[size.code];
+    if (!label) {
+      throw new Error(`Unknown size code: ${size.code}`);
+    }
+    return {
+      id: `${productId}-size-${size.code}`,
+      code: size.code,
+      label,
+      priceAdjustment: size.priceAdjustment,
+    };
+  });
 };
 
 const createTypeOptions = (
   productId: string,
   types: OptionDef[],
-): ProductOption[] => {
-  return types.map((type) => ({
-    id: `${productId}-type-${type.code}`,
-    code: type.code,
-    label: {
-      cs: type.labelCs,
-      en: type.labelEn,
-    },
-    priceAdjustment: type.priceAdjustment,
-  }));
+): ProductOption<TypeCode>[] => {
+  return types.map((type) => {
+    return {
+      id: `${productId}-type-${type.code}`,
+      code: type.code,
+      label: {
+        cs: type.label.cs,
+        en: type.label.en,
+      },
+      priceAdjustment: type.priceAdjustment,
+    };
+  });
 };
 
 export const products: Product[] = [
@@ -73,14 +86,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-1", [
         {
           code: "classic",
-          labelCs: "Classic",
-          labelEn: "Classic",
+          label: { cs: "Classic", en: "Classic" },
           priceAdjustment: 0,
         },
         {
           code: "organic",
-          labelCs: "Organic Cotton",
-          labelEn: "Organic Cotton",
+          label: { cs: "Organic Cotton", en: "Organic Cotton" },
           priceAdjustment: 80,
         },
       ]),
@@ -119,14 +130,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-2", [
         {
           code: "print-basic",
-          labelCs: "Basic Print",
-          labelEn: "Basic Print",
+          label: { cs: "Basic Print", en: "Basic Print" },
           priceAdjustment: 0,
         },
         {
           code: "print-premium",
-          labelCs: "Premium Print",
-          labelEn: "Premium Print",
+          label: { cs: "Premium Print", en: "Premium Print" },
           priceAdjustment: 90,
         },
       ]),
@@ -159,14 +168,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-3", [
         {
           code: "regular",
-          labelCs: "Regular Lining",
-          labelEn: "Regular Lining",
+          label: { cs: "Regular Lining", en: "Regular Lining" },
           priceAdjustment: 0,
         },
         {
           code: "sherpa",
-          labelCs: "Sherpa Lining",
-          labelEn: "Sherpa Lining",
+          label: { cs: "Sherpa Lining", en: "Sherpa Lining" },
           priceAdjustment: 150,
         },
       ]),
@@ -202,14 +209,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-4", [
         {
           code: "regular",
-          labelCs: "Regular",
-          labelEn: "Regular",
+          label: { cs: "Regular", en: "Regular" },
           priceAdjustment: 0,
         },
         {
           code: "heavyweight",
-          labelCs: "Heavyweight Fleece",
-          labelEn: "Heavyweight Fleece",
+          label: { cs: "Heavyweight Fleece", en: "Heavyweight Fleece" },
           priceAdjustment: 140,
         },
       ]),
@@ -241,14 +246,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-5", [
         {
           code: "classic",
-          labelCs: "Classic Denim",
-          labelEn: "Classic Denim",
+          label: { cs: "Classic Denim", en: "Classic Denim" },
           priceAdjustment: 0,
         },
         {
           code: "stretch",
-          labelCs: "Comfort Stretch",
-          labelEn: "Comfort Stretch",
+          label: { cs: "Comfort Stretch", en: "Comfort Stretch" },
           priceAdjustment: 120,
         },
       ]),
@@ -277,14 +280,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-6", [
         {
           code: "regular",
-          labelCs: "Regular",
-          labelEn: "Regular",
+          label: { cs: "Regular", en: "Regular" },
           priceAdjustment: 0,
         },
         {
           code: "pro",
-          labelCs: "Pro Fabric",
-          labelEn: "Pro Fabric",
+          label: { cs: "Pro Fabric", en: "Pro Fabric" },
           priceAdjustment: 110,
         },
       ]),
@@ -323,14 +324,12 @@ export const products: Product[] = [
       types: createTypeOptions("prod-7", [
         {
           code: "standard",
-          labelCs: "Standard Insulation",
-          labelEn: "Standard Insulation",
+          label: { cs: "Standard Insulation", en: "Standard Insulation" },
           priceAdjustment: 0,
         },
         {
           code: "thermal",
-          labelCs: "Thermal Plus",
-          labelEn: "Thermal Plus",
+          label: { cs: "Thermal Plus", en: "Thermal Plus" },
           priceAdjustment: 250,
         },
       ]),
