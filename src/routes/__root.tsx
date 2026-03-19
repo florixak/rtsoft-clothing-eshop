@@ -59,7 +59,9 @@ function RootComponent() {
     <>
       <HeadContent />
       <Header />
-      <Outlet />
+      <main className="min-h-screen bg-background px-4 py-6 pt-32">
+        <Outlet />
+      </main>
       <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
     </>
