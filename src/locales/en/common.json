@@ -5,7 +5,8 @@
       "sections": {
         "products": "Product matches",
         "hints": "Try searching for"
-      }
+      },
+      "clear": "Clear search"
     },
     "aria": {
       "wishlist": "Wishlist",
