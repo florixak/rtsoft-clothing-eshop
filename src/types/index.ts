@@ -19,14 +19,21 @@ export type Product = {
   price: number;
   categoryId: string;
   images: string[];
-  variants: ProductVariant[];
+  options: ProductOptions;
   createdAt: string;
+  rating: number;
 };
 
-export type ProductVariant = {
+export type ProductOption = {
   id: string;
-  size: Size;
-  stock: number;
+  code: string;
+  label: LocalizedString;
+  priceAdjustment: number;
+};
+
+export type ProductOptions = {
+  sizes: ProductOption[];
+  types: ProductOption[];
 };
 
 export type Cart = {
@@ -39,7 +46,11 @@ export type Cart = {
 
 export type CartItem = {
   id: string;
-  variantId: string;
+  productId: string;
+  selectionSnapshot: {
+    size: string;
+    type: string;
+  };
   quantity: number;
   priceSnapshot: number;
 };
@@ -86,9 +97,11 @@ export type Order = {
 
 export type OrderItem = {
   productId: string;
-  variantId: string;
   nameSnapshot: string;
-  sizeSnapshot: Size;
+  selectionSnapshot: {
+    size: string;
+    type: string;
+  };
   quantity: number;
   priceSnapshot: number;
 };

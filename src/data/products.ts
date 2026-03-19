@@ -1,4 +1,47 @@
-import type { Product } from "../types";
+import type { Product, ProductOption } from "../types";
+
+type OptionDef = {
+  code: string;
+  labelCs: string;
+  labelEn: string;
+  priceAdjustment: number;
+};
+
+const sizeLabelByCode: Record<string, { cs: string; en: string }> = {
+  xs: { cs: "XS", en: "XS" },
+  s: { cs: "S", en: "S" },
+  m: { cs: "M", en: "M" },
+  l: { cs: "L", en: "L" },
+  xl: { cs: "XL", en: "XL" },
+  xxl: { cs: "XXL", en: "XXL" },
+};
+
+const createSizeOptions = (
+  productId: string,
+  sizes: Array<{ code: string; priceAdjustment: number }>,
+): ProductOption[] => {
+  return sizes.map((size) => ({
+    id: `${productId}-size-${size.code}`,
+    code: size.code,
+    label: sizeLabelByCode[size.code],
+    priceAdjustment: size.priceAdjustment,
+  }));
+};
+
+const createTypeOptions = (
+  productId: string,
+  types: OptionDef[],
+): ProductOption[] => {
+  return types.map((type) => ({
+    id: `${productId}-type-${type.code}`,
+    code: type.code,
+    label: {
+      cs: type.labelCs,
+      en: type.labelEn,
+    },
+    priceAdjustment: type.priceAdjustment,
+  }));
+};
 
 export const products: Product[] = [
   {
@@ -18,14 +61,32 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=Basic+Tee+White+Front",
       "https://placehold.co/600x800?text=Basic+Tee+White+Back",
     ],
-    variants: [
-      { id: "var-1-xs", size: "XS", stock: 10 },
-      { id: "var-1-s", size: "S", stock: 25 },
-      { id: "var-1-m", size: "M", stock: 30 },
-      { id: "var-1-l", size: "L", stock: 20 },
-      { id: "var-1-xl", size: "XL", stock: 8 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-1", [
+        { code: "xs", priceAdjustment: -30 },
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+        { code: "xl", priceAdjustment: 40 },
+        { code: "xxl", priceAdjustment: 70 },
+      ]),
+      types: createTypeOptions("prod-1", [
+        {
+          code: "classic",
+          labelCs: "Classic",
+          labelEn: "Classic",
+          priceAdjustment: 0,
+        },
+        {
+          code: "organic",
+          labelCs: "Organic Cotton",
+          labelEn: "Organic Cotton",
+          priceAdjustment: 80,
+        },
+      ]),
+    },
     createdAt: "2026-01-10T09:00:00.000Z",
+    rating: 4.5,
   },
   {
     id: "prod-2",
@@ -47,14 +108,31 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=RTSoft+Tee+Black+Front",
       "https://placehold.co/600x800?text=RTSoft+Tee+Black+Back",
     ],
-    variants: [
-      { id: "var-2-s", size: "S", stock: 15 },
-      { id: "var-2-m", size: "M", stock: 22 },
-      { id: "var-2-l", size: "L", stock: 18 },
-      { id: "var-2-xl", size: "XL", stock: 12 },
-      { id: "var-2-xxl", size: "XXL", stock: 5 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-2", [
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+        { code: "xl", priceAdjustment: 35 },
+        { code: "xxl", priceAdjustment: 55 },
+      ]),
+      types: createTypeOptions("prod-2", [
+        {
+          code: "print-basic",
+          labelCs: "Basic Print",
+          labelEn: "Basic Print",
+          priceAdjustment: 0,
+        },
+        {
+          code: "print-premium",
+          labelCs: "Premium Print",
+          labelEn: "Premium Print",
+          priceAdjustment: 90,
+        },
+      ]),
+    },
     createdAt: "2026-01-15T10:30:00.000Z",
+    rating: 4.8,
   },
   {
     id: "prod-3",
@@ -70,14 +148,31 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=Zip+Hoodie+Grey+Front",
       "https://placehold.co/600x800?text=Zip+Hoodie+Grey+Back",
     ],
-    variants: [
-      { id: "var-3-xs", size: "XS", stock: 6 },
-      { id: "var-3-s", size: "S", stock: 14 },
-      { id: "var-3-m", size: "M", stock: 20 },
-      { id: "var-3-l", size: "L", stock: 16 },
-      { id: "var-3-xl", size: "XL", stock: 9 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-3", [
+        { code: "xs", priceAdjustment: -30 },
+        { code: "s", priceAdjustment: -15 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 30 },
+        { code: "xl", priceAdjustment: 60 },
+      ]),
+      types: createTypeOptions("prod-3", [
+        {
+          code: "regular",
+          labelCs: "Regular Lining",
+          labelEn: "Regular Lining",
+          priceAdjustment: 0,
+        },
+        {
+          code: "sherpa",
+          labelCs: "Sherpa Lining",
+          labelEn: "Sherpa Lining",
+          priceAdjustment: 150,
+        },
+      ]),
+    },
     createdAt: "2026-01-20T08:00:00.000Z",
+    rating: 4.2,
   },
   {
     id: "prod-4",
@@ -96,14 +191,31 @@ export const products: Product[] = [
     price: 1499,
     categoryId: "cat-2",
     images: ["https://placehold.co/600x800?text=Fleece+Hoodie+Black+Front"],
-    variants: [
-      { id: "var-4-s", size: "S", stock: 10 },
-      { id: "var-4-m", size: "M", stock: 18 },
-      { id: "var-4-l", size: "L", stock: 15 },
-      { id: "var-4-xl", size: "XL", stock: 7 },
-      { id: "var-4-xxl", size: "XXL", stock: 3 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-4", [
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 25 },
+        { code: "xl", priceAdjustment: 45 },
+        { code: "xxl", priceAdjustment: 70 },
+      ]),
+      types: createTypeOptions("prod-4", [
+        {
+          code: "regular",
+          labelCs: "Regular",
+          labelEn: "Regular",
+          priceAdjustment: 0,
+        },
+        {
+          code: "heavyweight",
+          labelCs: "Heavyweight Fleece",
+          labelEn: "Heavyweight Fleece",
+          priceAdjustment: 140,
+        },
+      ]),
+    },
     createdAt: "2026-02-01T11:00:00.000Z",
+    rating: 4.0,
   },
   {
     id: "prod-5",
@@ -119,13 +231,30 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=Slim+Jeans+Blue+Front",
       "https://placehold.co/600x800?text=Slim+Jeans+Blue+Back",
     ],
-    variants: [
-      { id: "var-5-s", size: "S", stock: 12 },
-      { id: "var-5-m", size: "M", stock: 20 },
-      { id: "var-5-l", size: "L", stock: 17 },
-      { id: "var-5-xl", size: "XL", stock: 8 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-5", [
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 30 },
+        { code: "xl", priceAdjustment: 60 },
+      ]),
+      types: createTypeOptions("prod-5", [
+        {
+          code: "classic",
+          labelCs: "Classic Denim",
+          labelEn: "Classic Denim",
+          priceAdjustment: 0,
+        },
+        {
+          code: "stretch",
+          labelCs: "Comfort Stretch",
+          labelEn: "Comfort Stretch",
+          priceAdjustment: 120,
+        },
+      ]),
+    },
     createdAt: "2026-02-05T09:15:00.000Z",
+    rating: 4.2,
   },
   {
     id: "prod-6",
@@ -138,17 +267,37 @@ export const products: Product[] = [
     price: 999,
     categoryId: "cat-3",
     images: ["https://placehold.co/600x800?text=Cargo+Pants+Khaki+Front"],
-    variants: [
-      { id: "var-6-s", size: "S", stock: 9 },
-      { id: "var-6-m", size: "M", stock: 14 },
-      { id: "var-6-l", size: "L", stock: 11 },
-      { id: "var-6-xl", size: "XL", stock: 6 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-6", [
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+        { code: "xl", priceAdjustment: 40 },
+      ]),
+      types: createTypeOptions("prod-6", [
+        {
+          code: "regular",
+          labelCs: "Regular",
+          labelEn: "Regular",
+          priceAdjustment: 0,
+        },
+        {
+          code: "pro",
+          labelCs: "Pro Fabric",
+          labelEn: "Pro Fabric",
+          priceAdjustment: 110,
+        },
+      ]),
+    },
     createdAt: "2026-02-10T14:00:00.000Z",
+    rating: 4.1,
   },
   {
     id: "prod-7",
-    slug: { cs: "zimni-bunda-puffa-cerna", en: "winter-puffer-jacket-black" },
+    slug: {
+      cs: "zimni-bunda-puffa-cerna",
+      en: "winter-puffer-jacket-black",
+    },
     name: {
       cs: "Zimní prošívaná bunda – černá",
       en: "Winter Puffer Jacket – Black",
@@ -163,13 +312,30 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=Puffer+Jacket+Black+Front",
       "https://placehold.co/600x800?text=Puffer+Jacket+Black+Side",
     ],
-    variants: [
-      { id: "var-7-xs", size: "XS", stock: 4 },
-      { id: "var-7-s", size: "S", stock: 8 },
-      { id: "var-7-m", size: "M", stock: 12 },
-      { id: "var-7-l", size: "L", stock: 10 },
-      { id: "var-7-xl", size: "XL", stock: 6 },
-    ],
+    options: {
+      sizes: createSizeOptions("prod-7", [
+        { code: "xs", priceAdjustment: -50 },
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 40 },
+        { code: "xl", priceAdjustment: 80 },
+      ]),
+      types: createTypeOptions("prod-7", [
+        {
+          code: "standard",
+          labelCs: "Standard Insulation",
+          labelEn: "Standard Insulation",
+          priceAdjustment: 0,
+        },
+        {
+          code: "thermal",
+          labelCs: "Thermal Plus",
+          labelEn: "Thermal Plus",
+          priceAdjustment: 250,
+        },
+      ]),
+    },
     createdAt: "2026-02-15T10:00:00.000Z",
+    rating: 4.5,
   },
 ];
