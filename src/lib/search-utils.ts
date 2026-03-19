@@ -14,6 +14,10 @@ export const searchForProducts = (
   locale: Languages,
   maxResults: number = 5,
 ) => {
+  const safeMaxResults = Number.isFinite(maxResults)
+    ? Math.max(0, Math.trunc(maxResults))
+    : 5;
+
   return products
     .filter((product) => {
       if (!normalizedQuery) {
@@ -31,7 +35,7 @@ export const searchForProducts = (
         normalizeText(part).includes(normalizedQuery),
       );
     })
-    .slice(0, maxResults)
+    .slice(0, safeMaxResults)
     .map((product) => ({
       ...product,
       categoryName: findCategoryById(product.categoryId)?.name[locale] ?? "",
