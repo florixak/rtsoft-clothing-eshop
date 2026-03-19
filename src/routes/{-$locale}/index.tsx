@@ -1,3 +1,4 @@
+import Catalog from "@/components/catalog/catalog";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/{-$locale}/")({
 });
 
 function HomeComponent() {
-  return <main>Hello "/-$locale/"!</main>;
+  return <Catalog />;
 }
