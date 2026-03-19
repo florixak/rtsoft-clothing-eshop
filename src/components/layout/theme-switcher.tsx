@@ -1,42 +1,54 @@
-import { Computer, Moon, Sun } from "lucide-react";
+import { ChevronDownIcon, Computer, Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import { useTheme } from "@/components/layout/theme-provider";
 import { ButtonGroup } from "../ui/button-group";
 import { useTranslation } from "react-i18next";
 
 const ThemeSwitcher = () => {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
   const { t } = useTranslation("common");
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
+    <Select
+      value={theme}
+      onValueChange={(value) => {
+        if (value === "light" || value === "dark" || value === "system") {
+          setTheme(value);
+        }
+      }}
+    >
+      <SelectTrigger
+        className="justify-center relative h-8 px-2"
+        aria-label={t("header.aria.theme")}
         render={
-          <Button variant="ghost" size="icon">
-            <Sun className="size-[1.3rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-            <Moon className="absolute size-[1.3rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-full px-0 justify-center"
+          >
+            {theme === "light" && (
+              <Sun className="scale-100 rotate-0 transition-all duration-300 dark:scale-0 dark:-rotate-90" />
+            )}
+            {theme === "dark" && (
+              <Moon className="scale-0 rotate-90 transition-all duration-300 dark:scale-100 dark:rotate-0" />
+            )}
+            <ChevronDownIcon className="text-muted-foreground" />
           </Button>
         }
-      ></DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          {t("theme.light")}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          {t("theme.dark")}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          {t("theme.system")}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      />
+      <SelectContent align="end">
+        <SelectItem value="light">{t("theme.light")}</SelectItem>
+        <SelectItem value="dark">{t("theme.dark")}</SelectItem>
+        <SelectItem value="system">{t("theme.system")}</SelectItem>
+      </SelectContent>
+    </Select>
   );
 };
 
