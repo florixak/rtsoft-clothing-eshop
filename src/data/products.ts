@@ -59,10 +59,10 @@ const createTypeOptions = (
 export const products: Product[] = [
   {
     id: "prod-1",
-    slug: { cs: "basic-bavlnene-tricko-bile", en: "basic-cotton-tee-white" },
+    slug: { cs: "basic-bavlnene-tricko", en: "basic-cotton-tee" },
     name: {
-      cs: "Základní bavlněné tričko – bílé",
-      en: "Basic Cotton Tee – White",
+      cs: "Základní bavlněné tričko",
+      en: "Basic Cotton Tee",
     },
     description: {
       cs: "Pohodlné tričko z 100% bavlny, vhodné na každý den. Klasický střih, dostupné ve všech velikostech.",
@@ -85,13 +85,13 @@ export const products: Product[] = [
       ]),
       types: createTypeOptions("prod-1", [
         {
-          code: "classic",
-          label: { cs: "Classic", en: "Classic" },
+          code: "white",
+          label: { cs: "Bílé", en: "White" },
           priceAdjustment: 0,
         },
         {
-          code: "organic",
-          label: { cs: "Organic Cotton", en: "Organic Cotton" },
+          code: "black",
+          label: { cs: "Černé", en: "Black" },
           priceAdjustment: 80,
         },
       ]),
@@ -102,12 +102,12 @@ export const products: Product[] = [
   {
     id: "prod-2",
     slug: {
-      cs: "graficke-tricko-rtsoft-cerne",
-      en: "graphic-tee-rtsoft-black",
+      cs: "graficke-tricko-rtsoft",
+      en: "graphic-tee-rtsoft",
     },
     name: {
-      cs: "Grafické tričko RTSoft – černé",
-      en: "RTSoft Graphic Tee – Black",
+      cs: "Grafické tričko RTSoft",
+      en: "RTSoft Graphic Tee",
     },
     description: {
       cs: "Tričko s originálním potiskem loga RTSoft. Unisex střih, prémiová bavlna.",
@@ -129,13 +129,13 @@ export const products: Product[] = [
       ]),
       types: createTypeOptions("prod-2", [
         {
-          code: "print-basic",
-          label: { cs: "Basic Print", en: "Basic Print" },
+          code: "black",
+          label: { cs: "Černé", en: "Black" },
           priceAdjustment: 0,
         },
         {
-          code: "print-premium",
-          label: { cs: "Premium Print", en: "Premium Print" },
+          code: "white",
+          label: { cs: "Bílé", en: "White" },
           priceAdjustment: 90,
         },
       ]),
@@ -145,8 +145,8 @@ export const products: Product[] = [
   },
   {
     id: "prod-3",
-    slug: { cs: "zip-mikina-seda", en: "zip-hoodie-grey" },
-    name: { cs: "Zipová mikina – šedá", en: "Zip Hoodie – Grey" },
+    slug: { cs: "zip-mikina", en: "zip-hoodie" },
+    name: { cs: "Zipová mikina", en: "Zip Hoodie" },
     description: {
       cs: "Teplá mikina na zip s kapsami. Ideální pro chladnější dny. Složení: 80% bavlna, 20% polyester.",
       en: "Warm zip-up hoodie with pockets. Ideal for cooler days. Composition: 80% cotton, 20% polyester.",
@@ -184,12 +184,12 @@ export const products: Product[] = [
   {
     id: "prod-4",
     slug: {
-      cs: "oversize-mikina-navnitrni-fleece-cerna",
-      en: "oversized-fleece-hoodie-black",
+      cs: "oversize-mikina-navnitrni-fleece",
+      en: "oversized-fleece-hoodie",
     },
     name: {
-      cs: "Oversized mikina s fleecem – černá",
-      en: "Oversized Fleece Hoodie – Black",
+      cs: "Oversized mikina s fleecem",
+      en: "Oversized Fleece Hoodie",
     },
     description: {
       cs: "Oversized mikina s měkkým fleecem uvnitř. Pohodlná a stylová.",
@@ -224,8 +224,8 @@ export const products: Product[] = [
   },
   {
     id: "prod-5",
-    slug: { cs: "slim-fit-dziny-modre", en: "slim-fit-jeans-blue" },
-    name: { cs: "Slim fit džíny – modré", en: "Slim Fit Jeans – Blue" },
+    slug: { cs: "slim-fit-dziny", en: "slim-fit-jeans" },
+    name: { cs: "Slim fit džíny", en: "Slim Fit Jeans" },
     description: {
       cs: "Klasické modré džíny se slim fit střihem. 98% bavlna, 2% elastan pro pohodlí pohybu.",
       en: "Classic blue jeans with a slim fit cut. 98% cotton, 2% elastane for ease of movement.",
@@ -261,8 +261,8 @@ export const products: Product[] = [
   },
   {
     id: "prod-6",
-    slug: { cs: "cargo-kalhoty-khaki", en: "cargo-pants-khaki" },
-    name: { cs: "Cargo kalhoty – khaki", en: "Cargo Pants – Khaki" },
+    slug: { cs: "cargo-kalhoty", en: "cargo-pants" },
+    name: { cs: "Cargo kalhoty", en: "Cargo Pants" },
     description: {
       cs: "Odolné cargo kalhoty s bočními kapsami. Vhodné do města i přírody.",
       en: "Durable cargo pants with side pockets. Suitable for city and outdoor use.",
@@ -296,12 +296,12 @@ export const products: Product[] = [
   {
     id: "prod-7",
     slug: {
-      cs: "zimni-bunda-puffa-cerna",
-      en: "winter-puffer-jacket-black",
+      cs: "zimni-bunda-puffa",
+      en: "winter-puffer-jacket",
     },
     name: {
-      cs: "Zimní prošívaná bunda – černá",
-      en: "Winter Puffer Jacket – Black",
+      cs: "Zimní prošívaná bunda",
+      en: "Winter Puffer Jacket",
     },
     description: {
       cs: "Teplá zimní bunda s prošívanou výplní. Voděodolná vrstva, skrytá kapuce.",
