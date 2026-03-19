@@ -1,16 +1,14 @@
 {
   "catalog": {
+    "title": "Katalog produktů",
     "showing": "Zobrazeno {{from}}-{{to}} z {{total}} produktů",
     "showing_one": "Zobrazen 1 z {{total}} produktu"
   },
   "categories": {
-    "title": "Kategorie",
-    "all": "Vše",
-    "men": "Muži",
-    "women": "Ženy",
-    "accessories": "Doplňky"
+    "title": "Kategorie"
   },
   "filters": {
+    "title": "Filtry",
     "priceRange": {
       "title": "Cenové rozpětí"
     },

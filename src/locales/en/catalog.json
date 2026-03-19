@@ -1,16 +1,14 @@
 {
   "catalog": {
+    "title": "Product Catalog",
     "showing": "Showing {{from}}-{{to}} of {{total}} products",
     "showing_one": "Showing 1 of {{total}} product"
   },
   "categories": {
-    "title": "Categories",
-    "all": "All",
-    "men": "Men",
-    "women": "Women",
-    "accessories": "Accessories"
+    "title": "Categories"
   },
   "filters": {
+    "title": "Filters",
     "priceRange": {
       "title": "Price Range"
     },
