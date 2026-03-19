@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -57,6 +57,14 @@ const HeaderSearch = ({ mode = "desktop" }: HeaderSearchProps) => {
         !normalizedQuery || normalizeText(hint).includes(normalizedQuery),
     )
     .slice(0, normalizedQuery ? 4 : 6);
+
+  const setSelectedEffectFn = useEffectEvent((index: number) => {
+    setSelectedIndex(index);
+  });
+
+  useEffect(() => {
+    setSelectedEffectFn(0);
+  }, [matchedProducts.length]);
 
   useEffect(() => {
     const handlePointerDown = (event: MouseEvent) => {
