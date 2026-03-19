@@ -5,7 +5,8 @@
       "sections": {
         "products": "Odpovídající produkty",
         "hints": "Zkuste hledat"
-      }
+      },
+      "clear": "Vymazat hledání"
     },
     "aria": {
       "wishlist": "Oblíbené",

@@ -8,14 +8,20 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import * as z from "zod";
 
 export interface MyRouterContext {
   queryClient: QueryClient;
 }
 
+const searchSchema = z.object({
+  q: z.string().optional(),
+});
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: RootComponent,
   notFoundComponent: () => <div>Not found</div>,
+  validateSearch: searchSchema,
   head: () => {
     return {
       meta: [
