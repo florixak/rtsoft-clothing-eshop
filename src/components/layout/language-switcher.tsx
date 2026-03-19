@@ -2,14 +2,8 @@ import useLanguage from "@/hooks/use-language";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { ButtonGroup } from "../ui/button-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Languages } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
+import { ChevronDownIcon, Languages } from "lucide-react";
 
 const LanguageSwitcher = () => {
   const { t } = useTranslation("common");
@@ -17,9 +11,18 @@ const LanguageSwitcher = () => {
 
   return (
     <Select value={currentLanguage} onValueChange={changeLanguage}>
-      <SelectTrigger>
-        <SelectValue>{t(`language.${currentLanguage}`)}</SelectValue>
-      </SelectTrigger>
+      <SelectTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-full px-0 justify-center"
+          >
+            {t(`language.${currentLanguage}`)}
+            <ChevronDownIcon className="text-muted-foreground" />
+          </Button>
+        }
+      ></SelectTrigger>
       <SelectContent>
         <SelectItem value="cs">{t("language.cs")}</SelectItem>
         <SelectItem value="en">{t("language.en")}</SelectItem>
