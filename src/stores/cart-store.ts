@@ -3,7 +3,9 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import type { Cart, CartItem } from "@/types";
 
 type AddItemInput = {
-  variantId: string;
+  productId: string;
+  size: string;
+  type: string;
   priceSnapshot: number;
   quantity?: number;
 };
@@ -48,7 +50,7 @@ export const useCartStore = create<CartStore>()(
           0,
         ),
 
-      addItem: ({ variantId, priceSnapshot, quantity = 1 }) => {
+      addItem: ({ productId, size, type, priceSnapshot, quantity = 1 }) => {
         if (!Number.isFinite(priceSnapshot) || priceSnapshot < 0) return;
         if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
         quantity = Math.max(1, Math.floor(quantity));
@@ -57,13 +59,19 @@ export const useCartStore = create<CartStore>()(
         set((state) => {
           const existing = state.cart.items.find(
             (item) => item.variantId === variantId,
+            (item) =>
+              item.productId === productId &&
+              item.selectionSnapshot.size === size &&
+              item.selectionSnapshot.type === type,
           );
 
           let nextItems: CartItem[];
 
           if (existing) {
             nextItems = state.cart.items.map((item) =>
-              item.variantId === variantId
+              item.productId === productId &&
+              item.selectionSnapshot.size === size &&
+              item.selectionSnapshot.type === type
                 ? { ...item, quantity: item.quantity + quantity }
                 : item,
             );
@@ -72,7 +80,8 @@ export const useCartStore = create<CartStore>()(
               ...state.cart.items,
               {
                 id: crypto.randomUUID(),
-                variantId,
+                productId,
+                selectionSnapshot: { size, type },
                 quantity,
                 priceSnapshot,
               },
