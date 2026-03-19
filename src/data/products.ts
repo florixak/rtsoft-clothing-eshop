@@ -98,6 +98,7 @@ export const products: Product[] = [
     },
     createdAt: "2026-01-10T09:00:00.000Z",
     rating: 4.5,
+    reviewsCount: 150,
   },
   {
     id: "prod-2",
@@ -142,6 +143,7 @@ export const products: Product[] = [
     },
     createdAt: "2026-01-15T10:30:00.000Z",
     rating: 4.8,
+    reviewsCount: 120,
   },
   {
     id: "prod-3",
@@ -180,6 +182,7 @@ export const products: Product[] = [
     },
     createdAt: "2026-01-20T08:00:00.000Z",
     rating: 4.2,
+    reviewsCount: 45,
   },
   {
     id: "prod-4",
@@ -221,6 +224,7 @@ export const products: Product[] = [
     },
     createdAt: "2026-02-01T11:00:00.000Z",
     rating: 4.0,
+    reviewsCount: 80,
   },
   {
     id: "prod-5",
@@ -258,6 +262,7 @@ export const products: Product[] = [
     },
     createdAt: "2026-02-05T09:15:00.000Z",
     rating: 4.2,
+    reviewsCount: 120,
   },
   {
     id: "prod-6",
@@ -292,6 +297,7 @@ export const products: Product[] = [
     },
     createdAt: "2026-02-10T14:00:00.000Z",
     rating: 4.1,
+    reviewsCount: 45,
   },
   {
     id: "prod-7",
@@ -336,5 +342,6 @@ export const products: Product[] = [
     },
     createdAt: "2026-02-15T10:00:00.000Z",
     rating: 4.5,
+    reviewsCount: 60,
   },
 ];
