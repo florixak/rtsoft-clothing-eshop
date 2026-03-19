@@ -58,7 +58,6 @@ export const useCartStore = create<CartStore>()(
 
         set((state) => {
           const existing = state.cart.items.find(
-            (item) => item.variantId === variantId,
             (item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
