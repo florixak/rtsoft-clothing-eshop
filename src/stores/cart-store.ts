@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { Cart, CartItem, SizeCode, TypeCode } from "@/types";
+import { calculateSelectionPrice } from "@/lib/product-utils";
 
 type AddItemInput = {
   productId: string;
   size: SizeCode;
   type: TypeCode;
-  priceSnapshot: number;
+  priceSnapshot?: number;
   quantity?: number;
 };
 
@@ -46,12 +47,15 @@ export const useCartStore = create<CartStore>()(
 
       subtotal: () =>
         get().cart.items.reduce(
-          (sum, item) => sum + item.priceSnapshot * item.quantity,
+          (sum, item) => sum + item.quantity * item.priceSnapshot,
           0,
         ),
 
-      addItem: ({ productId, size, type, priceSnapshot, quantity = 1 }) => {
-        if (!Number.isFinite(priceSnapshot) || priceSnapshot < 0) return;
+      addItem: ({ productId, size, type, quantity = 1 }) => {
+        const unitPrice = calculateSelectionPrice(productId, size, type);
+        if (unitPrice == null || !Number.isFinite(unitPrice) || unitPrice < 0) {
+          return;
+        }
         if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
         quantity = Math.max(1, Math.floor(quantity));
         if (quantity <= 0) return;
@@ -61,7 +65,8 @@ export const useCartStore = create<CartStore>()(
             (item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
-              item.selectionSnapshot.type === type,
+              item.selectionSnapshot.type === type &&
+              item.priceSnapshot === unitPrice,
           );
 
           let nextItems: CartItem[];
@@ -70,7 +75,8 @@ export const useCartStore = create<CartStore>()(
             nextItems = state.cart.items.map((item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
-              item.selectionSnapshot.type === type
+              item.selectionSnapshot.type === type &&
+              item.priceSnapshot === unitPrice
                 ? { ...item, quantity: item.quantity + quantity }
                 : item,
             );
@@ -82,7 +88,7 @@ export const useCartStore = create<CartStore>()(
                 productId,
                 selectionSnapshot: { size, type },
                 quantity,
-                priceSnapshot,
+                priceSnapshot: unitPrice,
               },
             ];
           }
