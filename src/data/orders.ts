@@ -84,21 +84,21 @@ export const orders: Order[] = [
       {
         productId: "prod-2",
         nameSnapshot: "RTSoft Graphic Tee – Black",
-        selectionSnapshot: { size: "L", type: "Basic Print" },
+        selectionSnapshot: { size: "L", type: "basic" },
         quantity: 1,
         priceSnapshot: 569,
       },
       {
         productId: "prod-5",
         nameSnapshot: "Slim Fit Jeans – Blue",
-        selectionSnapshot: { size: "L", type: "Classic Denim" },
+        selectionSnapshot: { size: "L", type: "classic" },
         quantity: 1,
         priceSnapshot: 1329,
       },
       {
         productId: "prod-6",
         nameSnapshot: "Cargo Pants – Khaki",
-        selectionSnapshot: { size: "M", type: "Regular" },
+        selectionSnapshot: { size: "M", type: "regular" },
         quantity: 2,
         priceSnapshot: 999,
       },
@@ -134,7 +134,7 @@ export const orders: Order[] = [
       {
         productId: "prod-4",
         nameSnapshot: "Oversized Fleece Hoodie – Black",
-        selectionSnapshot: { size: "S", type: "Regular" },
+        selectionSnapshot: { size: "S", type: "regular" },
         quantity: 1,
         priceSnapshot: 1489,
       },
@@ -166,7 +166,7 @@ export const orders: Order[] = [
       {
         productId: "prod-1",
         nameSnapshot: "Basic Cotton Tee – White",
-        selectionSnapshot: { size: "S", type: "Classic" },
+        selectionSnapshot: { size: "S", type: "classic" },
         quantity: 3,
         priceSnapshot: 389,
       },
