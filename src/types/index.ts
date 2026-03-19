@@ -28,6 +28,7 @@ export type Product = {
   options: ProductOptions;
   createdAt: string;
   rating: number;
+  reviewsCount: number;
 };
 
 export type ProductOption<TCode extends string = string> = {
