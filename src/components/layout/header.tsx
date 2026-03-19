@@ -15,14 +15,17 @@ const Header = () => {
   return (
     <header className="border-b bg-header px-4 py-3">
       <div className="flex items-center justify-between gap-4">
-        <Link
-          to="/{-$locale}"
-          className="flex-1 flex items-center"
-          aria-label={t("header.aria.logo")}
-        >
-          <ShoppingBag size={32} className="inline-block mr-2" />
-          <h1 className="text-3xl font-heading">E-Shop</h1>
-        </Link>
+        <div className="flex-1">
+          <Link
+            to="/{-$locale}"
+            className="flex items-center w-fit"
+            aria-label={t("header.aria.logo")}
+          >
+            <ShoppingBag size={32} className="inline-block mr-2" />
+            <h1 className="text-3xl font-heading font-semibold">E-Shop</h1>
+          </Link>
+        </div>
+
         <HeaderSearch mode="desktop" />
         <nav className="flex flex-1 justify-end">
           <ul className="flex flex-row items-center gap-4">
@@ -47,10 +50,8 @@ const Header = () => {
                 <UserCircle size={24} />
               </Link>
             </li>
-            <li className="hidden md:block">
+            <li className="hidden md:flex">
               <LanguageSwitcher />
-            </li>
-            <li className="hidden md:block">
               <ThemeSwitcher />
             </li>
             <li className="md:hidden">
