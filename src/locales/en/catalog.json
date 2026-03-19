@@ -1,0 +1,38 @@
+{
+  "catalog": {
+    "showing": "Showing {{from}}-{{to}} of {{total}} products",
+    "showing_one": "Showing 1 of {{total}} product"
+  },
+  "categories": {
+    "title": "Categories",
+    "all": "All",
+    "men": "Men",
+    "women": "Women",
+    "accessories": "Accessories"
+  },
+  "filters": {
+    "priceRange": {
+      "title": "Price Range"
+    },
+    "sortBy": {
+      "title": "Sort By"
+    },
+    "rating": {
+      "title": "Rating"
+    },
+    "availability": {
+      "title": "Availability",
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock"
+    },
+    "activeTags": {
+      "remove": "Remove filter {{label}}"
+    }
+  },
+  "productCard": {
+    "addToCart": "Add to cart",
+    "addedToCart": "Added to cart",
+    "reviews": "({{count}} review)",
+    "reviews_other": "({{count}} reviews)"
+  }
+}
