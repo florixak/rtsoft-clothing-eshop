@@ -1,4 +1,5 @@
 import { products } from "@/data";
+import type { SizeCode, TypeCode } from "@/types";
 
 const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
@@ -6,8 +7,8 @@ const findProductById = (productId: string) => {
 
 const calculateSelectionPrice = (
   productId: string,
-  sizeCode: string,
-  typeCode: string,
+  sizeCode: SizeCode,
+  typeCode: TypeCode,
 ) => {
   const product = findProductById(productId);
   if (!product) return undefined;

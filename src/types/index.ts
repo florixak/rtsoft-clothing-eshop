@@ -3,7 +3,13 @@ export type LocalizedString = {
   en: string;
 };
 
-export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL" | (string & {});
+export type SizeCode = "xs" | "s" | "m" | "l" | "xl" | "xxl";
+export type TypeCode = string;
+
+export type SelectionSnapshot = {
+  size: SizeCode;
+  type: TypeCode;
+};
 
 export type Category = {
   id: string;
@@ -24,16 +30,16 @@ export type Product = {
   rating: number;
 };
 
-export type ProductOption = {
+export type ProductOption<TCode extends string = string> = {
   id: string;
-  code: string;
+  code: TCode;
   label: LocalizedString;
   priceAdjustment: number;
 };
 
 export type ProductOptions = {
-  sizes: ProductOption[];
-  types: ProductOption[];
+  sizes: ProductOption<SizeCode>[];
+  types: ProductOption<TypeCode>[];
 };
 
 export type Cart = {
@@ -47,10 +53,7 @@ export type Cart = {
 export type CartItem = {
   id: string;
   productId: string;
-  selectionSnapshot: {
-    size: string;
-    type: string;
-  };
+  selectionSnapshot: SelectionSnapshot;
   quantity: number;
   priceSnapshot: number;
 };
@@ -98,10 +101,7 @@ export type Order = {
 export type OrderItem = {
   productId: string;
   nameSnapshot: string;
-  selectionSnapshot: {
-    size: string;
-    type: string;
-  };
+  selectionSnapshot: SelectionSnapshot;
   quantity: number;
   priceSnapshot: number;
 };

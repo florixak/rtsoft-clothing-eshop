@@ -8,15 +8,15 @@ export const orders: Order[] = [
     items: [
       {
         productId: "prod-1",
-        nameSnapshot: "Basic Cotton Tee – White",
-        selectionSnapshot: { size: "M", type: "Classic" },
+        nameSnapshot: "Basic Cotton Tee",
+        selectionSnapshot: { size: "m", type: "classic" },
         quantity: 2,
         priceSnapshot: 399,
       },
       {
         productId: "prod-3",
-        nameSnapshot: "Zip Hoodie – Grey",
-        selectionSnapshot: { size: "L", type: "Regular Lining" },
+        nameSnapshot: "Zip Hoodie",
+        selectionSnapshot: { size: "l", type: "regular" },
         quantity: 1,
         priceSnapshot: 1229,
       },
@@ -47,8 +47,8 @@ export const orders: Order[] = [
     items: [
       {
         productId: "prod-7",
-        nameSnapshot: "Winter Puffer Jacket – Black",
-        selectionSnapshot: { size: "M", type: "Standard Insulation" },
+        nameSnapshot: "Winter Puffer Jacket",
+        selectionSnapshot: { size: "m", type: "standard" },
         quantity: 1,
         priceSnapshot: 2799,
       },
@@ -83,22 +83,22 @@ export const orders: Order[] = [
     items: [
       {
         productId: "prod-2",
-        nameSnapshot: "RTSoft Graphic Tee – Black",
-        selectionSnapshot: { size: "L", type: "basic" },
+        nameSnapshot: "RTSoft Graphic Tee",
+        selectionSnapshot: { size: "l", type: "print-basic" },
         quantity: 1,
         priceSnapshot: 569,
       },
       {
         productId: "prod-5",
-        nameSnapshot: "Slim Fit Jeans – Blue",
-        selectionSnapshot: { size: "L", type: "classic" },
+        nameSnapshot: "Slim Fit Jeans",
+        selectionSnapshot: { size: "l", type: "classic" },
         quantity: 1,
         priceSnapshot: 1329,
       },
       {
         productId: "prod-6",
-        nameSnapshot: "Cargo Pants – Khaki",
-        selectionSnapshot: { size: "M", type: "regular" },
+        nameSnapshot: "Cargo Pants",
+        selectionSnapshot: { size: "m", type: "regular" },
         quantity: 2,
         priceSnapshot: 999,
       },
@@ -133,8 +133,8 @@ export const orders: Order[] = [
     items: [
       {
         productId: "prod-4",
-        nameSnapshot: "Oversized Fleece Hoodie – Black",
-        selectionSnapshot: { size: "S", type: "regular" },
+        nameSnapshot: "Oversized Fleece Hoodie",
+        selectionSnapshot: { size: "s", type: "regular" },
         quantity: 1,
         priceSnapshot: 1489,
       },
@@ -165,8 +165,8 @@ export const orders: Order[] = [
     items: [
       {
         productId: "prod-1",
-        nameSnapshot: "Basic Cotton Tee – White",
-        selectionSnapshot: { size: "S", type: "classic" },
+        nameSnapshot: "Basic Cotton Tee",
+        selectionSnapshot: { size: "s", type: "classic" },
         quantity: 3,
         priceSnapshot: 389,
       },

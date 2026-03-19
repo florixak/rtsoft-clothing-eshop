@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { Cart, CartItem } from "@/types";
+import type { Cart, CartItem, SizeCode, TypeCode } from "@/types";
 
 type AddItemInput = {
   productId: string;
-  size: string;
-  type: string;
+  size: SizeCode;
+  type: TypeCode;
   priceSnapshot: number;
   quantity?: number;
 };
