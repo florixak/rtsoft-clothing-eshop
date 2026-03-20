@@ -1,23 +1,14 @@
 {
   "catalog": {
-    "title": "Product Catalog",
-    "showing": "Showing {{from}}-{{to}} of {{total}} products",
-    "showing_one": "Showing 1 of {{total}} product"
+    "title": "Product Catalog"
   },
-  "categories": {
-    "title": "Categories"
-  },
+
   "filters": {
     "title": "Filters",
-    "priceRange": {
-      "title": "Price Range"
-    },
-    "sortBy": {
-      "title": "Sort By"
-    },
-    "rating": {
-      "title": "Rating"
-    },
+    "categories": "Categories",
+    "priceRange": "Price Range",
+    "sortBy": "Sort by",
+    "rating": "Rating",
     "availability": {
       "title": "Availability",
       "inStock": "In Stock",
@@ -32,5 +23,15 @@
     "addedToCart": "Added to cart",
     "reviews": "({{count}} review)",
     "reviews_other": "({{count}} reviews)"
+  },
+  "pagination": {
+    "first": "First",
+    "previous": "Previous",
+    "next": "Next",
+    "last": "Last",
+    "page": "Page",
+    "perPage": "Per page",
+    "showing": "Showing {{from}}-{{to}} of {{total}} products",
+    "showing_one": "Showing 1 of {{total}} product"
   }
 }

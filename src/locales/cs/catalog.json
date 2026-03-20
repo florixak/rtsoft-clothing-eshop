@@ -1,23 +1,16 @@
 {
   "catalog": {
-    "title": "Katalog produktů",
-    "showing": "Zobrazeno {{from}}-{{to}} z {{total}} produktů",
-    "showing_one": "Zobrazen 1 z {{total}} produktu"
+    "title": "Katalog produktů"
   },
   "categories": {
     "title": "Kategorie"
   },
   "filters": {
     "title": "Filtry",
-    "priceRange": {
-      "title": "Cenové rozpětí"
-    },
-    "sortBy": {
-      "title": "Seřadit podle"
-    },
-    "rating": {
-      "title": "Hodnocení"
-    },
+    "categories": "Kategorie",
+    "priceRange": "Cenové rozpětí",
+    "sortBy": "Seřadit podle",
+    "rating": "Hodnocení",
     "availability": {
       "title": "Dostupnost",
       "inStock": "Skladem",
@@ -33,5 +26,15 @@
     "reviews": "({{count}} recenze)",
     "reviews_few": "({{count}} recenze)",
     "reviews_other": "({{count}} recenzí)"
+  },
+  "pagination": {
+    "first": "První",
+    "previous": "Předchozí",
+    "next": "Další",
+    "last": "Poslední",
+    "page": "Strana",
+    "perPage": "Na stránku",
+    "showing": "Zobrazuji {{from}}-{{to}} z {{total}} produktů",
+    "showing_one": "Zobrazuji 1 z {{total}} produktu"
   }
 }
