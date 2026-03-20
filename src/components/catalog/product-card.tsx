@@ -32,20 +32,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card
-      className="p-0 shadow-sm gap-2 overflow-hidden group"
+      className="p-0 shadow-sm gap-2 overflow-hidden group max-w-sm w-full max-h-fit"
       key={product.id}
     >
       <CardHeader className="p-0">
         <img
           src={product.images[0]}
           alt={product.name[locale]}
-          className="max-h-100 md:max-h-80 w-full object-cover group-hover:hidden"
+          className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover group-hover:hidden"
           loading="lazy"
         />
         <img
           src={product.images[1] || product.images[0]}
           alt={product.name[locale]}
-          className="max-h-100 md:max-h-80 w-full object-cover hidden group-hover:block"
+          className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover hidden group-hover:block"
           loading="lazy"
         />
       </CardHeader>
