@@ -13,6 +13,8 @@ import {
 import { Slider } from "../ui/slider";
 
 const CatalogFilter = () => {
+  const maxPrice = 100;
+  const minPrice = 0;
   return (
     <aside className="flex flex-col gap-8 p-4">
       <div className="flex flex-col gap-2">
@@ -31,12 +33,13 @@ const CatalogFilter = () => {
           Price Range
         </h3>
         <Slider
-          defaultValue={[25, 50]}
-          max={100}
+          defaultValue={[minPrice, maxPrice]}
+          max={maxPrice}
+          min={minPrice}
           step={5}
-          className="mx-auto w-full max-w-xs"
+          className="w-full"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-24">
           <Input placeholder="Min" type="number" />
           <Input placeholder="Max" type="number" />
         </div>
