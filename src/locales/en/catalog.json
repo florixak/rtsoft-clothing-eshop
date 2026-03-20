@@ -25,6 +25,7 @@
     "reviews_other": "({{count}} reviews)"
   },
   "pagination": {
+    "title": "Page navigation",
     "first": "First",
     "previous": "Previous",
     "next": "Next",

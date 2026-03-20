@@ -28,6 +28,7 @@
     "reviews_other": "({{count}} recenzí)"
   },
   "pagination": {
+    "title": "Navigace stránek",
     "first": "První",
     "previous": "Předchozí",
     "next": "Další",
