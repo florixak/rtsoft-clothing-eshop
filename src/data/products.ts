@@ -12,6 +12,8 @@ type OptionDef = {
   priceAdjustment: number;
 };
 
+export type SortOptions = "priceAsc" | "priceDesc" | "newest" | "rating";
+
 const sizeLabelByCode: Record<SizeCode, LocalizedString> = {
   xs: { cs: "XS", en: "XS" },
   s: { cs: "S", en: "S" },
@@ -20,6 +22,13 @@ const sizeLabelByCode: Record<SizeCode, LocalizedString> = {
   xl: { cs: "XL", en: "XL" },
   xxl: { cs: "XXL", en: "XXL" },
 };
+
+export const SORT_BY_OPTIONS: SortOptions[] = [
+  "priceAsc",
+  "priceDesc",
+  "newest",
+  "rating",
+] as const;
 
 const createSizeOptions = (
   productId: string,
@@ -343,5 +352,268 @@ export const products: Product[] = [
     createdAt: "2026-02-15T10:00:00.000Z",
     rating: 4.5,
     reviewsCount: 60,
+  },
+  {
+    id: "prod-8",
+    slug: { cs: "lnena-kosile", en: "linen-shirt" },
+    name: { cs: "Lněná košile", en: "Linen Shirt" },
+    description: {
+      cs: "Lehká lněná košile vhodná na léto. Prodyšný materiál a volnější střih.",
+      en: "Light linen shirt perfect for summer. Breathable fabric and relaxed fit.",
+    },
+    price: 799,
+    categoryId: "cat-1",
+    images: [
+      "https://placehold.co/600x800?text=Linen+Shirt+Beige+Front",
+      "https://placehold.co/600x800?text=Linen+Shirt+Beige+Back",
+    ],
+    options: {
+      sizes: createSizeOptions("prod-8", [
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+        { code: "xl", priceAdjustment: 40 },
+      ]),
+      colors: createTypeOptions("prod-8", [
+        {
+          code: "beige",
+          label: { cs: "Béžová", en: "Beige" },
+          priceAdjustment: 0,
+        },
+        {
+          code: "white",
+          label: { cs: "Bílá", en: "White" },
+          priceAdjustment: 50,
+        },
+      ]),
+    },
+    createdAt: "2026-02-20T09:30:00.000Z",
+    rating: 4.3,
+    reviewsCount: 22,
+  },
+  {
+    id: "prod-9",
+    slug: { cs: "letni-saty-kvetovane", en: "floral-summer-dress" },
+    name: { cs: "Letní květované šaty", en: "Floral Summer Dress" },
+    description: {
+      cs: "Vzdušné šaty s květinovým potiskem. Zapínání na knoflíky a podšívka.",
+      en: "Airy dress with floral print. Button front and lightweight lining.",
+    },
+    price: 999,
+    categoryId: "cat-1",
+    images: ["https://placehold.co/600x800?text=Floral+Dress+Front"],
+    options: {
+      sizes: createSizeOptions("prod-9", [
+        { code: "xs", priceAdjustment: -20 },
+        { code: "s", priceAdjustment: -5 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 25 },
+      ]),
+      colors: createTypeOptions("prod-9", [
+        {
+          code: "floral",
+          label: { cs: "Květovaný", en: "Floral" },
+          priceAdjustment: 0,
+        },
+      ]),
+    },
+    createdAt: "2026-02-22T12:00:00.000Z",
+    rating: 4.6,
+    reviewsCount: 37,
+  },
+  {
+    id: "prod-10",
+    slug: { cs: "plátěne-sortky", en: "canvas-shorts" },
+    name: { cs: "Plátěné šortky", en: "Canvas Shorts" },
+    description: {
+      cs: "Praktické plátěné šortky s nastavitelným pasem. Odolné a pohodlné.",
+      en: "Practical canvas shorts with adjustable waist. Durable and comfortable.",
+    },
+    price: 649,
+    categoryId: "cat-3",
+    images: ["https://placehold.co/600x800?text=Canvas+Shorts+Khaki+Front"],
+    options: {
+      sizes: createSizeOptions("prod-10", [
+        { code: "s", priceAdjustment: -15 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+      ]),
+      colors: createTypeOptions("prod-10", [
+        {
+          code: "khaki",
+          label: { cs: "Khaki", en: "Khaki" },
+          priceAdjustment: 0,
+        },
+        {
+          code: "navy",
+          label: { cs: "Tmavě modrá", en: "Navy" },
+          priceAdjustment: 60,
+        },
+      ]),
+    },
+    createdAt: "2026-02-25T08:45:00.000Z",
+    rating: 4.0,
+    reviewsCount: 18,
+  },
+  {
+    id: "prod-11",
+    slug: { cs: "kozeny-opasek", en: "leather-belt" },
+    name: { cs: "Kožený opasek", en: "Leather Belt" },
+    description: {
+      cs: "Klasický kožený opasek s kovovou sponou. Elegantní a pevný.",
+      en: "Classic leather belt with metal buckle. Elegant and sturdy.",
+    },
+    price: 499,
+    categoryId: "cat-3",
+    images: ["https://placehold.co/600x800?text=Leather+Belt+Brown+Front"],
+    options: {
+      sizes: createSizeOptions("prod-11", [
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 10 },
+      ]),
+      colors: createTypeOptions("prod-11", [
+        {
+          code: "brown",
+          label: { cs: "Hnědá", en: "Brown" },
+          priceAdjustment: 0,
+        },
+        {
+          code: "black",
+          label: { cs: "Černá", en: "Black" },
+          priceAdjustment: 40,
+        },
+      ]),
+    },
+    createdAt: "2026-03-01T09:00:00.000Z",
+    rating: 4.7,
+    reviewsCount: 64,
+  },
+  {
+    id: "prod-12",
+    slug: { cs: "plstena-capkacka", en: "wool-beanie" },
+    name: { cs: "Plstěná čepice", en: "Wool Beanie" },
+    description: {
+      cs: "Teplá pletená čepice pro chladné dny. Jemná vlna a příjemný pružný lem.",
+      en: "Warm knitted beanie for cold days. Soft wool and a comfortable stretch hem.",
+    },
+    price: 249,
+    categoryId: "cat-4",
+    images: ["https://placehold.co/600x800?text=Wool+Beanie+Grey+Front"],
+    options: {
+      sizes: createSizeOptions("prod-12", [
+        { code: "s", priceAdjustment: 0 },
+        { code: "m", priceAdjustment: 0 },
+      ]),
+      colors: createTypeOptions("prod-12", [
+        { code: "grey", label: { cs: "Šedá", en: "Grey" }, priceAdjustment: 0 },
+        {
+          code: "olive",
+          label: { cs: "Olivová", en: "Olive" },
+          priceAdjustment: 20,
+        },
+      ]),
+    },
+    createdAt: "2026-03-03T07:30:00.000Z",
+    rating: 4.4,
+    reviewsCount: 12,
+  },
+  {
+    id: "prod-13",
+    slug: { cs: "tenisky-bezove", en: "beige-sneakers" },
+    name: { cs: "Tenisky béžové", en: "Beige Sneakers" },
+    description: {
+      cs: "Nízké tenisky s měkkou stélkou. Univerzální design pro každodenní nošení.",
+      en: "Low sneakers with cushioned insole. Versatile design for everyday wear.",
+    },
+    price: 1799,
+    categoryId: "cat-3",
+    images: ["https://placehold.co/600x800?text=Beige+Sneakers+Side"],
+    options: {
+      sizes: createSizeOptions("prod-13", [
+        { code: "s", priceAdjustment: -30 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 40 },
+      ]),
+      colors: createTypeOptions("prod-13", [
+        {
+          code: "beige",
+          label: { cs: "Béžová", en: "Beige" },
+          priceAdjustment: 0,
+        },
+        {
+          code: "white",
+          label: { cs: "Bílá", en: "White" },
+          priceAdjustment: 60,
+        },
+      ]),
+    },
+    createdAt: "2026-03-05T10:00:00.000Z",
+    rating: 4.5,
+    reviewsCount: 29,
+  },
+  {
+    id: "prod-14",
+    slug: { cs: "triko-longline", en: "longline-tee" },
+    name: { cs: "Tričko longline", en: "Longline Tee" },
+    description: {
+      cs: "Delší střih trička pro vrstvení. Jemný jemný materiál a moderní look.",
+      en: "Longer cut tee for layering. Soft fabric and modern look.",
+    },
+    price: 459,
+    categoryId: "cat-1",
+    images: ["https://placehold.co/600x800?text=Longline+Tee+Black+Front"],
+    options: {
+      sizes: createSizeOptions("prod-14", [
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+      ]),
+      colors: createTypeOptions("prod-14", [
+        {
+          code: "black",
+          label: { cs: "Černá", en: "Black" },
+          priceAdjustment: 0,
+        },
+        {
+          code: "olive",
+          label: { cs: "Olivová", en: "Olive" },
+          priceAdjustment: 40,
+        },
+      ]),
+    },
+    createdAt: "2026-03-06T11:30:00.000Z",
+    rating: 4.1,
+    reviewsCount: 8,
+  },
+  {
+    id: "prod-15",
+    slug: { cs: "prakticka-taska", en: "utility-bag" },
+    name: { cs: "Praktická taška", en: "Utility Bag" },
+    description: {
+      cs: "Víceúčelová taška přes rameno s několika kapsami. Robustní a skladná.",
+      en: "Multi-purpose shoulder bag with multiple pockets. Robust and packable.",
+    },
+    price: 699,
+    categoryId: "cat-3",
+    images: ["https://placehold.co/600x800?text=Utility+Bag+Black+Front"],
+    options: {
+      sizes: createSizeOptions("prod-15", [{ code: "m", priceAdjustment: 0 }]),
+      colors: createTypeOptions("prod-15", [
+        {
+          code: "black",
+          label: { cs: "Černá", en: "Black" },
+          priceAdjustment: 0,
+        },
+        {
+          code: "olive",
+          label: { cs: "Olivová", en: "Olive" },
+          priceAdjustment: 30,
+        },
+      ]),
+    },
+    createdAt: "2026-03-07T09:45:00.000Z",
+    rating: 4.2,
+    reviewsCount: 5,
   },
 ];
