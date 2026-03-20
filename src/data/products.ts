@@ -83,7 +83,7 @@ export const products: Product[] = [
         { code: "xl", priceAdjustment: 40 },
         { code: "xxl", priceAdjustment: 70 },
       ]),
-      types: createTypeOptions("prod-1", [
+      colors: createTypeOptions("prod-1", [
         {
           code: "white",
           label: { cs: "Bílé", en: "White" },
@@ -128,7 +128,7 @@ export const products: Product[] = [
         { code: "xl", priceAdjustment: 35 },
         { code: "xxl", priceAdjustment: 55 },
       ]),
-      types: createTypeOptions("prod-2", [
+      colors: createTypeOptions("prod-2", [
         {
           code: "black",
           label: { cs: "Černé", en: "Black" },
@@ -167,7 +167,7 @@ export const products: Product[] = [
         { code: "l", priceAdjustment: 30 },
         { code: "xl", priceAdjustment: 60 },
       ]),
-      types: createTypeOptions("prod-3", [
+      material: createTypeOptions("prod-3", [
         {
           code: "regular",
           label: { cs: "Regular Lining", en: "Regular Lining" },
@@ -209,7 +209,7 @@ export const products: Product[] = [
         { code: "xl", priceAdjustment: 45 },
         { code: "xxl", priceAdjustment: 70 },
       ]),
-      types: createTypeOptions("prod-4", [
+      material: createTypeOptions("prod-4", [
         {
           code: "regular",
           label: { cs: "Regular", en: "Regular" },
@@ -247,16 +247,16 @@ export const products: Product[] = [
         { code: "l", priceAdjustment: 30 },
         { code: "xl", priceAdjustment: 60 },
       ]),
-      types: createTypeOptions("prod-5", [
+      colors: createTypeOptions("prod-5", [
         {
-          code: "classic",
-          label: { cs: "Classic Denim", en: "Classic Denim" },
+          code: "blue",
+          label: { cs: "Blue", en: "Blue" },
           priceAdjustment: 0,
         },
         {
-          code: "stretch",
-          label: { cs: "Comfort Stretch", en: "Comfort Stretch" },
-          priceAdjustment: 120,
+          code: "black",
+          label: { cs: "Black", en: "Black" },
+          priceAdjustment: 100,
         },
       ]),
     },
@@ -282,7 +282,7 @@ export const products: Product[] = [
         { code: "l", priceAdjustment: 20 },
         { code: "xl", priceAdjustment: 40 },
       ]),
-      types: createTypeOptions("prod-6", [
+      material: createTypeOptions("prod-6", [
         {
           code: "regular",
           label: { cs: "Regular", en: "Regular" },
@@ -327,7 +327,7 @@ export const products: Product[] = [
         { code: "l", priceAdjustment: 40 },
         { code: "xl", priceAdjustment: 80 },
       ]),
-      types: createTypeOptions("prod-7", [
+      material: createTypeOptions("prod-7", [
         {
           code: "standard",
           label: { cs: "Standard Insulation", en: "Standard Insulation" },

@@ -8,7 +8,8 @@ export type TypeCode = string;
 
 export type SelectionSnapshot = {
   size: SizeCode;
-  type: TypeCode;
+  color?: TypeCode;
+  material?: TypeCode;
 };
 
 export type Category = {
@@ -40,7 +41,8 @@ export type ProductOption<TCode extends string = string> = {
 
 export type ProductOptions = {
   sizes: ProductOption<SizeCode>[];
-  types: ProductOption<TypeCode>[];
+  colors?: ProductOption<TypeCode>[];
+  material?: ProductOption<TypeCode>[];
 };
 
 export type Cart = {

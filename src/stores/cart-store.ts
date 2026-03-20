@@ -6,7 +6,8 @@ import { calculateSelectionPrice } from "@/lib/product-utils";
 type AddItemInput = {
   productId: string;
   size: SizeCode;
-  type: TypeCode;
+  color?: TypeCode;
+  material?: TypeCode;
   priceSnapshot?: number;
   quantity?: number;
 };
@@ -51,8 +52,12 @@ export const useCartStore = create<CartStore>()(
           0,
         ),
 
-      addItem: ({ productId, size, type, quantity = 1 }) => {
-        const unitPrice = calculateSelectionPrice(productId, size, type);
+      addItem: ({ productId, size, color, material, quantity = 1 }) => {
+        const unitPrice = calculateSelectionPrice(productId, {
+          size,
+          color,
+          material,
+        });
         if (unitPrice == null || !Number.isFinite(unitPrice) || unitPrice < 0) {
           return;
         }
@@ -65,7 +70,8 @@ export const useCartStore = create<CartStore>()(
             (item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
-              item.selectionSnapshot.type === type &&
+              item.selectionSnapshot.color === color &&
+              item.selectionSnapshot.material === material &&
               item.priceSnapshot === unitPrice,
           );
 
@@ -75,7 +81,8 @@ export const useCartStore = create<CartStore>()(
             nextItems = state.cart.items.map((item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
-              item.selectionSnapshot.type === type &&
+              item.selectionSnapshot.color === color &&
+              item.selectionSnapshot.material === material &&
               item.priceSnapshot === unitPrice
                 ? { ...item, quantity: item.quantity + quantity }
                 : item,
@@ -86,7 +93,7 @@ export const useCartStore = create<CartStore>()(
               {
                 id: crypto.randomUUID(),
                 productId,
-                selectionSnapshot: { size, type },
+                selectionSnapshot: { size, color, material },
                 quantity,
                 priceSnapshot: unitPrice,
               },

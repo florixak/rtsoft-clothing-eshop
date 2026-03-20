@@ -1,5 +1,5 @@
 import { products } from "@/data";
-import type { SizeCode, TypeCode } from "@/types";
+import type { SelectionSnapshot } from "@/types";
 
 const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
@@ -7,24 +7,38 @@ const findProductById = (productId: string) => {
 
 const calculateSelectionPrice = (
   productId: string,
-  sizeCode: SizeCode,
-  typeCode: TypeCode,
+  selection: SelectionSnapshot,
 ) => {
   const product = findProductById(productId);
   if (!product) return undefined;
+  const colorOptions = product.options.colors ?? [];
+  const materialOptions = product.options.material ?? [];
 
   const selectedSize = product.options.sizes.find(
-    (size) => size.code === sizeCode,
+    (size) => size.code === selection.size,
   );
-  const selectedType = product.options.types.find(
-    (type) => type.code === typeCode,
-  );
+  if (!selectedSize) return undefined;
 
-  if (!selectedSize || !selectedType) return undefined;
+  const selectedColor =
+    colorOptions.length > 0
+      ? colorOptions.find((color) => color.code === selection.color)
+      : undefined;
+
+  if (colorOptions.length > 0 && !selectedColor) return undefined;
+
+  const selectedMaterial =
+    materialOptions.length > 0
+      ? materialOptions.find((material) => material.code === selection.material)
+      : undefined;
+
+  if (materialOptions.length > 0 && !selectedMaterial) return undefined;
 
   return (
-    product.price + selectedSize.priceAdjustment + selectedType.priceAdjustment
+    product.price +
+    selectedSize.priceAdjustment +
+    (selectedColor?.priceAdjustment ?? 0) +
+    (selectedMaterial?.priceAdjustment ?? 0)
   );
 };
 
-export { findProductById, calculateSelectionPrice };
+export { calculateSelectionPrice, findProductById };
