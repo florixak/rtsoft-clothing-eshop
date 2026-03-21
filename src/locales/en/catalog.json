@@ -21,6 +21,7 @@
   "productCard": {
     "addToCart": "Add to cart",
     "addedToCart": "Added to cart",
+    "outOfStock": "Out of stock",
     "reviews": "({{count}} review)",
     "reviews_other": "({{count}} reviews)"
   },

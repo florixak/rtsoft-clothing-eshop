@@ -23,6 +23,7 @@
   "productCard": {
     "addToCart": "Přidat do košíku",
     "addedToCart": "Přidáno do košíku",
+    "outOfStock": "Není skladem",
     "reviews": "({{count}} recenze)",
     "reviews_few": "({{count}} recenze)",
     "reviews_other": "({{count}} recenzí)"
