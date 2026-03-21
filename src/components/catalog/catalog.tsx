@@ -30,7 +30,7 @@ const Catalog = () => {
   const safePage = Math.min(Math.max(page, 1), totalPages);
 
   return (
-    <section className="flex flex-col items-center">
+    <section className="container mx-auto flex flex-col items-center">
       <CatalogHeader />
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {products.map((product) => (
