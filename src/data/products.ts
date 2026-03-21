@@ -99,8 +99,10 @@ export const products: Product[] = [
     basePrice: 399,
     categoryId: "cat-1",
     images: [
-      "https://placehold.co/600x800?text=Basic+Tee+White+Front",
-      "https://placehold.co/600x800?text=Basic+Tee+White+Back",
+      "https://placehold.co/600x800?text=Basic+Cotton+White+Front",
+      "https://placehold.co/600x800?text=Basic+Cotton+White+Back",
+      "https://placehold.co/600x800?text=Basic+Cotton+Black+Front",
+      "https://placehold.co/600x800?text=Basic+Cotton+Black+Back",
     ],
     options: {
       sizes: createSizeOptions("prod-1", [
@@ -171,6 +173,8 @@ export const products: Product[] = [
     images: [
       "https://placehold.co/600x800?text=RTSoft+Tee+Black+Front",
       "https://placehold.co/600x800?text=RTSoft+Tee+Black+Back",
+      "https://placehold.co/600x800?text=RTSoft+Tee+White+Front",
+      "https://placehold.co/600x800?text=RTSoft+Tee+White+Back",
     ],
     options: {
       sizes: createSizeOptions("prod-2", [
@@ -233,6 +237,8 @@ export const products: Product[] = [
     images: [
       "https://placehold.co/600x800?text=Zip+Hoodie+Grey+Front",
       "https://placehold.co/600x800?text=Zip+Hoodie+Grey+Back",
+      "https://placehold.co/600x800?text=Zip+Hoodie+Navy+Front",
+      "https://placehold.co/600x800?text=Zip+Hoodie+Navy+Back",
     ],
     options: {
       sizes: createSizeOptions("prod-3", [
@@ -266,8 +272,17 @@ export const products: Product[] = [
     },
     basePrice: 1499,
     categoryId: "cat-2",
-    images: ["https://placehold.co/600x800?text=Fleece+Hoodie+Black+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Fleece+Hoodie+Black+Front",
+      "https://placehold.co/600x800?text=Fleece+Hoodie+Black+Back",
+    ],
     options: {
+      colors: createTypeOptions("prod-4", [
+        {
+          code: "black",
+          label: { cs: "Černé", en: "Black" },
+        },
+      ]),
       sizes: createSizeOptions("prod-4", [
         { code: "s" },
         { code: "m" },
@@ -296,6 +311,8 @@ export const products: Product[] = [
     images: [
       "https://placehold.co/600x800?text=Slim+Jeans+Blue+Front",
       "https://placehold.co/600x800?text=Slim+Jeans+Blue+Back",
+      "https://placehold.co/600x800?text=Slim+Jeans+Black+Front",
+      "https://placehold.co/600x800?text=Slim+Jeans+Black+Back",
     ],
     options: {
       sizes: createSizeOptions("prod-5", [
@@ -352,7 +369,10 @@ export const products: Product[] = [
     },
     basePrice: 999,
     categoryId: "cat-3",
-    images: ["https://placehold.co/600x800?text=Cargo+Pants+Khaki+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Cargo+Pants+Khaki+Front",
+      "https://placehold.co/600x800?text=Cargo+Pants+Khaki+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-6", [
         { code: "s" },
@@ -537,7 +557,10 @@ export const products: Product[] = [
     },
     basePrice: 999,
     categoryId: "cat-1",
-    images: ["https://placehold.co/600x800?text=Floral+Dress+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Floral+Dress+Front",
+      "https://placehold.co/600x800?text=Floral+Dress+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-9", [
         { code: "xs" },
@@ -585,7 +608,12 @@ export const products: Product[] = [
     },
     basePrice: 649,
     categoryId: "cat-3",
-    images: ["https://placehold.co/600x800?text=Canvas+Shorts+Khaki+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Canvas+Shorts+Khaki+Front",
+      "https://placehold.co/600x800?text=Canvas+Shorts+Khaki+Back",
+      "https://placehold.co/600x800?text=Canvas+Shorts+Navy+Front",
+      "https://placehold.co/600x800?text=Canvas+Shorts+Navy+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-10", [
         { code: "s" },
@@ -640,7 +668,12 @@ export const products: Product[] = [
     },
     basePrice: 499,
     categoryId: "cat-3",
-    images: ["https://placehold.co/600x800?text=Leather+Belt+Brown+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Leather+Belt+Brown+Front",
+      "https://placehold.co/600x800?text=Leather+Belt+Brown+Back",
+      "https://placehold.co/600x800?text=Leather+Belt+Black+Front",
+      "https://placehold.co/600x800?text=Leather+Belt+Black+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-11", [
         { code: "s" },
@@ -695,7 +728,12 @@ export const products: Product[] = [
     },
     basePrice: 249,
     categoryId: "cat-4",
-    images: ["https://placehold.co/600x800?text=Wool+Beanie+Grey+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Wool+Beanie+Grey+Front",
+      "https://placehold.co/600x800?text=Wool+Beanie+Grey+Back",
+      "https://placehold.co/600x800?text=Wool+Beanie+Olive+Front",
+      "https://placehold.co/600x800?text=Wool+Beanie+Olive+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-12", [{ code: "s" }, { code: "m" }]),
       colors: createTypeOptions("prod-12", [
@@ -742,7 +780,12 @@ export const products: Product[] = [
     },
     basePrice: 1799,
     categoryId: "cat-3",
-    images: ["https://placehold.co/600x800?text=Beige+Sneakers+Side"],
+    images: [
+      "https://placehold.co/600x800?text=Beige+Sneakers+Side",
+      "https://placehold.co/600x800?text=Beige+Sneakers+Side+Back",
+      "https://placehold.co/600x800?text=White+Sneakers+Top",
+      "https://placehold.co/600x800?text=White+Sneakers+Side+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-13", [
         { code: "s" },
@@ -797,7 +840,12 @@ export const products: Product[] = [
     },
     basePrice: 459,
     categoryId: "cat-1",
-    images: ["https://placehold.co/600x800?text=Longline+Tee+Black+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Longline+Tee+Black+Front",
+      "https://placehold.co/600x800?text=Longline+Tee+Black+Back",
+      "https://placehold.co/600x800?text=Longline+Tee+Olive+Front",
+      "https://placehold.co/600x800?text=Longline+Tee+Olive+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-14", [
         { code: "s" },
@@ -852,7 +900,12 @@ export const products: Product[] = [
     },
     basePrice: 699,
     categoryId: "cat-3",
-    images: ["https://placehold.co/600x800?text=Utility+Bag+Black+Front"],
+    images: [
+      "https://placehold.co/600x800?text=Utility+Bag+Black+Front",
+      "https://placehold.co/600x800?text=Utility+Bag+Black+Back",
+      "https://placehold.co/600x800?text=Utility+Bag+Olive+Front",
+      "https://placehold.co/600x800?text=Utility+Bag+Olive+Back",
+    ],
     options: {
       sizes: createSizeOptions("prod-15", [{ code: "m" }]),
       colors: createTypeOptions("prod-15", [
