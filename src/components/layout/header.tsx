@@ -13,7 +13,7 @@ const Header = () => {
   const { itemsCount } = useCartStore();
 
   return (
-    <header className="fixed w-full border-b bg-header px-4 py-3">
+    <header className="fixed w-full border-b bg-header px-4 py-3 z-50">
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
           <Link
