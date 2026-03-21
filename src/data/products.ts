@@ -249,6 +249,7 @@ export const products: Product[] = [
       material: [],
     },
     skus: createSkus("prod-3", 1199, [
+      { code: "s", priceAdjustment: -50 },
       { code: "m", priceAdjustment: 0 },
       { code: "l", priceAdjustment: 100 },
     ]),
@@ -290,10 +291,24 @@ export const products: Product[] = [
       ]),
       material: [],
     },
-    skus: createSkus("prod-4", 1499, [
-      { code: "m", priceAdjustment: 0 },
-      { code: "l", priceAdjustment: 120 },
-    ]),
+    skus: createSkus(
+      "prod-4",
+      1499,
+      [
+        { code: "s", priceAdjustment: -50 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 120 },
+      ],
+      {
+        colors: [
+          {
+            code: "black",
+            label: { cs: "Černé", en: "Black" },
+            priceAdjustment: 0,
+          },
+        ],
+      },
+    ),
     createdAt: "2026-02-01T11:00:00.000Z",
     rating: 4.0,
     reviewsCount: 80,
@@ -337,6 +352,7 @@ export const products: Product[] = [
       "prod-5",
       1299,
       [
+        { code: "s", priceAdjustment: -50 },
         { code: "m", priceAdjustment: 0 },
         { code: "l", priceAdjustment: 60 },
       ],
