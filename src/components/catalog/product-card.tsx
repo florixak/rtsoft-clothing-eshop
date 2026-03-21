@@ -1,9 +1,16 @@
-import { getAvailableColors, getTotalStock } from "@/lib/product-utils";
+import {
+  findSKU,
+  getAvailableColors,
+  getAvailableSizes,
+  getImageBySelectedColor,
+  getTotalStock,
+} from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
-import type { Product, SizeCode, TypeCode } from "@/types";
+import type { Product, TypeCode } from "@/types";
 import { Link } from "@tanstack/react-router";
 import { ShoppingBasket, Star } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
@@ -15,25 +22,34 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem } = useCartStore();
   const { t, i18n } = useTranslation("catalog");
+
+  const availableColors = getAvailableColors(product);
+  const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
+    availableColors[0]?.code,
+  );
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
-  const handleAddToCart = (
-    productId: string,
-    defaultSize: SizeCode,
-    defaultColor?: TypeCode,
-    defaultMaterial?: TypeCode,
-  ) => {
+  const handleAddToCart = () => {
     addItem({
-      productId,
-      size: defaultSize,
-      color: defaultColor,
-      material: defaultMaterial,
+      productId: product.id,
+      size: availableSizes[0]?.code || product.options.sizes[0].code,
+      color: selectedColor,
+      material: product.options.material?.[0]?.code,
     });
   };
 
+  const availableSizes = getAvailableSizes(product);
+  const currentSKU = findSKU(
+    product.skus,
+    availableSizes[0]?.code || product.options.sizes[0].code,
+    selectedColor,
+    product.options.material?.[0]?.code,
+  );
+  const priceWithColor = currentSKU?.price || product.basePrice;
+  const stockOfSelectedVariant = currentSKU?.stock ?? 0;
   const availableStock = getTotalStock(product);
-  const isOutOfStock = availableStock === 0;
-  const availableColors = getAvailableColors(product);
+  const isOutOfStock = availableStock === 0 || stockOfSelectedVariant === 0;
+  const images = getImageBySelectedColor(product, selectedColor);
 
   return (
     <Card
@@ -42,19 +58,70 @@ const ProductCard = ({ product }: ProductCardProps) => {
     >
       <CardHeader className="p-0 relative">
         <img
-          src={product.images[0]}
+          src={images.primary}
           alt={product.name[locale]}
           className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover group-hover:hidden"
           loading="lazy"
         />
         <img
-          src={product.images[1] || product.images[0]}
+          src={images.secondary}
           alt={product.name[locale]}
           className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover hidden group-hover:block"
           loading="lazy"
         />
-        <div className="absolute top-2 left-2 bg-white/80 text-xs px-1 rounded hidden group-hover:block">
-          {availableColors.map((color) => color?.label[locale]).join(", ")}
+        <div className="absolute bottom-2 left-2 flex flex-col text-xs items-start gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity w-[calc(100%-1rem)]">
+          {availableColors.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 pt-1 bg-background px-2 py-1 rounded">
+              <span className="text-xs text-muted-foreground">
+                {t("productCard.colors")}:
+              </span>
+              {availableColors.slice(0, 3).map((color) => {
+                const isSelected = selectedColor === color?.code;
+
+                return (
+                  <button
+                    key={color?.id}
+                    type="button"
+                    className={`text-xs border rounded px-2 py-0.5 transition-colors cursor-pointer ${
+                      isSelected
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border hover:border-primary/70"
+                    }`}
+                    onClick={() => setSelectedColor(color?.code)}
+                  >
+                    {color?.label[locale]}
+                  </button>
+                );
+              })}
+              {availableColors.length > 3 && (
+                <span className="text-xs text-muted-foreground">
+                  +{availableColors.length - 3}
+                </span>
+              )}
+            </div>
+          )}
+
+          {availableSizes.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 pt-1 bg-background px-2 py-1 rounded">
+              <span className="text-xs text-muted-foreground">
+                {t("productCard.sizes")}:
+              </span>
+              {availableSizes.slice(0, 3).map((size) => (
+                <span
+                  key={size?.id}
+                  className="text-xs border border-border rounded px-2 py-0.5 text-muted-foreground"
+                >
+                  {size?.label[locale]}
+                </span>
+              ))}
+
+              {availableSizes.length > 3 && (
+                <span className="text-xs text-muted-foreground">
+                  +{availableSizes.length - 3}
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardContent className="pb-4 flex flex-col gap-4 justify-between h-full">
@@ -80,21 +147,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="flex items-center justify-between">
           <p className="text-lg font-bold">
-            {formatPrice(product.basePrice, locale)}
+            {formatPrice(priceWithColor, locale)}
           </p>
           <Button
             variant="default"
             size="default"
             className="cursor-pointer"
             disabled={isOutOfStock}
-            onClick={() =>
-              handleAddToCart(
-                product.id,
-                product.options.sizes[0].code,
-                product.options.colors?.[0]?.code,
-                product.options.material?.[0]?.code,
-              )
-            }
+            onClick={handleAddToCart}
           >
             <ShoppingBasket size={16} />
             {isOutOfStock
