@@ -15,6 +15,7 @@ import {
 } from "../ui/select";
 import type { Product } from "@/types";
 import { useTranslation } from "react-i18next";
+import { generatePages } from "@/lib/search-utils";
 
 type NavigationProps = {
   page: number;
@@ -59,6 +60,8 @@ const Navigation = ({
   const canGoForward = safePage < totalPages;
 
   const buttonSize = "icon";
+
+  const visiblePages = generatePages(safePage, totalPages);
 
   return (
     <nav
@@ -118,7 +121,7 @@ const Navigation = ({
           <ChevronLeft size={16} />
         </Button>
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((token) => {
+        {visiblePages.map((token) => {
           return (
             <Button
               key={token}

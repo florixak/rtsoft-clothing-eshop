@@ -41,3 +41,18 @@ export const searchForProducts = (
       categoryName: findCategoryById(product.categoryId)?.name[locale] ?? "",
     }));
 };
+
+export const generatePages = (
+  currentPage: number,
+  totalPages: number,
+): Array<number> => {
+  const maxPagesToShow = 5;
+
+  const half = Math.floor(maxPagesToShow / 2);
+  let start = Math.max(1, currentPage - half);
+  const end = Math.min(totalPages, start + maxPagesToShow - 1);
+  start = Math.max(1, end - maxPagesToShow + 1);
+
+  const pages = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  return pages;
+};
