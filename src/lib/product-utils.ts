@@ -158,6 +158,21 @@ const getAvailableColors = (product: Product) => {
     .filter(Boolean);
 };
 
+const getAvailableSizes = (product: Product) => {
+  const sizeCodes = [
+    ...new Set(
+      product.skus
+        .filter((sku) => sku.stock > 0)
+        .map((sku) => sku.size)
+        .filter(Boolean),
+    ),
+  ];
+
+  return sizeCodes
+    .map((code) => product.options.sizes.find((s) => s.code === code))
+    .filter(Boolean);
+};
+
 const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   const labels: { label: string; key: string }[] = [];
   const t = i18n.getFixedT(locale, "catalog");
@@ -215,6 +230,32 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   return labels;
 };
 
+const getImageBySelectedColor = (
+  product: Product,
+  selectedColor: string | undefined,
+) => {
+  const placeholderImages = {
+    primary: product.images[0],
+    secondary: product.images[1] || product.images[0],
+  };
+  if (!selectedColor) {
+    return placeholderImages;
+  }
+
+  const colorImages = product.images.filter((image) =>
+    image.toLowerCase().includes(selectedColor.toLowerCase()),
+  );
+
+  if (colorImages.length === 0) {
+    return placeholderImages;
+  }
+
+  return {
+    primary: colorImages[0],
+    secondary: colorImages[1] || colorImages[0],
+  };
+};
+
 export {
   findProductById,
   findSKU,
@@ -222,4 +263,6 @@ export {
   getProducts,
   getTotalStock,
   getAvailableColors,
+  getAvailableSizes,
+  getImageBySelectedColor,
 };
