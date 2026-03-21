@@ -1,18 +1,16 @@
-import { Badge } from "../ui/badge";
+import { getAppliedFiltersLabel } from "@/lib/product-utils";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { ListFilter, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-import { Button } from "../ui/button";
 import CatalogFilter from "./catalog-filter";
-import { useTranslation } from "react-i18next";
-import { useNavigate, useSearch } from "@tanstack/react-router";
-import { getAppliedFiltersLabel } from "@/lib/product-utils";
 
 const AppliedFilters = () => {
   const { t, i18n } = useTranslation("catalog");
@@ -51,7 +49,7 @@ const AppliedFilters = () => {
           </Badge>
         ))}
       </div>
-      <Drawer direction="left">
+      <Drawer direction="left" handleOnly={true}>
         <DrawerTrigger asChild>
           <Button variant="outline" size="sm">
             <ListFilter size={16} />
@@ -59,13 +57,14 @@ const AppliedFilters = () => {
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>{t("filters.title")}</DrawerTitle>
-            <DrawerDescription>Refine your product search</DrawerDescription>
-          </DrawerHeader>
-          <DrawerContent>
-            <CatalogFilter />
-          </DrawerContent>
+          <div className="absolute top-4 right-4">
+            <DrawerClose asChild>
+              <Button variant="ghost" size="sm" aria-label={t("filters.close")}>
+                <X size={16} />
+              </Button>
+            </DrawerClose>
+          </div>
+          <CatalogFilter />
         </DrawerContent>
       </Drawer>
     </div>
