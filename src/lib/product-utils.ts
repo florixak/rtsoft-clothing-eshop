@@ -139,6 +139,25 @@ const findSKU = (
   );
 };
 
+const getTotalStock = (product: Product) => {
+  return product.skus.reduce((total, sku) => total + sku.stock, 0);
+};
+
+const getAvailableColors = (product: Product) => {
+  const colorCodes = [
+    ...new Set(
+      product.skus
+        .filter((sku) => sku.stock > 0)
+        .map((sku) => sku.color)
+        .filter(Boolean),
+    ),
+  ];
+
+  return colorCodes
+    .map((code) => product.options.colors?.find((c) => c.code === code))
+    .filter(Boolean);
+};
+
 const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   const labels: { label: string; key: string }[] = [];
   const t = i18n.getFixedT(locale, "catalog");
@@ -196,4 +215,11 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   return labels;
 };
 
-export { findProductById, findSKU, getAppliedFiltersLabel, getProducts };
+export {
+  findProductById,
+  findSKU,
+  getAppliedFiltersLabel,
+  getProducts,
+  getTotalStock,
+  getAvailableColors,
+};
