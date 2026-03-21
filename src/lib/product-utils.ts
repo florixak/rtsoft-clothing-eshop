@@ -63,8 +63,14 @@ const getProducts = async (
     );
   }
 
-  if (query.availability === "outOfStock") {
-    filteredProducts = [];
+  if (query.availability === "inStock") {
+    filteredProducts = filteredProducts.filter((p) =>
+      p.skus.some((sku) => sku.stock > 0),
+    );
+  } else if (query.availability === "outOfStock") {
+    filteredProducts = filteredProducts.filter((p) =>
+      p.skus.every((sku) => sku.stock === 0),
+    );
   }
 
   const maxFilterPrice = filteredProducts.length
@@ -187,8 +193,8 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
     const [min, max] = query.priceRange.split("-").map(Number);
     labels.push({
       label: `${t("filters.priceRange")}: ${
-        min !== undefined ? `${formatPrice(min, locale)}` : "0"
-      } - ${max !== undefined ? `${formatPrice(max, locale)}` : "∞"}`,
+        Number.isFinite(min) ? `${formatPrice(min, locale)}` : "0"
+      } - ${Number.isFinite(max) ? `${formatPrice(max, locale)}` : "∞"}`,
       key: "priceRange",
     });
   }
@@ -218,8 +224,10 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   }
   if (query.availability) {
     labels.push({
-      label: `${t("filters.availability")}: ${
-        query.availability === "inStock" ? "In Stock" : "Out of Stock"
+      label: `${t("filters.availability.title")}: ${
+        query.availability === "inStock"
+          ? t("filters.availability.inStock")
+          : t("filters.availability.outOfStock")
       }`,
       key: "availability",
     });
