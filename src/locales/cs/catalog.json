@@ -6,15 +6,26 @@
     "title": "Kategorie"
   },
   "filters": {
+    "all": "Vše",
     "title": "Filtry",
     "categories": "Kategorie",
     "priceRange": "Cenové rozpětí",
     "sortBy": "Seřadit podle",
     "rating": "Hodnocení",
+    "selectAnOption": "Vyberte možnost",
+    "sizes": "Velikosti",
+    "colors": "Barvy",
+    "material": "Materiál",
     "availability": {
       "title": "Dostupnost",
       "inStock": "Skladem",
       "outOfStock": "Není skladem"
+    },
+    "sortByOptions": {
+      "newest": "Nejnovější",
+      "priceAsc": "Cena: od nejnižší",
+      "priceDesc": "Cena: od nejvyšší",
+      "rating": "Hodnocení zákazníků"
     },
     "activeTags": {
       "remove": "Odebrat filtr {{label}}"
