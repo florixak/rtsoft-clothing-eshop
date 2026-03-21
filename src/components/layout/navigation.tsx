@@ -64,7 +64,7 @@ const Navigation = ({
     <nav
       aria-label={t("pagination.title")}
       className={cn(
-        "mt-8 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between",
+        "mt-8 flex flex-col items-center gap-3 px-4 py-3 sm:flex-row sm:justify-between",
         className,
       )}
     >
