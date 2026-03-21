@@ -1,11 +1,12 @@
-import type { Product, SizeCode, TypeCode } from "@/types";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { useTranslation } from "react-i18next";
-import { ShoppingBasket, Star } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { getAvailableColors, getTotalStock } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
-import { Button } from "../ui/button";
 import { useCartStore } from "@/stores/cart-store";
+import type { Product, SizeCode, TypeCode } from "@/types";
+import { Link } from "@tanstack/react-router";
+import { ShoppingBasket, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
 
 type ProductCardProps = {
   product: Product;
@@ -30,12 +31,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
     });
   };
 
+  const availableStock = getTotalStock(product);
+  const isOutOfStock = availableStock === 0;
+  const availableColors = getAvailableColors(product);
+
   return (
     <Card
       className="p-0 shadow-sm gap-2 overflow-hidden group max-w-sm w-full max-h-fit"
       key={product.id}
     >
-      <CardHeader className="p-0">
+      <CardHeader className="p-0 relative">
         <img
           src={product.images[0]}
           alt={product.name[locale]}
@@ -48,6 +53,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover hidden group-hover:block"
           loading="lazy"
         />
+        <div className="absolute top-2 left-2 bg-white/80 text-xs px-1 rounded hidden group-hover:block">
+          {availableColors.map((color) => color?.label[locale]).join(", ")}
+        </div>
       </CardHeader>
       <CardContent className="pb-4 flex flex-col gap-4 justify-between h-full">
         <div className="flex flex-col gap-1">
@@ -72,12 +80,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="flex items-center justify-between">
           <p className="text-lg font-bold">
-            {formatPrice(product.price, locale)}
+            {formatPrice(product.basePrice, locale)}
           </p>
           <Button
             variant="default"
             size="default"
             className="cursor-pointer"
+            disabled={isOutOfStock}
             onClick={() =>
               handleAddToCart(
                 product.id,
@@ -88,7 +97,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             }
           >
             <ShoppingBasket size={16} />
-            {t("productCard.addToCart")}
+            {isOutOfStock
+              ? t("productCard.outOfStock")
+              : t("productCard.addToCart")}
           </Button>
         </div>
       </CardContent>
