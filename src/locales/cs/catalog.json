@@ -26,7 +26,9 @@
     "outOfStock": "Není skladem",
     "reviews": "({{count}} recenze)",
     "reviews_few": "({{count}} recenze)",
-    "reviews_other": "({{count}} recenzí)"
+    "reviews_other": "({{count}} recenzí)",
+    "colors": "Dostupné barvy",
+    "sizes": "Dostupné velikosti"
   },
   "pagination": {
     "title": "Navigace stránek",

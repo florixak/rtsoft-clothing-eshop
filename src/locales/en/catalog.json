@@ -23,7 +23,9 @@
     "addedToCart": "Added to cart",
     "outOfStock": "Out of stock",
     "reviews": "({{count}} review)",
-    "reviews_other": "({{count}} reviews)"
+    "reviews_other": "({{count}} reviews)",
+    "colors": "Available colors",
+    "sizes": "Available sizes"
   },
   "pagination": {
     "title": "Page navigation",
