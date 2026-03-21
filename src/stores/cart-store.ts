@@ -8,7 +8,6 @@ type AddItemInput = {
   size: SizeCode;
   color?: TypeCode;
   material?: TypeCode;
-  priceSnapshot?: number;
   quantity?: number;
 };
 
