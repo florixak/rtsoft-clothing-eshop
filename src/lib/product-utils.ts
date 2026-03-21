@@ -1,10 +1,10 @@
 import { products } from "@/data";
-import type { Category, Product, SelectionSnapshot } from "@/types";
+import type { SortOptions } from "@/data/products";
+import type { Category, Product, SizeCode, SKU } from "@/types";
 import { findCategoryById } from "./category-utils";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
 import { formatPrice } from "./utils";
-import type { SortOptions } from "@/data/products";
 
 type Query = {
   category?: Category["id"];
@@ -68,29 +68,33 @@ const getProducts = async (
   }
 
   const maxFilterPrice = filteredProducts.length
-    ? Math.max(...filteredProducts.map((p) => p.price))
+    ? Math.max(...filteredProducts.map((p) => p.basePrice))
     : 0;
   const minFilterPrice = filteredProducts.length
-    ? Math.min(...filteredProducts.map((p) => p.price))
+    ? Math.min(...filteredProducts.map((p) => p.basePrice))
     : 0;
 
   if (query.priceRange) {
     const [min, max] = query.priceRange.split("-").map(Number);
     if (Number.isFinite(min)) {
-      filteredProducts = filteredProducts.filter((p) => p.price >= min);
+      filteredProducts = filteredProducts.filter((p) => p.basePrice >= min);
     }
     if (Number.isFinite(max)) {
-      filteredProducts = filteredProducts.filter((p) => p.price <= max);
+      filteredProducts = filteredProducts.filter((p) => p.basePrice <= max);
     }
   }
 
   if (query.sort) {
     switch (query.sort) {
       case "priceAsc":
-        filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+        filteredProducts = filteredProducts.sort(
+          (a, b) => a.basePrice - b.basePrice,
+        );
         break;
       case "priceDesc":
-        filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+        filteredProducts = filteredProducts.sort(
+          (a, b) => b.basePrice - a.basePrice,
+        );
         break;
       case "newest":
         filteredProducts = filteredProducts.sort(
@@ -121,39 +125,17 @@ const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
 };
 
-const calculateSelectionPrice = (
-  productId: string,
-  selection: SelectionSnapshot,
-) => {
-  const product = findProductById(productId);
-  if (!product) return undefined;
-  const colorOptions = product.options.colors ?? [];
-  const materialOptions = product.options.material ?? [];
-
-  const selectedSize = product.options.sizes.find(
-    (size) => size.code === selection.size,
-  );
-  if (!selectedSize) return undefined;
-
-  const selectedColor =
-    colorOptions.length > 0
-      ? colorOptions.find((color) => color.code === selection.color)
-      : undefined;
-
-  if (colorOptions.length > 0 && !selectedColor) return undefined;
-
-  const selectedMaterial =
-    materialOptions.length > 0
-      ? materialOptions.find((material) => material.code === selection.material)
-      : undefined;
-
-  if (materialOptions.length > 0 && !selectedMaterial) return undefined;
-
-  return (
-    product.price +
-    selectedSize.priceAdjustment +
-    (selectedColor?.priceAdjustment ?? 0) +
-    (selectedMaterial?.priceAdjustment ?? 0)
+const findSKU = (
+  skus: SKU[],
+  size: SizeCode,
+  color?: string,
+  material?: string,
+): SKU | undefined => {
+  return skus.find(
+    (s) =>
+      s.size === size &&
+      (!color || s.color === color) &&
+      (!material || s.material === material),
   );
 };
 
@@ -214,9 +196,4 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   return labels;
 };
 
-export {
-  calculateSelectionPrice,
-  findProductById,
-  getAppliedFiltersLabel,
-  getProducts,
-};
+export { findProductById, findSKU, getAppliedFiltersLabel, getProducts };

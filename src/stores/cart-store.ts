@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { Cart, CartItem, SizeCode, TypeCode } from "@/types";
-import { calculateSelectionPrice } from "@/lib/product-utils";
+import { findProductById, findSKU } from "@/lib/product-utils";
 
 type AddItemInput = {
   productId: string;
@@ -53,11 +53,14 @@ export const useCartStore = create<CartStore>()(
         ),
 
       addItem: ({ productId, size, color, material, quantity = 1 }) => {
-        const unitPrice = calculateSelectionPrice(productId, {
+        const product = findProductById(productId);
+        const unitPrice = findSKU(
+          product?.skus ?? [],
           size,
           color,
           material,
-        });
+        )?.price;
+
         if (unitPrice == null || !Number.isFinite(unitPrice) || unitPrice < 0) {
           return;
         }
