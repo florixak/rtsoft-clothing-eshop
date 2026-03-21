@@ -206,7 +206,7 @@ const HeaderSearch = ({ mode = "desktop" }: HeaderSearchProps) => {
                       </p>
                     </div>
                     <span className="shrink-0 text-sm font-medium text-foreground">
-                      {formatPrice(product.price, locale)}
+                      {formatPrice(product.basePrice, locale)}
                     </span>
                   </button>
                 ))
