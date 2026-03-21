@@ -235,7 +235,11 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=Zip+Hoodie+Grey+Back",
     ],
     options: {
-      sizes: [],
+      sizes: createSizeOptions("prod-3", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
       material: [],
     },
     skus: createSkus("prod-3", 1199, [
@@ -264,7 +268,11 @@ export const products: Product[] = [
     categoryId: "cat-2",
     images: ["https://placehold.co/600x800?text=Fleece+Hoodie+Black+Front"],
     options: {
-      sizes: [],
+      sizes: createSizeOptions("prod-4", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
       material: [],
     },
     skus: createSkus("prod-4", 1499, [
@@ -290,7 +298,11 @@ export const products: Product[] = [
       "https://placehold.co/600x800?text=Slim+Jeans+Blue+Back",
     ],
     options: {
-      sizes: [],
+      sizes: createSizeOptions("prod-5", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
       colors: [
         {
           id: "prod-5-color-blue",
