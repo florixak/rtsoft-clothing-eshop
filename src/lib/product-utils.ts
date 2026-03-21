@@ -177,8 +177,6 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   const labels: { label: string; key: string }[] = [];
   const t = i18n.getFixedT(locale, "catalog");
 
-  console.log(t("filters.activeTags.remove", { label: "Test" }));
-
   if (query.category) {
     labels.push({
       label: `${t("filters.categories")}: ${findCategoryById(query.category)?.name[locale] ?? query.category}`,
