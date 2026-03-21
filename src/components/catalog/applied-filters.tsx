@@ -31,45 +31,43 @@ const AppliedFilters = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between">
-      <div className="flex flex-row items-center justify-between w-full">
-        <div className="flex flex-row items-center gap-2">
-          {appliedFilters.map((label) => (
-            <Badge
-              key={label.key}
-              className="flex flex-row items-center gap-1 text-sm bg-primary text-primary-foreground rounded-full px-2 py-3"
+    <div className="flex flex-row items-start justify-between w-full">
+      <div className="flex flex-wrap items-center gap-2">
+        {appliedFilters.map((label) => (
+          <Badge
+            key={label.key}
+            className="flex flex-row items-center gap-1 text-sm bg-primary text-primary-foreground rounded-full px-2 py-3"
+          >
+            <button
+              type="button"
+              onClick={() => clearFilter(label.key)}
+              aria-label={t("filters.activeTags.remove", {
+                label: label.label,
+              })}
+              className="inline-flex items-center gap-1"
             >
-              <button
-                type="button"
-                onClick={() => clearFilter(label.key)}
-                aria-label={t("filters.activeTags.remove", {
-                  label: label.label,
-                })}
-                className="inline-flex items-center gap-1"
-              >
-                <X size={12} /> {label.label}
-              </button>
-            </Badge>
-          ))}
-        </div>
-        <Drawer direction="left">
-          <DrawerTrigger asChild>
-            <Button variant="outline" size="sm">
-              <ListFilter size={16} />
-              {t("filters.title")}
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>{t("filters.title")}</DrawerTitle>
-              <DrawerDescription>Refine your product search</DrawerDescription>
-            </DrawerHeader>
-            <DrawerContent>
-              <CatalogFilter />
-            </DrawerContent>
-          </DrawerContent>
-        </Drawer>
+              <X size={12} /> {label.label}
+            </button>
+          </Badge>
+        ))}
       </div>
+      <Drawer direction="left">
+        <DrawerTrigger asChild>
+          <Button variant="outline" size="sm">
+            <ListFilter size={16} />
+            {t("filters.title")}
+          </Button>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>{t("filters.title")}</DrawerTitle>
+            <DrawerDescription>Refine your product search</DrawerDescription>
+          </DrawerHeader>
+          <DrawerContent>
+            <CatalogFilter />
+          </DrawerContent>
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 };
