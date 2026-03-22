@@ -465,6 +465,8 @@ export const products: Product[] = [
     images: [
       "https://placehold.co/600x800?text=Linen+Shirt+Beige+Front",
       "https://placehold.co/600x800?text=Linen+Shirt+Beige+Back",
+      "https://placehold.co/600x800?text=Linen+Shirt+White+Front",
+      "https://placehold.co/600x800?text=Linen+Shirt+White+Back",
     ],
     options: {
       sizes: createSizeOptions("prod-8", [
