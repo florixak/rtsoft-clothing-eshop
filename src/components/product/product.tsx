@@ -11,7 +11,13 @@ const Product = () => {
 
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
-  return <section></section>;
+  return (
+    <section>
+      <h1 className="text-2xl font-bold mb-4">{data?.name[locale]}</h1>
+      <p className="text-lg mb-2">{t("description")}</p>
+      <p>{data.description[locale]}</p>
+    </section>
+  );
 };
 
 export default Product;

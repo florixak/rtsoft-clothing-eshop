@@ -6,7 +6,9 @@ export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   component: RouteComponent,
   loader: async ({ context, params }) => {
     const { productSlug } = params;
-    context.queryClient.ensureQueryData(createProductQueryOptions(productSlug));
+    await context.queryClient.ensureQueryData(
+      createProductQueryOptions(productSlug),
+    );
   },
 });
 
