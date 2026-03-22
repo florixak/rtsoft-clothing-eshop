@@ -5,6 +5,7 @@ import { getProducts } from "@/lib/product-utils";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Star } from "lucide-react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -36,6 +37,25 @@ const CatalogFilter = () => {
   } = useQuery({
     queryKey: ["products", debouncedSearch],
     queryFn: () => getProducts(debouncedSearch),
+  });
+  const [priceRangeState, setPriceRange] = useState<string | undefined>(
+    search.priceRange,
+  );
+
+  const setPriceRangeEffect = useEffectEvent((value: string | undefined) => {
+    setPriceRange(value);
+  });
+
+  useEffect(() => {
+    setPriceRangeEffect(search.priceRange);
+  }, [search.priceRange]);
+
+  useDebounce({
+    value: priceRangeState,
+    delay: 100,
+    onDebounce: (value) => {
+      patchSearch({ priceRange: value });
+    },
   });
 
   const language = i18n.resolvedLanguage === "en" ? "en" : "cs";
@@ -86,17 +106,13 @@ const CatalogFilter = () => {
     const baseMax = information.maxFilterPrice;
     const safeMin = Math.max(baseMin, Math.floor(min));
     const safeMax = Math.min(baseMax, Math.floor(max));
-    patchSearch({
-      priceRange:
-        Number.isFinite(safeMin) && Number.isFinite(safeMax)
-          ? `${Math.min(safeMin, safeMax)}-${Math.max(safeMin, safeMax)}`
-          : undefined,
-    });
+    setPriceRange(`${safeMin}-${safeMax}`);
   };
 
   const baseMin = information.minFilterPrice;
   const baseMax = information.maxFilterPrice;
-  const parsedRange = priceRange?.split("-").map(Number) ?? [];
+  const effectivePriceRange = priceRangeState ?? priceRange;
+  const parsedRange = effectivePriceRange?.split("-").map(Number) ?? [];
   const rawMin = Number.isFinite(parsedRange[0]) ? parsedRange[0] : baseMin;
   const rawMax = Number.isFinite(parsedRange[1]) ? parsedRange[1] : baseMax;
   const minFilterPrice = Math.max(baseMin, Math.min(rawMin, baseMax));
@@ -147,14 +163,14 @@ const CatalogFilter = () => {
             handleSetPriceRange(next[0], next[1]);
           }}
         />
-        <div className="flex gap-24">
+        <div className="flex gap-20">
           <Input
-            placeholder="Min"
+            placeholder={t("filters.minPrice")}
             type="number"
-            value={priceRange ? String(minFilterPrice) : ""}
+            value={effectivePriceRange ? String(minFilterPrice) : ""}
             onChange={(event) => {
               if (event.target.value === "") {
-                patchSearch({ priceRange: undefined });
+                setPriceRange(undefined);
                 return;
               }
               const next = Number(event.target.value);
@@ -163,12 +179,12 @@ const CatalogFilter = () => {
             }}
           />
           <Input
-            placeholder="Max"
+            placeholder={t("filters.maxPrice")}
             type="number"
-            value={priceRange ? String(maxFilterPrice) : ""}
+            value={effectivePriceRange ? String(maxFilterPrice) : ""}
             onChange={(event) => {
               if (event.target.value === "") {
-                patchSearch({ priceRange: undefined });
+                setPriceRange(undefined);
                 return;
               }
               const next = Number(event.target.value);
