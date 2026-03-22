@@ -198,9 +198,18 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
       key: "priceRange",
     });
   }
+
+  if (query.sort) {
+    const sortLabelKey = `filters.sortByOptions.${query.sort}`;
+    labels.push({
+      label: `${t("filters.sortBy")}: ${t(sortLabelKey, query.sort)}`,
+      key: "sort",
+    });
+  }
+
   if (query.rating !== undefined) {
     labels.push({
-      label: `${t("filters.rating")}: ${query.rating}+`,
+      label: `${t("filters.rating")}: ${query.rating}${query.rating !== 5 ? "+" : ""}`,
       key: "rating",
     });
   }
