@@ -1,10 +1,7 @@
 import {
-  findSKU,
   getAllColors,
-  getAvailableColors,
   getAvailableSizes,
   getImageBySelectedColor,
-  getTotalStock,
 } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
@@ -31,7 +28,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const allColors = getAllColors(product);
   const inStockColorCodes = new Set(
-    getAvailableColors(product).map((color) => color.code),
+    product.skus
+      .filter((sku) => sku.stock > 0 && sku.color)
+      .map((sku) => sku.color as TypeCode),
   );
   const preferredColor =
     allColors.find((color) => inStockColorCodes.has(color.code))?.code ??
@@ -41,26 +40,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
   );
   const availableSizes = getAvailableSizes(product);
 
+  const selectedColorSkus = product.skus.filter(
+    (sku) => !selectedColor || sku.color === selectedColor,
+  );
+  const selectedInStockSku = selectedColorSkus.find((sku) => sku.stock > 0);
+  const selectedSku = selectedInStockSku ?? selectedColorSkus[0];
+  const selectedSizeCode = selectedSku?.size || product.options.sizes[0]?.code;
+
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
-  const currentSKU = findSKU(
-    product.skus,
-    availableSizes[0]?.code || product.options.sizes[0].code,
-    selectedColor,
-    product.options.material?.[0]?.code,
-  );
+  const currentSKU = selectedSku;
   const priceWithColor = currentSKU?.price || product.basePrice;
-  const stockOfSelectedVariant = currentSKU?.stock ?? 0;
-  const availableStock = getTotalStock(product);
-  const isOutOfStock = availableStock === 0 || stockOfSelectedVariant === 0;
+  const isOutOfStock = !selectedInStockSku;
   const images = getImageBySelectedColor(product, selectedColor);
 
   const handleAddToCart = () => {
+    if (!selectedInStockSku || !selectedSizeCode) return;
+
     addItem({
       productId: product.id,
-      size: availableSizes[0]?.code || product.options.sizes[0].code,
+      size: selectedSizeCode,
       color: selectedColor,
-      material: product.options.material?.[0]?.code,
     });
   };
 
@@ -90,14 +90,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
               </span>
               {allColors.slice(0, MAX_COLORS_TO_SHOW_PER_CARD).map((color) => {
                 const isSelected = selectedColor === color.code;
-                const isOutOfStock = !inStockColorCodes.has(color.code);
+                const isInStock = inStockColorCodes.has(color.code);
 
                 return (
                   <ColorBadge
                     key={color.code}
                     color={color}
                     isSelected={isSelected}
-                    isOutOfStock={isOutOfStock}
+                    isOutOfStock={!isInStock}
                     onClick={() => setSelectedColor(color.code)}
                   />
                 );
@@ -199,7 +199,7 @@ const ColorBadge = ({
         ${isSelected ? "border-primary bg-primary/10" : "border-border"} 
         ${isOutOfStock ? "opacity-60 border-dashed text-muted-foreground" : "hover:border-primary/70"}`}
       onClick={onClick}
-      aria-label={`${color.label[locale]} - ${isOutOfStock ? t("productCard.outOfStock") : t("productCard.inStock")}`}
+      aria-label={`${color.label[locale]} - ${isOutOfStock ? t("productCard.outOfStock") : t("filters.availability.inStock")}`}
     >
       {color.label[locale]}
       {isOutOfStock && (
