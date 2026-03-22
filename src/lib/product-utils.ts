@@ -157,6 +157,10 @@ const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
 };
 
+const findProductBySlug = (slug: string) => {
+  return products.find((p) => p.slug.en === slug || p.slug.cs === slug);
+};
+
 const findSKU = (
   skus: SKU[],
   size: SizeCode,
@@ -307,6 +311,7 @@ const getImageBySelectedColor = (
 
 export {
   findProductById,
+  findProductBySlug,
   findSKU,
   getAppliedFiltersLabel,
   getProducts,

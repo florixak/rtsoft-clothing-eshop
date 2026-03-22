@@ -1,4 +1,8 @@
-import { getProducts, type Query } from "@/lib/product-utils";
+import {
+  findProductBySlug,
+  getProducts,
+  type Query,
+} from "@/lib/product-utils";
 import { queryOptions } from "@tanstack/react-query";
 
 export const createProductsQueryOptions = (query: Query) =>
