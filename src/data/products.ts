@@ -45,35 +45,21 @@ const createSkus = (
   sizes: SkuSizeOptionDef[],
   variants?: {
     colors?: SkuOptionDef[];
-    materials?: SkuOptionDef[];
   },
 ) => {
   const colors = variants?.colors?.length ? variants.colors : [undefined];
-  const materials = variants?.materials?.length
-    ? variants.materials
-    : [undefined];
 
   return sizes.flatMap((size, sizeIndex) =>
-    colors.flatMap((color, colorIndex) =>
-      materials.map((material, materialIndex) => ({
-        id: `${productId}-sku-${size.code}-${color?.code ?? "na"}-${material?.code ?? "na"}`,
-        size: size.code,
-        color: color?.code,
-        material: material?.code,
-        price:
-          basePrice +
-          size.priceAdjustment +
-          (color?.priceAdjustment ?? 0) +
-          (material?.priceAdjustment ?? 0),
-        stock:
-          (sizeIndex + colorIndex + materialIndex) % 5 === 0
-            ? 0
-            : Math.max(
-                2,
-                28 - sizeIndex * 4 - colorIndex * 2 - materialIndex * 2,
-              ),
-      })),
-    ),
+    colors.map((color, colorIndex) => ({
+      id: `${productId}-sku-${size.code}-${color?.code ?? "na"}`,
+      size: size.code,
+      color: color?.code,
+      price: basePrice + size.priceAdjustment + (color?.priceAdjustment ?? 0),
+      stock:
+        (sizeIndex + colorIndex) % 5 === 0
+          ? 0
+          : Math.max(2, 28 - sizeIndex * 4 - colorIndex * 2),
+    })),
   );
 };
 
@@ -248,7 +234,6 @@ export const products: Product[] = [
         { code: "m" },
         { code: "l" },
       ]),
-      material: [],
     },
     skus: createSkus("prod-3", 1199, [
       { code: "s", priceAdjustment: -50 },
@@ -291,7 +276,6 @@ export const products: Product[] = [
         { code: "m" },
         { code: "l" },
       ]),
-      material: [],
     },
     skus: createSkus(
       "prod-4",
@@ -398,14 +382,10 @@ export const products: Product[] = [
         { code: "l" },
         { code: "xl" },
       ]),
-      material: createTypeOptions("prod-6", [
+      colors: createTypeOptions("prod-6", [
         {
-          code: "regular",
-          label: { cs: "Regular", en: "Regular" },
-        },
-        {
-          code: "pro",
-          label: { cs: "Pro Fabric", en: "Pro Fabric" },
+          code: "khaki",
+          label: { cs: "Khaki", en: "Khaki" },
         },
       ]),
     },
@@ -419,16 +399,11 @@ export const products: Product[] = [
         { code: "xl", priceAdjustment: 40 },
       ],
       {
-        materials: [
+        colors: [
           {
-            code: "regular",
-            label: { cs: "Regular", en: "Regular" },
+            code: "khaki",
+            label: { cs: "Khaki", en: "Khaki" },
             priceAdjustment: 0,
-          },
-          {
-            code: "pro",
-            label: { cs: "Pro Fabric", en: "Pro Fabric" },
-            priceAdjustment: 110,
           },
         ],
       },
@@ -465,42 +440,14 @@ export const products: Product[] = [
         { code: "l" },
         { code: "xl" },
       ]),
-      material: createTypeOptions("prod-7", [
-        {
-          code: "standard",
-          label: { cs: "Standard Insulation", en: "Standard Insulation" },
-        },
-        {
-          code: "thermal",
-          label: { cs: "Thermal Plus", en: "Thermal Plus" },
-        },
-      ]),
     },
-    skus: createSkus(
-      "prod-7",
-      2799,
-      [
-        { code: "xs", priceAdjustment: -50 },
-        { code: "s", priceAdjustment: -20 },
-        { code: "m", priceAdjustment: 0 },
-        { code: "l", priceAdjustment: 40 },
-        { code: "xl", priceAdjustment: 80 },
-      ],
-      {
-        materials: [
-          {
-            code: "standard",
-            label: { cs: "Standard Insulation", en: "Standard Insulation" },
-            priceAdjustment: 0,
-          },
-          {
-            code: "thermal",
-            label: { cs: "Thermal Plus", en: "Thermal Plus" },
-            priceAdjustment: 250,
-          },
-        ],
-      },
-    ),
+    skus: createSkus("prod-7", 2799, [
+      { code: "xs", priceAdjustment: -50 },
+      { code: "s", priceAdjustment: -20 },
+      { code: "m", priceAdjustment: 0 },
+      { code: "l", priceAdjustment: 40 },
+      { code: "xl", priceAdjustment: 80 },
+    ]),
     createdAt: "2026-02-15T10:00:00.000Z",
     rating: 4.5,
     reviewsCount: 60,

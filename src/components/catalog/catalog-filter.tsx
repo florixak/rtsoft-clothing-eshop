@@ -26,7 +26,7 @@ const CatalogFilter = () => {
     delay: 750,
   });
   const { t, i18n } = useTranslation("catalog");
-  const { category, sort, priceRange, size, color, material } = search;
+  const { category, sort, priceRange, size, color } = search;
   const { rating, availability } = search;
   const navigate = useNavigate({ from: "/{-$locale}/" });
   const {
@@ -56,16 +56,6 @@ const CatalogFilter = () => {
       ),
     ),
   );
-  const materialOptions = Array.from(
-    new Set(
-      products.flatMap((product) =>
-        product.skus
-          .filter((sku) => sku.stock > 0 && sku.material)
-          .map((sku) => sku.material),
-      ),
-    ),
-  );
-
   const patchSearch = (
     updates: Partial<{
       category: string | undefined;
@@ -73,7 +63,6 @@ const CatalogFilter = () => {
       priceRange: string | undefined;
       size: string | undefined;
       color: string | undefined;
-      material: string | undefined;
       rating: number | undefined;
       availability: "inStock" | "outOfStock" | undefined;
     }>,
@@ -327,32 +316,6 @@ const CatalogFilter = () => {
           </SelectTrigger>
           <SelectContent>
             {colorOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label
-          htmlFor="material"
-          className="uppercase text-base text-muted-foreground"
-        >
-          {t("filters.material")}
-        </Label>
-        <Select
-          id="material"
-          value={material ?? undefined}
-          onValueChange={(value) =>
-            patchSearch({ material: value || undefined })
-          }
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={t("filters.selectAnOption")} />
-          </SelectTrigger>
-          <SelectContent>
-            {materialOptions.map((option) => (
               <SelectItem key={option} value={option}>
                 {option}
               </SelectItem>

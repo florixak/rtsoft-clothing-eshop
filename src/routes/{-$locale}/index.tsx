@@ -11,7 +11,6 @@ const filterSchema = z.object({
   rating: z.coerce.number().optional(),
   size: z.string().optional(),
   color: z.string().optional(),
-  material: z.string().optional(),
   availability: z.enum(["inStock", "outOfStock"]).optional(),
   page: z.coerce.number().int().positive().optional(),
   perPage: z.coerce.number().int().positive().optional(),

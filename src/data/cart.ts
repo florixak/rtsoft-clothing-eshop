@@ -14,7 +14,7 @@ export const mockCart: Cart = {
     {
       id: "ci-2",
       productId: "prod-3",
-      selectionSnapshot: { size: "l", material: "regular" },
+      selectionSnapshot: { size: "l" },
       quantity: 1,
       priceSnapshot: 1229,
     },

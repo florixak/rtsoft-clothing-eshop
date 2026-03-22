@@ -13,7 +13,6 @@ type Query = {
   rating?: number;
   size?: string;
   color?: string;
-  material?: string;
   availability?: "inStock" | "outOfStock";
   page?: number;
   perPage?: number;
@@ -52,12 +51,6 @@ const getProducts = async (
   if (query.color) {
     filteredProducts = filteredProducts.filter((p) =>
       p.skus.some((sku) => sku.color === query.color && sku.stock > 0),
-    );
-  }
-
-  if (query.material) {
-    filteredProducts = filteredProducts.filter((p) =>
-      p.skus.some((sku) => sku.material === query.material && sku.stock > 0),
     );
   }
 
@@ -133,14 +126,8 @@ const findSKU = (
   skus: SKU[],
   size: SizeCode,
   color?: string,
-  material?: string,
 ): SKU | undefined => {
-  return skus.find(
-    (s) =>
-      s.size === size &&
-      (!color || s.color === color) &&
-      (!material || s.material === material),
-  );
+  return skus.find((s) => s.size === size && (!color || s.color === color));
 };
 
 const getTotalStock = (product: Product) => {
@@ -183,7 +170,7 @@ const getAvailableSizes = (product: Product) => {
   ];
 
   return sizeCodes
-    .map((code) => product.options.sizes.find((s) => s.code === code))
+    .map((code) => product.options.sizes?.find((s) => s.code === code))
     .filter(isDefined);
 };
 
@@ -231,12 +218,6 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
     labels.push({
       label: `${t("filters.color")}: ${query.color}`,
       key: "color",
-    });
-  }
-  if (query.material) {
-    labels.push({
-      label: `${t("filters.material")}: ${query.material}`,
-      key: "material",
     });
   }
   if (query.availability) {

@@ -16,7 +16,7 @@ export const orders: Order[] = [
       {
         productId: "prod-3",
         nameSnapshot: "Zip Hoodie",
-        selectionSnapshot: { size: "l", material: "regular" },
+        selectionSnapshot: { size: "l" },
         quantity: 1,
         priceSnapshot: 1229,
       },
@@ -48,7 +48,7 @@ export const orders: Order[] = [
       {
         productId: "prod-7",
         nameSnapshot: "Winter Puffer Jacket",
-        selectionSnapshot: { size: "m", material: "standard" },
+        selectionSnapshot: { size: "m" },
         quantity: 1,
         priceSnapshot: 2799,
       },
@@ -98,7 +98,7 @@ export const orders: Order[] = [
       {
         productId: "prod-6",
         nameSnapshot: "Cargo Pants",
-        selectionSnapshot: { size: "m", material: "regular" },
+        selectionSnapshot: { size: "m" },
         quantity: 2,
         priceSnapshot: 999,
       },
@@ -134,7 +134,7 @@ export const orders: Order[] = [
       {
         productId: "prod-4",
         nameSnapshot: "Oversized Fleece Hoodie",
-        selectionSnapshot: { size: "s", material: "regular" },
+        selectionSnapshot: { size: "s" },
         quantity: 1,
         priceSnapshot: 1489,
       },

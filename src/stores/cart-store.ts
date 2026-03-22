@@ -7,7 +7,6 @@ type AddItemInput = {
   productId: string;
   size: SizeCode;
   color?: TypeCode;
-  material?: TypeCode;
   quantity?: number;
 };
 
@@ -51,9 +50,9 @@ export const useCartStore = create<CartStore>()(
           0,
         ),
 
-      addItem: ({ productId, size, color, material, quantity = 1 }) => {
+      addItem: ({ productId, size, color, quantity = 1 }) => {
         const product = findProductById(productId);
-        const selectedSku = findSKU(product?.skus ?? [], size, color, material);
+        const selectedSku = findSKU(product?.skus ?? [], size, color);
         const unitPrice = selectedSku?.price;
 
         if (
@@ -75,7 +74,6 @@ export const useCartStore = create<CartStore>()(
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
               item.selectionSnapshot.color === color &&
-              item.selectionSnapshot.material === material &&
               item.priceSnapshot === unitPrice,
           );
 
@@ -86,7 +84,6 @@ export const useCartStore = create<CartStore>()(
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
               item.selectionSnapshot.color === color &&
-              item.selectionSnapshot.material === material &&
               item.priceSnapshot === unitPrice
                 ? { ...item, quantity: item.quantity + quantity }
                 : item,
@@ -97,7 +94,7 @@ export const useCartStore = create<CartStore>()(
               {
                 id: crypto.randomUUID(),
                 productId,
-                selectionSnapshot: { size, color, material },
+                selectionSnapshot: { size, color },
                 quantity,
                 priceSnapshot: unitPrice,
               },
