@@ -65,7 +65,6 @@ const createSkus = (
           size.priceAdjustment +
           (color?.priceAdjustment ?? 0) +
           (material?.priceAdjustment ?? 0),
-        // mock stock, v db by bylo reálné číslo
         stock: Math.max(
           2,
           28 - sizeIndex * 4 - colorIndex * 2 - materialIndex * 2,
