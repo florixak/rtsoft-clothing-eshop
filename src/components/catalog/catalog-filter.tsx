@@ -1,4 +1,11 @@
+import { categories } from "@/data";
+import { products, SORT_BY_OPTIONS, type SortOptions } from "@/data/products";
+import useDebounce from "@/hooks/use-debounce";
+import { getProducts } from "@/lib/product-utils";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -13,53 +20,217 @@ import {
 import { Slider } from "../ui/slider";
 
 const CatalogFilter = () => {
-  const maxPrice = 100;
-  const minPrice = 0;
+  const search = useSearch({ from: "/{-$locale}/" });
+  const { debouncedValue: debouncedSearch } = useDebounce({
+    value: search,
+    delay: 750,
+  });
+  const { t, i18n } = useTranslation("catalog");
+  const { category, sort, priceRange, size, color, material } = search;
+  const { rating, availability } = search;
+  const navigate = useNavigate({ from: "/{-$locale}/" });
+  const {
+    data: { information } = {
+      information: { total: 0, minFilterPrice: 0, maxFilterPrice: 0 },
+    },
+  } = useQuery({
+    queryKey: ["products", debouncedSearch],
+    queryFn: () => getProducts(debouncedSearch),
+  });
+
+  const language = i18n.resolvedLanguage === "en" ? "en" : "cs";
+
+  const sizeOptions = Array.from(
+    new Set(
+      products.flatMap((product) =>
+        product.skus.filter((sku) => sku.stock > 0).map((sku) => sku.size),
+      ),
+    ),
+  );
+  const colorOptions = Array.from(
+    new Set(
+      products.flatMap((product) =>
+        product.skus
+          .filter((sku) => sku.stock > 0 && sku.color)
+          .map((sku) => sku.color),
+      ),
+    ),
+  );
+  const materialOptions = Array.from(
+    new Set(
+      products.flatMap((product) =>
+        product.skus
+          .filter((sku) => sku.stock > 0 && sku.material)
+          .map((sku) => sku.material),
+      ),
+    ),
+  );
+
+  const patchSearch = (
+    updates: Partial<{
+      category: string | undefined;
+      sort: SortOptions | undefined;
+      priceRange: string | undefined;
+      size: string | undefined;
+      color: string | undefined;
+      material: string | undefined;
+      rating: number | undefined;
+      availability: "inStock" | "outOfStock" | undefined;
+    }>,
+  ) => {
+    navigate({
+      search: (prev) => ({ ...prev, ...updates, page: 1 }),
+      replace: true,
+    });
+  };
+
+  const handleSetCategory = (category: string) => {
+    patchSearch({ category: category || undefined });
+  };
+
+  const handleSetSort = (sort: string) => {
+    patchSearch({ sort: (sort as SortOptions) || undefined });
+  };
+
+  const handleSetPriceRange = (min: number, max: number) => {
+    const baseMin = information.minFilterPrice;
+    const baseMax = information.maxFilterPrice;
+    const safeMin = Math.max(baseMin, Math.floor(min));
+    const safeMax = Math.min(baseMax, Math.floor(max));
+    patchSearch({
+      priceRange:
+        Number.isFinite(safeMin) && Number.isFinite(safeMax)
+          ? `${Math.min(safeMin, safeMax)}-${Math.max(safeMin, safeMax)}`
+          : undefined,
+    });
+  };
+
+  const baseMin = information.minFilterPrice;
+  const baseMax = information.maxFilterPrice;
+  const parsedRange = priceRange?.split("-").map(Number) ?? [];
+  const rawMin = Number.isFinite(parsedRange[0]) ? parsedRange[0] : baseMin;
+  const rawMax = Number.isFinite(parsedRange[1]) ? parsedRange[1] : baseMax;
+  const minFilterPrice = Math.max(baseMin, Math.min(rawMin, baseMax));
+  const maxFilterPrice = Math.max(minFilterPrice, Math.min(rawMax, baseMax));
+
+  const stepCount = Math.floor((baseMax - baseMin) / 100);
+
   return (
     <aside className="flex flex-col gap-8 p-4">
       <div className="flex flex-col gap-2">
         <h3 className="uppercase text-base text-muted-foreground">
-          Categories
+          {t("filters.categories")}
         </h3>
-        <ul className="flex flex-row items-center gap-2">
-          <Button variant="outline">All</Button>
-          <Button variant="outline">Jackets</Button>
-          <Button variant="outline">Pants</Button>
-          <Button variant="outline">Shirts</Button>
+        <ul className="flex flex-wrap items-center gap-2">
+          <Button
+            variant={category ? "outline" : "default"}
+            onClick={() => handleSetCategory("")}
+          >
+            {t("filters.all")}
+          </Button>
+          {categories.map((entry) => (
+            <Button
+              key={entry.id}
+              variant={category === entry.id ? "default" : "outline"}
+              onClick={() => handleSetCategory(entry.id)}
+            >
+              {entry.name[language]}
+            </Button>
+          ))}
         </ul>
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="uppercase text-base text-muted-foreground">
-          Price Range
-        </h3>
+        <Label
+          htmlFor="price-range"
+          className="uppercase text-base text-muted-foreground"
+        >
+          {t("filters.priceRange")}
+        </Label>
         <Slider
-          defaultValue={[minPrice, maxPrice]}
-          max={maxPrice}
-          min={minPrice}
-          step={5}
+          value={[minFilterPrice, maxFilterPrice]}
+          max={baseMax}
+          min={baseMin}
+          step={stepCount > 0 ? Math.floor((baseMax - baseMin) / stepCount) : 1}
+          id="price-range"
           className="w-full"
+          onValueChange={(value) => {
+            const next = Array.isArray(value) ? value : [value, value];
+            handleSetPriceRange(next[0], next[1]);
+          }}
         />
         <div className="flex gap-24">
-          <Input placeholder="Min" type="number" />
-          <Input placeholder="Max" type="number" />
+          <Input
+            placeholder="Min"
+            type="number"
+            value={priceRange ? String(minFilterPrice) : ""}
+            onChange={(event) => {
+              if (event.target.value === "") {
+                patchSearch({ priceRange: undefined });
+                return;
+              }
+              const next = Number(event.target.value);
+              if (!Number.isFinite(next)) return;
+              handleSetPriceRange(next, maxFilterPrice);
+            }}
+          />
+          <Input
+            placeholder="Max"
+            type="number"
+            value={priceRange ? String(maxFilterPrice) : ""}
+            onChange={(event) => {
+              if (event.target.value === "") {
+                patchSearch({ priceRange: undefined });
+                return;
+              }
+              const next = Number(event.target.value);
+              if (!Number.isFinite(next)) return;
+              handleSetPriceRange(minFilterPrice, next);
+            }}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="uppercase text-base text-muted-foreground">Sort By</h3>
-        <Select>
+        <Label
+          htmlFor="sort"
+          className="uppercase text-base text-muted-foreground"
+        >
+          {t("filters.sortBy")}
+        </Label>
+        <Select
+          id="sort"
+          value={sort ?? undefined}
+          onValueChange={(value) => handleSetSort(value || "")}
+        >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select an option" />
+            {SORT_BY_OPTIONS.find((option) => option === sort)
+              ? t(`filters.sortByOptions.${sort}`)
+              : t("filters.selectAnOption")}
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="price-asc">Price: Low to High</SelectItem>
-            <SelectItem value="price-desc">Price: High to Low</SelectItem>
-            <SelectItem value="newest">Newest Arrivals</SelectItem>
+            {SORT_BY_OPTIONS.map((option) => (
+              <SelectItem key={option} value={option}>
+                {t(`filters.sortByOptions.${option}`)}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="uppercase text-base text-muted-foreground">Rating</h3>
-        <RadioGroup className="flex flex-row items-center justify-start">
+        <Label
+          htmlFor="rating"
+          className="uppercase text-base text-muted-foreground"
+        >
+          {t("filters.rating")}
+        </Label>
+        <RadioGroup
+          id="rating"
+          value={rating ? String(rating) : undefined}
+          onValueChange={(value) => {
+            const next = Number(value);
+            patchSearch({ rating: Number.isFinite(next) ? next : undefined });
+          }}
+          className="flex flex-row items-center justify-start"
+        >
           <RadioGroupItem
             value="5"
             id="rating-5"
@@ -116,35 +287,101 @@ const CatalogFilter = () => {
         </RadioGroup>
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="uppercase text-base text-muted-foreground">Size</h3>
-        <Select>
+        <Label
+          htmlFor="size"
+          className="uppercase text-base text-muted-foreground"
+        >
+          {t("filters.size")}
+        </Label>
+        <Select
+          id="size"
+          value={size ?? undefined}
+          onValueChange={(value) => patchSearch({ size: value || undefined })}
+        >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a size" />
+            <SelectValue placeholder={t("filters.selectAnOption")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="s">Small</SelectItem>
-            <SelectItem value="m">Medium</SelectItem>
-            <SelectItem value="l">Large</SelectItem>
-            <SelectItem value="xl">X-Large</SelectItem>
+            {sizeOptions.map((option) => (
+              <SelectItem key={option} value={option}>
+                {option.toUpperCase()}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="uppercase text-base text-muted-foreground">
-          Availability
-        </h3>
+        <Label
+          htmlFor="color"
+          className="uppercase text-base text-muted-foreground"
+        >
+          {t("filters.color")}
+        </Label>
+        <Select
+          id="color"
+          value={color ?? undefined}
+          onValueChange={(value) => patchSearch({ color: value || undefined })}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder={t("filters.selectAnOption")} />
+          </SelectTrigger>
+          <SelectContent>
+            {colorOptions.map((option) => (
+              <SelectItem key={option} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="material"
+          className="uppercase text-base text-muted-foreground"
+        >
+          {t("filters.material")}
+        </Label>
+        <Select
+          id="material"
+          value={material ?? undefined}
+          onValueChange={(value) =>
+            patchSearch({ material: value || undefined })
+          }
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder={t("filters.selectAnOption")} />
+          </SelectTrigger>
+          <SelectContent>
+            {materialOptions.map((option) => (
+              <SelectItem key={option} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label className="uppercase text-base text-muted-foreground">
+          {t("filters.availability.title")}
+        </Label>
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-4">
             <Input
               type="checkbox"
               id="in-stock"
               className="size-4 accent-accent-foreground"
+              checked={availability === "inStock"}
+              onChange={(event) =>
+                patchSearch({
+                  availability: event.target.checked ? "inStock" : undefined,
+                })
+              }
             />
             <Label
               htmlFor="in-stock"
               className="flex items-center gap-2 cursor-pointer"
             >
-              <span>In Stock Only</span>
+              <span>{t("filters.availability.inStock")}</span>
             </Label>
           </div>
           <div className="flex items-center gap-4">
@@ -152,17 +389,22 @@ const CatalogFilter = () => {
               type="checkbox"
               id="pre-order"
               className="size-4 accent-accent-foreground"
+              checked={availability === "outOfStock"}
+              onChange={(event) =>
+                patchSearch({
+                  availability: event.target.checked ? "outOfStock" : undefined,
+                })
+              }
             />
             <Label
               htmlFor="pre-order"
               className="flex items-center gap-2 cursor-pointer"
             >
-              <span>Pre-Order</span>
+              <span>{t("filters.availability.outOfStock")}</span>
             </Label>
           </div>
         </div>
       </div>
-      <Button variant="outline">Apply Filters</Button>
     </aside>
   );
 };
