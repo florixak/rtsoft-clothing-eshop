@@ -22,10 +22,6 @@ import { Slider } from "../ui/slider";
 
 const CatalogFilter = () => {
   const search = useSearch({ from: "/{-$locale}/" });
-  const { debouncedValue: debouncedSearch } = useDebounce({
-    value: search,
-    delay: 750,
-  });
   const { t, i18n } = useTranslation("catalog");
   const { category, sort, priceRange, size, color } = search;
   const { rating, availability } = search;
@@ -35,8 +31,8 @@ const CatalogFilter = () => {
       information: { total: 0, minFilterPrice: 0, maxFilterPrice: 0 },
     },
   } = useQuery({
-    queryKey: ["products", debouncedSearch],
-    queryFn: () => getProducts(debouncedSearch),
+    queryKey: ["products", search],
+    queryFn: () => getProducts(search),
   });
   const [priceRangeState, setPriceRange] = useState<string | undefined>(
     search.priceRange,
