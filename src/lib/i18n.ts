@@ -6,15 +6,25 @@ import csCommon from "@/locales/cs/common.json";
 import csCatalog from "@/locales/cs/catalog.json";
 import enCommon from "@/locales/en/common.json";
 import enCatalog from "@/locales/en/catalog.json";
+import csProduct from "@/locales/cs/product.json";
+import enProduct from "@/locales/en/product.json";
+
+export const TRANSLATION_NAMESPACES = {
+  common: "common",
+  catalog: "catalog",
+  product: "product",
+} as const;
 
 const resources = {
   cs: {
     common: csCommon,
     catalog: csCatalog,
+    product: csProduct,
   },
   en: {
     common: enCommon,
     catalog: enCatalog,
+    product: enProduct,
   },
 };
 
