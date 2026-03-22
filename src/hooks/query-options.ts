@@ -1,9 +1,5 @@
 import { QUERY_KEYS } from "@/constants";
-import {
-  findProductBySlug,
-  getProducts,
-  type Query,
-} from "@/lib/product-utils";
+import { getProductBySlug, getProducts, type Query } from "@/lib/product-utils";
 import { queryOptions } from "@tanstack/react-query";
 
 export const createProductsQueryOptions = (query: Query) =>
@@ -15,5 +11,5 @@ export const createProductsQueryOptions = (query: Query) =>
 export const createProductQueryOptions = (productSlug: string) =>
   queryOptions({
     queryKey: QUERY_KEYS.product(productSlug),
-    queryFn: () => findProductBySlug(productSlug),
+    queryFn: () => getProductBySlug(productSlug),
   });

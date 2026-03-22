@@ -153,6 +153,11 @@ const getProducts = async (
   };
 };
 
+const getProductBySlug = async (slug: string): Promise<Product | undefined> => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  return products.find((p) => p.slug.en === slug || p.slug.cs === slug);
+};
+
 const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
 };
@@ -321,4 +326,5 @@ export {
   getAllSizes,
   getAvailableSizes,
   getImageBySelectedColor,
+  getProductBySlug,
 };
