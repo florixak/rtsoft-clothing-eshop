@@ -1,5 +1,6 @@
 import {
   findSKU,
+  getAllColors,
   getAvailableColors,
   getAvailableSizes,
   getImageBySelectedColor,
@@ -23,22 +24,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem } = useCartStore();
   const { t, i18n } = useTranslation("catalog");
 
-  const availableColors = getAvailableColors(product);
-  const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
-    availableColors[0]?.code,
+  const allColors = getAllColors(product);
+  const inStockColorCodes = new Set(
+    getAvailableColors(product).map((color) => color.code),
   );
+  const preferredColor =
+    allColors.find((color) => inStockColorCodes.has(color.code))?.code ??
+    allColors[0]?.code;
+  const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
+    preferredColor,
+  );
+  const availableSizes = getAvailableSizes(product);
+
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
-  const handleAddToCart = () => {
-    addItem({
-      productId: product.id,
-      size: availableSizes[0]?.code || product.options.sizes[0].code,
-      color: selectedColor,
-      material: product.options.material?.[0]?.code,
-    });
-  };
-
-  const availableSizes = getAvailableSizes(product);
   const currentSKU = findSKU(
     product.skus,
     availableSizes[0]?.code || product.options.sizes[0].code,
@@ -50,6 +49,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const availableStock = getTotalStock(product);
   const isOutOfStock = availableStock === 0 || stockOfSelectedVariant === 0;
   const images = getImageBySelectedColor(product, selectedColor);
+
+  const handleAddToCart = () => {
+    addItem({
+      productId: product.id,
+      size: availableSizes[0]?.code || product.options.sizes[0].code,
+      color: selectedColor,
+      material: product.options.material?.[0]?.code,
+    });
+  };
 
   return (
     <Card
@@ -70,32 +78,39 @@ const ProductCard = ({ product }: ProductCardProps) => {
           loading="lazy"
         />
         <div className="absolute bottom-2 left-2 flex flex-col text-xs items-start gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity w-[calc(100%-1rem)]">
-          {availableColors.length > 0 && (
+          {allColors.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-1 bg-background px-2 py-1 rounded">
               <span className="text-xs text-muted-foreground">
                 {t("productCard.colors")}:
               </span>
-              {availableColors.slice(0, 3).map((color) => {
-                const isSelected = selectedColor === color?.code;
+              {allColors.slice(0, 3).map((color) => {
+                const isSelected = selectedColor === color.code;
+                const isOutOfStock = !inStockColorCodes.has(color.code);
 
                 return (
                   <button
-                    key={color?.id}
+                    key={color.id}
                     type="button"
                     className={`text-xs border rounded px-2 py-0.5 transition-colors cursor-pointer ${
                       isSelected
                         ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border hover:border-primary/70"
+                        : isOutOfStock
+                          ? "border-border text-muted-foreground opacity-50 cursor-not-allowed"
+                          : "border-border hover:border-primary/70"
                     }`}
-                    onClick={() => setSelectedColor(color?.code)}
+                    disabled={isOutOfStock}
+                    onClick={() => {
+                      if (isOutOfStock) return;
+                      setSelectedColor(color.code);
+                    }}
                   >
-                    {color?.label[locale]}
+                    {color.label[locale]}
                   </button>
                 );
               })}
-              {availableColors.length > 3 && (
+              {allColors.length > 3 && (
                 <span className="text-xs text-muted-foreground">
-                  +{availableColors.length - 3}
+                  +{allColors.length - 3}
                 </span>
               )}
             </div>
