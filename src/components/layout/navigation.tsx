@@ -54,7 +54,13 @@ const Navigation = ({
   const totalPages = Math.max(1, Math.ceil(totalItemsCount / pageSize));
   const safePage = clamp(page, 1, totalPages);
   const from = pagedItems.length === 0 ? 0 : (safePage - 1) * pageSize + 1;
-  const to = Math.min(pagedItems.length, safePage * pageSize);
+  const to =
+    pagedItems.length === 0
+      ? 0
+      : Math.min(
+          totalItemsCount,
+          (safePage - 1) * pageSize + pagedItems.length,
+        );
 
   const canGoBack = safePage > 1;
   const canGoForward = safePage < totalPages;
