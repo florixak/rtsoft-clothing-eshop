@@ -15,6 +15,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import {
+  MAX_COLORS_TO_SHOW_PER_CARD,
+  MAX_SIZES_TO_SHOW_PER_CARD,
+} from "@/constants";
+import { Badge } from "../ui/badge";
 
 type ProductCardProps = {
   product: Product;
@@ -83,34 +88,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <span className="text-xs text-muted-foreground">
                 {t("productCard.colors")}:
               </span>
-              {allColors.slice(0, 3).map((color) => {
+              {allColors.slice(0, MAX_COLORS_TO_SHOW_PER_CARD).map((color) => {
                 const isSelected = selectedColor === color.code;
                 const isOutOfStock = !inStockColorCodes.has(color.code);
 
                 return (
-                  <button
-                    key={color.id}
-                    type="button"
-                    className={`text-xs border rounded px-2 py-0.5 transition-colors cursor-pointer ${
-                      isSelected
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : isOutOfStock
-                          ? "border-border text-muted-foreground opacity-50 cursor-not-allowed"
-                          : "border-border hover:border-primary/70"
-                    }`}
-                    disabled={isOutOfStock}
-                    onClick={() => {
-                      if (isOutOfStock) return;
-                      setSelectedColor(color.code);
-                    }}
-                  >
-                    {color.label[locale]}
-                  </button>
+                  <ColorBadge
+                    key={color.code}
+                    color={color}
+                    isSelected={isSelected}
+                    isOutOfStock={isOutOfStock}
+                    onClick={() => setSelectedColor(color.code)}
+                  />
                 );
               })}
-              {allColors.length > 3 && (
+              {allColors.length > MAX_COLORS_TO_SHOW_PER_CARD && (
                 <span className="text-xs text-muted-foreground">
-                  +{allColors.length - 3}
+                  +{allColors.length - MAX_COLORS_TO_SHOW_PER_CARD}
                 </span>
               )}
             </div>
@@ -121,18 +115,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <span className="text-xs text-muted-foreground">
                 {t("productCard.sizes")}:
               </span>
-              {availableSizes.slice(0, 3).map((size) => (
-                <span
-                  key={size?.id}
-                  className="text-xs border border-border rounded px-2 py-0.5 text-muted-foreground"
-                >
-                  {size?.label[locale]}
-                </span>
-              ))}
+              {availableSizes
+                .slice(0, MAX_SIZES_TO_SHOW_PER_CARD)
+                .map((size) => (
+                  <Badge
+                    key={size?.id}
+                    className="text-xs border border-border rounded px-2 py-0.5 text-muted-foreground bg-background"
+                  >
+                    {size?.label[locale]}
+                  </Badge>
+                ))}
 
-              {availableSizes.length > 3 && (
+              {availableSizes.length > MAX_SIZES_TO_SHOW_PER_CARD && (
                 <span className="text-xs text-muted-foreground">
-                  +{availableSizes.length - 3}
+                  +{availableSizes.length - MAX_SIZES_TO_SHOW_PER_CARD}
                 </span>
               )}
             </div>
@@ -179,6 +175,39 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </CardContent>
     </Card>
+  );
+};
+
+const ColorBadge = ({
+  color,
+  isSelected,
+  isOutOfStock,
+  onClick,
+}: {
+  color: { code: TypeCode; label: Record<string, string> };
+  isSelected: boolean;
+  isOutOfStock: boolean;
+  onClick: () => void;
+}) => {
+  const { t, i18n } = useTranslation("catalog");
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+
+  return (
+    <button
+      type="button"
+      className={`relative text-xs border rounded px-2 py-0.5 transition-colors cursor-pointer 
+        ${isSelected ? "border-primary bg-primary/10" : "border-border"} 
+        ${isOutOfStock ? "opacity-60 border-dashed text-muted-foreground" : "hover:border-primary/70"}`}
+      onClick={onClick}
+      aria-label={`${color.label[locale]} - ${isOutOfStock ? t("productCard.outOfStock") : t("productCard.inStock")}`}
+    >
+      {color.label[locale]}
+      {isOutOfStock && (
+        <span className="ml-1 rounded bg-muted px-1 py-0 text-[10px]">
+          {t("productCard.outOfStock")}
+        </span>
+      )}
+    </button>
   );
 };
 
