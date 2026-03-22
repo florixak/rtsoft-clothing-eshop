@@ -4,7 +4,7 @@ import type { Category, Product, SizeCode, SKU } from "@/types";
 import { findCategoryById } from "./category-utils";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
-import { formatPrice } from "./utils";
+import { formatPrice, isDefined } from "./utils";
 
 type Query = {
   category?: Category["id"];
@@ -45,21 +45,19 @@ const getProducts = async (
 
   if (query.size) {
     filteredProducts = filteredProducts.filter((p) =>
-      p.options.sizes.some((size) => size.code === query.size),
+      p.skus.some((sku) => sku.size === query.size && sku.stock > 0),
     );
   }
 
   if (query.color) {
     filteredProducts = filteredProducts.filter((p) =>
-      (p.options.colors ?? []).some((color) => color.code === query.color),
+      p.skus.some((sku) => sku.color === query.color && sku.stock > 0),
     );
   }
 
   if (query.material) {
     filteredProducts = filteredProducts.filter((p) =>
-      (p.options.material ?? []).some(
-        (material) => material.code === query.material,
-      ),
+      p.skus.some((sku) => sku.material === query.material && sku.stock > 0),
     );
   }
 
@@ -161,7 +159,17 @@ const getAvailableColors = (product: Product) => {
 
   return colorCodes
     .map((code) => product.options.colors?.find((c) => c.code === code))
-    .filter(Boolean);
+    .filter(isDefined);
+};
+
+const getAllColors = (product: Product) => {
+  const colorCodes = [
+    ...new Set(product.skus.map((sku) => sku.color).filter(Boolean)),
+  ];
+
+  return colorCodes
+    .map((code) => product.options.colors?.find((c) => c.code === code))
+    .filter(isDefined);
 };
 
 const getAvailableSizes = (product: Product) => {
@@ -176,7 +184,7 @@ const getAvailableSizes = (product: Product) => {
 
   return sizeCodes
     .map((code) => product.options.sizes.find((s) => s.code === code))
-    .filter(Boolean);
+    .filter(isDefined);
 };
 
 const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
@@ -277,6 +285,7 @@ export {
   getAppliedFiltersLabel,
   getProducts,
   getTotalStock,
+  getAllColors,
   getAvailableColors,
   getAvailableSizes,
   getImageBySelectedColor,
