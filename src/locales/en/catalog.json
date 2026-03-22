@@ -14,6 +14,8 @@
     "size": "Size",
     "color": "Color",
     "material": "Material",
+    "minPrice": "Min price",
+    "maxPrice": "Max price",
     "availability": {
       "title": "Availability",
       "inStock": "In Stock",

@@ -16,6 +16,8 @@
     "size": "Velikost",
     "color": "Barva",
     "material": "Materiál",
+    "minPrice": "Minimální cena",
+    "maxPrice": "Maximální cena",
     "availability": {
       "title": "Dostupnost",
       "inStock": "Skladem",
