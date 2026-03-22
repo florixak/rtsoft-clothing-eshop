@@ -53,14 +53,16 @@ export const useCartStore = create<CartStore>()(
 
       addItem: ({ productId, size, color, material, quantity = 1 }) => {
         const product = findProductById(productId);
-        const unitPrice = findSKU(
-          product?.skus ?? [],
-          size,
-          color,
-          material,
-        )?.price;
+        const selectedSku = findSKU(product?.skus ?? [], size, color, material);
+        const unitPrice = selectedSku?.price;
 
-        if (unitPrice == null || !Number.isFinite(unitPrice) || unitPrice < 0) {
+        if (
+          !selectedSku ||
+          selectedSku.stock <= 0 ||
+          unitPrice == null ||
+          !Number.isFinite(unitPrice) ||
+          unitPrice < 0
+        ) {
           return;
         }
         if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
