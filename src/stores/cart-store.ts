@@ -77,6 +77,11 @@ export const useCartStore = create<CartStore>()(
               item.priceSnapshot === unitPrice,
           );
 
+          const nextQuantity = (existing?.quantity ?? 0) + quantity;
+          if (nextQuantity > selectedSku.stock) {
+            return state;
+          }
+
           let nextItems: CartItem[];
 
           if (existing) {
@@ -85,7 +90,7 @@ export const useCartStore = create<CartStore>()(
               item.selectionSnapshot.size === size &&
               item.selectionSnapshot.color === color &&
               item.priceSnapshot === unitPrice
-                ? { ...item, quantity: item.quantity + quantity }
+                ? { ...item, quantity: nextQuantity }
                 : item,
             );
           } else {
@@ -95,7 +100,7 @@ export const useCartStore = create<CartStore>()(
                 id: crypto.randomUUID(),
                 productId,
                 selectionSnapshot: { size, color },
-                quantity,
+                quantity: nextQuantity,
                 priceSnapshot: unitPrice,
               },
             ];
