@@ -6,7 +6,7 @@ import type { Languages } from "./i18n";
 import i18n from "./i18n";
 import { formatPrice, isDefined } from "./utils";
 
-type Query = {
+export type Query = {
   category?: Category["id"];
   priceRange?: string;
   sort?: SortOptions;
