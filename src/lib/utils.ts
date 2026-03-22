@@ -11,3 +11,10 @@ export const formatPrice = (price: number, locale: string) => {
     currency: "CZK",
   }).format(price);
 };
+
+export const clamp = (value: number, min: number, max: number) => {
+  return Math.min(Math.max(value, min), max);
+};
+
+export const isDefined = <T>(value: T | undefined): value is T =>
+  value !== undefined;

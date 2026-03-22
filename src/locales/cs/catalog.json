@@ -1,29 +1,34 @@
 {
   "catalog": {
-    "showing": "Zobrazeno {{from}}-{{to}} z {{total}} produktů",
-    "showing_one": "Zobrazen 1 z {{total}} produktu"
+    "title": "Katalog produktů"
   },
   "categories": {
-    "title": "Kategorie",
-    "all": "Vše",
-    "men": "Muži",
-    "women": "Ženy",
-    "accessories": "Doplňky"
+    "title": "Kategorie"
   },
   "filters": {
-    "priceRange": {
-      "title": "Cenové rozpětí"
-    },
-    "sortBy": {
-      "title": "Seřadit podle"
-    },
-    "rating": {
-      "title": "Hodnocení"
-    },
+    "all": "Vše",
+    "title": "Filtry",
+    "close": "Zavřít filtry",
+    "categories": "Kategorie",
+    "priceRange": "Cenové rozpětí",
+    "sortBy": "Seřadit podle",
+    "rating": "Hodnocení",
+    "selectAnOption": "Vyberte možnost",
+    "size": "Velikost",
+    "color": "Barva",
+    "material": "Materiál",
+    "minPrice": "Minimální cena",
+    "maxPrice": "Maximální cena",
     "availability": {
       "title": "Dostupnost",
       "inStock": "Skladem",
       "outOfStock": "Není skladem"
+    },
+    "sortByOptions": {
+      "newest": "Nejnovější",
+      "priceAsc": "Cena: od nejnižší",
+      "priceDesc": "Cena: od nejvyšší",
+      "rating": "Hodnocení zákazníků"
     },
     "activeTags": {
       "remove": "Odebrat filtr {{label}}"
@@ -32,8 +37,22 @@
   "productCard": {
     "addToCart": "Přidat do košíku",
     "addedToCart": "Přidáno do košíku",
+    "outOfStock": "Není skladem",
     "reviews": "({{count}} recenze)",
     "reviews_few": "({{count}} recenze)",
-    "reviews_other": "({{count}} recenzí)"
+    "reviews_other": "({{count}} recenzí)",
+    "colors": "Dostupné barvy",
+    "sizes": "Dostupné velikosti"
+  },
+  "pagination": {
+    "title": "Navigace stránek",
+    "first": "První",
+    "previous": "Předchozí",
+    "next": "Další",
+    "last": "Poslední",
+    "page": "Strana",
+    "perPage": "Na stránku",
+    "showing": "Zobrazuji {{from}}-{{to}} z {{total}} produktů",
+    "showing_one": "Zobrazuji 1 z {{total}} produktu"
   }
 }

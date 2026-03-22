@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { Cart, CartItem, SizeCode, TypeCode } from "@/types";
-import { calculateSelectionPrice } from "@/lib/product-utils";
+import { findProductById, findSKU } from "@/lib/product-utils";
 
 type AddItemInput = {
   productId: string;
   size: SizeCode;
-  type: TypeCode;
-  priceSnapshot?: number;
+  color?: TypeCode;
   quantity?: number;
 };
 
@@ -51,9 +50,18 @@ export const useCartStore = create<CartStore>()(
           0,
         ),
 
-      addItem: ({ productId, size, type, quantity = 1 }) => {
-        const unitPrice = calculateSelectionPrice(productId, size, type);
-        if (unitPrice == null || !Number.isFinite(unitPrice) || unitPrice < 0) {
+      addItem: ({ productId, size, color, quantity = 1 }) => {
+        const product = findProductById(productId);
+        const selectedSku = findSKU(product?.skus ?? [], size, color);
+        const unitPrice = selectedSku?.price;
+
+        if (
+          !selectedSku ||
+          selectedSku.stock <= 0 ||
+          unitPrice == null ||
+          !Number.isFinite(unitPrice) ||
+          unitPrice < 0
+        ) {
           return;
         }
         if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
@@ -65,9 +73,14 @@ export const useCartStore = create<CartStore>()(
             (item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
-              item.selectionSnapshot.type === type &&
+              item.selectionSnapshot.color === color &&
               item.priceSnapshot === unitPrice,
           );
+
+          const nextQuantity = (existing?.quantity ?? 0) + quantity;
+          if (nextQuantity > selectedSku.stock) {
+            return state;
+          }
 
           let nextItems: CartItem[];
 
@@ -75,9 +88,9 @@ export const useCartStore = create<CartStore>()(
             nextItems = state.cart.items.map((item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
-              item.selectionSnapshot.type === type &&
+              item.selectionSnapshot.color === color &&
               item.priceSnapshot === unitPrice
-                ? { ...item, quantity: item.quantity + quantity }
+                ? { ...item, quantity: nextQuantity }
                 : item,
             );
           } else {
@@ -86,8 +99,8 @@ export const useCartStore = create<CartStore>()(
               {
                 id: crypto.randomUUID(),
                 productId,
-                selectionSnapshot: { size, type },
-                quantity,
+                selectionSnapshot: { size, color },
+                quantity: nextQuantity,
                 priceSnapshot: unitPrice,
               },
             ];

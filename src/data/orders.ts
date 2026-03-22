@@ -9,14 +9,14 @@ export const orders: Order[] = [
       {
         productId: "prod-1",
         nameSnapshot: "Basic Cotton Tee",
-        selectionSnapshot: { size: "m", type: "classic" },
+        selectionSnapshot: { size: "m", color: "white" },
         quantity: 2,
         priceSnapshot: 399,
       },
       {
         productId: "prod-3",
         nameSnapshot: "Zip Hoodie",
-        selectionSnapshot: { size: "l", type: "regular" },
+        selectionSnapshot: { size: "l" },
         quantity: 1,
         priceSnapshot: 1229,
       },
@@ -48,7 +48,7 @@ export const orders: Order[] = [
       {
         productId: "prod-7",
         nameSnapshot: "Winter Puffer Jacket",
-        selectionSnapshot: { size: "m", type: "standard" },
+        selectionSnapshot: { size: "m" },
         quantity: 1,
         priceSnapshot: 2799,
       },
@@ -84,21 +84,21 @@ export const orders: Order[] = [
       {
         productId: "prod-2",
         nameSnapshot: "RTSoft Graphic Tee",
-        selectionSnapshot: { size: "l", type: "print-basic" },
+        selectionSnapshot: { size: "l", color: "black" },
         quantity: 1,
         priceSnapshot: 569,
       },
       {
         productId: "prod-5",
         nameSnapshot: "Slim Fit Jeans",
-        selectionSnapshot: { size: "l", type: "classic" },
+        selectionSnapshot: { size: "l", color: "blue" },
         quantity: 1,
         priceSnapshot: 1329,
       },
       {
         productId: "prod-6",
         nameSnapshot: "Cargo Pants",
-        selectionSnapshot: { size: "m", type: "regular" },
+        selectionSnapshot: { size: "m" },
         quantity: 2,
         priceSnapshot: 999,
       },
@@ -134,7 +134,7 @@ export const orders: Order[] = [
       {
         productId: "prod-4",
         nameSnapshot: "Oversized Fleece Hoodie",
-        selectionSnapshot: { size: "s", type: "regular" },
+        selectionSnapshot: { size: "s" },
         quantity: 1,
         priceSnapshot: 1489,
       },
@@ -166,7 +166,7 @@ export const orders: Order[] = [
       {
         productId: "prod-1",
         nameSnapshot: "Basic Cotton Tee",
-        selectionSnapshot: { size: "s", type: "classic" },
+        selectionSnapshot: { size: "s", color: "white" },
         quantity: 3,
         priceSnapshot: 389,
       },

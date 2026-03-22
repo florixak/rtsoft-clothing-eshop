@@ -8,7 +8,7 @@ export type TypeCode = string;
 
 export type SelectionSnapshot = {
   size: SizeCode;
-  type: TypeCode;
+  color?: TypeCode;
 };
 
 export type Category = {
@@ -17,29 +17,38 @@ export type Category = {
   name: LocalizedString;
 };
 
+export type SKU = {
+  id: string;
+  size: SizeCode;
+  color?: TypeCode;
+  price: number;
+  stock: number;
+};
+
 export type Product = {
   id: string;
   slug: LocalizedString;
   name: LocalizedString;
   description: LocalizedString;
-  price: number;
+  basePrice: number;
   categoryId: string;
   images: string[];
   options: ProductOptions;
+  skus: SKU[];
   createdAt: string;
   rating: number;
+  reviewsCount: number;
 };
 
 export type ProductOption<TCode extends string = string> = {
   id: string;
   code: TCode;
   label: LocalizedString;
-  priceAdjustment: number;
 };
 
 export type ProductOptions = {
   sizes: ProductOption<SizeCode>[];
-  types: ProductOption<TypeCode>[];
+  colors?: ProductOption<TypeCode>[];
 };
 
 export type Cart = {

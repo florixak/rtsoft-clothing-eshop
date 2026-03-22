@@ -1,29 +1,32 @@
 {
   "catalog": {
-    "showing": "Showing {{from}}-{{to}} of {{total}} products",
-    "showing_one": "Showing 1 of {{total}} product"
+    "title": "Product Catalog"
   },
-  "categories": {
-    "title": "Categories",
-    "all": "All",
-    "men": "Men",
-    "women": "Women",
-    "accessories": "Accessories"
-  },
+
   "filters": {
-    "priceRange": {
-      "title": "Price Range"
-    },
-    "sortBy": {
-      "title": "Sort By"
-    },
-    "rating": {
-      "title": "Rating"
-    },
+    "all": "All",
+    "title": "Filters",
+    "close": "Close filters",
+    "categories": "Categories",
+    "priceRange": "Price Range",
+    "sortBy": "Sort by",
+    "rating": "Rating",
+    "selectAnOption": "Select an option",
+    "size": "Size",
+    "color": "Color",
+    "material": "Material",
+    "minPrice": "Min price",
+    "maxPrice": "Max price",
     "availability": {
       "title": "Availability",
       "inStock": "In Stock",
       "outOfStock": "Out of Stock"
+    },
+    "sortByOptions": {
+      "newest": "Newest Arrivals",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "rating": "Customer Rating"
     },
     "activeTags": {
       "remove": "Remove filter {{label}}"
@@ -32,7 +35,21 @@
   "productCard": {
     "addToCart": "Add to cart",
     "addedToCart": "Added to cart",
+    "outOfStock": "Out of Stock",
     "reviews": "({{count}} review)",
-    "reviews_other": "({{count}} reviews)"
+    "reviews_other": "({{count}} reviews)",
+    "colors": "Available colors",
+    "sizes": "Available sizes"
+  },
+  "pagination": {
+    "title": "Page navigation",
+    "first": "First",
+    "previous": "Previous",
+    "next": "Next",
+    "last": "Last",
+    "page": "Page",
+    "perPage": "Per page",
+    "showing": "Showing {{from}}-{{to}} of {{total}} products",
+    "showing_one": "Showing 1 of {{total}} product"
   }
 }

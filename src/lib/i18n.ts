@@ -3,14 +3,18 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import csCommon from "@/locales/cs/common.json";
+import csCatalog from "@/locales/cs/catalog.json";
 import enCommon from "@/locales/en/common.json";
+import enCatalog from "@/locales/en/catalog.json";
 
 const resources = {
   cs: {
     common: csCommon,
+    catalog: csCatalog,
   },
   en: {
     common: enCommon,
+    catalog: enCatalog,
   },
 };
 
