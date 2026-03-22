@@ -159,6 +159,16 @@ const getAllColors = (product: Product) => {
     .filter(isDefined);
 };
 
+const getAllSizes = (product: Product) => {
+  const sizeCodes = [
+    ...new Set(product.skus.map((sku) => sku.size).filter(Boolean)),
+  ];
+
+  return sizeCodes
+    .map((code) => product.options.sizes?.find((s) => s.code === code))
+    .filter(isDefined);
+};
+
 const getAvailableSizes = (product: Product) => {
   const sizeCodes = [
     ...new Set(
@@ -268,6 +278,7 @@ export {
   getTotalStock,
   getAllColors,
   getAvailableColors,
+  getAllSizes,
   getAvailableSizes,
   getImageBySelectedColor,
 };

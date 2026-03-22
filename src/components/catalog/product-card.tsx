@@ -1,6 +1,10 @@
 import {
+  MAX_COLORS_TO_SHOW_PER_CARD,
+  MAX_SIZES_TO_SHOW_PER_CARD,
+} from "@/constants";
+import {
   getAllColors,
-  getAvailableSizes,
+  getAllSizes,
   getImageBySelectedColor,
 } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
@@ -12,11 +16,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import {
-  MAX_COLORS_TO_SHOW_PER_CARD,
-  MAX_SIZES_TO_SHOW_PER_CARD,
-} from "@/constants";
-import { Badge } from "../ui/badge";
 
 type ProductCardProps = {
   product: Product;
@@ -38,14 +37,31 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
     preferredColor,
   );
-  const availableSizes = getAvailableSizes(product);
+  const allSizes = getAllSizes(product);
+  const preferredSize =
+    allSizes.find((size) =>
+      product.skus.some(
+        (sku) =>
+          sku.stock > 0 &&
+          sku.size === size.code &&
+          (!preferredColor || sku.color === preferredColor),
+      ),
+    )?.code ?? allSizes[0]?.code;
+  const [selectedSize, setSelectedSize] = useState(preferredSize);
 
-  const selectedColorSkus = product.skus.filter(
-    (sku) => !selectedColor || sku.color === selectedColor,
+  const selectedInStockSku = product.skus.find(
+    (sku) =>
+      (!selectedColor || sku.color === selectedColor) &&
+      (!selectedSize || sku.size === selectedSize) &&
+      sku.stock > 0,
   );
-  const selectedInStockSku = selectedColorSkus.find((sku) => sku.stock > 0);
-  const selectedSku = selectedInStockSku ?? selectedColorSkus[0];
-  const selectedSizeCode = selectedSku?.size || product.options.sizes[0]?.code;
+  const selectedSku =
+    selectedInStockSku ??
+    product.skus.find(
+      (sku) =>
+        (!selectedColor || sku.color === selectedColor) &&
+        (!selectedSize || sku.size === selectedSize),
+    );
 
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
@@ -55,11 +71,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const images = getImageBySelectedColor(product, selectedColor);
 
   const handleAddToCart = () => {
-    if (!selectedInStockSku || !selectedSizeCode) return;
+    if (!selectedInStockSku || !selectedSize) return;
 
     addItem({
       productId: product.id,
-      size: selectedSizeCode,
+      size: selectedSize,
       color: selectedColor,
     });
   };
@@ -110,25 +126,33 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </div>
           )}
 
-          {availableSizes.length > 0 && (
+          {allSizes.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-1 bg-background px-2 py-1 rounded">
               <span className="text-xs text-muted-foreground">
                 {t("productCard.sizes")}:
               </span>
-              {availableSizes
-                .slice(0, MAX_SIZES_TO_SHOW_PER_CARD)
-                .map((size) => (
-                  <Badge
-                    key={size?.id}
-                    className="text-xs border border-border rounded px-2 py-0.5 text-muted-foreground bg-background"
-                  >
-                    {size?.label[locale]}
-                  </Badge>
-                ))}
+              {allSizes.slice(0, MAX_SIZES_TO_SHOW_PER_CARD).map((size) => {
+                const isSelected = selectedSize === size.code;
+                const isInStock = product.skus.some(
+                  (sku) =>
+                    sku.stock > 0 &&
+                    sku.size === size.code &&
+                    (!selectedColor || sku.color === selectedColor),
+                );
+                return (
+                  <SizeBadge
+                    key={size.code}
+                    size={size}
+                    isSelected={isSelected}
+                    isOutOfStock={!isInStock}
+                    onClick={() => setSelectedSize(size.code)}
+                  />
+                );
+              })}
 
-              {availableSizes.length > MAX_SIZES_TO_SHOW_PER_CARD && (
+              {allSizes.length > MAX_SIZES_TO_SHOW_PER_CARD && (
                 <span className="text-xs text-muted-foreground">
-                  +{availableSizes.length - MAX_SIZES_TO_SHOW_PER_CARD}
+                  +{allSizes.length - MAX_SIZES_TO_SHOW_PER_CARD}
                 </span>
               )}
             </div>
@@ -202,6 +226,39 @@ const ColorBadge = ({
       aria-label={`${color.label[locale]} - ${isOutOfStock ? t("productCard.outOfStock") : t("filters.availability.inStock")}`}
     >
       {color.label[locale]}
+      {isOutOfStock && (
+        <span className="ml-1 rounded bg-muted px-1 py-0 text-[10px]">
+          {t("productCard.outOfStock")}
+        </span>
+      )}
+    </button>
+  );
+};
+
+const SizeBadge = ({
+  size,
+  isSelected,
+  isOutOfStock,
+  onClick,
+}: {
+  size: { code: string; label: Record<string, string> };
+  isSelected: boolean;
+  isOutOfStock: boolean;
+  onClick: () => void;
+}) => {
+  const { t, i18n } = useTranslation("catalog");
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+
+  return (
+    <button
+      type="button"
+      className={`relative text-xs border rounded px-2 py-0.5 transition-colors cursor-pointer 
+        ${isSelected ? "border-primary bg-primary/10" : "border-border"} 
+        ${isOutOfStock ? "opacity-60 border-dashed text-muted-foreground" : "hover:border-primary/70"}`}
+      onClick={onClick}
+      aria-label={`${size.label[locale]} - ${isOutOfStock ? t("productCard.outOfStock") : t("filters.availability.inStock")}`}
+    >
+      {size.label[locale]}
       {isOutOfStock && (
         <span className="ml-1 rounded bg-muted px-1 py-0 text-[10px]">
           {t("productCard.outOfStock")}
