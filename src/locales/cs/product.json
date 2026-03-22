@@ -1,0 +1,42 @@
+{
+  "badge": {
+    "newArrival": "Novinka",
+    "sale": "Výprodej",
+    "soldOut": "Vyprodáno"
+  },
+  "rating": {
+    "aria": "Hodnocení {{rating}} z 5, {{count}} recenze",
+    "aria_few": "Hodnocení {{rating}} z 5, {{count}} recenze",
+    "aria_other": "Hodnocení {{rating}} z 5, {{count}} recenzí"
+  },
+  "color": {
+    "label": "Barva: {{color}}",
+    "aria": "Vybrat barvu {{color}}"
+  },
+  "size": {
+    "label": "Velikost: {{size}}",
+    "aria": "Vybrat velikost {{size}}",
+    "notSelected": "Vyberte velikost"
+  },
+  "quantity": {
+    "label": "Množství",
+    "increase": "Zvýšit množství",
+    "decrease": "Snížit množství"
+  },
+  "addToCart": "Přidat do košíku",
+  "specifications": {
+    "title": "Specifikace",
+    "subtitle": "Specifikace produktu {{name}}",
+    "material": "Materiál",
+    "care": "Péče",
+    "origin": "Původ"
+  },
+  "lastSeen": {
+    "title": "Naposledy zobrazeno",
+    "subtitle": "Položky, které jste již viděli",
+    "empty": "Zatím jste si neprohlédli žádné produkty."
+  },
+  "breadcrumbs": {
+    "category": "Kategorie"
+  }
+}

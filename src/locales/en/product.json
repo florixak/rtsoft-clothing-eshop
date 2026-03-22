@@ -1,0 +1,41 @@
+{
+  "badge": {
+    "newArrival": "New Arrival",
+    "sale": "Sale",
+    "soldOut": "Sold Out"
+  },
+  "rating": {
+    "aria": "Rated {{rating}} out of 5, {{count}} review",
+    "aria_other": "Rated {{rating}} out of 5, {{count}} reviews"
+  },
+  "color": {
+    "label": "Color: {{color}}",
+    "aria": "Select color {{color}}"
+  },
+  "size": {
+    "label": "Size: {{size}}",
+    "aria": "Select size {{size}}",
+    "notSelected": "Select a size"
+  },
+  "quantity": {
+    "label": "Quantity",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity"
+  },
+  "addToCart": "Add to Cart",
+  "specifications": {
+    "title": "Specifications",
+    "subtitle": "Specifications of {{name}}",
+    "material": "Material",
+    "care": "Care",
+    "origin": "Origin"
+  },
+  "lastSeen": {
+    "title": "Last Seen",
+    "subtitle": "Items you have viewed before",
+    "empty": "You haven't viewed any products yet."
+  },
+  "breadcrumbs": {
+    "category": "Category"
+  }
+}
