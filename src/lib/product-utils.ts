@@ -29,6 +29,50 @@ const getProducts = async (
   };
 }> => {
   let filteredProducts = [...products];
+  const [rawMinPrice, rawMaxPrice] = (query.priceRange ?? "")
+    .split("-")
+    .map(Number);
+  const hasMinPrice = Number.isFinite(rawMinPrice);
+  const hasMaxPrice = Number.isFinite(rawMaxPrice);
+
+  const getMatchingSkus = (
+    p: Product,
+    options?: { includePriceRange?: boolean },
+  ) => {
+    const includePriceRange = options?.includePriceRange ?? false;
+
+    return p.skus.filter((sku) => {
+      if (query.size && sku.size !== query.size) return false;
+      if (query.color && sku.color !== query.color) return false;
+
+      if (query.availability === "inStock") {
+        if (sku.stock <= 0) return false;
+      } else if (query.availability === "outOfStock") {
+        if (sku.stock !== 0) return false;
+      } else if (query.size || query.color) {
+        if (sku.stock <= 0) return false;
+      }
+
+      if (includePriceRange) {
+        if (hasMinPrice && sku.price < rawMinPrice) return false;
+        if (hasMaxPrice && sku.price > rawMaxPrice) return false;
+      }
+
+      return true;
+    });
+  };
+
+  const getPriceStats = (skus: SKU[]) => {
+    if (skus.length === 0) {
+      return { minPrice: 0, maxPrice: 0 };
+    }
+
+    const prices = skus.map((sku) => sku.price);
+    return {
+      minPrice: Math.min(...prices),
+      maxPrice: Math.max(...prices),
+    };
+  };
 
   if (query.category) {
     filteredProducts = filteredProducts.filter(
@@ -42,70 +86,60 @@ const getProducts = async (
     );
   }
 
-  if (query.size) {
-    filteredProducts = filteredProducts.filter((p) =>
-      p.skus.some((sku) => sku.size === query.size && sku.stock > 0),
-    );
-  }
+  let productsWithMatchingSkus = filteredProducts
+    .map((p) => ({
+      p,
+      matchingSkus: getMatchingSkus(p),
+    }))
+    .filter(({ matchingSkus }) => matchingSkus.length > 0);
 
-  if (query.color) {
-    filteredProducts = filteredProducts.filter((p) =>
-      p.skus.some((sku) => sku.color === query.color && sku.stock > 0),
-    );
-  }
+  const matchingSkuPrices = productsWithMatchingSkus.flatMap(
+    ({ matchingSkus }) => matchingSkus.map((sku) => sku.price),
+  );
+  const maxFilterPrice =
+    matchingSkuPrices.length > 0 ? Math.max(...matchingSkuPrices) : 0;
+  const minFilterPrice =
+    matchingSkuPrices.length > 0 ? Math.min(...matchingSkuPrices) : 0;
 
-  if (query.availability === "inStock") {
-    filteredProducts = filteredProducts.filter((p) =>
-      p.skus.some((sku) => sku.stock > 0),
-    );
-  } else if (query.availability === "outOfStock") {
-    filteredProducts = filteredProducts.filter((p) =>
-      p.skus.every((sku) => sku.stock === 0),
-    );
-  }
-
-  const maxFilterPrice = filteredProducts.length
-    ? Math.max(...filteredProducts.map((p) => p.basePrice))
-    : 0;
-  const minFilterPrice = filteredProducts.length
-    ? Math.min(...filteredProducts.map((p) => p.basePrice))
-    : 0;
-
-  if (query.priceRange) {
-    const [min, max] = query.priceRange.split("-").map(Number);
-    if (Number.isFinite(min)) {
-      filteredProducts = filteredProducts.filter((p) => p.basePrice >= min);
-    }
-    if (Number.isFinite(max)) {
-      filteredProducts = filteredProducts.filter((p) => p.basePrice <= max);
-    }
-  }
+  productsWithMatchingSkus = productsWithMatchingSkus
+    .map(({ p }) => ({
+      p,
+      matchingSkus: getMatchingSkus(p, { includePriceRange: true }),
+    }))
+    .filter(({ matchingSkus }) => matchingSkus.length > 0);
 
   if (query.sort) {
     switch (query.sort) {
       case "priceAsc":
-        filteredProducts = filteredProducts.sort(
-          (a, b) => a.basePrice - b.basePrice,
+        productsWithMatchingSkus = productsWithMatchingSkus.sort(
+          (a, b) =>
+            getPriceStats(a.matchingSkus).minPrice -
+            getPriceStats(b.matchingSkus).minPrice,
         );
         break;
       case "priceDesc":
-        filteredProducts = filteredProducts.sort(
-          (a, b) => b.basePrice - a.basePrice,
+        productsWithMatchingSkus = productsWithMatchingSkus.sort(
+          (a, b) =>
+            getPriceStats(b.matchingSkus).maxPrice -
+            getPriceStats(a.matchingSkus).maxPrice,
         );
         break;
       case "newest":
-        filteredProducts = filteredProducts.sort(
+        productsWithMatchingSkus = productsWithMatchingSkus.sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+            new Date(b.p.createdAt).getTime() -
+            new Date(a.p.createdAt).getTime(),
         );
         break;
       case "rating":
-        filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
+        productsWithMatchingSkus = productsWithMatchingSkus.sort(
+          (a, b) => b.p.rating - a.p.rating,
+        );
         break;
     }
   }
 
-  const total = filteredProducts.length;
+  const total = productsWithMatchingSkus.length;
   const perPage = Math.max(1, query.perPage ?? 12);
   const totalPages = Math.max(1, Math.ceil(total / perPage));
   const page = Math.min(Math.max(1, query.page ?? 1), totalPages);
@@ -114,7 +148,7 @@ const getProducts = async (
 
   await new Promise((resolve) => setTimeout(resolve, 100));
   return {
-    products: filteredProducts.slice(start, end),
+    products: productsWithMatchingSkus.slice(start, end).map(({ p }) => p),
     information: { total, maxFilterPrice, minFilterPrice },
   };
 };
