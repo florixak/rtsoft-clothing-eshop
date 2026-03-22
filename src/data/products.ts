@@ -65,12 +65,8 @@ const createSkus = (
           size.priceAdjustment +
           (color?.priceAdjustment ?? 0) +
           (material?.priceAdjustment ?? 0),
-        /*stock: Math.max(
-          2,
-          28 - sizeIndex * 4 - colorIndex * 2 - materialIndex * 2,
-        ),*/
         stock:
-          Math.random() < 0.2
+          (sizeIndex + colorIndex + materialIndex) % 5 === 0
             ? 0
             : Math.max(
                 2,
