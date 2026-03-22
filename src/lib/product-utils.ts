@@ -106,8 +106,9 @@ const getProducts = async (
   }
 
   const total = filteredProducts.length;
-  const page = Math.max(1, query.page ?? 1);
   const perPage = Math.max(1, query.perPage ?? 12);
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(Math.max(1, query.page ?? 1), totalPages);
   const start = (page - 1) * perPage;
   const end = start + perPage;
 
