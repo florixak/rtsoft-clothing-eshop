@@ -63,14 +63,14 @@ const createSkus = (
   );
 };
 
-export type SortOptions = "priceAsc" | "priceDesc" | "newest" | "rating";
-
-export const SORT_BY_OPTIONS: SortOptions[] = [
+export const SORT_BY_OPTIONS = [
   "priceAsc",
   "priceDesc",
   "newest",
   "rating",
 ] as const;
+
+export type SortOptions = (typeof SORT_BY_OPTIONS)[number];
 
 export const products: Product[] = [
   {
@@ -802,7 +802,7 @@ export const products: Product[] = [
     slug: { cs: "triko-longline", en: "longline-tee" },
     name: { cs: "Tričko longline", en: "Longline Tee" },
     description: {
-      cs: "Delší střih trička pro vrstvení. Jemný jemný materiál a moderní look.",
+      cs: "Delší střih trička pro vrstvení. Jemný materiál a moderní look.",
       en: "Longer cut tee for layering. Soft fabric and modern look.",
     },
     basePrice: 459,
