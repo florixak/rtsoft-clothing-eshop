@@ -10,10 +10,11 @@ import {
 import { useTheme } from "@/components/layout/theme-provider";
 import { ButtonGroup } from "../ui/button-group";
 import { useTranslation } from "react-i18next";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const ThemeSwitcher = () => {
   const { setTheme, theme } = useTheme();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
 
   return (
     <Select
@@ -54,7 +55,7 @@ const ThemeSwitcher = () => {
 
 const MobileThemeSwitcher = () => {
   const { setTheme, theme } = useTheme();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
 
   return (
     <div className="flex flex-row items-center justify-between">

@@ -4,9 +4,10 @@ import { Button } from "../ui/button";
 import { ButtonGroup } from "../ui/button-group";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { ChevronDownIcon, Languages } from "lucide-react";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const LanguageSwitcher = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const { currentLanguage, changeLanguage } = useLanguage();
 
   return (
@@ -32,7 +33,7 @@ const LanguageSwitcher = () => {
 };
 
 const MobileLanguageSwitcher = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const { changeLanguage, currentLanguage } = useLanguage();
 
   return (

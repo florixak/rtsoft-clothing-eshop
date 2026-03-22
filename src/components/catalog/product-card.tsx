@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 type ProductCardProps = {
   product: Product;
@@ -23,7 +24,7 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem } = useCartStore();
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
   const allColors = getAllColors(product);
   const inStockColorCodes = new Set(
@@ -213,7 +214,7 @@ const ColorBadge = ({
   isOutOfStock: boolean;
   onClick: () => void;
 }) => {
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   return (
@@ -246,7 +247,7 @@ const SizeBadge = ({
   isOutOfStock: boolean;
   onClick: () => void;
 }) => {
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   return (
