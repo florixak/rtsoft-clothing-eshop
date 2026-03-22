@@ -6,6 +6,7 @@
   "filters": {
     "all": "All",
     "title": "Filters",
+    "close": "Close filters",
     "categories": "Categories",
     "priceRange": "Price Range",
     "sortBy": "Sort by",

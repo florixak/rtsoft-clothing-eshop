@@ -8,6 +8,7 @@
   "filters": {
     "all": "Vše",
     "title": "Filtry",
+    "close": "Zavřít filtry",
     "categories": "Kategorie",
     "priceRange": "Cenové rozpětí",
     "sortBy": "Seřadit podle",
