@@ -38,8 +38,8 @@
     "outOfStock": "Out of Stock",
     "reviews": "({{count}} review)",
     "reviews_other": "({{count}} reviews)",
-    "colors": "Available colors",
-    "sizes": "Available sizes"
+    "colors": "Colors",
+    "sizes": "Sizes"
   },
   "pagination": {
     "title": "Page navigation",
