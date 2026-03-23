@@ -43,18 +43,18 @@ const createSkus = (
   productId: string,
   basePrice: number,
   sizes: SkuSizeOptionDef[],
-  variants?: {
-    colors?: SkuOptionDef[];
+  variants: {
+    colors: SkuOptionDef[];
   },
 ) => {
-  const colors = variants?.colors?.length ? variants.colors : [undefined];
+  const colors = variants.colors;
 
   return sizes.flatMap((size, sizeIndex) =>
     colors.map((color, colorIndex) => ({
-      id: `${productId}-sku-${size.code}-${color?.code ?? "na"}`,
+      id: `${productId}-sku-${size.code}-${color.code}`,
       size: size.code,
-      color: color?.code,
-      price: basePrice + size.priceAdjustment + (color?.priceAdjustment ?? 0),
+      color: color.code,
+      price: basePrice + size.priceAdjustment + (color.priceAdjustment ?? 0),
       stock:
         (sizeIndex + colorIndex) % 5 === 0
           ? 0
@@ -123,6 +123,7 @@ export const products: Product[] = [
         { code: "xl", priceAdjustment: 40 },
         { code: "xxl", priceAdjustment: 70 },
       ],
+
       {
         colors: [
           {
@@ -234,12 +235,40 @@ export const products: Product[] = [
         { code: "m" },
         { code: "l" },
       ]),
+      colors: createTypeOptions("prod-3", [
+        {
+          code: "grey",
+          label: { cs: "Šedé", en: "Grey" },
+        },
+        {
+          code: "navy",
+          label: { cs: "Námořnické", en: "Navy" },
+        },
+      ]),
     },
-    skus: createSkus("prod-3", 1199, [
-      { code: "s", priceAdjustment: -50 },
-      { code: "m", priceAdjustment: 0 },
-      { code: "l", priceAdjustment: 100 },
-    ]),
+    skus: createSkus(
+      "prod-3",
+      1199,
+      [
+        { code: "s", priceAdjustment: -50 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 100 },
+      ],
+      {
+        colors: [
+          {
+            code: "grey",
+            label: { cs: "Šedé", en: "Grey" },
+            priceAdjustment: 0,
+          },
+          {
+            code: "navy",
+            label: { cs: "Námořnické", en: "Navy" },
+            priceAdjustment: 20,
+          },
+        ],
+      },
+    ),
     createdAt: "2026-01-20T08:00:00.000Z",
     rating: 4.2,
     reviewsCount: 45,
@@ -431,6 +460,8 @@ export const products: Product[] = [
     images: [
       "https://placehold.co/600x800?text=Puffer+Jacket+Black+Front",
       "https://placehold.co/600x800?text=Puffer+Jacket+Black+Side",
+      "https://placehold.co/600x800?text=Puffer+Jacket+Navy+Front",
+      "https://placehold.co/600x800?text=Puffer+Jacket+Navy+Side",
     ],
     options: {
       sizes: createSizeOptions("prod-7", [
@@ -440,14 +471,42 @@ export const products: Product[] = [
         { code: "l" },
         { code: "xl" },
       ]),
+      colors: createTypeOptions("prod-7", [
+        {
+          code: "black",
+          label: { cs: "Černá", en: "Black" },
+        },
+        {
+          code: "navy",
+          label: { cs: "Námořnická", en: "Navy" },
+        },
+      ]),
     },
-    skus: createSkus("prod-7", 2799, [
-      { code: "xs", priceAdjustment: -50 },
-      { code: "s", priceAdjustment: -20 },
-      { code: "m", priceAdjustment: 0 },
-      { code: "l", priceAdjustment: 40 },
-      { code: "xl", priceAdjustment: 80 },
-    ]),
+    skus: createSkus(
+      "prod-7",
+      2799,
+      [
+        { code: "xs", priceAdjustment: -50 },
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 40 },
+        { code: "xl", priceAdjustment: 80 },
+      ],
+      {
+        colors: [
+          {
+            code: "black",
+            label: { cs: "Černá", en: "Black" },
+            priceAdjustment: 0,
+          },
+          {
+            code: "navy",
+            label: { cs: "Námořnická", en: "Navy" },
+            priceAdjustment: 100,
+          },
+        ],
+      },
+    ),
     createdAt: "2026-02-15T10:00:00.000Z",
     rating: 4.5,
     reviewsCount: 60,
