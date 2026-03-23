@@ -6,7 +6,7 @@ import { findProductById, findSKU } from "@/lib/product-utils";
 type AddItemInput = {
   productId: string;
   size: SizeCode;
-  color?: TypeCode;
+  color: TypeCode;
   quantity?: number;
 };
 

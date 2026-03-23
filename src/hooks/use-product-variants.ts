@@ -73,7 +73,7 @@ const useProductVariants = (product: Product) => {
   const images = getImageBySelectedColor(product, selectedColor);
 
   const handleAddToCart = () => {
-    if (!selectedInStockSku || !selectedSize) return;
+    if (!selectedInStockSku || !selectedSize || !selectedColor) return;
     addItem({
       productId: product.id,
       size: selectedSize,
