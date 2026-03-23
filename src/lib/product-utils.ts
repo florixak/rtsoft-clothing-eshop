@@ -153,9 +153,14 @@ const getProducts = async (
   };
 };
 
-const getProductBySlug = async (slug: string): Promise<Product | undefined> => {
+const getProductBySlug = async (slug: string): Promise<Product> => {
   await new Promise((resolve) => setTimeout(resolve, 100));
-  return products.find((p) => p.slug.en === slug || p.slug.cs === slug);
+  const product = findProductBySlug(slug);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  return product;
 };
 
 const findProductById = (productId: string) => {
