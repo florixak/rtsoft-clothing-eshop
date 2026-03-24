@@ -5,6 +5,7 @@ import { findCategoryById } from "./category-utils";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
 import { formatPrice, isDefined } from "./utils";
+import { MAX_SEEN_PRODUCTS, SEEN_PRODUCTS_STORAGE_KEY } from "@/constants";
 
 export type Query = {
   category?: Category["id"];
@@ -172,6 +173,33 @@ const findProductBySlug = (slug: string) => {
   return products.find((p) => p.slug.en === slug || p.slug.cs === slug);
 };
 
+const setLastSeenProduct = (productId: string) => {
+  const seenProducts: string[] = JSON.parse(
+    localStorage.getItem("lastSeenProducts") ?? "[]",
+  ) as string[];
+
+  const updatedSeenProducts = [
+    productId,
+    ...seenProducts.filter((id) => id !== productId),
+  ].slice(0, MAX_SEEN_PRODUCTS + 1);
+
+  localStorage.setItem(
+    SEEN_PRODUCTS_STORAGE_KEY,
+    JSON.stringify(updatedSeenProducts),
+  );
+};
+
+const getLastSeenProducts = (count: number, excludeId?: string): Product[] => {
+  const seenProducts = JSON.parse(
+    localStorage.getItem(SEEN_PRODUCTS_STORAGE_KEY) ?? "[]",
+  ) as string[];
+  return seenProducts
+    .map((id) => findProductById(id))
+    .filter(isDefined)
+    .filter((p) => p.id !== excludeId)
+    .slice(0, count);
+};
+
 const findSKU = (
   skus: SKU[],
   size: SizeCode,
@@ -333,4 +361,6 @@ export {
   getAvailableSizes,
   getImageBySelectedColor,
   getProductBySlug,
+  setLastSeenProduct,
+  getLastSeenProducts,
 };
