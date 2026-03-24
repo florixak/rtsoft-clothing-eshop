@@ -173,10 +173,24 @@ const findProductBySlug = (slug: string) => {
   return products.find((p) => p.slug.en === slug || p.slug.cs === slug);
 };
 
+const readSeenProducts = (): string[] => {
+  if (typeof window === "undefined") {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(
+      localStorage.getItem(SEEN_PRODUCTS_STORAGE_KEY) ?? "[]",
+    );
+    return Array.isArray(parsed)
+      ? parsed.filter((id): id is string => typeof id === "string")
+      : [];
+  } catch {
+    return [];
+  }
+};
+
 const setLastSeenProduct = (productId: string) => {
-  const seenProducts: string[] = JSON.parse(
-    localStorage.getItem(SEEN_PRODUCTS_STORAGE_KEY) ?? "[]",
-  ) as string[];
+  const seenProducts = readSeenProducts();
 
   const updatedSeenProducts = [
     productId,
@@ -190,9 +204,7 @@ const setLastSeenProduct = (productId: string) => {
 };
 
 const getLastSeenProducts = (count: number, excludeId?: string): Product[] => {
-  const seenProducts = JSON.parse(
-    localStorage.getItem(SEEN_PRODUCTS_STORAGE_KEY) ?? "[]",
-  ) as string[];
+  const seenProducts = readSeenProducts();
   return seenProducts
     .map((id) => findProductById(id))
     .filter(isDefined)
