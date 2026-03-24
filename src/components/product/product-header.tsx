@@ -18,6 +18,7 @@ import {
 } from "../ui/breadcrumb";
 import ProductActions from "./product-actions";
 import ProductImage from "./product-image";
+import { Link } from "@tanstack/react-router";
 
 type ProductHeaderProps = {
   product: Product;
@@ -45,18 +46,27 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
       <Breadcrumb className="uppercase text-muted-foreground">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink className="text-xs" href="/">
-              {t("breadcrumbs.home")}
-            </BreadcrumbLink>
+            <BreadcrumbLink
+              render={
+                <Link to="/{-$locale}" className="text-xs">
+                  {t("breadcrumbs.home")}
+                </Link>
+              }
+            />
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink
-              className="text-xs"
-              href={`/?category=${product?.categoryId}`}
-            >
-              {category}
-            </BreadcrumbLink>
+              render={
+                <Link
+                  to="/{-$locale}"
+                  search={(old) => ({ ...old, category: product?.categoryId })}
+                  className="text-xs"
+                >
+                  {category}
+                </Link>
+              }
+            />
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
