@@ -112,6 +112,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
     skus: createSkus(
       "prod-1",
       399,
@@ -184,6 +189,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
     skus: createSkus(
       "prod-2",
       549,
@@ -246,6 +256,15 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: {
+        cs: "80% bavlna, 20% polyester",
+        en: "80% cotton, 20% polyester",
+      },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
+
     skus: createSkus(
       "prod-3",
       1199,
@@ -306,6 +325,12 @@ export const products: Product[] = [
         { code: "l" },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
+    },
+
     skus: createSkus(
       "prod-4",
       1499,
@@ -363,6 +388,12 @@ export const products: Product[] = [
         },
       ],
     },
+    specifications: {
+      material: { cs: "98% bavlna, 2% elastan", en: "98% cotton, 2% elastane" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Číně", en: "Made in China" },
+    },
+
     skus: createSkus(
       "prod-5",
       1299,
@@ -417,6 +448,11 @@ export const products: Product[] = [
           label: { cs: "Khaki", en: "Khaki" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Číně", en: "Made in China" },
     },
     skus: createSkus(
       "prod-6",
@@ -482,6 +518,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% polyester", en: "100% polyester" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
     skus: createSkus(
       "prod-7",
       2799,
@@ -545,6 +586,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% len", en: "100% linen" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Itálii", en: "Made in Italy" },
+    },
     skus: createSkus(
       "prod-8",
       799,
@@ -601,6 +647,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% viskóza", en: "100% viscose" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Indii", en: "Made in India" },
+    },
     skus: createSkus(
       "prod-9",
       999,
@@ -656,6 +707,11 @@ export const products: Product[] = [
           label: { cs: "Tmavě modrá", en: "Navy" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-10",
@@ -717,6 +773,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
+    },
     skus: createSkus(
       "prod-11",
       499,
@@ -769,6 +830,11 @@ export const products: Product[] = [
           label: { cs: "Olivová", en: "Olive" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-12",
@@ -828,6 +894,11 @@ export const products: Product[] = [
           label: { cs: "Bílá", en: "White" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-13",
@@ -889,6 +960,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
+    },
     skus: createSkus(
       "prod-14",
       459,
@@ -944,6 +1020,11 @@ export const products: Product[] = [
           label: { cs: "Olivová", en: "Olive" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus("prod-15", 699, [{ code: "m", priceAdjustment: 0 }], {
       colors: [

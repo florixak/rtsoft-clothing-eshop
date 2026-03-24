@@ -5,6 +5,8 @@ export type LocalizedString = {
 
 export type SizeCode = "xs" | "s" | "m" | "l" | "xl" | "xxl";
 export type TypeCode = string;
+export type SpecificationKey = "material" | "care" | "origin";
+export type SpecificationObject = Record<SpecificationKey, LocalizedString>;
 
 export type SelectionSnapshot = {
   size: SizeCode;
@@ -34,6 +36,7 @@ export type Product = {
   categoryId: string;
   images: string[];
   options: ProductOptions;
+  specifications: SpecificationObject;
   skus: SKU[];
   createdAt: string;
   rating: number;
