@@ -22,7 +22,7 @@ const LastSeenProducts = ({ product }: LastSeenProductsProps) => {
         {lastSeenProducts.length > 0 ? (
           lastSeenProducts.map((p) => <ProductCard key={p.id} product={p} />)
         ) : (
-          <p className="text-muted-foreground">{t("lastSeen.noProducts")}</p>
+          <p className="text-muted-foreground">{t("lastSeen.empty")}</p>
         )}
       </div>
     </div>
