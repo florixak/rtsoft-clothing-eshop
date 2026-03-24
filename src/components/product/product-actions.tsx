@@ -139,7 +139,12 @@ const ProductActions = ({
       </div>
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <ButtonGroup>
-          <Button variant="outline" onClick={handleDecrement} className="py-4">
+          <Button
+            variant="outline"
+            onClick={handleDecrement}
+            className="py-4"
+            aria-label={t("quantity.decrease")}
+          >
             <Minus size={16} />
           </Button>
           <Input
@@ -148,8 +153,14 @@ const ProductActions = ({
             min="1"
             value={toAddQuantity}
             onChange={handleInputChange}
+            aria-label={t("quantity.label")}
           />
-          <Button variant="outline" onClick={handleIncrement} className="py-4">
+          <Button
+            variant="outline"
+            onClick={handleIncrement}
+            className="py-4"
+            aria-label={t("quantity.increase")}
+          >
             <Plus size={16} />
           </Button>
         </ButtonGroup>
