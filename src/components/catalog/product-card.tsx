@@ -11,6 +11,7 @@ import { ShoppingBasket, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import { getImageBySelectedColor } from "@/lib/product-utils";
 
 type ProductCardProps = {
   product: Product;
@@ -24,8 +25,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const {
     selectedSize,
     selectedColor,
-
-    images,
     priceWithColor,
     isOutOfStock,
     allColors,
@@ -36,6 +35,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     handleSizeChange,
     inStockSizeCodes,
   } = useProductVariants(product);
+
+  const images = getImageBySelectedColor(product, selectedColor);
 
   return (
     <Card
@@ -141,7 +142,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             size="default"
             className="cursor-pointer"
             disabled={isOutOfStock}
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart(1)}
           >
             <ShoppingBasket size={16} />
             {isOutOfStock
