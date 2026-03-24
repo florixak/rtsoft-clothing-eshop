@@ -9,6 +9,7 @@ type ProductSpecificationsProps = {
 const ProductSpecifications = ({ product }: ProductSpecificationsProps) => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.product);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { specifications } = product;
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
@@ -20,18 +21,24 @@ const ProductSpecifications = ({ product }: ProductSpecificationsProps) => {
         </p>
       </div>
       <table className="w-full text-base">
-        <tbody className="space-y-4">
+        <tbody>
           <tr>
-            <td className="text-muted-foreground">Material</td>
-            <td>{product?.specifications.material[locale]}</td>
+            <td className="text-muted-foreground py-2">
+              {t("specifications.material")}
+            </td>
+            <td>{specifications.material[locale]}</td>
           </tr>
           <tr>
-            <td className="text-muted-foreground">Care</td>
-            <td>{product?.specifications.care[locale]}</td>
+            <td className="text-muted-foreground py-2">
+              {t("specifications.care")}
+            </td>
+            <td>{specifications.care[locale]}</td>
           </tr>
           <tr>
-            <td className="text-muted-foreground">Origin</td>
-            <td>{product?.specifications.origin[locale]}</td>
+            <td className="text-muted-foreground py-2">
+              {t("specifications.origin")}
+            </td>
+            <td>{specifications.origin[locale]}</td>
           </tr>
         </tbody>
       </table>
