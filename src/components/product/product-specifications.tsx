@@ -10,8 +10,8 @@ const ProductSpecifications = ({ product }: ProductSpecificationsProps) => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.product);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   return (
-    <div>
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
         <h2 className="text-xl font-bold uppercase">
           {t("specifications.title")}
         </h2>
@@ -19,6 +19,22 @@ const ProductSpecifications = ({ product }: ProductSpecificationsProps) => {
           {t("specifications.subtitle", { name: product?.name[locale] })}
         </p>
       </div>
+      <table className="w-full text-base">
+        <tbody className="space-y-4">
+          <tr>
+            <td className="text-muted-foreground">Material</td>
+            <td>{product?.specifications.material[locale]}</td>
+          </tr>
+          <tr>
+            <td className="text-muted-foreground">Care</td>
+            <td>{product?.specifications.care[locale]}</td>
+          </tr>
+          <tr>
+            <td className="text-muted-foreground">Origin</td>
+            <td>{product?.specifications.origin[locale]}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
