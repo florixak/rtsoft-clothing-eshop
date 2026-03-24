@@ -814,7 +814,7 @@ export const products: Product[] = [
       en: "Warm knitted beanie for cold days. Soft wool and a comfortable stretch hem.",
     },
     basePrice: 249,
-    categoryId: "cat-4",
+    categoryId: "cat-6",
     images: [
       "https://placehold.co/600x800?text=Wool+Beanie+Grey+Front",
       "https://placehold.co/600x800?text=Wool+Beanie+Grey+Back",
@@ -871,7 +871,7 @@ export const products: Product[] = [
       en: "Low sneakers with cushioned insole. Versatile design for everyday wear.",
     },
     basePrice: 1799,
-    categoryId: "cat-3",
+    categoryId: "cat-5",
     images: [
       "https://placehold.co/600x800?text=Beige+Sneakers+Side",
       "https://placehold.co/600x800?text=Beige+Sneakers+Side+Back",
