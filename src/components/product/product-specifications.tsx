@@ -23,21 +23,30 @@ const ProductSpecifications = ({ product }: ProductSpecificationsProps) => {
       <table className="w-full text-base">
         <tbody>
           <tr>
-            <td className="text-muted-foreground py-2">
+            <th
+              scope="row"
+              className="text-muted-foreground py-2 text-left font-normal"
+            >
               {t("specifications.material")}
-            </td>
+            </th>
             <td>{specifications.material[locale]}</td>
           </tr>
           <tr>
-            <td className="text-muted-foreground py-2">
+            <th
+              scope="row"
+              className="text-muted-foreground py-2 text-left font-normal"
+            >
               {t("specifications.care")}
-            </td>
+            </th>
             <td>{specifications.care[locale]}</td>
           </tr>
           <tr>
-            <td className="text-muted-foreground py-2">
+            <th
+              scope="row"
+              className="text-muted-foreground py-2 text-left font-normal"
+            >
               {t("specifications.origin")}
-            </td>
+            </th>
             <td>{specifications.origin[locale]}</td>
           </tr>
         </tbody>
