@@ -6,6 +6,8 @@ import { Separator } from "../ui/separator";
 import LastSeenProducts from "./last-seen-products";
 import ProductHeader from "./product-header";
 import ProductSpecifications from "./product-specifications";
+import { useEffect } from "react";
+import { setLastSeenProduct } from "@/lib/product-utils";
 
 const Product = () => {
   const { productSlug } = Route.useParams();
@@ -13,8 +15,14 @@ const Product = () => {
     createProductQueryOptions(productSlug),
   );
 
+  useEffect(() => {
+    if (product) {
+      setLastSeenProduct(product.id);
+    }
+  }, [product]);
+
   return (
-    <section className="max-w-5xl mx-auto flex flex-col gap-6 py-8">
+    <section className="max-w-5xl w-full mx-auto flex flex-col gap-6 py-8">
       <ProductHeader product={product} />
       <Separator className="my-8" />
       <ProductSpecifications product={product} />
