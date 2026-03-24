@@ -175,7 +175,7 @@ const findProductBySlug = (slug: string) => {
 
 const setLastSeenProduct = (productId: string) => {
   const seenProducts: string[] = JSON.parse(
-    localStorage.getItem("lastSeenProducts") ?? "[]",
+    localStorage.getItem(SEEN_PRODUCTS_STORAGE_KEY) ?? "[]",
   ) as string[];
 
   const updatedSeenProducts = [
