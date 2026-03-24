@@ -145,10 +145,11 @@ const getProducts = async (
   const page = Math.min(Math.max(1, query.page ?? 1), totalPages);
   const start = (page - 1) * perPage;
   const end = start + perPage;
+  const pagedProducts = productsWithMatchingSkus.slice(start, end);
 
   await new Promise((resolve) => setTimeout(resolve, 100));
   return {
-    products: productsWithMatchingSkus.slice(start, end).map(({ p }) => p),
+    products: pagedProducts.map(({ p }) => p),
     information: { total, maxFilterPrice, minFilterPrice },
   };
 };
