@@ -43,18 +43,18 @@ const createSkus = (
   productId: string,
   basePrice: number,
   sizes: SkuSizeOptionDef[],
-  variants?: {
-    colors?: SkuOptionDef[];
+  variants: {
+    colors: SkuOptionDef[];
   },
 ) => {
-  const colors = variants?.colors?.length ? variants.colors : [undefined];
+  const colors = variants.colors;
 
   return sizes.flatMap((size, sizeIndex) =>
     colors.map((color, colorIndex) => ({
-      id: `${productId}-sku-${size.code}-${color?.code ?? "na"}`,
+      id: `${productId}-sku-${size.code}-${color.code}`,
       size: size.code,
-      color: color?.code,
-      price: basePrice + size.priceAdjustment + (color?.priceAdjustment ?? 0),
+      color: color.code,
+      price: basePrice + size.priceAdjustment + (color.priceAdjustment ?? 0),
       stock:
         (sizeIndex + colorIndex) % 5 === 0
           ? 0
@@ -63,14 +63,14 @@ const createSkus = (
   );
 };
 
-export type SortOptions = "priceAsc" | "priceDesc" | "newest" | "rating";
-
-export const SORT_BY_OPTIONS: SortOptions[] = [
+export const SORT_BY_OPTIONS = [
   "priceAsc",
   "priceDesc",
   "newest",
   "rating",
 ] as const;
+
+export type SortOptions = (typeof SORT_BY_OPTIONS)[number];
 
 export const products: Product[] = [
   {
@@ -112,6 +112,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
     skus: createSkus(
       "prod-1",
       399,
@@ -123,6 +128,7 @@ export const products: Product[] = [
         { code: "xl", priceAdjustment: 40 },
         { code: "xxl", priceAdjustment: 70 },
       ],
+
       {
         colors: [
           {
@@ -183,6 +189,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
     skus: createSkus(
       "prod-2",
       549,
@@ -234,12 +245,49 @@ export const products: Product[] = [
         { code: "m" },
         { code: "l" },
       ]),
+      colors: createTypeOptions("prod-3", [
+        {
+          code: "grey",
+          label: { cs: "Šedé", en: "Grey" },
+        },
+        {
+          code: "navy",
+          label: { cs: "Námořnické", en: "Navy" },
+        },
+      ]),
     },
-    skus: createSkus("prod-3", 1199, [
-      { code: "s", priceAdjustment: -50 },
-      { code: "m", priceAdjustment: 0 },
-      { code: "l", priceAdjustment: 100 },
-    ]),
+    specifications: {
+      material: {
+        cs: "80% bavlna, 20% polyester",
+        en: "80% cotton, 20% polyester",
+      },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
+
+    skus: createSkus(
+      "prod-3",
+      1199,
+      [
+        { code: "s", priceAdjustment: -50 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 100 },
+      ],
+      {
+        colors: [
+          {
+            code: "grey",
+            label: { cs: "Šedé", en: "Grey" },
+            priceAdjustment: 0,
+          },
+          {
+            code: "navy",
+            label: { cs: "Námořnické", en: "Navy" },
+            priceAdjustment: 20,
+          },
+        ],
+      },
+    ),
     createdAt: "2026-01-20T08:00:00.000Z",
     rating: 4.2,
     reviewsCount: 45,
@@ -277,6 +325,12 @@ export const products: Product[] = [
         { code: "l" },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
+    },
+
     skus: createSkus(
       "prod-4",
       1499,
@@ -334,6 +388,12 @@ export const products: Product[] = [
         },
       ],
     },
+    specifications: {
+      material: { cs: "98% bavlna, 2% elastan", en: "98% cotton, 2% elastane" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Číně", en: "Made in China" },
+    },
+
     skus: createSkus(
       "prod-5",
       1299,
@@ -389,6 +449,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Číně", en: "Made in China" },
+    },
     skus: createSkus(
       "prod-6",
       999,
@@ -431,6 +496,8 @@ export const products: Product[] = [
     images: [
       "https://placehold.co/600x800?text=Puffer+Jacket+Black+Front",
       "https://placehold.co/600x800?text=Puffer+Jacket+Black+Side",
+      "https://placehold.co/600x800?text=Puffer+Jacket+Navy+Front",
+      "https://placehold.co/600x800?text=Puffer+Jacket+Navy+Side",
     ],
     options: {
       sizes: createSizeOptions("prod-7", [
@@ -440,14 +507,47 @@ export const products: Product[] = [
         { code: "l" },
         { code: "xl" },
       ]),
+      colors: createTypeOptions("prod-7", [
+        {
+          code: "black",
+          label: { cs: "Černá", en: "Black" },
+        },
+        {
+          code: "navy",
+          label: { cs: "Námořnická", en: "Navy" },
+        },
+      ]),
     },
-    skus: createSkus("prod-7", 2799, [
-      { code: "xs", priceAdjustment: -50 },
-      { code: "s", priceAdjustment: -20 },
-      { code: "m", priceAdjustment: 0 },
-      { code: "l", priceAdjustment: 40 },
-      { code: "xl", priceAdjustment: 80 },
-    ]),
+    specifications: {
+      material: { cs: "100% polyester", en: "100% polyester" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Bangladéši", en: "Made in Bangladesh" },
+    },
+    skus: createSkus(
+      "prod-7",
+      2799,
+      [
+        { code: "xs", priceAdjustment: -50 },
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 40 },
+        { code: "xl", priceAdjustment: 80 },
+      ],
+      {
+        colors: [
+          {
+            code: "black",
+            label: { cs: "Černá", en: "Black" },
+            priceAdjustment: 0,
+          },
+          {
+            code: "navy",
+            label: { cs: "Námořnická", en: "Navy" },
+            priceAdjustment: 100,
+          },
+        ],
+      },
+    ),
     createdAt: "2026-02-15T10:00:00.000Z",
     rating: 4.5,
     reviewsCount: 60,
@@ -485,6 +585,11 @@ export const products: Product[] = [
           label: { cs: "Bílá", en: "White" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% len", en: "100% linen" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Itálii", en: "Made in Italy" },
     },
     skus: createSkus(
       "prod-8",
@@ -542,6 +647,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% viskóza", en: "100% viscose" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno v Indii", en: "Made in India" },
+    },
     skus: createSkus(
       "prod-9",
       999,
@@ -597,6 +707,11 @@ export const products: Product[] = [
           label: { cs: "Tmavě modrá", en: "Navy" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-10",
@@ -658,6 +773,11 @@ export const products: Product[] = [
         },
       ]),
     },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
+    },
     skus: createSkus(
       "prod-11",
       499,
@@ -694,7 +814,7 @@ export const products: Product[] = [
       en: "Warm knitted beanie for cold days. Soft wool and a comfortable stretch hem.",
     },
     basePrice: 249,
-    categoryId: "cat-4",
+    categoryId: "cat-6",
     images: [
       "https://placehold.co/600x800?text=Wool+Beanie+Grey+Front",
       "https://placehold.co/600x800?text=Wool+Beanie+Grey+Back",
@@ -710,6 +830,11 @@ export const products: Product[] = [
           label: { cs: "Olivová", en: "Olive" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-12",
@@ -746,7 +871,7 @@ export const products: Product[] = [
       en: "Low sneakers with cushioned insole. Versatile design for everyday wear.",
     },
     basePrice: 1799,
-    categoryId: "cat-3",
+    categoryId: "cat-5",
     images: [
       "https://placehold.co/600x800?text=Beige+Sneakers+Side",
       "https://placehold.co/600x800?text=Beige+Sneakers+Side+Back",
@@ -769,6 +894,11 @@ export const products: Product[] = [
           label: { cs: "Bílá", en: "White" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-13",
@@ -802,7 +932,7 @@ export const products: Product[] = [
     slug: { cs: "triko-longline", en: "longline-tee" },
     name: { cs: "Tričko longline", en: "Longline Tee" },
     description: {
-      cs: "Delší střih trička pro vrstvení. Jemný jemný materiál a moderní look.",
+      cs: "Delší střih trička pro vrstvení. Jemný materiál a moderní look.",
       en: "Longer cut tee for layering. Soft fabric and modern look.",
     },
     basePrice: 459,
@@ -829,6 +959,11 @@ export const products: Product[] = [
           label: { cs: "Olivová", en: "Olive" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus(
       "prod-14",
@@ -885,6 +1020,11 @@ export const products: Product[] = [
           label: { cs: "Olivová", en: "Olive" },
         },
       ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální teplota", en: "Regular temperature" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
     },
     skus: createSkus("prod-15", 699, [{ code: "m", priceAdjustment: 0 }], {
       colors: [

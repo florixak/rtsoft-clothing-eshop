@@ -5,8 +5,9 @@ import { findCategoryById } from "./category-utils";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
 import { formatPrice, isDefined } from "./utils";
+import { MAX_SEEN_PRODUCTS, SEEN_PRODUCTS_STORAGE_KEY } from "@/constants";
 
-type Query = {
+export type Query = {
   category?: Category["id"];
   priceRange?: string;
   sort?: SortOptions;
@@ -145,16 +146,70 @@ const getProducts = async (
   const page = Math.min(Math.max(1, query.page ?? 1), totalPages);
   const start = (page - 1) * perPage;
   const end = start + perPage;
+  const pagedProducts = productsWithMatchingSkus.slice(start, end);
 
   await new Promise((resolve) => setTimeout(resolve, 100));
   return {
-    products: productsWithMatchingSkus.slice(start, end).map(({ p }) => p),
+    products: pagedProducts.map(({ p }) => p),
     information: { total, maxFilterPrice, minFilterPrice },
   };
 };
 
+const getProductBySlug = async (slug: string): Promise<Product> => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  const product = findProductBySlug(slug);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  return product;
+};
+
 const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
+};
+
+const findProductBySlug = (slug: string) => {
+  return products.find((p) => p.slug.en === slug || p.slug.cs === slug);
+};
+
+const readSeenProducts = (): string[] => {
+  if (typeof window === "undefined") {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(
+      localStorage.getItem(SEEN_PRODUCTS_STORAGE_KEY) ?? "[]",
+    );
+    return Array.isArray(parsed)
+      ? parsed.filter((id): id is string => typeof id === "string")
+      : [];
+  } catch {
+    return [];
+  }
+};
+
+const setLastSeenProduct = (productId: string) => {
+  const seenProducts = readSeenProducts();
+
+  const updatedSeenProducts = [
+    productId,
+    ...seenProducts.filter((id) => id !== productId),
+  ].slice(0, MAX_SEEN_PRODUCTS + 1);
+
+  localStorage.setItem(
+    SEEN_PRODUCTS_STORAGE_KEY,
+    JSON.stringify(updatedSeenProducts),
+  );
+};
+
+const getLastSeenProducts = (count: number, excludeId?: string): Product[] => {
+  const seenProducts = readSeenProducts();
+  return seenProducts
+    .map((id) => findProductById(id))
+    .filter(isDefined)
+    .filter((p) => p.id !== excludeId)
+    .slice(0, count);
 };
 
 const findSKU = (
@@ -307,6 +362,7 @@ const getImageBySelectedColor = (
 
 export {
   findProductById,
+  findProductBySlug,
   findSKU,
   getAppliedFiltersLabel,
   getProducts,
@@ -316,4 +372,7 @@ export {
   getAllSizes,
   getAvailableSizes,
   getImageBySelectedColor,
+  getProductBySlug,
+  setLastSeenProduct,
+  getLastSeenProducts,
 };

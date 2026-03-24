@@ -7,9 +7,10 @@ import { ThemeSwitcher } from "./theme-switcher";
 import { LanguageSwitcher } from "./language-switcher";
 import { useCartStore } from "@/stores/cart-store";
 import HeaderSearch from "./header-search";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const Header = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const { itemsCount } = useCartStore();
 
   return (

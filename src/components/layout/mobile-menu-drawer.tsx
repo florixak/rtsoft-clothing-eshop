@@ -22,10 +22,11 @@ import { MobileLanguageSwitcher } from "./language-switcher";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useCartStore } from "@/stores/cart-store";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const MobileMenuDrawer = () => {
   const [open, setOpen] = useState(false);
-  const { t } = useTranslation("common");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const { itemsCount } = useCartStore();
 
   const closeDrawer = () => {

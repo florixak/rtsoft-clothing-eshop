@@ -11,9 +11,10 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import CatalogFilter from "./catalog-filter";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const AppliedFilters = () => {
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const navigate = useNavigate({ from: "/{-$locale}/" });
   const search = useSearch({ from: "/{-$locale}/" });
 

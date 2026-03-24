@@ -5,10 +5,12 @@ export type LocalizedString = {
 
 export type SizeCode = "xs" | "s" | "m" | "l" | "xl" | "xxl";
 export type TypeCode = string;
+export type SpecificationKey = "material" | "care" | "origin";
+export type SpecificationObject = Record<SpecificationKey, LocalizedString>;
 
 export type SelectionSnapshot = {
   size: SizeCode;
-  color?: TypeCode;
+  color: TypeCode;
 };
 
 export type Category = {
@@ -20,7 +22,7 @@ export type Category = {
 export type SKU = {
   id: string;
   size: SizeCode;
-  color?: TypeCode;
+  color: TypeCode;
   price: number;
   stock: number;
 };
@@ -34,6 +36,7 @@ export type Product = {
   categoryId: string;
   images: string[];
   options: ProductOptions;
+  specifications: SpecificationObject;
   skus: SKU[];
   createdAt: string;
   rating: number;
@@ -48,7 +51,7 @@ export type ProductOption<TCode extends string = string> = {
 
 export type ProductOptions = {
   sizes: ProductOption<SizeCode>[];
-  colors?: ProductOption<TypeCode>[];
+  colors: ProductOption<TypeCode>[];
 };
 
 export type Cart = {

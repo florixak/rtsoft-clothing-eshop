@@ -41,8 +41,8 @@
     "reviews": "({{count}} recenze)",
     "reviews_few": "({{count}} recenze)",
     "reviews_other": "({{count}} recenzí)",
-    "colors": "Dostupné barvy",
-    "sizes": "Dostupné velikosti"
+    "colors": "Barvy",
+    "sizes": "Velikosti"
   },
   "pagination": {
     "title": "Navigace stránek",

@@ -1,14 +1,23 @@
+import Product from "@/components/product/product";
+import {
+  createCategoryQueryOptions,
+  createProductQueryOptions,
+} from "@/hooks/query-options";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   component: RouteComponent,
+  loader: async ({ context, params }) => {
+    const { productSlug } = params;
+    const { categoryId } = await context.queryClient.ensureQueryData(
+      createProductQueryOptions(productSlug),
+    );
+    await context.queryClient.ensureQueryData(
+      createCategoryQueryOptions(categoryId),
+    );
+  },
 });
 
 function RouteComponent() {
-  const { locale, productSlug } = Route.useParams();
-  return (
-    <div>
-      Hello "/{locale ?? "cs"}/product/{productSlug}"!
-    </div>
-  );
+  return <Product />;
 }

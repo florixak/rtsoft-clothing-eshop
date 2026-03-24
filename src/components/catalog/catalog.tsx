@@ -1,6 +1,6 @@
-import { getProducts } from "@/lib/product-utils";
+import { createProductsQueryOptions } from "@/hooks/query-options";
 import useDebounce from "@/hooks/use-debounce";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import Navigation from "../layout/navigation";
 import CatalogHeader from "./catalog-header";
@@ -8,7 +8,7 @@ import ProductCard from "./product-card";
 
 const Catalog = () => {
   const search = useSearch({ from: "/{-$locale}/" });
-  const { debouncedValue: debouncedSearch } = useDebounce({
+  const { debouncedValue: debouncedSearch } = useDebounce<typeof search>({
     value: search,
     delay: 750,
   });
@@ -21,10 +21,7 @@ const Catalog = () => {
       products: [],
       information: { total: 0, maxFilterPrice: 0, minFilterPrice: 0 },
     },
-  } = useQuery({
-    queryKey: ["products", debouncedSearch],
-    queryFn: () => getProducts(debouncedSearch),
-  });
+  } = useSuspenseQuery(createProductsQueryOptions(debouncedSearch));
 
   const totalPages = Math.max(1, Math.ceil((information.total ?? 0) / perPage));
   const safePage = Math.min(Math.max(page, 1), totalPages);

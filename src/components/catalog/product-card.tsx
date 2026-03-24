@@ -2,83 +2,41 @@ import {
   MAX_COLORS_TO_SHOW_PER_CARD,
   MAX_SIZES_TO_SHOW_PER_CARD,
 } from "@/constants";
-import {
-  getAllColors,
-  getAllSizes,
-  getImageBySelectedColor,
-} from "@/lib/product-utils";
+import useProductVariants from "@/hooks/use-product-variants";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
-import { useCartStore } from "@/stores/cart-store";
 import type { Product, TypeCode } from "@/types";
 import { Link } from "@tanstack/react-router";
 import { ShoppingBasket, Star } from "lucide-react";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import { getImageBySelectedColor } from "@/lib/product-utils";
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { addItem } = useCartStore();
-  const { t, i18n } = useTranslation("catalog");
-
-  const allColors = getAllColors(product);
-  const inStockColorCodes = new Set(
-    product.skus
-      .filter((sku) => sku.stock > 0 && sku.color)
-      .map((sku) => sku.color as TypeCode),
-  );
-  const preferredColor =
-    allColors.find((color) => inStockColorCodes.has(color.code))?.code ??
-    allColors[0]?.code;
-  const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
-    preferredColor,
-  );
-  const allSizes = getAllSizes(product);
-  const preferredSize =
-    allSizes.find((size) =>
-      product.skus.some(
-        (sku) =>
-          sku.stock > 0 &&
-          sku.size === size.code &&
-          (!preferredColor || sku.color === preferredColor),
-      ),
-    )?.code ?? allSizes[0]?.code;
-  const [selectedSize, setSelectedSize] = useState(preferredSize);
-
-  const selectedInStockSku = product.skus.find(
-    (sku) =>
-      (!selectedColor || sku.color === selectedColor) &&
-      (!selectedSize || sku.size === selectedSize) &&
-      sku.stock > 0,
-  );
-  const selectedSku =
-    selectedInStockSku ??
-    product.skus.find(
-      (sku) =>
-        (!selectedColor || sku.color === selectedColor) &&
-        (!selectedSize || sku.size === selectedSize),
-    );
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
-  const currentSKU = selectedSku;
-  const priceWithColor = currentSKU?.price || product.basePrice;
-  const isOutOfStock = !selectedInStockSku;
+  const {
+    selectedSize,
+    selectedColor,
+    priceWithVariants,
+    isOutOfStock,
+    allColors,
+    allSizes,
+    inStockColorCodes,
+    handleAddToCart,
+    handleColorChange,
+    handleSizeChange,
+    inStockSizeCodes,
+  } = useProductVariants(product);
+
   const images = getImageBySelectedColor(product, selectedColor);
-
-  const handleAddToCart = () => {
-    if (!selectedInStockSku || !selectedSize) return;
-
-    addItem({
-      productId: product.id,
-      size: selectedSize,
-      color: selectedColor,
-    });
-  };
 
   return (
     <Card
@@ -114,7 +72,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     color={color}
                     isSelected={isSelected}
                     isOutOfStock={!isInStock}
-                    onClick={() => setSelectedColor(color.code)}
+                    onClick={() => handleColorChange(color.code)}
                   />
                 );
               })}
@@ -133,19 +91,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
               </span>
               {allSizes.slice(0, MAX_SIZES_TO_SHOW_PER_CARD).map((size) => {
                 const isSelected = selectedSize === size.code;
-                const isInStock = product.skus.some(
-                  (sku) =>
-                    sku.stock > 0 &&
-                    sku.size === size.code &&
-                    (!selectedColor || sku.color === selectedColor),
-                );
+                const isInStock = inStockSizeCodes.has(size.code);
                 return (
                   <SizeBadge
                     key={size.code}
                     size={size}
                     isSelected={isSelected}
                     isOutOfStock={!isInStock}
-                    onClick={() => setSelectedSize(size.code)}
+                    onClick={() => handleSizeChange(size.code)}
                   />
                 );
               })}
@@ -182,14 +135,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="flex items-center justify-between">
           <p className="text-lg font-bold">
-            {formatPrice(priceWithColor, locale)}
+            {formatPrice(priceWithVariants, locale)}
           </p>
           <Button
             variant="default"
             size="default"
             className="cursor-pointer"
             disabled={isOutOfStock}
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart(1)}
           >
             <ShoppingBasket size={16} />
             {isOutOfStock
@@ -213,7 +166,7 @@ const ColorBadge = ({
   isOutOfStock: boolean;
   onClick: () => void;
 }) => {
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   return (
@@ -246,7 +199,7 @@ const SizeBadge = ({
   isOutOfStock: boolean;
   onClick: () => void;
 }) => {
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   return (

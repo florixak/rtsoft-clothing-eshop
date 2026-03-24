@@ -54,7 +54,7 @@
 }
 
 .dark {
-  --background: #111111;
+  --background: #0a0a0a;
   --foreground: #f6f6f8;
 
   --card: #1a1a1a;
@@ -156,5 +156,9 @@
   }
   html {
     @apply font-body;
+  }
+
+  .shadow-image {
+    @apply shadow-sm shadow-gray-400;
   }
 }

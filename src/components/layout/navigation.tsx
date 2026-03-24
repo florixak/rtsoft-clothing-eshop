@@ -16,6 +16,7 @@ import {
 import type { Product } from "@/types";
 import { useTranslation } from "react-i18next";
 import { generatePages } from "@/lib/search-utils";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 type NavigationProps = {
   page: number;
@@ -46,7 +47,7 @@ const Navigation = ({
   showPageSizeSelector = true,
   className,
 }: NavigationProps) => {
-  const { t } = useTranslation("catalog");
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const isDisabled = disabled || isLoading;
   const normalizedPageSizeOptions = Array.from(
     new Set([...pageSizeOptions, pageSize]),

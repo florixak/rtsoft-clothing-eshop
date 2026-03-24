@@ -19,10 +19,11 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Slider } from "../ui/slider";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const CatalogFilter = () => {
   const search = useSearch({ from: "/{-$locale}/" });
-  const { t, i18n } = useTranslation("catalog");
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const { category, sort, priceRange, size, color } = search;
   const { rating, availability } = search;
   const navigate = useNavigate({ from: "/{-$locale}/" });
