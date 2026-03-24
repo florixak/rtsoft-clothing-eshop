@@ -16,7 +16,7 @@ type CartStore = {
   subtotal: () => number;
   addItem: (input: AddItemInput) => void;
   removeItem: (itemId: string) => void;
-  setQuantity: (itemId: string, quantity: number) => void;
+  getQuantity: (itemId: string) => number | undefined;
   clearCart: () => void;
   replaceCart: (nextCart: Cart) => void;
 };
@@ -124,28 +124,9 @@ export const useCartStore = create<CartStore>()(
         }));
       },
 
-      setQuantity: (itemId, quantity) => {
-        if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
-        quantity = Math.max(1, Math.floor(quantity));
-        set((state) => {
-          if (quantity <= 0) {
-            return {
-              cart: touchCart({
-                ...state.cart,
-                items: state.cart.items.filter((item) => item.id !== itemId),
-              }),
-            };
-          }
-
-          return {
-            cart: touchCart({
-              ...state.cart,
-              items: state.cart.items.map((item) =>
-                item.id === itemId ? { ...item, quantity } : item,
-              ),
-            }),
-          };
-        });
+      getQuantity: (itemId) => {
+        const item = get().cart.items.find((item) => item.id === itemId);
+        return item?.quantity;
       },
 
       clearCart: () => {
