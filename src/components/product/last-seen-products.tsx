@@ -15,9 +15,7 @@ const LastSeenProducts = ({ product }: LastSeenProductsProps) => {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col">
         <h2 className="text-xl font-bold uppercase">{t("lastSeen.title")}</h2>
-        <p className="text-muted-foreground">
-          {t("lastSeen.subtitle", { count: product?.reviewsCount })}
-        </p>
+        <p className="text-muted-foreground">{t("lastSeen.subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
