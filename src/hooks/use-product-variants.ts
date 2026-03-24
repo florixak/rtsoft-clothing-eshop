@@ -64,7 +64,7 @@ const useProductVariants = (product: Product) => {
     );
 
   const currentSKU = selectedSku;
-  const priceWithColor = currentSKU?.price ?? product.basePrice;
+  const priceWithVariants = currentSKU?.price ?? product.basePrice;
   const isOutOfStock = !selectedInStockSku;
 
   const handleAddToCart = (quantity: number = 1) => {
@@ -111,7 +111,7 @@ const useProductVariants = (product: Product) => {
     selectedInStockSku,
     selectedSku,
     currentSKU,
-    priceWithColor,
+    priceWithVariants,
     isOutOfStock,
     allColors,
     allSizes,

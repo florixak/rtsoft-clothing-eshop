@@ -91,7 +91,7 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
               <div>
                 <h2 className="text-2xl font-bold">{product?.name[locale]}</h2>
                 <h3 className="text-xl">
-                  {formatPrice(product?.basePrice ?? 0, locale)}
+                  {formatPrice(productVariants.priceWithVariants, locale)}
                 </h3>
               </div>
 

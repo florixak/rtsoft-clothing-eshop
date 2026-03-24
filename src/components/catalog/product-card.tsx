@@ -25,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const {
     selectedSize,
     selectedColor,
-    priceWithColor,
+    priceWithVariants,
     isOutOfStock,
     allColors,
     allSizes,
@@ -135,7 +135,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="flex items-center justify-between">
           <p className="text-lg font-bold">
-            {formatPrice(priceWithColor, locale)}
+            {formatPrice(priceWithVariants, locale)}
           </p>
           <Button
             variant="default"
