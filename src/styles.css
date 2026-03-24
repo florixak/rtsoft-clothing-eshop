@@ -157,4 +157,8 @@
   html {
     @apply font-body;
   }
+
+  .shadow-image {
+    @apply shadow-sm shadow-gray-400;
+  }
 }

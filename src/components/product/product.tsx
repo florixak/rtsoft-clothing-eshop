@@ -78,29 +78,29 @@ const Product = () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="flex flex-col md:flex-row gap-12">
-        <div className="flex flex-col gap-2">
+      <div className="flex flex-col md:flex-row w-full">
+        <div className="flex flex-col gap-4 w-full">
           {images.primary ? (
             <img
               src={images.primary}
               alt={product.name[locale]}
-              className="size-100 object-cover rounded shadow-md  "
+              className="size-100 object-cover rounded shadow-image"
             />
           ) : (
-            <div className="size-100 bg-muted rounded shadow-md" />
+            <div className="size-100 bg-muted rounded shadow-image" />
           )}
-          <div className="flex flex-row gap-4 items-center justify-center">
+          <div className="flex flex-row gap-4 items-center justify-center w-full">
             {images.secondary && (
               <img
                 src={images.secondary}
                 alt={product.name[locale]}
-                className="size-25 object-cover rounded mt-4 shadow-md"
+                className="size-25 object-cover rounded shadow-image"
               />
             )}
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-col gap-4">
             <div className="flex flex-row items-center gap-2">
               <Badge className="text-xs uppercase">{category}</Badge>
