@@ -1,14 +1,10 @@
-import {
-  getAllColors,
-  getAllSizes,
-  getImageBySelectedColor,
-} from "@/lib/product-utils";
+import { getAllColors, getAllSizes } from "@/lib/product-utils";
 import { useCartStore } from "@/stores/cart-store";
 import type { Product, SizeCode, TypeCode } from "@/types";
 import { useState } from "react";
 
 const useProductVariants = (product: Product) => {
-  const { addItem } = useCartStore();
+  const { addItem, getQuantity } = useCartStore();
 
   const matchesSelection = (
     sku: Product["skus"][number],
@@ -70,14 +66,14 @@ const useProductVariants = (product: Product) => {
   const currentSKU = selectedSku;
   const priceWithColor = currentSKU?.price ?? product.basePrice;
   const isOutOfStock = !selectedInStockSku;
-  const images = getImageBySelectedColor(product, selectedColor);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (quantity?: number) => {
     if (!selectedInStockSku || !selectedSize || !selectedColor) return;
     addItem({
       productId: product.id,
       size: selectedSize,
       color: selectedColor,
+      quantity,
     });
   };
 
@@ -117,7 +113,6 @@ const useProductVariants = (product: Product) => {
     currentSKU,
     priceWithColor,
     isOutOfStock,
-    images,
     allColors,
     allSizes,
     inStockColorCodes,
@@ -125,6 +120,7 @@ const useProductVariants = (product: Product) => {
     handleAddToCart,
     handleColorChange,
     handleSizeChange,
+    quantity: getQuantity(selectedInStockSku?.id ?? "") ?? 1,
   };
 };
 
