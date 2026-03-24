@@ -67,7 +67,7 @@ const useProductVariants = (product: Product) => {
   const priceWithColor = currentSKU?.price ?? product.basePrice;
   const isOutOfStock = !selectedInStockSku;
 
-  const handleAddToCart = (quantity?: number) => {
+  const handleAddToCart = (quantity: number = 1) => {
     if (!selectedInStockSku || !selectedSize || !selectedColor) return;
     addItem({
       productId: product.id,
