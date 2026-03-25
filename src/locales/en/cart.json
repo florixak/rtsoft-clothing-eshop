@@ -27,6 +27,8 @@
   },
   "actions": {
     "proceedToCheckout": "Proceed to Checkout",
-    "continueShopping": "Continue Shopping"
+    "continueShopping": "Continue Shopping",
+    "showMore": "Show more items",
+    "showLess": "Show fewer items"
   }
 }

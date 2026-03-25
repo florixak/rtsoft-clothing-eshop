@@ -28,6 +28,8 @@
   },
   "actions": {
     "proceedToCheckout": "Přejít k pokladně",
-    "continueShopping": "Pokračovat v nákupu"
+    "continueShopping": "Pokračovat v nákupu",
+    "showMore": "Zobrazit více položek",
+    "showLess": "Zobrazit méně položek"
   }
 }
