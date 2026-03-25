@@ -8,6 +8,7 @@ import { Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import QuantityCounter from "../product/quantity-counter";
 import { Button } from "../ui/button";
+import { Link } from "@tanstack/react-router";
 
 type CartItemProps = {
   item: CartItemType;
@@ -74,7 +75,12 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
       />
       <div className="flex flex-col justify-between flex-1 gap-2 w-full h-full">
         <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-bold">{product?.name[locale] ?? ""}</h2>
+          <Link
+            to="/{-$locale}/product/$productSlug"
+            params={{ productSlug: product.slug[locale] }}
+          >
+            <h2 className="text-xl font-bold">{product?.name[locale] ?? ""}</h2>
+          </Link>
           <p className="text-sm text-muted-foreground">
             {t("item.size", {
               size: item.selectionSnapshot.size.toUpperCase(),
