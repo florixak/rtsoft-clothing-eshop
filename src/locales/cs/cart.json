@@ -23,7 +23,8 @@
     "tax": "DPH",
     "total": "Celkem",
     "shippingTaxNote": "Doprava a DPH jsou vypočítány při pokladně",
-    "freeShippingNote": "Doprava zdarma při objednávce nad {{amount}} Kč"
+    "freeShippingNote": "Do dopravy zdarma chybí {{amount}}",
+    "freeShippingEligible": "Gratulujeme! Máte nárok na dopravu zdarma."
   },
   "actions": {
     "proceedToCheckout": "Přejít k pokladně",

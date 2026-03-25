@@ -22,7 +22,8 @@
     "tax": "Tax",
     "total": "Totals",
     "shippingTaxNote": "Shipping and tax are calculated at checkout",
-    "freeShippingNote": "Free shipping on orders over ${{amount}}"
+    "freeShippingNote": "Free shipping on orders over {{amount}}",
+    "freeShippingEligible": "Congratulations! You're eligible for free shipping."
   },
   "actions": {
     "proceedToCheckout": "Proceed to Checkout",
