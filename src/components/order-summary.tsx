@@ -32,16 +32,21 @@ const OrderSummary = ({
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const { tax, shipping } = summary;
 
-  const canProceedToCheckout = subtotal() > 0 && itemsCount() > 0;
-  const isEligibleForFreeShipping = subtotal() >= FREE_SHIPPING_THRESHOLD;
+  const subtotalValue = subtotal();
+
+  const canProceedToCheckout = subtotalValue > 0 && itemsCount() > 0;
+  const isEligibleForFreeShipping = subtotalValue >= FREE_SHIPPING_THRESHOLD;
   const shippingCost = isEligibleForFreeShipping ? 0 : shipping;
-  const total = subtotal() + tax + shippingCost;
+  const total = subtotalValue + tax + shippingCost;
 
   const progressToFreeShipping = Math.max(
     0,
-    FREE_SHIPPING_THRESHOLD - subtotal(),
+    FREE_SHIPPING_THRESHOLD - subtotalValue,
   );
-  const lineWidth = (subtotal() / FREE_SHIPPING_THRESHOLD) * 100;
+  const lineWidth = Math.min(
+    100,
+    (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100,
+  );
 
   const handleCheckout = () => {
     if (canProceedToCheckout) {
@@ -51,7 +56,7 @@ const OrderSummary = ({
 
   return (
     <Card className="w-full md:w-1/3 px-8 h-fit">
-      <h2 className="text-xl font-heading font-bold">Order Summary</h2>
+      <h2 className="text-xl font-heading font-bold">{t("summary.title")}</h2>
       {showProducts && items.length > 0 && (
         <>
           <div className="flex flex-col gap-2 my-2">
@@ -71,7 +76,7 @@ const OrderSummary = ({
             >
               {t("summary.subtotal")}
             </th>
-            <td className="text-right">{formatPrice(subtotal(), locale)}</td>
+            <td className="text-right">{formatPrice(subtotalValue, locale)}</td>
           </tr>
           <tr>
             <th
@@ -81,9 +86,7 @@ const OrderSummary = ({
               {t("summary.shipping")}
             </th>
             <td className="text-right">
-              {shippingCost !== undefined
-                ? formatPrice(shippingCost, locale)
-                : "-"}
+              {shippingCost > 0 ? formatPrice(shippingCost, locale) : "-"}
             </td>
           </tr>
           <tr>
@@ -94,7 +97,7 @@ const OrderSummary = ({
               {t("summary.tax")}
             </th>
             <td className="text-right">
-              {tax ? formatPrice(tax, locale) : "-"}
+              {tax > 0 ? formatPrice(tax, locale) : "-"}
             </td>
           </tr>
           <tr>
