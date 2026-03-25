@@ -55,7 +55,7 @@ const OrderSummary = ({
   };
 
   return (
-    <Card className="w-full md:w-1/3 px-8 h-fit">
+    <Card className="md:max-w-sm w-full px-8 h-fit">
       <h2 className="text-xl font-heading font-bold">{t("summary.title")}</h2>
       {showProducts && items.length > 0 && (
         <>
