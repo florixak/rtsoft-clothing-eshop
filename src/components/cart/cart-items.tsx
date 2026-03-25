@@ -1,11 +1,11 @@
-import { useCartStore } from "@/stores/cart-store";
-import CartItem from "./cart-item";
+import { CART_ITEM_SHOW_MORE } from "@/constants";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { useCartStore } from "@/stores/cart-store";
+import { Link } from "@tanstack/react-router";
+import { Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { CART_ITEM_SHOW_MORE } from "@/constants";
+import CartItem from "./cart-item";
 
 const CartItems = () => {
   const {
@@ -36,7 +36,9 @@ const CartItems = () => {
   return (
     <div className="flex flex-col gap-8 w-full">
       {visibleItems.map((item) => (
-        <CartItem key={item.id} item={item} />
+        <Suspense key={item.id} fallback={<div>{t("loading")}</div>}>
+          <CartItem key={item.id} item={item} />
+        </Suspense>
       ))}
       {items.length > CART_ITEM_SHOW_MORE && (
         <Button variant="outline" onClick={handleShowMore}>

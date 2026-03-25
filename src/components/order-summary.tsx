@@ -16,11 +16,13 @@ type OrderSummaryProps = {
     shipping: number;
   };
   showProducts?: boolean;
+  disableCheckout?: boolean;
 };
 
 const OrderSummary = ({
   data: summary = { tax: 0, shipping: 0 },
   showProducts = true,
+  disableCheckout = false,
 }: OrderSummaryProps) => {
   const {
     subtotal,
@@ -34,7 +36,8 @@ const OrderSummary = ({
 
   const subtotalValue = subtotal();
 
-  const canProceedToCheckout = subtotalValue > 0 && itemsCount() > 0;
+  const canProceedToCheckout =
+    subtotalValue > 0 && itemsCount() > 0 && !disableCheckout;
   const isEligibleForFreeShipping = subtotalValue >= FREE_SHIPPING_THRESHOLD;
   const shippingCost = isEligibleForFreeShipping ? 0 : shipping;
   const total = subtotalValue + tax + shippingCost;

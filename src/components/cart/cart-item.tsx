@@ -1,14 +1,16 @@
 import { createProductIdQueryOptions } from "@/hooks/query-options";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { hasInStockSku } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
 import type { CartItem as CartItemType } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import { Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import QuantityCounter from "../product/quantity-counter";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Link } from "@tanstack/react-router";
 
 type CartItemProps = {
   item: CartItemType;
@@ -17,7 +19,7 @@ type CartItemProps = {
 
 const CartItem = ({ item, compact = false }: CartItemProps) => {
   const { removeItem, changeItemQuantity } = useCartStore();
-  const { data: product } = useQuery(
+  const { data: product } = useSuspenseQuery(
     createProductIdQueryOptions(item.productId),
   );
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.cart);
@@ -30,6 +32,12 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   const handleQuantityChange = (newQuantity: number) => {
     changeItemQuantity(item.id, newQuantity);
   };
+
+  const isInStock = hasInStockSku(
+    product,
+    item.selectionSnapshot.color,
+    item.selectionSnapshot.size,
+  );
 
   if (!product) {
     return (
@@ -87,12 +95,22 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
             })}{" "}
             | {t("item.color", { color: item.selectionSnapshot.color })}
           </p>
+          {!isInStock ? (
+            <Badge variant="destructive" className="text-sm">
+              {t("item.outOfStock")}
+            </Badge>
+          ) : (
+            <Badge variant="default" className="text-sm">
+              {t("item.inStock")}
+            </Badge>
+          )}
           <p className="text-lg font-bold">{price}</p>
         </div>
         <div className="flex items-center gap-4">
           <QuantityCounter
             quantity={item.quantity}
             onQuantityChange={handleQuantityChange}
+            disabled={!isInStock}
           />
           <Button variant="outline" onClick={handleRemove} className="h-8">
             <Trash size={16} />

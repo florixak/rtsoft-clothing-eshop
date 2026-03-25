@@ -1,6 +1,6 @@
 import { products } from "@/data";
 import type { SortOptions } from "@/data/products";
-import type { Category, Product, SizeCode, SKU } from "@/types";
+import type { Category, Product, SizeCode, SKU, TypeCode } from "@/types";
 import { findCategoryById } from "./category-utils";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
@@ -230,6 +230,41 @@ const findSKU = (
   return skus.find((s) => s.size === size && (!color || s.color === color));
 };
 
+const matchesSelection = (
+  sku: Product["skus"][number],
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) => (!color || sku.color === color) && (!size || sku.size === size);
+
+const findInStockSku = (
+  product: Product,
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) =>
+  product.skus.find(
+    (sku) => matchesSelection(sku, color, size) && sku.stock > 0,
+  );
+
+const hasInStockSku = (
+  product: Product,
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) =>
+  product.skus.some(
+    (sku) => matchesSelection(sku, color, size) && sku.stock > 0,
+  );
+
+const hasInStockSkuBySelection = (
+  productId: string,
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) => {
+  const product = findProductById(productId);
+  if (!product) return false;
+
+  return hasInStockSku(product, color, size);
+};
+
 const getTotalStock = (product: Product) => {
   return product.skus.reduce((total, sku) => total + sku.stock, 0);
 };
@@ -374,6 +409,10 @@ export {
   findProductById,
   findProductBySlug,
   findSKU,
+  matchesSelection,
+  findInStockSku,
+  hasInStockSku,
+  hasInStockSkuBySelection,
   getAppliedFiltersLabel,
   getProducts,
   getTotalStock,

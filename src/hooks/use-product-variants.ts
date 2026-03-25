@@ -1,32 +1,16 @@
-import { getAllColors, getAllSizes } from "@/lib/product-utils";
+import {
+  findInStockSku,
+  getAllColors,
+  getAllSizes,
+  hasInStockSku,
+  matchesSelection,
+} from "@/lib/product-utils";
 import { useCartStore } from "@/stores/cart-store";
 import type { Product, SizeCode, TypeCode } from "@/types";
 import { useState } from "react";
 
 const useProductVariants = (product: Product) => {
   const { addItem, getQuantity } = useCartStore();
-
-  const matchesSelection = (
-    sku: Product["skus"][number],
-    color: TypeCode | undefined,
-    size: SizeCode | undefined,
-  ) => (!color || sku.color === color) && (!size || sku.size === size);
-
-  const findInStockSku = (
-    color: TypeCode | undefined,
-    size: SizeCode | undefined,
-  ) =>
-    product.skus.find(
-      (sku) => matchesSelection(sku, color, size) && sku.stock > 0,
-    );
-
-  const hasInStockSku = (
-    color: TypeCode | undefined,
-    size: SizeCode | undefined,
-  ) =>
-    product.skus.some(
-      (sku) => matchesSelection(sku, color, size) && sku.stock > 0,
-    );
 
   const allColors = getAllColors(product);
   const inStockColorCodes = new Set(
@@ -56,7 +40,11 @@ const useProductVariants = (product: Product) => {
     preferredSize,
   );
 
-  const selectedInStockSku = findInStockSku(selectedColor, selectedSize);
+  const selectedInStockSku = findInStockSku(
+    product,
+    selectedColor,
+    selectedSize,
+  );
   const selectedSku =
     selectedInStockSku ??
     product.skus.find((sku) =>
@@ -81,11 +69,15 @@ const useProductVariants = (product: Product) => {
     setSelectedColor(colorCode);
 
     setSelectedSize((prevSize) => {
-      if (hasInStockSku(colorCode, prevSize)) {
+      if (hasInStockSku(product, colorCode, prevSize)) {
         return prevSize;
       }
 
-      const newSizeWithStock = findInStockSku(colorCode, undefined)?.size;
+      const newSizeWithStock = findInStockSku(
+        product,
+        colorCode,
+        undefined,
+      )?.size;
 
       return newSizeWithStock ?? prevSize;
     });
@@ -95,11 +87,15 @@ const useProductVariants = (product: Product) => {
     setSelectedSize(sizeCode);
 
     setSelectedColor((prevColor) => {
-      if (hasInStockSku(prevColor, sizeCode)) {
+      if (hasInStockSku(product, prevColor, sizeCode)) {
         return prevColor;
       }
 
-      const newColorWithStock = findInStockSku(undefined, sizeCode)?.color;
+      const newColorWithStock = findInStockSku(
+        product,
+        undefined,
+        sizeCode,
+      )?.color;
 
       return newColorWithStock ?? prevColor;
     });
