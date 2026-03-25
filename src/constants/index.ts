@@ -5,7 +5,8 @@ const MAX_SIZES_TO_SHOW_PER_CARD = 3;
 
 const QUERY_KEYS = {
   products: (query: Query) => ["products", query] as const,
-  product: (productSlug: string) => ["product", productSlug] as const,
+  productSlug: (productSlug: string) => ["product", productSlug] as const,
+  productId: (productId: string) => ["product", productId] as const,
   category: (categoryId: string) => ["category", categoryId] as const,
 };
 

@@ -165,6 +165,16 @@ const getProductBySlug = async (slug: string): Promise<Product> => {
   return product;
 };
 
+const getProductById = async (productId: string): Promise<Product> => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  const product = findProductById(productId);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  return product;
+};
+
 const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
 };
@@ -373,6 +383,7 @@ export {
   getAvailableSizes,
   getImageBySelectedColor,
   getProductBySlug,
+  getProductById,
   setLastSeenProduct,
   getLastSeenProducts,
 };
