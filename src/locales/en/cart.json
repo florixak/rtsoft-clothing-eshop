@@ -12,7 +12,8 @@
     "inStock": "In Stock",
     "outOfStock": "Out of Stock",
     "size": "Size: {{size}}",
-    "color": "Color: {{color}}"
+    "color": "Color: {{color}}",
+    "notFound": "Item not found"
   },
   "summary": {
     "title": "Order Summary",

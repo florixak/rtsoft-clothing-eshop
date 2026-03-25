@@ -13,7 +13,8 @@
     "inStock": "Skladem",
     "outOfStock": "Není skladem",
     "size": "Velikost: {{size}}",
-    "color": "Barva: {{color}}"
+    "color": "Barva: {{color}}",
+    "notFound": "Položka nenalezena"
   },
   "summary": {
     "title": "Shrnutí objednávky",
