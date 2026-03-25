@@ -31,10 +31,10 @@ const CartItem = ({ item }: CartItemProps) => {
 
   if (!product) {
     return (
-      <div>
-        {t("item.size", { size: item.selectionSnapshot.size })} |{" "}
-        {t("item.color", { color: item.selectionSnapshot.color })} - $
-        {formatPrice(item.priceSnapshot * item.quantity, locale)}
+      <div className="flex flex-col items-center justify-center gap-4 w-full">
+        <h2 className="text-xl font-semibold font-heading">
+          {t("item.notFound")}
+        </h2>
       </div>
     );
   }
