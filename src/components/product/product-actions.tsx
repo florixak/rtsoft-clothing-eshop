@@ -74,7 +74,10 @@ const ProductActions = ({
           value={selectedColor}
           disabled={allColors.length === 0}
         >
-          <SelectTrigger className="px-4 py-2 hover:bg-primary/90 transition">
+          <SelectTrigger
+            className="px-4 py-2"
+            disabled={allColors.length === 0}
+          >
             {selectedColorLabel}
           </SelectTrigger>
           <SelectContent>
@@ -109,10 +112,7 @@ const ProductActions = ({
           value={selectedSize}
           disabled={allSizes.length === 0}
         >
-          <SelectTrigger
-            className="px-4 py-2 hover:bg-primary/90 transition"
-            disabled={allSizes.length === 0}
-          >
+          <SelectTrigger className="px-4 py-2" disabled={allSizes.length === 0}>
             {selectedSizeLabel}
           </SelectTrigger>
           <SelectContent>
