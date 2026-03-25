@@ -1,12 +1,11 @@
+import { useQuantityCounter } from "@/hooks/use-quantity-counter";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { SizeCode, TypeCode } from "@/types";
-import { Minus, Plus, ShoppingBasket } from "lucide-react";
-import { useState } from "react";
+import { ShoppingBasket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
-import { ButtonGroup } from "../ui/button-group";
-import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
+import QuantityCounter from "./quantity-counter";
 
 type ProductActionsProps = {
   selectedColor: TypeCode | undefined;
@@ -34,8 +33,8 @@ const ProductActions = ({
   isOutOfStock,
 }: ProductActionsProps) => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.product);
+  const { quantity, setQuantity } = useQuantityCounter();
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
-  const [toAddQuantity, setToAddQuantity] = useState<number>(1);
 
   const selectedColorLabel: string =
     allColors.find((color) => color.code === selectedColor)?.label[locale] ||
@@ -44,23 +43,6 @@ const ProductActions = ({
   const selectedSizeLabel: string =
     allSizes.find((size) => size.code === selectedSize)?.label[locale] ||
     t("size.notSelected");
-
-  const handleIncrement = () => {
-    setToAddQuantity((prev) => prev + 1);
-  };
-
-  const handleDecrement = () => {
-    setToAddQuantity((prev) => Math.max(1, prev - 1));
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value > 0) {
-      setToAddQuantity(value);
-    } else {
-      setToAddQuantity(1);
-    }
-  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -138,39 +120,18 @@ const ProductActions = ({
         </Select>
       </div>
       <div className="flex flex-col md:flex-row md:items-center gap-4">
-        <ButtonGroup>
-          <Button
-            variant="outline"
-            onClick={handleDecrement}
-            className="py-4"
-            aria-label={t("quantity.decrease")}
-          >
-            <Minus size={16} />
-          </Button>
-          <Input
-            type="number"
-            className="w-16 py-4"
-            min="1"
-            value={toAddQuantity}
-            onChange={handleInputChange}
-            aria-label={t("quantity.label")}
-          />
-          <Button
-            variant="outline"
-            onClick={handleIncrement}
-            className="py-4"
-            aria-label={t("quantity.increase")}
-          >
-            <Plus size={16} />
-          </Button>
-        </ButtonGroup>
+        <QuantityCounter
+          disabled={isOutOfStock}
+          quantity={quantity}
+          onQuantityChange={setQuantity}
+        />
 
         <Button
           variant="default"
           size="default"
           className="cursor-pointer text-md px-4 py-4"
           disabled={isOutOfStock}
-          onClick={() => handleAddToCart(toAddQuantity)}
+          onClick={() => handleAddToCart(quantity)}
         >
           <ShoppingBasket size={16} />
           {isOutOfStock ? t("addToCart.outOfStock") : t("addToCart.addToCart")}
