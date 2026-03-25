@@ -17,6 +17,7 @@ type CartStore = {
   addItem: (input: AddItemInput) => void;
   removeItem: (itemId: string) => void;
   getQuantity: (itemId: string) => number | undefined;
+  changeItemQuantity: (itemId: string, newQuantity: number) => void;
   clearCart: () => void;
   replaceCart: (nextCart: Cart) => void;
 };
@@ -127,6 +128,42 @@ export const useCartStore = create<CartStore>()(
       getQuantity: (itemId) => {
         const item = get().cart.items.find((item) => item.id === itemId);
         return item?.quantity;
+      },
+
+      changeItemQuantity: (itemId, newQuantity) => {
+        if (!Number.isFinite(newQuantity) || Number.isNaN(newQuantity)) return;
+        newQuantity = Math.max(1, Math.floor(newQuantity));
+        if (newQuantity <= 0) return;
+
+        set((state) => {
+          const item = state.cart.items.find((item) => item.id === itemId);
+          if (!item) return state;
+
+          const product = findProductById(item.productId);
+          const selectedSku = findSKU(
+            product?.skus ?? [],
+            item.selectionSnapshot.size,
+            item.selectionSnapshot.color,
+          );
+          if (!selectedSku) return state;
+
+          if (newQuantity > selectedSku.stock) {
+            return state;
+          }
+
+          const nextItems = state.cart.items.map((cartItem) =>
+            cartItem.id === itemId
+              ? { ...cartItem, quantity: newQuantity }
+              : cartItem,
+          );
+
+          return {
+            cart: touchCart({
+              ...state.cart,
+              items: nextItems,
+            }),
+          };
+        });
       },
 
       clearCart: () => {
