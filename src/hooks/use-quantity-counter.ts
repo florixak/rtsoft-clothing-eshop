@@ -22,10 +22,10 @@ export const useQuantityCounter = (
   };
 
   const handleSetQuantity = (value: number) => {
-    if (!isNaN(value) && value > 0) {
+    if (!isNaN(value) && value > 0 && isFinite(value)) {
       setQuantity(value);
     } else {
-      setQuantity(1);
+      setQuantity(initialQuantity);
     }
   };
 
