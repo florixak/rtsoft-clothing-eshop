@@ -1,0 +1,115 @@
+{
+  "steps": {
+    "shipping": "Shipping",
+    "payment": "Payment",
+    "review": "Review"
+  },
+  "shippingMethod": {
+    "title": "Shipping Method",
+    "standard": {
+      "label": "Standard",
+      "duration": "4-6 Business Days"
+    },
+    "express": {
+      "label": "Express",
+      "duration": "1-2 Business Days"
+    },
+    "storePickup": {
+      "label": "Store Pickup",
+      "duration": "Ready in 24 hours"
+    },
+    "free": "Free"
+  },
+  "deliveryInfo": {
+    "title": "Delivery Information",
+    "returningUser": "Returning user?",
+    "logIn": "Log In",
+    "fields": {
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "John"
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Doe"
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "john@example.com"
+      },
+      "phone": {
+        "label": "Phone Number",
+        "placeholder": "+1 (555) 000-0000"
+      },
+      "street": {
+        "label": "Street Address",
+        "placeholder": "123 Luxury Ave, Apt 4B"
+      },
+      "city": {
+        "label": "City",
+        "placeholder": "New York"
+      },
+      "postalCode": {
+        "label": "Postal Code",
+        "placeholder": "10001"
+      },
+      "country": {
+        "label": "Country"
+      }
+    },
+    "billingSameAsShipping": "Billing address same as shipping"
+  },
+  "paymentMethod": {
+    "title": "Payment Method",
+    "creditCard": {
+      "label": "Credit Card",
+      "description": "Visa, Mastercard, AMEX, Discover"
+    },
+    "paypal": {
+      "label": "PayPal",
+      "description": "Fast and secure checkout via PayPal"
+    },
+    "cashOnDelivery": {
+      "label": "Cash on delivery",
+      "description": "Pay when you receive the order"
+    },
+    "secureForm": {
+      "title": "Secure Credit Card Payment",
+      "cardNumber": {
+        "label": "Card Number",
+        "placeholder": "0000 0000 0000 0000"
+      },
+      "expirationDate": {
+        "label": "Expiration Date",
+        "placeholder": "MM / YY"
+      },
+      "cvv": {
+        "label": "CVV",
+        "placeholder": "123"
+      },
+      "cardholderName": {
+        "label": "Cardholder Name",
+        "placeholder": "Johnathan Doe"
+      },
+      "saveCard": "Save card information for future purchases",
+      "payButton": "Pay {{amount}} Securely"
+    }
+  },
+  "review": {
+    "title": "Review your order",
+    "items": "Items ({{count}})",
+    "shippingAddress": "Shipping Address",
+    "shippingMethod": "Shipping Method",
+    "paymentMethod": "Payment Method",
+    "billingMatchesShipping": "Billing matches shipping",
+    "cardEndingIn": "{{brand}} ending in {{last4}}",
+    "expires": "Expires {{date}}",
+    "includesTrackingAndInsurance": "Includes tracking and insurance"
+  },
+  "actions": {
+    "backToCart": "Back to Cart",
+    "continueToPayment": "Continue to Payment",
+    "continueToReview": "Continue to Review",
+    "placeOrder": "Place Order"
+  }
+}

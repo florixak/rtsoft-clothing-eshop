@@ -1,0 +1,115 @@
+{
+  "steps": {
+    "shipping": "Doprava",
+    "payment": "Platba",
+    "review": "Přehled"
+  },
+  "shippingMethod": {
+    "title": "Způsob doručení",
+    "standard": {
+      "label": "Standardní",
+      "duration": "4–6 pracovních dní"
+    },
+    "express": {
+      "label": "Expresní",
+      "duration": "1–2 pracovní dny"
+    },
+    "storePickup": {
+      "label": "Osobní odběr",
+      "duration": "Připraveno do 24 hodin"
+    },
+    "free": "Zdarma"
+  },
+  "deliveryInfo": {
+    "title": "Doručovací informace",
+    "returningUser": "Již máte účet?",
+    "logIn": "Přihlásit se",
+    "fields": {
+      "firstName": {
+        "label": "Jméno",
+        "placeholder": "Jan"
+      },
+      "lastName": {
+        "label": "Příjmení",
+        "placeholder": "Novák"
+      },
+      "email": {
+        "label": "E-mailová adresa",
+        "placeholder": "jan@priklad.cz"
+      },
+      "phone": {
+        "label": "Telefonní číslo",
+        "placeholder": "+420 000 000 000"
+      },
+      "street": {
+        "label": "Ulice a číslo popisné",
+        "placeholder": "Náměstí Míru 4B"
+      },
+      "city": {
+        "label": "Město",
+        "placeholder": "Praha"
+      },
+      "postalCode": {
+        "label": "PSČ",
+        "placeholder": "110 00"
+      },
+      "country": {
+        "label": "Země"
+      }
+    },
+    "billingSameAsShipping": "Fakturační adresa je stejná jako doručovací"
+  },
+  "paymentMethod": {
+    "title": "Způsob platby",
+    "creditCard": {
+      "label": "Platební karta",
+      "description": "Visa, Mastercard, AMEX, Discover"
+    },
+    "paypal": {
+      "label": "PayPal",
+      "description": "Rychlá a bezpečná platba přes PayPal"
+    },
+    "cashOnDelivery": {
+      "label": "Dobírka",
+      "description": "Zaplatíte při převzetí zásilky"
+    },
+    "secureForm": {
+      "title": "Bezpečná platba kartou",
+      "cardNumber": {
+        "label": "Číslo karty",
+        "placeholder": "0000 0000 0000 0000"
+      },
+      "expirationDate": {
+        "label": "Datum platnosti",
+        "placeholder": "MM / RR"
+      },
+      "cvv": {
+        "label": "CVV",
+        "placeholder": "123"
+      },
+      "cardholderName": {
+        "label": "Jméno držitele karty",
+        "placeholder": "Jan Novák"
+      },
+      "saveCard": "Uložit údaje karty pro budoucí nákupy",
+      "payButton": "Zaplatit {{amount}} bezpečně"
+    }
+  },
+  "review": {
+    "title": "Zkontrolujte objednávku",
+    "items": "Položky ({{count}})",
+    "shippingAddress": "Doručovací adresa",
+    "shippingMethod": "Způsob doručení",
+    "paymentMethod": "Způsob platby",
+    "billingMatchesShipping": "Fakturační adresa je shodná s doručovací",
+    "cardEndingIn": "{{brand}} končící {{last4}}",
+    "expires": "Platnost do {{date}}",
+    "includesTrackingAndInsurance": "Zahrnuje sledování zásilky a pojištění"
+  },
+  "actions": {
+    "backToCart": "Zpět do košíku",
+    "continueToPayment": "Pokračovat k platbě",
+    "continueToReview": "Pokračovat na přehled",
+    "placeOrder": "Odeslat objednávku"
+  }
+}
