@@ -26,7 +26,7 @@ const defaultValues: FormValues = {
   },
 };
 
-export const treeHouseFormOpts = formOptions({
+export const checkoutFormOpts = formOptions({
   defaultValues,
   validators: {
     onSubmit: ({ value, formApi }) => {
