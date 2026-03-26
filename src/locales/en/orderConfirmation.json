@@ -1,0 +1,16 @@
+{
+  "preparing": "Your order is being prepared.",
+  "orderNumber": "Order Number",
+  "actions": {
+    "viewDetails": "View order details",
+    "continueShopping": "Continue shopping"
+  },
+  "summary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "estimatedTax": "Estimated Tax",
+    "total": "Total",
+    "itemDetails": "Color: {{color}} | Size: {{size}}"
+  }
+}

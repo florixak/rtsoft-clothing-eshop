@@ -1,0 +1,16 @@
+{
+  "preparing": "Vaše objednávka se připravuje.",
+  "orderNumber": "Číslo objednávky",
+  "actions": {
+    "viewDetails": "Zobrazit detail objednávky",
+    "continueShopping": "Pokračovat v nákupu"
+  },
+  "summary": {
+    "title": "Shrnutí objednávky",
+    "subtotal": "Mezisoučet",
+    "shipping": "Doprava",
+    "estimatedTax": "Odhadovaná DPH",
+    "total": "Celkem",
+    "itemDetails": "Barva: {{color}} | Velikost: {{size}}"
+  }
+}
