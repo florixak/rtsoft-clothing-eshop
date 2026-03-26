@@ -40,6 +40,9 @@ export const treeHouseFormOpts = formOptions({
           paymentSchema as typeof formSchema,
         );
       }
+      if (value.section === "review") {
+        return formApi.parseValuesWithSchema(formSchema);
+      }
     },
   },
 });
