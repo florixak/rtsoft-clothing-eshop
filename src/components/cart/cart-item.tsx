@@ -39,16 +39,6 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
     item.selectionSnapshot.size,
   );
 
-  if (!product) {
-    return (
-      <div className="flex flex-col items-center justify-center gap-4 w-full">
-        <h2 className="text-xl font-semibold font-heading">
-          {t("item.notFound")}
-        </h2>
-      </div>
-    );
-  }
-
   const price = formatPrice(item.priceSnapshot * item.quantity, locale);
 
   if (compact) {
