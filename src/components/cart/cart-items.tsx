@@ -37,7 +37,7 @@ const CartItems = () => {
     <div className="flex flex-col gap-8 w-full">
       {visibleItems.map((item) => (
         <Suspense key={item.id} fallback={<div>{t("loading")}</div>}>
-          <CartItem key={item.id} item={item} />
+          <CartItem item={item} />
         </Suspense>
       ))}
       {items.length > CART_ITEM_SHOW_MORE && (
