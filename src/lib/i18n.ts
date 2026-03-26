@@ -10,12 +10,18 @@ import csProduct from "@/locales/cs/product.json";
 import enProduct from "@/locales/en/product.json";
 import csCart from "@/locales/cs/cart.json";
 import enCart from "@/locales/en/cart.json";
+import csCheckout from "@/locales/cs/checkout.json";
+import enCheckout from "@/locales/en/checkout.json";
+import csOrderConfirmation from "@/locales/cs/orderConfirmation.json";
+import enOrderConfirmation from "@/locales/en/orderConfirmation.json";
 
 export const TRANSLATION_NAMESPACES = {
   common: "common",
   catalog: "catalog",
   product: "product",
   cart: "cart",
+  checkout: "checkout",
+  orderConfirmation: "orderConfirmation",
 } as const;
 
 const resources = {
@@ -24,12 +30,16 @@ const resources = {
     catalog: csCatalog,
     product: csProduct,
     cart: csCart,
+    checkout: csCheckout,
+    orderConfirmation: csOrderConfirmation,
   },
   en: {
     common: enCommon,
     catalog: enCatalog,
     product: enProduct,
     cart: enCart,
+    checkout: enCheckout,
+    orderConfirmation: enOrderConfirmation,
   },
 };
 
