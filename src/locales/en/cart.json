@@ -20,9 +20,9 @@
     "subtotal": "Subtotal",
     "shipping": "Shipping",
     "tax": "Tax",
-    "total": "Totals",
+    "total": "Total",
     "shippingTaxNote": "Shipping and tax are calculated at checkout",
-    "freeShippingNote": "Free shipping on orders over {{amount}}",
+    "freeShippingNote": "Missing {{amount}} for free shipping",
     "freeShippingEligible": "Congratulations! You're eligible for free shipping."
   },
   "actions": {
