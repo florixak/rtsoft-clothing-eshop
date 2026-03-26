@@ -6,6 +6,7 @@ import { Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import CartItem from "./cart-item";
+import { Skeleton } from "../ui/skeleton";
 
 const CartItems = () => {
   const {
@@ -36,7 +37,7 @@ const CartItems = () => {
   return (
     <div className="flex flex-col gap-8 w-full">
       {visibleItems.map((item) => (
-        <Suspense key={item.id} fallback={<div>{t("loading")}</div>}>
+        <Suspense key={item.id} fallback={<Skeleton className="h-16 w-full" />}>
           <CartItem item={item} />
         </Suspense>
       ))}
