@@ -9,6 +9,8 @@ import { Card } from "./ui/card";
 import { FREE_SHIPPING_THRESHOLD } from "@/constants";
 import CartItem from "./cart/cart-item";
 import { Separator } from "./ui/separator";
+import { Suspense } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 type OrderSummaryProps = {
   data?: {
@@ -64,7 +66,12 @@ const OrderSummary = ({
         <>
           <div className="flex flex-col gap-2 my-2">
             {items.map((item) => (
-              <CartItem key={item.id} item={item} compact />
+              <Suspense
+                key={item.id}
+                fallback={<Skeleton className="h-16 w-full" />}
+              >
+                <CartItem item={item} compact />
+              </Suspense>
             ))}
           </div>
           <Separator />
