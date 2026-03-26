@@ -18,6 +18,8 @@ const FREE_SHIPPING_THRESHOLD = 1000;
 
 const CART_ITEM_SHOW_MORE = 3;
 
+const CHECKOUT_STEPS = ["shipping", "payment", "review"] as const;
+
 export {
   MAX_COLORS_TO_SHOW_PER_CARD,
   MAX_SIZES_TO_SHOW_PER_CARD,
@@ -26,4 +28,5 @@ export {
   MAX_SEEN_PRODUCTS,
   FREE_SHIPPING_THRESHOLD,
   CART_ITEM_SHOW_MORE,
+  CHECKOUT_STEPS,
 };
