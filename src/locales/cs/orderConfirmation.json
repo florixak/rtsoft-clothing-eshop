@@ -11,6 +11,6 @@
     "shipping": "Doprava",
     "estimatedTax": "Odhadovaná DPH",
     "total": "Celkem",
-    "itemDetails": "Barva: {{color}} | Size: {{size}}"
+    "itemDetails": "Barva: {{color}} | Velikost: {{size}}"
   }
 }
