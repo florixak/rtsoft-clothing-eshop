@@ -1,4 +1,4 @@
-import { createProductQueryOptions } from "@/hooks/query-options";
+import { createProductSlugQueryOptions } from "@/hooks/query-options";
 import { Route } from "@/routes/{-$locale}/product/$productSlug";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Separator } from "../ui/separator";
@@ -12,7 +12,7 @@ import { setLastSeenProduct } from "@/lib/product-utils";
 const Product = () => {
   const { productSlug } = Route.useParams();
   const { data: product } = useSuspenseQuery(
-    createProductQueryOptions(productSlug),
+    createProductSlugQueryOptions(productSlug),
   );
 
   useEffect(() => {

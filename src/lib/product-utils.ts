@@ -1,6 +1,6 @@
 import { products } from "@/data";
 import type { SortOptions } from "@/data/products";
-import type { Category, Product, SizeCode, SKU } from "@/types";
+import type { Category, Product, SizeCode, SKU, TypeCode } from "@/types";
 import { findCategoryById } from "./category-utils";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
@@ -165,6 +165,16 @@ const getProductBySlug = async (slug: string): Promise<Product> => {
   return product;
 };
 
+const getProductById = async (productId: string): Promise<Product> => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  const product = findProductById(productId);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  return product;
+};
+
 const findProductById = (productId: string) => {
   return products.find((p) => p.id === productId);
 };
@@ -218,6 +228,41 @@ const findSKU = (
   color?: string,
 ): SKU | undefined => {
   return skus.find((s) => s.size === size && (!color || s.color === color));
+};
+
+const matchesSelection = (
+  sku: Product["skus"][number],
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) => (!color || sku.color === color) && (!size || sku.size === size);
+
+const findInStockSku = (
+  product: Product,
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) =>
+  product.skus.find(
+    (sku) => matchesSelection(sku, color, size) && sku.stock > 0,
+  );
+
+const hasInStockSku = (
+  product: Product,
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) =>
+  product.skus.some(
+    (sku) => matchesSelection(sku, color, size) && sku.stock > 0,
+  );
+
+const hasInStockSkuBySelection = (
+  productId: string,
+  color: TypeCode | undefined,
+  size: SizeCode | undefined,
+) => {
+  const product = findProductById(productId);
+  if (!product) return false;
+
+  return hasInStockSku(product, color, size);
 };
 
 const getTotalStock = (product: Product) => {
@@ -364,6 +409,10 @@ export {
   findProductById,
   findProductBySlug,
   findSKU,
+  matchesSelection,
+  findInStockSku,
+  hasInStockSku,
+  hasInStockSkuBySelection,
   getAppliedFiltersLabel,
   getProducts,
   getTotalStock,
@@ -373,6 +422,7 @@ export {
   getAvailableSizes,
   getImageBySelectedColor,
   getProductBySlug,
+  getProductById,
   setLastSeenProduct,
   getLastSeenProducts,
 };

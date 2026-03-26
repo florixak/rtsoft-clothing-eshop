@@ -1,0 +1,35 @@
+{
+  "title": "Košík",
+  "itemsReady": "{{count}} položka připravena k pokladně",
+  "itemsReady_few": "{{count}} položky připraveny k pokladně",
+  "itemsReady_other": "{{count}} položek připraveno k pokladně",
+  "empty": {
+    "title": "Váš košík je prázdný",
+    "description": "Vypadá to, že jste zatím nic nepřidali.",
+    "action": "Začít nakupovat"
+  },
+  "item": {
+    "remove": "Odebrat položku",
+    "inStock": "Skladem",
+    "outOfStock": "Není skladem",
+    "size": "Velikost: {{size}}",
+    "color": "Barva: {{color}}",
+    "notFound": "Položka nenalezena"
+  },
+  "summary": {
+    "title": "Shrnutí objednávky",
+    "subtotal": "Mezisoučet",
+    "shipping": "Doprava",
+    "tax": "DPH",
+    "total": "Celkem",
+    "shippingTaxNote": "Doprava a DPH jsou vypočítány při pokladně",
+    "freeShippingNote": "Do dopravy zdarma chybí {{amount}}",
+    "freeShippingEligible": "Gratulujeme! Máte nárok na dopravu zdarma."
+  },
+  "actions": {
+    "proceedToCheckout": "Přejít k pokladně",
+    "continueShopping": "Pokračovat v nákupu",
+    "showMore": "Zobrazit více položek",
+    "showLess": "Zobrazit méně položek"
+  }
+}

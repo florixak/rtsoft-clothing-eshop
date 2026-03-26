@@ -1,0 +1,34 @@
+{
+  "title": "Cart",
+  "itemsReady": "{{count}} item ready for checkout",
+  "itemsReady_other": "{{count}} items ready for checkout",
+  "empty": {
+    "title": "Your cart is empty",
+    "description": "Looks like you haven't added anything yet.",
+    "action": "Start Shopping"
+  },
+  "item": {
+    "remove": "Remove item",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "size": "Size: {{size}}",
+    "color": "Color: {{color}}",
+    "notFound": "Item not found"
+  },
+  "summary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "total": "Total",
+    "shippingTaxNote": "Shipping and tax are calculated at checkout",
+    "freeShippingNote": "Missing {{amount}} for free shipping",
+    "freeShippingEligible": "Congratulations! You're eligible for free shipping."
+  },
+  "actions": {
+    "proceedToCheckout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "showMore": "Show more items",
+    "showLess": "Show fewer items"
+  }
+}

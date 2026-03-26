@@ -1,3 +1,4 @@
+import Cart from "@/components/cart/cart";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/cart/")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/{-$locale}/cart/")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/-$locale/cart/"!</div>;
+  return <Cart />;
 }

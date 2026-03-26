@@ -1,6 +1,11 @@
 import { QUERY_KEYS } from "@/constants";
 import { getCategoryById } from "@/lib/category-utils";
-import { getProductBySlug, getProducts, type Query } from "@/lib/product-utils";
+import {
+  getProductById,
+  getProductBySlug,
+  getProducts,
+  type Query,
+} from "@/lib/product-utils";
 import { queryOptions } from "@tanstack/react-query";
 
 export const createProductsQueryOptions = (query: Query) =>
@@ -9,10 +14,16 @@ export const createProductsQueryOptions = (query: Query) =>
     queryFn: () => getProducts(query),
   });
 
-export const createProductQueryOptions = (productSlug: string) =>
+export const createProductSlugQueryOptions = (productSlug: string) =>
   queryOptions({
-    queryKey: QUERY_KEYS.product(productSlug),
+    queryKey: QUERY_KEYS.productSlug(productSlug),
     queryFn: () => getProductBySlug(productSlug),
+  });
+
+export const createProductIdQueryOptions = (productId: string) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.productId(productId),
+    queryFn: () => getProductById(productId),
   });
 
 export const createCategoryQueryOptions = (categoryId: string) =>

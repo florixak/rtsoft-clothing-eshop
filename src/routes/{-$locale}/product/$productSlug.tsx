@@ -1,7 +1,7 @@
 import Product from "@/components/product/product";
 import {
   createCategoryQueryOptions,
-  createProductQueryOptions,
+  createProductSlugQueryOptions,
 } from "@/hooks/query-options";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   loader: async ({ context, params }) => {
     const { productSlug } = params;
     const { categoryId } = await context.queryClient.ensureQueryData(
-      createProductQueryOptions(productSlug),
+      createProductSlugQueryOptions(productSlug),
     );
     await context.queryClient.ensureQueryData(
       createCategoryQueryOptions(categoryId),
