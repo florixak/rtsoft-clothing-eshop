@@ -154,6 +154,7 @@ const OrderSummary = ({
             <Button
               variant="outline"
               className="w-full"
+              nativeButton={false}
               render={
                 <Link to="/{-$locale}">{t("actions.continueShopping")}</Link>
               }
