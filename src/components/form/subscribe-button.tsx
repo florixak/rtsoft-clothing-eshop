@@ -1,8 +1,11 @@
 import { useFormContext } from "@/hooks/form-context";
 import { Button } from "../ui/button";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { useTranslation } from "react-i18next";
 
 type SubscribeButtonProps = {
   label: string;
+  backLabel?: string;
   onBack?: () => void;
   isFirstStep: boolean;
   isCurrentStepValid: boolean;
@@ -10,12 +13,14 @@ type SubscribeButtonProps = {
 
 const SubscribeButton = ({
   label,
+  backLabel,
   onBack,
   isFirstStep,
   isCurrentStepValid,
 }: SubscribeButtonProps) => {
   const form = useFormContext();
   const { isSubmitting } = form.state;
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
 
   return (
     <div className="flex items-center justify-end gap-4">
@@ -26,11 +31,11 @@ const SubscribeButton = ({
           onClick={onBack}
           disabled={isSubmitting}
         >
-          Back
+          {backLabel}
         </Button>
       )}
       <Button type="submit" disabled={isSubmitting || !isCurrentStepValid}>
-        {isSubmitting ? "Submitting..." : label}
+        {isSubmitting ? t("actions.submitting") : label}
       </Button>
     </div>
   );

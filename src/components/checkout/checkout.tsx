@@ -16,6 +16,8 @@ import CheckoutStepper from "./checkout-stepper";
 import ShippingForm from "../form/shipping-form";
 import PaymentForm from "../form/payment-form";
 import CheckoutReview from "./checkout-review";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
@@ -60,6 +62,13 @@ const Checkout = () => {
       : section === "payment"
         ? t("actions.continueToReview")
         : t("actions.placeOrder");
+
+  const backLabel =
+    section === "payment"
+      ? t("actions.backToShipping")
+      : section === "review"
+        ? t("actions.backToPayment")
+        : undefined;
 
   const isCurrentStepValid = (
     values: FormValues,
@@ -107,17 +116,20 @@ const Checkout = () => {
             form.handleSubmit();
           }}
         >
-          <form.AppForm>
-            {section === "shipping" && <ShippingForm form={form} />}
-            {section === "payment" && <PaymentForm form={form} />}
-            {section === "review" && <CheckoutReview />}
-            <form.SubscribeButton
-              label={buttonLabel}
-              onBack={handleBack}
-              isFirstStep={section === "shipping"}
-              isCurrentStepValid={canContinue}
-            />
-          </form.AppForm>
+          <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+            <form.AppForm>
+              {section === "shipping" && <ShippingForm form={form} />}
+              {section === "payment" && <PaymentForm form={form} />}
+              {section === "review" && <CheckoutReview />}
+              <form.SubscribeButton
+                label={buttonLabel}
+                backLabel={backLabel}
+                onBack={handleBack}
+                isFirstStep={section === "shipping"}
+                isCurrentStepValid={canContinue}
+              />
+            </form.AppForm>
+          </Suspense>
         </form>
         <OrderSummary data={{ shipping: shippingCost, tax: 0 }} isCheckout />
       </div>
