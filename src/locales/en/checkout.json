@@ -111,6 +111,8 @@
     "backToCart": "Back to Cart",
     "continueToPayment": "Continue to Payment",
     "continueToReview": "Continue to Review",
-    "placeOrder": "Place Order"
+    "placeOrder": "Place Order",
+    "backToShipping": "Back to Shipping",
+    "backToPayment": "Back to Payment"
   }
 }

@@ -111,6 +111,8 @@
     "backToCart": "Zpět do košíku",
     "continueToPayment": "Pokračovat k platbě",
     "continueToReview": "Pokračovat na přehled",
-    "placeOrder": "Odeslat objednávku"
+    "placeOrder": "Odeslat objednávku",
+    "backToShipping": "Zpět k dopravě",
+    "backToPayment": "Zpět k platbě"
   }
 }
