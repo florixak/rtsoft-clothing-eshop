@@ -4,12 +4,18 @@ import { Button } from "../ui/button";
 type SubscribeButtonProps = {
   label: string;
   onBack?: () => void;
+  isFirstStep: boolean;
+  isCurrentStepValid: boolean;
 };
 
-const SubscribeButton = ({ label, onBack }: SubscribeButtonProps) => {
+const SubscribeButton = ({
+  label,
+  onBack,
+  isFirstStep,
+  isCurrentStepValid,
+}: SubscribeButtonProps) => {
   const form = useFormContext();
-  const isFirstStep = form.state.values.section === "shipping";
-  const { isSubmitting, isValid } = form.state;
+  const { isSubmitting } = form.state;
 
   return (
     <div className="flex items-center justify-end gap-4">
@@ -23,7 +29,7 @@ const SubscribeButton = ({ label, onBack }: SubscribeButtonProps) => {
           Back
         </Button>
       )}
-      <Button type="submit" disabled={isSubmitting || !isValid}>
+      <Button type="submit" disabled={isSubmitting || !isCurrentStepValid}>
         {isSubmitting ? "Submitting..." : label}
       </Button>
     </div>
