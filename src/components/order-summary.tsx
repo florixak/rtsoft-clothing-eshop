@@ -1,15 +1,15 @@
+import { FREE_SHIPPING_THRESHOLD } from "@/constants";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
+import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
+import CartItem from "./cart/cart-item";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { FREE_SHIPPING_THRESHOLD } from "@/constants";
-import CartItem from "./cart/cart-item";
 import { Separator } from "./ui/separator";
-import { Suspense } from "react";
 import { Skeleton } from "./ui/skeleton";
 
 type OrderSummaryProps = {
@@ -19,12 +19,14 @@ type OrderSummaryProps = {
   };
   showProducts?: boolean;
   disableCheckout?: boolean;
+  isCheckout?: boolean;
 };
 
 const OrderSummary = ({
   data: summary = { tax: 0, shipping: 0 },
   showProducts = true,
   disableCheckout = false,
+  isCheckout = false,
 }: OrderSummaryProps) => {
   const {
     subtotal,
@@ -41,8 +43,8 @@ const OrderSummary = ({
   const canProceedToCheckout =
     subtotalValue > 0 && itemsCount() > 0 && !disableCheckout;
   const isEligibleForFreeShipping = subtotalValue >= FREE_SHIPPING_THRESHOLD;
-  const shippingCost = isEligibleForFreeShipping ? 0 : shipping;
-  const total = subtotalValue + tax + shippingCost;
+  const shippingCost = shipping || 0;
+  const total = subtotalValue + (tax || 0) + shippingCost;
 
   const progressToFreeShipping = Math.max(
     0,
@@ -96,7 +98,11 @@ const OrderSummary = ({
               {t("summary.shipping")}
             </th>
             <td className="text-right">
-              {shippingCost > 0 ? formatPrice(shippingCost, locale) : "-"}
+              {isEligibleForFreeShipping
+                ? t("summary.freeShipping")
+                : shippingCost > 0 && shipping != undefined
+                  ? formatPrice(shippingCost, locale)
+                  : "-"}
             </td>
           </tr>
           <tr>
@@ -134,37 +140,43 @@ const OrderSummary = ({
           </tr>
         </tbody>
       </table>
-      <div className="flex flex-col gap-2">
-        <Button
-          className="w-full"
-          disabled={!canProceedToCheckout}
-          onClick={handleCheckout}
-        >
-          <Lock size={16} />
-          {t("actions.proceedToCheckout")}
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full"
-          render={<Link to="/{-$locale}">{t("actions.continueShopping")}</Link>}
-        />
-      </div>
-      <div className="flex flex-col gap-2 mt-4">
-        <div className="w-full bg-muted rounded-full overflow-hidden">
-          <div
-            style={{ width: `${lineWidth}%` }}
-            className={`bg-primary h-2 rounded-full`}
-          />
-        </div>
+      {!isCheckout && (
+        <>
+          <div className="flex flex-col gap-2">
+            <Button
+              className="w-full"
+              disabled={!canProceedToCheckout}
+              onClick={handleCheckout}
+            >
+              <Lock size={16} />
+              {t("actions.proceedToCheckout")}
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full"
+              render={
+                <Link to="/{-$locale}">{t("actions.continueShopping")}</Link>
+              }
+            />
+          </div>
+          <div className="flex flex-col gap-2 mt-4">
+            <div className="w-full bg-muted rounded-full overflow-hidden">
+              <div
+                style={{ width: `${lineWidth}%` }}
+                className={`bg-primary h-2 rounded-full`}
+              />
+            </div>
 
-        <p className="text-sm text-muted-foreground text-center">
-          {progressToFreeShipping > 0
-            ? t("summary.freeShippingNote", {
-                amount: formatPrice(progressToFreeShipping, locale),
-              })
-            : t("summary.freeShippingEligible")}
-        </p>
-      </div>
+            <p className="text-sm text-muted-foreground text-center">
+              {progressToFreeShipping > 0
+                ? t("summary.freeShippingNote", {
+                    amount: formatPrice(progressToFreeShipping, locale),
+                  })
+                : t("summary.freeShippingEligible")}
+            </p>
+          </div>
+        </>
+      )}
     </Card>
   );
 };
