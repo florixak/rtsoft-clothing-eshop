@@ -55,7 +55,8 @@
         "placeholder": "110 00"
       },
       "country": {
-        "label": "Země"
+        "label": "Země",
+        "placeholder": "Česká republika"
       }
     },
     "billingSameAsShipping": "Fakturační adresa je stejná jako doručovací"

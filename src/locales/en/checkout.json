@@ -55,7 +55,8 @@
         "placeholder": "10001"
       },
       "country": {
-        "label": "Country"
+        "label": "Country",
+        "placeholder": "United States"
       }
     },
     "billingSameAsShipping": "Billing address same as shipping"
