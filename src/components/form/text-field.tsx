@@ -14,11 +14,11 @@ const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
       <Input
         id={id}
         type={type}
+        className="border p-2 rounded w-full"
+        {...props}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
         onBlur={field.handleBlur}
-        className="border p-2 rounded w-full"
-        {...props}
       />
       {field.state.meta.isTouched && field.state.meta.errors.length ? (
         <em className="text-destructive">
