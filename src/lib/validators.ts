@@ -40,7 +40,6 @@ export const paymentStepSchema = z.object({
 });
 
 export const formSchema = z.object({
-  section: z.enum(["shipping", "payment", "review"]),
   ...shippingSchema.shape,
   ...paymentSchema.shape,
 });
