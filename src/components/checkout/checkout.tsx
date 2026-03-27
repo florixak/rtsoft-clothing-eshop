@@ -2,6 +2,12 @@ import { shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import {
+  formSchema,
+  paymentStepSchema,
+  shippingStepSchema,
+  type FormValues,
+} from "@/lib/validators";
 import { useStore } from "@tanstack/react-form";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
@@ -18,16 +24,14 @@ const Checkout = () => {
 
   const form = useCheckoutForm({
     ...checkoutFormOpts,
-    onSubmit: ({ value, formApi }) => {
+    onSubmit: ({ value }) => {
       if (section === "shipping") {
-        formApi.setFieldValue("section", "payment");
         navigate({
           to: "/{-$locale}/checkout",
           search: { section: "payment" },
           replace: true,
         });
       } else if (section === "payment") {
-        formApi.setFieldValue("section", "review");
         navigate({
           to: "/{-$locale}/checkout",
           search: { section: "review" },
@@ -41,7 +45,8 @@ const Checkout = () => {
     },
   });
 
-  const currentSection = useStore(form.store, (state) => state.values.section);
+  const currentValues = useStore(form.store, (state) => state.values);
+
   const currentShipping = useStore(
     form.store,
     (state) => state.values.shipping.shippingMethod,
@@ -50,22 +55,35 @@ const Checkout = () => {
     shippingMethods.find((m) => m.id === currentShipping)?.price || 0;
 
   const buttonLabel =
-    currentSection === "shipping"
+    section === "shipping"
       ? t("actions.continueToPayment")
-      : currentSection === "payment"
+      : section === "payment"
         ? t("actions.continueToReview")
         : t("actions.placeOrder");
 
-  const handleBack = () => {
+  const isCurrentStepValid = (
+    values: FormValues,
+    currentSection: "shipping" | "payment" | "review",
+  ) => {
+    if (currentSection === "shipping") {
+      return shippingStepSchema.safeParse(values).success;
+    }
     if (currentSection === "payment") {
-      form.setFieldValue("section", "shipping");
+      return paymentStepSchema.safeParse(values).success;
+    }
+    return formSchema.safeParse(values).success;
+  };
+
+  const canContinue = isCurrentStepValid(currentValues, section);
+
+  const handleBack = () => {
+    if (section === "payment") {
       navigate({
         to: "/{-$locale}/checkout",
         search: { section: "shipping" },
         replace: true,
       });
-    } else if (currentSection === "review") {
-      form.setFieldValue("section", "payment");
+    } else if (section === "review") {
       navigate({
         to: "/{-$locale}/checkout",
         search: { section: "payment" },
@@ -83,14 +101,22 @@ const Checkout = () => {
           className="flex-1 flex flex-col gap-8 w-full"
           onSubmit={(e) => {
             e.preventDefault();
+            if (!canContinue) {
+              return;
+            }
             form.handleSubmit();
           }}
         >
           <form.AppForm>
-            {currentSection === "shipping" && <ShippingForm form={form} />}
-            {currentSection === "payment" && <PaymentForm form={form} />}
-            {currentSection === "review" && <CheckoutReview />}
-            <form.SubscribeButton label={buttonLabel} onBack={handleBack} />
+            {section === "shipping" && <ShippingForm form={form} />}
+            {section === "payment" && <PaymentForm form={form} />}
+            {section === "review" && <CheckoutReview />}
+            <form.SubscribeButton
+              label={buttonLabel}
+              onBack={handleBack}
+              isFirstStep={section === "shipping"}
+              isCurrentStepValid={canContinue}
+            />
           </form.AppForm>
         </form>
         <OrderSummary data={{ shipping: shippingCost, tax: 0 }} isCheckout />
