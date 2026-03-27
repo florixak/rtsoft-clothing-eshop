@@ -114,6 +114,8 @@
     "continueToReview": "Pokračovat na přehled",
     "placeOrder": "Odeslat objednávku",
     "backToShipping": "Zpět k dopravě",
-    "backToPayment": "Zpět k platbě"
+    "backToPayment": "Zpět k platbě",
+    "edit": "Upravit",
+    "submitting": "Odesílám..."
   }
 }

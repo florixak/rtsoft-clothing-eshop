@@ -114,6 +114,8 @@
     "continueToReview": "Continue to Review",
     "placeOrder": "Place Order",
     "backToShipping": "Back to Shipping",
-    "backToPayment": "Back to Payment"
+    "backToPayment": "Back to Payment",
+    "edit": "Edit",
+    "submitting": "Submitting..."
   }
 }
