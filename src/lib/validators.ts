@@ -15,12 +15,6 @@ export const shippingSchema = z.object({
   }),
 });
 
-export const shippingStepSchema = z.object({
-  shipping: shippingSchema.shape.shipping.pick({
-    shippingMethod: true,
-  }),
-});
-
 export const paymentSchema = z.object({
   payment: z.object({
     paymentMethod: z.enum(
@@ -30,12 +24,6 @@ export const paymentSchema = z.object({
     expiryDate: z.string().min(1, "Expiry date is required"),
     cvv: z.string().min(1, "CVV is required"),
     cardholderName: z.string().min(1, "Cardholder name is required"),
-  }),
-});
-
-export const paymentStepSchema = z.object({
-  payment: paymentSchema.shape.payment.pick({
-    paymentMethod: true,
   }),
 });
 

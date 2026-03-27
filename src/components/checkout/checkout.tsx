@@ -4,8 +4,8 @@ import { checkoutFormOpts } from "@/lib/checkout-form";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import {
   formSchema,
-  paymentStepSchema,
-  shippingStepSchema,
+  paymentSchema,
+  shippingSchema,
   type FormValues,
 } from "@/lib/validators";
 import { useStore } from "@tanstack/react-form";
@@ -66,10 +66,10 @@ const Checkout = () => {
     currentSection: "shipping" | "payment" | "review",
   ) => {
     if (currentSection === "shipping") {
-      return shippingStepSchema.safeParse(values).success;
+      return shippingSchema.safeParse(values).success;
     }
     if (currentSection === "payment") {
-      return paymentStepSchema.safeParse(values).success;
+      return paymentSchema.safeParse(values).success;
     }
     return formSchema.safeParse(values).success;
   };
