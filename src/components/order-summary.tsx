@@ -44,7 +44,8 @@ const OrderSummary = ({
     subtotalValue > 0 && itemsCount() > 0 && !disableCheckout;
   const isEligibleForFreeShipping = subtotalValue >= FREE_SHIPPING_THRESHOLD;
   const shippingCost = shipping || 0;
-  const total = subtotalValue + (tax || 0) + shippingCost;
+  const total =
+    subtotalValue + (tax || 0) + (isEligibleForFreeShipping ? 0 : shippingCost);
 
   const progressToFreeShipping = Math.max(
     0,
@@ -100,7 +101,7 @@ const OrderSummary = ({
             <td className="text-right">
               {isEligibleForFreeShipping
                 ? t("summary.freeShipping")
-                : shippingCost > 0 && shipping != undefined
+                : shippingCost > 0 && shipping !== undefined
                   ? formatPrice(shippingCost, locale)
                   : "-"}
             </td>
