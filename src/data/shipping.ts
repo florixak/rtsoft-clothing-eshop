@@ -11,22 +11,16 @@ export const shippingMethods: ShippingMethod[] = [
     id: "ship-2",
     name: { cs: "PPL kurýr", en: "PPL Courier" },
     price: 129,
-    description: { cs: "Popis PPL kurýra", en: "PPL Courier Description" },
+    description: { cs: "4-5 pracovních dní", en: "4-5 business days" },
   },
   {
     id: "ship-3",
     name: { cs: "Osobní odběr", en: "In Person Pickup" },
     price: 0,
     description: {
-      cs: "Popis osobního odběru",
-      en: "In Person Pickup Description",
+      cs: "1-2 pracovní dny, pouze v Praze",
+      en: "1-2 business days, pickup only in Prague",
     },
-  },
-  {
-    id: "ship-4",
-    name: { cs: "Česká pošta", en: "Czech Post" },
-    price: 99,
-    description: { cs: "Popis české pošty", en: "Czech Post Description" },
   },
 ] as const;
 
@@ -47,7 +41,7 @@ export const paymentMethods: PaymentMethod[] = [
   },
   {
     id: "pay-3",
-    name: { cs: "Dobírka / Cash on Delivery", en: "Cash on Delivery / COD" },
+    name: { cs: "Dobírka", en: "Cash on Delivery" },
   },
   { id: "pay-4", name: { cs: "Apple Pay", en: "Apple Pay" } },
 ] as const;
