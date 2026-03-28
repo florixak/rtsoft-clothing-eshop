@@ -23,6 +23,15 @@ const RadioButtonField = ({
       )}
       onClick={() => field.handleChange(value)}
       onBlur={field.handleBlur}
+      role="radio"
+      aria-checked={field.state.value === value}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          field.handleChange(value);
+        }
+      }}
     >
       <span
         className={clsx(
