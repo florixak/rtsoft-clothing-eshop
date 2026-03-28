@@ -1,16 +1,43 @@
 import { useFormContext } from "@/hooks/form-context";
 import { Button } from "../ui/button";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { useTranslation } from "react-i18next";
 
-const SubscribeButton = ({ label }: { label: string }) => {
+type SubscribeButtonProps = {
+  label: string;
+  backLabel?: string;
+  onBack?: () => void;
+  isFirstStep: boolean;
+  isCurrentStepValid: boolean;
+};
+
+const SubscribeButton = ({
+  label,
+  backLabel,
+  onBack,
+  isFirstStep,
+  isCurrentStepValid,
+}: SubscribeButtonProps) => {
   const form = useFormContext();
+  const { isSubmitting } = form.state;
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+
   return (
-    <form.Subscribe selector={(state) => state.isSubmitting}>
-      {(isSubmitting) => (
-        <Button type="submit" disabled={isSubmitting}>
-          {label}
+    <div className="flex items-center justify-end gap-4">
+      {onBack && !isFirstStep && (
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onBack}
+          disabled={isSubmitting}
+        >
+          {backLabel}
         </Button>
       )}
-    </form.Subscribe>
+      <Button type="submit" disabled={isSubmitting || !isCurrentStepValid}>
+        {isSubmitting ? t("actions.submitting") : label}
+      </Button>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 {
+  "title": "Pokladna",
   "steps": {
     "shipping": "Doprava",
     "payment": "Platba",
@@ -54,7 +55,8 @@
         "placeholder": "110 00"
       },
       "country": {
-        "label": "Země"
+        "label": "Země",
+        "placeholder": "Česká republika"
       }
     },
     "billingSameAsShipping": "Fakturační adresa je stejná jako doručovací"
@@ -110,6 +112,10 @@
     "backToCart": "Zpět do košíku",
     "continueToPayment": "Pokračovat k platbě",
     "continueToReview": "Pokračovat na přehled",
-    "placeOrder": "Odeslat objednávku"
+    "placeOrder": "Odeslat objednávku",
+    "backToShipping": "Zpět k dopravě",
+    "backToPayment": "Zpět k platbě",
+    "edit": "Upravit",
+    "submitting": "Odesílám..."
   }
 }

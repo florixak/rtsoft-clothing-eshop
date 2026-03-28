@@ -1,15 +1,9 @@
 import { formOptions } from "@tanstack/react-form";
-import {
-  formSchema,
-  paymentSchema,
-  shippingSchema,
-  type FormValues,
-} from "./validators";
+import { type FormValues } from "./validators";
 
 const defaultValues: FormValues = {
-  section: "shipping",
   shipping: {
-    shippingMethod: "standard",
+    shippingMethod: "",
     firstName: "",
     lastName: "",
     streetAddress: "",
@@ -18,7 +12,7 @@ const defaultValues: FormValues = {
     country: "",
   },
   payment: {
-    paymentMethod: "card",
+    paymentMethod: "",
     cardNumber: "",
     expiryDate: "",
     cvv: "",
@@ -26,23 +20,6 @@ const defaultValues: FormValues = {
   },
 };
 
-export const treeHouseFormOpts = formOptions({
+export const checkoutFormOpts = formOptions({
   defaultValues,
-  validators: {
-    onSubmit: ({ value, formApi }) => {
-      if (value.section === "shipping") {
-        return formApi.parseValuesWithSchema(
-          shippingSchema as typeof formSchema,
-        );
-      }
-      if (value.section === "payment") {
-        return formApi.parseValuesWithSchema(
-          paymentSchema as typeof formSchema,
-        );
-      }
-      if (value.section === "review") {
-        return formApi.parseValuesWithSchema(formSchema);
-      }
-    },
-  },
 });

@@ -72,13 +72,14 @@ export type CartItem = {
 
 export type ShippingMethod = {
   id: string;
-  name: string;
+  name: LocalizedString;
   price: number;
+  description: LocalizedString;
 };
 
 export type PaymentMethod = {
   id: string;
-  name: string;
+  name: LocalizedString;
 };
 
 export type Customer = {

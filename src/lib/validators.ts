@@ -1,8 +1,11 @@
+import { paymentMethods, shippingMethods } from "@/data";
 import * as z from "zod";
 
 export const shippingSchema = z.object({
   shipping: z.object({
-    shippingMethod: z.enum(["standard", "express", "store"]),
+    shippingMethod: z.enum(
+      shippingMethods.map((method) => method.id) as [string, ...string[]],
+    ),
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string().min(1, "Last name is required"),
     streetAddress: z.string().min(1, "Street address is required"),
@@ -14,7 +17,9 @@ export const shippingSchema = z.object({
 
 export const paymentSchema = z.object({
   payment: z.object({
-    paymentMethod: z.enum(["card", "paypal", "bank", "cash"]),
+    paymentMethod: z.enum(
+      paymentMethods.map((method) => method.id) as [string, ...string[]],
+    ),
     cardNumber: z.string().min(1, "Card number is required"),
     expiryDate: z.string().min(1, "Expiry date is required"),
     cvv: z.string().min(1, "CVV is required"),
@@ -23,7 +28,6 @@ export const paymentSchema = z.object({
 });
 
 export const formSchema = z.object({
-  section: z.enum(["shipping", "payment", "review"]),
   ...shippingSchema.shape,
   ...paymentSchema.shape,
 });
