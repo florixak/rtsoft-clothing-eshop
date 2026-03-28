@@ -14,7 +14,6 @@ import { Skeleton } from "./ui/skeleton";
 
 type OrderSummaryProps = {
   data?: {
-    tax: number;
     shipping: number;
   };
   showProducts?: boolean;
@@ -23,7 +22,7 @@ type OrderSummaryProps = {
 };
 
 const OrderSummary = ({
-  data: summary = { tax: 0, shipping: 0 },
+  data: summary = { shipping: 0 },
   showProducts = true,
   disableCheckout = false,
   isCheckout = false,
@@ -36,14 +35,17 @@ const OrderSummary = ({
   const navigate = useNavigate();
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.cart);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
-  const { tax, shipping } = summary;
+  const { shipping } = summary;
 
   const subtotalValue = subtotal();
 
   const canProceedToCheckout =
     subtotalValue > 0 && itemsCount() > 0 && !disableCheckout;
   const isEligibleForFreeShipping = subtotalValue >= FREE_SHIPPING_THRESHOLD;
-  const shippingCost = shipping || 0;
+  const shippingCost = isEligibleForFreeShipping ? 0 : shipping;
+  const tax = !isCheckout
+    ? 0
+    : Math.round((subtotal() + shippingCost) * 0.21 * 100) / 100;
   const total =
     subtotalValue + (tax || 0) + (isEligibleForFreeShipping ? 0 : shippingCost);
 
@@ -101,7 +103,7 @@ const OrderSummary = ({
             <td className="text-right">
               {isEligibleForFreeShipping
                 ? t("summary.freeShipping")
-                : shippingCost > 0 && shipping !== undefined
+                : shippingCost > 0
                   ? formatPrice(shippingCost, locale)
                   : "-"}
             </td>
@@ -117,11 +119,13 @@ const OrderSummary = ({
               {tax > 0 ? formatPrice(tax, locale) : "-"}
             </td>
           </tr>
-          <tr>
-            <td colSpan={2} className="text-xs text-muted-foreground py-2">
-              {t("summary.shippingTaxNote")}
-            </td>
-          </tr>
+          {!isCheckout && (
+            <tr>
+              <td colSpan={2} className="text-xs text-muted-foreground py-2">
+                {t("summary.shippingTaxNote")}
+              </td>
+            </tr>
+          )}
           <tr>
             <td colSpan={2} className="py-2">
               <Separator />
