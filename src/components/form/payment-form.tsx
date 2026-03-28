@@ -7,6 +7,7 @@ import i18n from "@/lib/i18n";
 const PaymentForm = withForm({
   ...checkoutFormOpts,
   render: ({ form }) => {
+    const resolvedLanguage = i18n.resolvedLanguage === "cs" ? "cs" : "en";
     return (
       <div className="flex flex-col gap-2 w-full">
         {paymentMethods.map((method) => (
@@ -15,9 +16,7 @@ const PaymentForm = withForm({
             name="payment.paymentMethod"
             children={(field) => (
               <field.RadioButtonField value={method.id}>
-                <CardHeader>
-                  {method.name[i18n.resolvedLanguage == "cs" ? "cs" : "en"]}
-                </CardHeader>
+                <CardHeader>{method.name[resolvedLanguage]}</CardHeader>
               </field.RadioButtonField>
             )}
           />
