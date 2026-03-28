@@ -18,6 +18,7 @@ import PaymentForm from "../form/payment-form";
 import CheckoutReview from "./checkout-review";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import type { CheckoutStep } from "@/constants";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
@@ -72,7 +73,7 @@ const Checkout = () => {
 
   const isCurrentStepValid = (
     values: FormValues,
-    currentSection: "shipping" | "payment" | "review",
+    currentSection: CheckoutStep,
   ) => {
     if (currentSection === "shipping") {
       return shippingSchema.safeParse(values).success;
