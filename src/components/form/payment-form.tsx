@@ -93,14 +93,17 @@ const PaymentForm = withForm({
                   <form.AppField
                     name="payment.cardholderName"
                     children={(field) => (
-                      <field.TextField
-                        label={translation(
-                          "paymentMethod.secureForm.cardholderName.label",
-                        )}
-                        placeholder={translation(
-                          "paymentMethod.secureForm.cardholderName.placeholder",
-                        )}
-                      />
+                      <>
+                        <field.TextField
+                          label={translation(
+                            "paymentMethod.secureForm.cardholderName.label",
+                          )}
+                          placeholder={translation(
+                            "paymentMethod.secureForm.cardholderName.placeholder",
+                          )}
+                        />
+                        <field.PayButton />
+                      </>
                     )}
                   />
                 </div>
