@@ -11,10 +11,11 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Separator } from "./ui/separator";
 import { Skeleton } from "./ui/skeleton";
+import useOrderSummary from "@/hooks/use-order-summary";
 
 type OrderSummaryProps = {
   data?: {
-    shipping: number;
+    shipping?: number;
   };
   showProducts?: boolean;
   disableCheckout?: boolean;
@@ -36,18 +37,22 @@ const OrderSummary = ({
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.cart);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const { shipping } = summary;
-
   const subtotalValue = subtotal();
+  const {
+    isEligibleForFreeShipping,
+    shippingCost,
+    tax: taxValue,
+    total: totalValue,
+  } = useOrderSummary({
+    subtotal: subtotalValue,
+    shipping: shipping || 0,
+    calculateTax: isCheckout,
+  });
 
   const canProceedToCheckout =
     subtotalValue > 0 && itemsCount() > 0 && !disableCheckout;
-  const isEligibleForFreeShipping = subtotalValue >= FREE_SHIPPING_THRESHOLD;
-  const shippingCost = isEligibleForFreeShipping ? 0 : shipping;
-  const tax = !isCheckout
-    ? 0
-    : Math.round((subtotal() + shippingCost) * 0.21 * 100) / 100;
-  const total =
-    subtotalValue + (tax || 0) + (isEligibleForFreeShipping ? 0 : shippingCost);
+
+  const tax = !isCheckout ? 0 : taxValue;
 
   const progressToFreeShipping = Math.max(
     0,
@@ -140,7 +145,7 @@ const OrderSummary = ({
               {t("summary.total")}
             </th>
             <td className="text-right font-bold">
-              {formatPrice(total, locale)}
+              {formatPrice(totalValue, locale)}
             </td>
           </tr>
         </tbody>
