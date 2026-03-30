@@ -94,6 +94,7 @@
         "placeholder": "Johnathan Doe"
       },
       "saveCard": "Save card information for future purchases",
+      "securityInfo": "Your payment information is secure and will not be stored on our servers.",
       "payButton": "Pay {{amount}} Securely"
     }
   },
