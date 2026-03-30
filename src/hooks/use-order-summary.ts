@@ -16,7 +16,7 @@ const useOrderSummary = ({
   const tax = calculateTax
     ? Math.round((subtotal + shippingCost) * 0.21 * 100) / 100
     : 0;
-  const total = subtotal + shippingCost + tax;
+  const total = Math.round((subtotal + shippingCost + tax) * 100) / 100;
   return {
     isEligibleForFreeShipping,
     shippingCost,
