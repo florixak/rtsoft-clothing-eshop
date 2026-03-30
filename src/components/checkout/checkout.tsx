@@ -132,7 +132,7 @@ const Checkout = () => {
             </form.AppForm>
           </Suspense>
         </form>
-        <OrderSummary data={{ shipping: shippingCost, tax: 0 }} isCheckout />
+        <OrderSummary data={{ shipping: shippingCost }} isCheckout />
       </div>
     </section>
   );

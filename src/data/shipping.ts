@@ -2,19 +2,19 @@ import type { ShippingMethod, PaymentMethod } from "../types";
 
 export const shippingMethods: ShippingMethod[] = [
   {
-    id: "ship-1",
+    id: "packeta",
     name: { cs: "Zásilkovna", en: "Packeta" },
     price: 79,
     description: { cs: "2-3 pracovní dny", en: "2-3 business days" },
   },
   {
-    id: "ship-2",
+    id: "ppl",
     name: { cs: "PPL kurýr", en: "PPL Courier" },
     price: 129,
     description: { cs: "4-5 pracovních dní", en: "4-5 business days" },
   },
   {
-    id: "ship-3",
+    id: "pickup",
     name: { cs: "Osobní odběr", en: "In Person Pickup" },
     price: 0,
     description: {
@@ -26,22 +26,22 @@ export const shippingMethods: ShippingMethod[] = [
 
 export const paymentMethods: PaymentMethod[] = [
   {
-    id: "pay-1",
+    id: "payment-card",
     name: {
       cs: "Platební karta / Kreditní karta",
       en: "Credit Card / Payment Card",
     },
   },
   {
-    id: "pay-2",
+    id: "bank-transfer",
     name: {
       cs: "Bankovní převod",
       en: "Bank Transfer",
     },
   },
   {
-    id: "pay-3",
+    id: "cash-on-delivery",
     name: { cs: "Dobírka", en: "Cash on Delivery" },
   },
-  { id: "pay-4", name: { cs: "Apple Pay", en: "Apple Pay" } },
+  { id: "apple-pay", name: { cs: "Apple Pay", en: "Apple Pay" } },
 ] as const;

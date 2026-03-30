@@ -94,6 +94,7 @@
         "placeholder": "Jan Novák"
       },
       "saveCard": "Uložit údaje karty pro budoucí nákupy",
+      "securityInfo": "Vaše platební údaje jsou zabezpečeny a nebudou uloženy na našich serverech.",
       "payButton": "Zaplatit {{amount}} bezpečně"
     }
   },
