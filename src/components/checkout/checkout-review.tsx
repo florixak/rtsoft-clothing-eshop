@@ -68,16 +68,16 @@ const CheckoutReview = withForm({
                 </h4>
               </CardHeader>
               <CardContent className="flex-1">
-                <div className="space-y-1">
-                  <p className="font-medium">
-                    {firstName} {lastName}
-                  </p>
-                  <p className="text-muted-foreground">{streetAddress}</p>
-                  <p className="text-muted-foreground">
+                <CardTitle>
+                  {firstName && lastName ? `${firstName} ${lastName}` : "-"}
+                </CardTitle>
+                <CardDescription className="mt-2">
+                  <p>{streetAddress || "-"}</p>
+                  <p>
                     {postalCode} {city}
                   </p>
-                  <p className="text-muted-foreground">{country}</p>
-                </div>
+                  <p>{country || "-"}</p>
+                </CardDescription>
               </CardContent>
               <CardFooter>
                 <p className="text-sm text-muted-foreground">
@@ -112,14 +112,14 @@ const CheckoutReview = withForm({
                 </CardTitle>
                 <CardDescription className="mt-2">
                   {selectedShippingMethod?.description[resolvedLanguage] ?? "-"}
+                  <p className="font-medium text-muted-foreground">
+                    {selectedShippingMethod
+                      ? selectedShippingMethod.price === 0
+                        ? translation("shippingMethod.free")
+                        : formatPrice(selectedShippingMethod.price, locale)
+                      : "-"}
+                  </p>
                 </CardDescription>
-                <p className="font-medium mt-3 text-muted-foreground">
-                  {selectedShippingMethod
-                    ? selectedShippingMethod.price === 0
-                      ? translation("shippingMethod.free")
-                      : formatPrice(selectedShippingMethod.price, locale)
-                    : "-"}
-                </p>
               </CardContent>
               <CardFooter>
                 <p className="text-sm text-muted-foreground">
@@ -147,10 +147,10 @@ const CheckoutReview = withForm({
                 </h4>
               </CardHeader>
               <CardContent className="flex-1">
-                <div className="space-y-2">
-                  <p className="font-medium">
-                    {selectedPaymentMethod?.name[resolvedLanguage] ?? "-"}
-                  </p>
+                <CardTitle>
+                  {selectedPaymentMethod?.name[resolvedLanguage] ?? "-"}
+                </CardTitle>
+                <CardDescription className="mt-2">
                   {paymentMethod === "payment-card" && (
                     <>
                       <p className="text-muted-foreground">
@@ -168,7 +168,7 @@ const CheckoutReview = withForm({
                       </p>
                     </>
                   )}
-                </div>
+                </CardDescription>
               </CardContent>
               <CardFooter>
                 <p className="text-sm text-muted-foreground flex items-center gap-1">
