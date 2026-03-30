@@ -3,7 +3,9 @@ import { withForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { Lock } from "lucide-react";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
 
 const PaymentForm = withForm({
   ...checkoutFormOpts,
@@ -93,22 +95,41 @@ const PaymentForm = withForm({
                   <form.AppField
                     name="payment.cardholderName"
                     children={(field) => (
-                      <>
-                        <field.TextField
-                          label={translation(
-                            "paymentMethod.secureForm.cardholderName.label",
-                          )}
-                          placeholder={translation(
-                            "paymentMethod.secureForm.cardholderName.placeholder",
-                          )}
-                        />
+                      <field.TextField
+                        label={translation(
+                          "paymentMethod.secureForm.cardholderName.label",
+                        )}
+                        placeholder={translation(
+                          "paymentMethod.secureForm.cardholderName.placeholder",
+                        )}
+                      />
+                    )}
+                  />
+                  <form.AppField
+                    name="payment.cardholderName"
+                    children={(field) => (
+                      <div className="flex flex-col gap-2 mt-4">
+                        <div className="flex items-center">
+                          <Checkbox id="save-card" />
+                          <Label
+                            htmlFor="save-card"
+                            className="ml-2 text-sm text-muted-foreground"
+                          >
+                            {translation("paymentMethod.secureForm.saveCard")}
+                          </Label>
+                        </div>
                         <field.PayButton />
-                      </>
+                      </div>
                     )}
                   />
                 </div>
               </div>
             </CardContent>
+            <CardFooter>
+              <p className="text-sm text-muted-foreground">
+                {translation("paymentMethod.secureForm.securityInfo")}
+              </p>
+            </CardFooter>
           </Card>
         )}
       </div>
