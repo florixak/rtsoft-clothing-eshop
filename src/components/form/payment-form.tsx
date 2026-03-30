@@ -36,7 +36,7 @@ const PaymentForm = withForm({
             ))}
           </div>
         </div>
-        {selectedPaymentMethod === "pay-1" && (
+        {selectedPaymentMethod === "payment-card" && (
           <Card className="flex flex-col gap-6 max-w-lg w-full">
             <CardHeader>
               <h4 className="text-lg font-medium flex items-center">

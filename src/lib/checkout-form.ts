@@ -3,7 +3,7 @@ import { type FormValues } from "./validators";
 
 const defaultValues: FormValues = {
   shipping: {
-    shippingMethod: "",
+    shippingMethod: "packeta",
     firstName: "",
     lastName: "",
     streetAddress: "",
@@ -12,7 +12,7 @@ const defaultValues: FormValues = {
     country: "",
   },
   payment: {
-    paymentMethod: "",
+    paymentMethod: "payment-card",
     cardNumber: "",
     expiryDate: "",
     cvv: "",

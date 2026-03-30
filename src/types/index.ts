@@ -70,15 +70,23 @@ export type CartItem = {
   priceSnapshot: number;
 };
 
+export type SHIPPING_METHODS_IDS = "packeta" | "ppl" | "pickup";
+
 export type ShippingMethod = {
-  id: string;
+  id: SHIPPING_METHODS_IDS;
   name: LocalizedString;
   price: number;
   description: LocalizedString;
 };
 
+export type PAYMENT_METHODS_IDS =
+  | "payment-card"
+  | "bank-transfer"
+  | "cash-on-delivery"
+  | "apple-pay";
+
 export type PaymentMethod = {
-  id: string;
+  id: PAYMENT_METHODS_IDS;
   name: LocalizedString;
 };
 
