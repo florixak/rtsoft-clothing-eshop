@@ -75,7 +75,7 @@ const CheckoutReview = withForm({
                 <CardDescription className="mt-2">
                   <p>{streetAddress || "-"}</p>
                   <p>
-                    {postalCode} {city}
+                    {postalCode || city ? `${postalCode} ${city}`.trim() : "-"}
                   </p>
                   <p>{country || "-"}</p>
                 </CardDescription>
