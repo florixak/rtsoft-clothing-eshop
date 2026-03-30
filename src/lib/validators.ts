@@ -22,10 +22,10 @@ export const paymentSchema = z.object({
       cvv: z.string().optional(),
       cardholderName: z.string().optional(),
     })
-    .superRefine((data, ctx) => {
+    .superRefine((data /*ctx*/) => {
       if (data.paymentMethod !== "payment-card") return;
 
-      if (!data.cardNumber || !/^\d{16}$/.test(data.cardNumber)) {
+      /*if (!data.cardNumber || !/^\d{16}$/.test(data.cardNumber)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Card number must be 16 digits",
@@ -55,7 +55,7 @@ export const paymentSchema = z.object({
           message: "Cardholder name is required",
           path: ["cardholderName"],
         });
-      }
+      }*/
     }),
 });
 
