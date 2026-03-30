@@ -56,6 +56,7 @@ const CheckoutReview = withForm({
                   className="absolute top-0 right-4"
                   type="button"
                   onClick={() => onEditSection?.("shipping")}
+                  aria-label={`${translation("actions.edit")} ${translation("review.shippingAddress")}`}
                 >
                   {translation("actions.edit")}
                 </Button>
@@ -95,6 +96,7 @@ const CheckoutReview = withForm({
                   className="absolute top-0 right-4"
                   type="button"
                   onClick={() => onEditSection?.("shipping")}
+                  aria-label={`${translation("actions.edit")} ${translation("review.shippingMethod")}`}
                 >
                   {translation("actions.edit")}
                 </Button>
@@ -135,6 +137,7 @@ const CheckoutReview = withForm({
                   className="absolute top-0 right-4"
                   type="button"
                   onClick={() => onEditSection?.("payment")}
+                  aria-label={`${translation("actions.edit")} ${translation("review.paymentMethod")}`}
                 >
                   {translation("actions.edit")}
                 </Button>
