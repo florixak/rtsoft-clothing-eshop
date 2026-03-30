@@ -102,6 +102,14 @@ const Checkout = () => {
     }
   };
 
+  const handleEditSection = (targetSection: CheckoutStep) => {
+    navigate({
+      to: "/{-$locale}/checkout",
+      search: { section: targetSection },
+      replace: true,
+    });
+  };
+
   return (
     <section className="container mx-auto flex flex-col gap-8">
       <h2 className="text-2xl font-heading font-semibold">{t("title")}</h2>
@@ -121,7 +129,9 @@ const Checkout = () => {
             <form.AppForm>
               {section === "shipping" && <ShippingForm form={form} />}
               {section === "payment" && <PaymentForm form={form} />}
-              {section === "review" && <CheckoutReview />}
+              {section === "review" && (
+                <CheckoutReview form={form} onEditSection={handleEditSection} />
+              )}
               <form.SubscribeButton
                 label={buttonLabel}
                 backLabel={backLabel}
