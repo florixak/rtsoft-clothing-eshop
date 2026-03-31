@@ -7,7 +7,6 @@ const RadioButtonField = lazy(
   () => import("@/components/form/radio-button-field.tsx"),
 );
 const TextField = lazy(() => import("@/components/form/text-field.tsx"));
-const PayButton = lazy(() => import("@/components/form/pay-button.tsx"));
 
 export const {
   useAppForm: useCheckoutForm,
@@ -17,7 +16,6 @@ export const {
   fieldComponents: {
     TextField,
     RadioButtonField,
-    PayButton,
   },
   formComponents: {
     SubscribeButton,

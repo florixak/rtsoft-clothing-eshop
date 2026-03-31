@@ -35,7 +35,7 @@ const CheckoutReview = withForm({
     const { payment, shipping } = form.state.values;
     const { city, country, firstName, lastName, postalCode, streetAddress } =
       shipping;
-    const { paymentMethod, cardNumber, cardholderName, expiryDate } = payment;
+    const { paymentMethod } = payment;
 
     const selectedShippingMethod = shippingMethods.find(
       (method) => method.id === shipping.shippingMethod,
@@ -43,9 +43,6 @@ const CheckoutReview = withForm({
     const selectedPaymentMethod = paymentMethods.find(
       (method) => method.id === paymentMethod,
     );
-    const maskedCardNumber = cardNumber
-      ? "**** **** **** " + cardNumber.slice(-4)
-      : "---- ---- ---- ----";
 
     return (
       <div className="flex flex-col gap-8 w-full">
@@ -113,23 +110,7 @@ const CheckoutReview = withForm({
               title={translation("review.paymentMethod")}
               cardTitle={selectedPaymentMethod?.name[resolvedLanguage] ?? "-"}
               cardDescription={
-                paymentMethod === "payment-card" ? (
-                  <>
-                    <p className="text-muted-foreground">{maskedCardNumber}</p>
-                    {expiryDate && (
-                      <p className="text-muted-foreground">
-                        {translation("review.expires", {
-                          date: payment.expiryDate,
-                        })}
-                      </p>
-                    )}
-                    <p className="text-muted-foreground">
-                      {cardholderName || "-"}
-                    </p>
-                  </>
-                ) : (
-                  translation("review.noPaymentInfo")
-                )
+                !paymentMethod && translation("review.noPaymentInfo")
               }
               cardFooter={
                 <p className="text-sm text-muted-foreground flex items-center gap-1">

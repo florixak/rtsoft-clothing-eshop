@@ -3,9 +3,7 @@ import { withForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { Lock } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
+import { Card, CardContent, CardHeader } from "../ui/card";
 
 const PaymentForm = withForm({
   ...checkoutFormOpts,
@@ -13,8 +11,6 @@ const PaymentForm = withForm({
     const locale = i18n.resolvedLanguage == "cs" ? "cs" : "en";
     const translation = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
     const resolvedLanguage = i18n.resolvedLanguage === "cs" ? "cs" : "en";
-    const selectedPaymentMethod = form.state.values.payment?.paymentMethod;
-
     return (
       <div className="flex flex-col gap-8 w-full">
         <div className="flex flex-col gap-6">
@@ -38,100 +34,22 @@ const PaymentForm = withForm({
             ))}
           </div>
         </div>
-        {selectedPaymentMethod === "payment-card" && (
-          <Card className="flex flex-col gap-6 max-w-lg w-full">
-            <CardHeader>
-              <h4 className="text-lg font-medium flex items-center">
-                <Lock
-                  className="inline-block mr-2 text-muted-foreground"
-                  size={16}
-                />
-                {translation("paymentMethod.secureForm.title")}
-              </h4>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                <div className="col-span-1 md:col-span-2">
-                  <form.AppField
-                    name="payment.cardNumber"
-                    children={(field) => (
-                      <field.TextField
-                        label={translation(
-                          "paymentMethod.secureForm.cardNumber.label",
-                        )}
-                        placeholder={translation(
-                          "paymentMethod.secureForm.cardNumber.placeholder",
-                        )}
-                      />
-                    )}
-                  />
-                </div>
-
-                <form.AppField
-                  name="payment.expiryDate"
-                  children={(field) => (
-                    <field.TextField
-                      label={translation(
-                        "paymentMethod.secureForm.expirationDate.label",
-                      )}
-                      placeholder={translation(
-                        "paymentMethod.secureForm.expirationDate.placeholder",
-                      )}
-                    />
-                  )}
-                />
-                <form.AppField
-                  name="payment.cvv"
-                  children={(field) => (
-                    <field.TextField
-                      label={translation("paymentMethod.secureForm.cvv.label")}
-                      placeholder={translation(
-                        "paymentMethod.secureForm.cvv.placeholder",
-                      )}
-                    />
-                  )}
-                />
-                <div className="col-span-1 md:col-span-2">
-                  <form.AppField
-                    name="payment.cardholderName"
-                    children={(field) => (
-                      <field.TextField
-                        label={translation(
-                          "paymentMethod.secureForm.cardholderName.label",
-                        )}
-                        placeholder={translation(
-                          "paymentMethod.secureForm.cardholderName.placeholder",
-                        )}
-                      />
-                    )}
-                  />
-                  <form.AppField
-                    name="payment.cardholderName"
-                    children={(field) => (
-                      <div className="flex flex-col gap-2 mt-4">
-                        <div className="flex items-center">
-                          <Checkbox id="save-card" />
-                          <Label
-                            htmlFor="save-card"
-                            className="ml-2 text-sm text-muted-foreground"
-                          >
-                            {translation("paymentMethod.secureForm.saveCard")}
-                          </Label>
-                        </div>
-                        <field.PayButton />
-                      </div>
-                    )}
-                  />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <p className="text-sm text-muted-foreground">
-                {translation("paymentMethod.secureForm.securityInfo")}
-              </p>
-            </CardFooter>
-          </Card>
-        )}
+        <Card className="max-w-lg w-full">
+          <CardHeader>
+            <h4 className="text-lg font-medium flex items-center">
+              <Lock
+                className="inline-block mr-2 text-muted-foreground"
+                size={16}
+              />
+              {translation("paymentMethod.redirect.title")}
+            </h4>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              {translation("paymentMethod.redirect.description")}
+            </p>
+          </CardContent>
+        </Card>
       </div>
     );
   },

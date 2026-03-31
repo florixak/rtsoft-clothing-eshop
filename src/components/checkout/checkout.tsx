@@ -1,6 +1,11 @@
+import type { CheckoutStep } from "@/constants";
 import { shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
+import {
+  createOrderSimulation,
+  handlePaymentSimulation,
+} from "@/lib/checkout-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import {
   formSchema,
@@ -8,26 +13,32 @@ import {
   shippingSchema,
   type FormValues,
 } from "@/lib/validators";
+import { Route } from "@/routes/{-$locale}/checkout";
 import { useStore } from "@tanstack/react-form";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
-import OrderSummary from "../order-summary";
-import CheckoutStepper from "./checkout-stepper";
-import ShippingForm from "../form/shipping-form";
-import PaymentForm from "../form/payment-form";
-import CheckoutReview from "./checkout-review";
 import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
+import PaymentForm from "../form/payment-form";
+import ShippingForm from "../form/shipping-form";
+import OrderSummary from "../order-summary";
 import { Skeleton } from "../ui/skeleton";
-import type { CheckoutStep } from "@/constants";
+import CheckoutReview from "./checkout-review";
+import CheckoutStepper from "./checkout-stepper";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+  const { locale } = Route.useParams();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: createOrderSimulation,
+  });
+
   const form = useCheckoutForm({
     ...checkoutFormOpts,
-    onSubmit: ({ value }) => {
+    onSubmit: async () => {
       if (section === "shipping") {
         navigate({
           to: "/{-$locale}/checkout",
@@ -41,9 +52,15 @@ const Checkout = () => {
           replace: true,
         });
       } else {
-        alert(
-          "Submitting order with values: " + JSON.stringify(value, null, 2),
-        );
+        const orderId = await mutateAsync();
+        await handlePaymentSimulation();
+        navigate({
+          to: "/{-$locale}/account/$orderId",
+          params: {
+            locale,
+            orderId,
+          },
+        });
       }
     },
   });

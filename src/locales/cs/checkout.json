@@ -94,8 +94,11 @@
         "placeholder": "Jan Novák"
       },
       "saveCard": "Uložit údaje karty pro budoucí nákupy",
-      "securityInfo": "Vaše platební údaje jsou zabezpečeny a nebudou uloženy na našich serverech.",
-      "payButton": "Zaplatit {{amount}} bezpečně"
+      "securityInfo": "Vaše platební údaje jsou zabezpečeny a nebudou uloženy na našich serverech."
+    },
+    "redirect": {
+      "title": "Platba po vytvoření objednávky",
+      "description": "Po odeslání objednávky vás přesměrujeme na vybranou platební bránu, kde bezpečně dokončíte platbu."
     }
   },
   "review": {
