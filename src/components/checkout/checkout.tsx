@@ -25,15 +25,28 @@ import OrderSummary from "../order-summary";
 import { Skeleton } from "../ui/skeleton";
 import CheckoutReview from "./checkout-review";
 import CheckoutStepper from "./checkout-stepper";
+import { useCartStore } from "@/stores/cart-store";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
   const { locale } = Route.useParams();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
+  const { clearCart } = useCartStore();
 
   const { mutateAsync } = useMutation({
     mutationFn: createOrderSimulation,
+    onSuccess: async (orderId) => {
+      await handlePaymentSimulation();
+      navigate({
+        to: "/{-$locale}/account/$orderId",
+        params: {
+          locale,
+          orderId,
+        },
+      });
+      clearCart();
+    },
   });
 
   const form = useCheckoutForm({
@@ -52,15 +65,7 @@ const Checkout = () => {
           replace: true,
         });
       } else {
-        const orderId = await mutateAsync();
-        await handlePaymentSimulation();
-        navigate({
-          to: "/{-$locale}/account/$orderId",
-          params: {
-            locale,
-            orderId,
-          },
-        });
+        await mutateAsync();
       }
     },
   });
