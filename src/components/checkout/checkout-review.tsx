@@ -127,7 +127,7 @@ const CheckoutReview = withForm({
                   paymentMethod === "apple-pay") && (
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <Lock className="inline-block" size={14} />
-                    {translation("paymentMethod.secureForm.securityInfo")}
+                    {translation("paymentMethod.redirect.description")}
                   </p>
                 )
               }
