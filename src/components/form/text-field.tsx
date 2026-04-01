@@ -1,4 +1,6 @@
 import { useFieldContext } from "@/hooks/form-context";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { useTranslation } from "react-i18next";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
@@ -20,11 +22,12 @@ const getErrorMessage = (error: unknown): string => {
     return (error as { message: string }).message;
   }
 
-  return "Invalid value";
+  return "validation.invalidValue";
 };
 
 const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
   const field = useFieldContext<string>();
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
   return (
     <div className="flex flex-col w-full gap-1">
       <Label htmlFor={id}>{label}</Label>
@@ -39,7 +42,7 @@ const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
       />
       {field.state.meta.isDirty && field.state.meta.errors.length ? (
         <em className="text-destructive text-sm">
-          {getErrorMessage(field.state.meta.errors[0])}
+          {t(getErrorMessage(field.state.meta.errors[0]))}
         </em>
       ) : (
         <span className="opacity-0 pointer-events-none"></span>

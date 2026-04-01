@@ -101,5 +101,16 @@
     "edit": "Upravit",
     "submitting": "Odesílám...",
     "continueShopping": "Pokračovat v nákupu"
+  },
+  "validation": {
+    "firstNameRequired": "Jméno je povinné",
+    "lastNameRequired": "Příjmení je povinné",
+    "emailRequired": "E-mail je povinný",
+    "emailInvalid": "Neplatná e-mailová adresa",
+    "streetAddressRequired": "Ulice a číslo popisné jsou povinné",
+    "cityRequired": "Město je povinné",
+    "postalCodeRequired": "PSČ je povinné",
+    "countryRequired": "Země je povinná",
+    "invalidValue": "Neplatná hodnota"
   }
 }

@@ -101,5 +101,16 @@
     "edit": "Edit",
     "submitting": "Submitting...",
     "continueShopping": "Continue Shopping"
+  },
+  "validation": {
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email address",
+    "streetAddressRequired": "Street address is required",
+    "cityRequired": "City is required",
+    "postalCodeRequired": "Postal code is required",
+    "countryRequired": "Country is required",
+    "invalidValue": "Invalid value"
   }
 }
