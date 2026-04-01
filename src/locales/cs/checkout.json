@@ -75,27 +75,6 @@
       "label": "Dobírka",
       "description": "Zaplatíte při převzetí zásilky"
     },
-    "secureForm": {
-      "title": "Bezpečná platba kartou",
-      "cardNumber": {
-        "label": "Číslo karty",
-        "placeholder": "0000 0000 0000 0000"
-      },
-      "expirationDate": {
-        "label": "Datum platnosti",
-        "placeholder": "MM / RR"
-      },
-      "cvv": {
-        "label": "CVV",
-        "placeholder": "123"
-      },
-      "cardholderName": {
-        "label": "Jméno držitele karty",
-        "placeholder": "Jan Novák"
-      },
-      "saveCard": "Uložit údaje karty pro budoucí nákupy",
-      "securityInfo": "Vaše platební údaje jsou zabezpečeny a nebudou uloženy na našich serverech."
-    },
     "redirect": {
       "title": "Platba po vytvoření objednávky",
       "description": "Po odeslání objednávky vás přesměrujeme na vybranou platební bránu, kde bezpečně dokončíte platbu."

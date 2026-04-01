@@ -75,27 +75,6 @@
       "label": "Cash on delivery",
       "description": "Pay when you receive the order"
     },
-    "secureForm": {
-      "title": "Secure Credit Card Payment",
-      "cardNumber": {
-        "label": "Card Number",
-        "placeholder": "0000 0000 0000 0000"
-      },
-      "expirationDate": {
-        "label": "Expiration Date",
-        "placeholder": "MM / YY"
-      },
-      "cvv": {
-        "label": "CVV",
-        "placeholder": "123"
-      },
-      "cardholderName": {
-        "label": "Cardholder Name",
-        "placeholder": "Johnathan Doe"
-      },
-      "saveCard": "Save card information for future purchases",
-      "securityInfo": "Your payment information is secure and will not be stored on our servers."
-    },
     "redirect": {
       "title": "Pay After Order Creation",
       "description": "After you place your order, we will redirect you to the selected payment provider to complete your payment securely."
