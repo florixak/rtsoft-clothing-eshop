@@ -94,7 +94,7 @@ export type Customer = {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
 };
 
 export type Address = {

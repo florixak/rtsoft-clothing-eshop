@@ -6,6 +6,8 @@ export const shippingSchema = z.object({
     shippingMethod: z.enum(shippingMethods.map((method) => method.id)),
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string().min(1, "Last name is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().optional(),
     streetAddress: z.string().min(1, "Street address is required"),
     city: z.string().min(1, "City is required"),
     postalCode: z.string().min(1, "Postal code is required"),

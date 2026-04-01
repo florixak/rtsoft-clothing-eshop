@@ -33,8 +33,16 @@ const CheckoutReview = withForm({
     const translation = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
     const resolvedLanguage = i18n.resolvedLanguage === "cs" ? "cs" : "en";
     const { payment, shipping } = form.state.values;
-    const { city, country, firstName, lastName, postalCode, streetAddress } =
-      shipping;
+    const {
+      city,
+      country,
+      firstName,
+      lastName,
+      email,
+      phone,
+      postalCode,
+      streetAddress,
+    } = shipping;
     const { paymentMethod } = payment;
 
     const selectedShippingMethod = shippingMethods.find(
@@ -62,6 +70,8 @@ const CheckoutReview = withForm({
               }
               cardDescription={
                 <>
+                  <p>{email || "-"}</p>
+                  <p>{phone || "-"}</p>
                   <p>{streetAddress || "-"}</p>
                   <p>
                     {postalCode || city ? `${postalCode} ${city}`.trim() : "-"}
