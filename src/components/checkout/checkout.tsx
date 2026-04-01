@@ -35,9 +35,14 @@ const Checkout = () => {
   const { clearCart } = useCartStore();
 
   const { mutateAsync } = useMutation({
-    mutationFn: createOrderSimulation,
-    onSuccess: async (orderId) => {
-      await handlePaymentSimulation();
+    mutationFn: async (paymentMethod: string) => {
+      const orderId = await createOrderSimulation();
+      return { orderId, paymentMethod };
+    },
+    onSuccess: async ({ orderId, paymentMethod }) => {
+      if (paymentMethod === "payment-card" || paymentMethod === "apple-pay") {
+        await handlePaymentSimulation();
+      }
       navigate({
         to: "/{-$locale}/account/$orderId",
         params: {
@@ -65,7 +70,7 @@ const Checkout = () => {
           replace: true,
         });
       } else {
-        await mutateAsync();
+        await mutateAsync(currentValues.payment.paymentMethod);
       }
     },
   });
