@@ -6,10 +6,27 @@ type TextFieldProps = {
   label: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
+const getErrorMessage = (error: unknown): string => {
+  if (typeof error === "string") {
+    return error;
+  }
+
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as { message?: unknown }).message === "string"
+  ) {
+    return (error as { message: string }).message;
+  }
+
+  return "Invalid value";
+};
+
 const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
   const field = useFieldContext<string>();
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col w-full gap-1">
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
@@ -20,9 +37,9 @@ const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
         onChange={(e) => field.handleChange(e.target.value)}
         onBlur={field.handleBlur}
       />
-      {field.state.meta.isTouched && field.state.meta.errors.length ? (
-        <em className="text-destructive">
-          {field.state.meta.errors[0].message}
+      {field.state.meta.isDirty && field.state.meta.errors.length ? (
+        <em className="text-destructive text-sm">
+          {getErrorMessage(field.state.meta.errors[0])}
         </em>
       ) : (
         <span className="opacity-0 pointer-events-none"></span>
