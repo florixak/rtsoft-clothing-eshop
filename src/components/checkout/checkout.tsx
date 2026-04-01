@@ -49,6 +49,7 @@ const Checkout = () => {
           locale,
           orderId,
         },
+        replace: true,
       });
       clearCart();
     },
