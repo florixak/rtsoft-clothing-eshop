@@ -26,7 +26,7 @@ const SubscribeButton = ({
   return (
     <div className="flex items-center justify-end gap-4">
       {isFirstStep && (
-        <Button variant="outline" disabled={isSubmitting}>
+        <Button variant="outline" disabled={isSubmitting} type="button">
           <Link to="/{-$locale}">{t("actions.continueShopping")}</Link>
         </Button>
       )}
