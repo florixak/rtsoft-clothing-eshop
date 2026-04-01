@@ -113,10 +113,13 @@ const CheckoutReview = withForm({
                 !paymentMethod && translation("review.noPaymentInfo")
               }
               cardFooter={
-                <p className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Lock className="inline-block" size={14} />
-                  {translation("paymentMethod.secureForm.securityInfo")}
-                </p>
+                (paymentMethod === "payment-card" ||
+                  paymentMethod === "apple-pay") && (
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Lock className="inline-block" size={14} />
+                    {translation("paymentMethod.secureForm.securityInfo")}
+                  </p>
+                )
               }
               editSection={onEditSection!}
               editStep="payment"
@@ -158,7 +161,7 @@ const ReviewCard = ({
           className="absolute top-0 right-4"
           type="button"
           onClick={() => editSection(editStep)}
-          aria-label={`${t("actions.edit")} ${t("review.paymentMethod")}`}
+          aria-label={`${t("actions.edit")} ${title}`}
         >
           {t("actions.edit")}
         </Button>
