@@ -13,10 +13,6 @@ const defaultValues: FormValues = {
   },
   payment: {
     paymentMethod: "payment-card",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
-    cardholderName: "",
   },
 };
 

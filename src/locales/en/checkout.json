@@ -94,8 +94,11 @@
         "placeholder": "Johnathan Doe"
       },
       "saveCard": "Save card information for future purchases",
-      "securityInfo": "Your payment information is secure and will not be stored on our servers.",
-      "payButton": "Pay {{amount}} Securely"
+      "securityInfo": "Your payment information is secure and will not be stored on our servers."
+    },
+    "redirect": {
+      "title": "Pay After Order Creation",
+      "description": "After you place your order, we will redirect you to the selected payment provider to complete your payment securely."
     }
   },
   "review": {
@@ -117,6 +120,7 @@
     "backToShipping": "Back to Shipping",
     "backToPayment": "Back to Payment",
     "edit": "Edit",
-    "submitting": "Submitting..."
+    "submitting": "Submitting...",
+    "continueShopping": "Continue Shopping"
   }
 }

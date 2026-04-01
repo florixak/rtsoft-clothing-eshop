@@ -71,6 +71,7 @@ const ShippingForm = withForm({
                   placeholder={translation(
                     "deliveryInfo.fields.firstName.placeholder",
                   )}
+                  required
                 />
               )}
             />
@@ -82,6 +83,7 @@ const ShippingForm = withForm({
                   placeholder={translation(
                     "deliveryInfo.fields.lastName.placeholder",
                   )}
+                  required
                 />
               )}
             />
@@ -94,6 +96,7 @@ const ShippingForm = withForm({
                     placeholder={translation(
                       "deliveryInfo.fields.street.placeholder",
                     )}
+                    required
                   />
                 )}
               />
@@ -107,6 +110,7 @@ const ShippingForm = withForm({
                   placeholder={translation(
                     "deliveryInfo.fields.city.placeholder",
                   )}
+                  required
                 />
               )}
             />
@@ -118,6 +122,7 @@ const ShippingForm = withForm({
                   placeholder={translation(
                     "deliveryInfo.fields.postalCode.placeholder",
                   )}
+                  required
                 />
               )}
             />
@@ -130,6 +135,7 @@ const ShippingForm = withForm({
                     placeholder={translation(
                       "deliveryInfo.fields.country.placeholder",
                     )}
+                    required
                   />
                 )}
               />

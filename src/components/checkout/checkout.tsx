@@ -1,6 +1,11 @@
+import type { CheckoutStep } from "@/constants";
 import { shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
+import {
+  createOrderSimulation,
+  handlePaymentSimulation,
+} from "@/lib/checkout-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import {
   formSchema,
@@ -8,26 +13,50 @@ import {
   shippingSchema,
   type FormValues,
 } from "@/lib/validators";
+import { Route } from "@/routes/{-$locale}/checkout";
 import { useStore } from "@tanstack/react-form";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
-import OrderSummary from "../order-summary";
-import CheckoutStepper from "./checkout-stepper";
-import ShippingForm from "../form/shipping-form";
-import PaymentForm from "../form/payment-form";
-import CheckoutReview from "./checkout-review";
 import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
+import PaymentForm from "../form/payment-form";
+import ShippingForm from "../form/shipping-form";
+import OrderSummary from "../order-summary";
 import { Skeleton } from "../ui/skeleton";
-import type { CheckoutStep } from "@/constants";
+import CheckoutReview from "./checkout-review";
+import CheckoutStepper from "./checkout-stepper";
+import { useCartStore } from "@/stores/cart-store";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+  const { locale } = Route.useParams();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
+  const { clearCart } = useCartStore();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (paymentMethod: string) => {
+      const orderId = await createOrderSimulation();
+      return { orderId, paymentMethod };
+    },
+    onSuccess: async ({ orderId, paymentMethod }) => {
+      if (paymentMethod === "payment-card" || paymentMethod === "apple-pay") {
+        await handlePaymentSimulation();
+      }
+      navigate({
+        to: "/{-$locale}/account/$orderId",
+        params: {
+          locale,
+          orderId,
+        },
+      });
+      clearCart();
+    },
+  });
 
   const form = useCheckoutForm({
     ...checkoutFormOpts,
-    onSubmit: ({ value }) => {
+    onSubmit: async () => {
       if (section === "shipping") {
         navigate({
           to: "/{-$locale}/checkout",
@@ -41,9 +70,7 @@ const Checkout = () => {
           replace: true,
         });
       } else {
-        alert(
-          "Submitting order with values: " + JSON.stringify(value, null, 2),
-        );
+        await mutateAsync(currentValues.payment.paymentMethod);
       }
     },
   });

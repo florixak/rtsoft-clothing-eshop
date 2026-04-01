@@ -2,6 +2,7 @@ import { useFormContext } from "@/hooks/form-context";
 import { Button } from "../ui/button";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
+import { Link } from "@tanstack/react-router";
 
 type SubscribeButtonProps = {
   label: string;
@@ -24,6 +25,11 @@ const SubscribeButton = ({
 
   return (
     <div className="flex items-center justify-end gap-4">
+      {isFirstStep && (
+        <Button variant="outline" disabled={isSubmitting} type="button">
+          <Link to="/{-$locale}">{t("actions.continueShopping")}</Link>
+        </Button>
+      )}
       {onBack && !isFirstStep && (
         <Button
           type="button"
