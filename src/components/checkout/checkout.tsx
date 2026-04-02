@@ -1,5 +1,5 @@
 import type { CheckoutStep } from "@/constants";
-import { shippingMethods } from "@/data";
+import { paymentMethods, shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import {
@@ -7,13 +7,15 @@ import {
   handlePaymentSimulation,
 } from "@/lib/checkout-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { getProductById } from "@/lib/product-utils";
 import {
   formSchema,
   paymentSchema,
   shippingSchema,
   type FormValues,
 } from "@/lib/validators";
-import { Route } from "@/routes/{-$locale}/checkout";
+import { useCartStore } from "@/stores/cart-store";
+import type { Order, OrderItem } from "@/types";
 import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
@@ -25,35 +27,19 @@ import OrderSummary from "../order-summary";
 import { Skeleton } from "../ui/skeleton";
 import CheckoutReview from "./checkout-review";
 import CheckoutStepper from "./checkout-stepper";
-import { useCartStore } from "@/stores/cart-store";
+import { saveOrder } from "@/lib/order-storage";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
-  const { locale } = Route.useParams();
+  const { i18n } = useTranslation();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
-  const { clearCart } = useCartStore();
-
-  const { mutateAsync } = useMutation({
-    mutationFn: async (paymentMethod: string) => {
-      const orderId = await createOrderSimulation();
-      return { orderId, paymentMethod };
-    },
-    onSuccess: async ({ orderId, paymentMethod }) => {
-      if (paymentMethod === "payment-card" || paymentMethod === "apple-pay") {
-        await handlePaymentSimulation();
-      }
-      navigate({
-        to: "/{-$locale}/account/$orderId",
-        params: {
-          locale,
-          orderId,
-        },
-        replace: true,
-      });
-      clearCart();
-    },
-  });
+  const {
+    clearCart,
+    cart: { items },
+    subtotal: sub,
+  } = useCartStore();
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   const form = useCheckoutForm({
     ...checkoutFormOpts,
@@ -71,8 +57,78 @@ const Checkout = () => {
           replace: true,
         });
       } else {
-        await mutateAsync(currentValues.payment.paymentMethod);
+        await mutateAsync(form.state.values);
       }
+    },
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (values: FormValues) => {
+      const orderId = await createOrderSimulation();
+
+      const orderItems: OrderItem[] = await Promise.all(
+        items.map(async (item) => {
+          const product = await getProductById(item.productId);
+          return {
+            productId: item.productId,
+            selectionSnapshot: item.selectionSnapshot,
+            quantity: item.quantity,
+            priceSnapshot: item.priceSnapshot,
+            nameSnapshot: product.name[locale],
+          };
+        }),
+      );
+
+      const shippingMethod = shippingMethods.find(
+        (method) => method.id === values.shipping.shippingMethod,
+      )!;
+      const paymentMethod = paymentMethods.find(
+        (method) => method.id === values.payment.paymentMethod,
+      )!;
+      const subtotal = sub();
+
+      const order: Order = {
+        id: orderId,
+        sessionId: `sess-${Date.now()}`,
+        userId: null,
+        items: orderItems,
+        customer: {
+          firstName: values.shipping.firstName,
+          lastName: values.shipping.lastName,
+          email: values.shipping.email,
+          phone: values.shipping.phone || undefined,
+        },
+        address: {
+          street: values.shipping.streetAddress,
+          city: values.shipping.city,
+          postalCode: values.shipping.postalCode,
+          country: values.shipping.country,
+        },
+        shippingMethod: shippingMethod,
+        paymentMethod: paymentMethod,
+        totalPrice: subtotal + shippingMethod.price,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      saveOrder(order);
+      return order;
+    },
+    onSuccess: async (order: Order) => {
+      if (
+        order.paymentMethod.id === "payment-card" ||
+        order.paymentMethod.id === "apple-pay"
+      ) {
+        await handlePaymentSimulation();
+      }
+      navigate({
+        to: "/{-$locale}/checkout/success",
+        search: {
+          orderId: order.id,
+        },
+        replace: true,
+      });
+      clearCart();
     },
   });
 
