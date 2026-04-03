@@ -35,6 +35,7 @@ const CheckoutSuccess = () => {
         <div className="flex gap-4 w-full justify-center items-center">
           <Button
             variant="outline"
+            nativeButton={false}
             render={
               <Link to="/{-$locale}/account/$orderId" params={{ orderId }}>
                 {t("actions.viewDetails")}
@@ -42,6 +43,7 @@ const CheckoutSuccess = () => {
             }
           />
           <Button
+            nativeButton={false}
             render={
               <Link to="/{-$locale}">{t("actions.continueShopping")}</Link>
             }
