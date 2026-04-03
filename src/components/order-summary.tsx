@@ -1,6 +1,6 @@
 import { FREE_SHIPPING_THRESHOLD } from "@/constants";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { formatPrice } from "@/lib/utils";
+import { clamp, formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
@@ -11,7 +11,7 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Separator } from "./ui/separator";
 import { Skeleton } from "./ui/skeleton";
-import useOrderSummary from "@/hooks/use-order-summary";
+import { calculateOrderSummary } from "@/lib/checkout-utils";
 
 type OrderSummaryProps = {
   data?: {
@@ -43,7 +43,7 @@ const OrderSummary = ({
     shippingCost,
     tax: taxValue,
     total: totalValue,
-  } = useOrderSummary({
+  } = calculateOrderSummary({
     subtotal: subtotalValue,
     shipping: shipping || 0,
     calculateTax: isCheckout,
@@ -58,7 +58,9 @@ const OrderSummary = ({
     0,
     FREE_SHIPPING_THRESHOLD - subtotalValue,
   );
-  const lineWidth = Math.min(
+
+  const lineWidth = clamp(
+    0,
     100,
     (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100,
   );
