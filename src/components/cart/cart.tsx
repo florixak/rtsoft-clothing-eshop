@@ -1,6 +1,6 @@
 import { useCartStore } from "@/stores/cart-store";
 import CartItems from "./cart-items";
-import { OrderSummary } from "../order-summary";
+import { OrderSummary } from "../checkout/order-summary";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
 import { hasInStockSkuBySelection } from "@/lib/product-utils";

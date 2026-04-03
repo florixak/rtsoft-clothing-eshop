@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useSearch } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { SuccessOrderSummary } from "../order-summary";
+import { SuccessOrderSummary } from "./order-summary";
 import { Button } from "../ui/button";
 
 const CheckoutSuccess = () => {

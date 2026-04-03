@@ -6,11 +6,11 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import CartItem from "./cart/cart-item";
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Separator } from "./ui/separator";
-import { Skeleton } from "./ui/skeleton";
+import CartItem from "../cart/cart-item";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { Separator } from "../ui/separator";
+import { Skeleton } from "../ui/skeleton";
 import { calculateOrderSummary } from "@/lib/checkout-utils";
 import type { Order } from "@/types";
 
