@@ -10,7 +10,7 @@
     "title": "Order Summary",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
-    "estimatedTax": "Estimated Tax",
+    "tax": "Tax",
     "total": "Total",
     "itemDetails": "Color: {{color}} | Size: {{size}}"
   }

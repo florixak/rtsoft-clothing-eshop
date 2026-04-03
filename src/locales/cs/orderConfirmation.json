@@ -10,7 +10,7 @@
     "title": "Shrnutí objednávky",
     "subtotal": "Mezisoučet",
     "shipping": "Doprava",
-    "estimatedTax": "Odhadovaná DPH",
+    "tax": "DPH",
     "total": "Celkem",
     "itemDetails": "Barva: {{color}} | Velikost: {{size}}"
   }
