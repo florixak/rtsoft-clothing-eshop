@@ -215,7 +215,7 @@ export const SuccessOrderSummary = ({ order }: { order: Order }) => {
           {order.items.map((item) => (
             <Suspense
               fallback={<Skeleton className="h-16 w-full" />}
-              key={`${item.productId}-${item.selectionSnapshot?.size}-${item.selectionSnapshot?.color}`}
+              key={`${item.productId}-${item.selectionSnapshot.size}-${item.selectionSnapshot.color}`}
             >
               <CartItem
                 item={{
