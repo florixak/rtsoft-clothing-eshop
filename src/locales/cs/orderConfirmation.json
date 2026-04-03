@@ -1,4 +1,5 @@
 {
+  "thankYou": "Děkujeme za vaši objednávku!",
   "preparing": "Vaše objednávka se připravuje.",
   "orderNumber": "Číslo objednávky",
   "actions": {
@@ -9,7 +10,7 @@
     "title": "Shrnutí objednávky",
     "subtotal": "Mezisoučet",
     "shipping": "Doprava",
-    "estimatedTax": "Odhadovaná DPH",
+    "tax": "DPH",
     "total": "Celkem",
     "itemDetails": "Barva: {{color}} | Velikost: {{size}}"
   }

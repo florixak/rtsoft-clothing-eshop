@@ -9,6 +9,7 @@ const QUERY_KEYS = {
     ["product", "slug", productSlug] as const,
   productId: (productId: string) => ["product", "id", productId] as const,
   category: (categoryId: string) => ["category", categoryId] as const,
+  checkoutOrder: (orderId: string) => ["checkoutOrder", orderId] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";

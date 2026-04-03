@@ -48,10 +48,14 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
           src={product.images[0]}
           alt={product.name[locale]}
           className="size-16 object-cover rounded"
+          loading="lazy"
         />
 
         <div className="flex-1">
-          <h2 className="text-sm font-medium">{product.name[locale]}</h2>
+          <h2 className="text-sm font-medium">
+            <span className="text-muted-foreground">{item.quantity} ×</span>{" "}
+            {product.name[locale]}
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t("item.size", {
               size: item.selectionSnapshot.size.toUpperCase(),
@@ -70,6 +74,7 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
         src={product?.images[0] ?? ""}
         alt={product?.name[locale] ?? ""}
         className="size-64 object-cover rounded"
+        loading="lazy"
       />
       <div className="flex flex-col justify-between flex-1 gap-2 w-full h-full">
         <div className="flex flex-col gap-1">

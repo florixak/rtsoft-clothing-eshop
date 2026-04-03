@@ -94,7 +94,7 @@ export type Customer = {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
 };
 
 export type Address = {
@@ -106,14 +106,18 @@ export type Address = {
 
 export type Order = {
   id: string;
-  sessionId: string;
   userId: string | null;
   items: OrderItem[];
   customer: Customer;
   address: Address;
   shippingMethod: ShippingMethod;
   paymentMethod: PaymentMethod;
-  totalPrice: number;
+  priceDetails: {
+    subtotal: number;
+    shippingCost: number;
+    tax: number;
+    total: number;
+  };
   status: OrderStatus;
   createdAt: string;
   updatedAt: string;

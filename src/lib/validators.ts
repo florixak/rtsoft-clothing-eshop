@@ -4,12 +4,18 @@ import * as z from "zod";
 export const shippingSchema = z.object({
   shipping: z.object({
     shippingMethod: z.enum(shippingMethods.map((method) => method.id)),
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"),
-    streetAddress: z.string().min(1, "Street address is required"),
-    city: z.string().min(1, "City is required"),
-    postalCode: z.string().min(1, "Postal code is required"),
-    country: z.string().min(1, "Country is required"),
+    firstName: z.string().trim().min(1, "validation.firstNameRequired"),
+    lastName: z.string().trim().min(1, "validation.lastNameRequired"),
+    email: z
+      .string()
+      .trim()
+      .min(1, "validation.emailRequired")
+      .email("validation.emailInvalid"),
+    phone: z.string().optional(),
+    streetAddress: z.string().trim().min(1, "validation.streetAddressRequired"),
+    city: z.string().trim().min(1, "validation.cityRequired"),
+    postalCode: z.string().trim().min(1, "validation.postalCodeRequired"),
+    country: z.string().trim().min(1, "validation.countryRequired"),
   }),
 });
 

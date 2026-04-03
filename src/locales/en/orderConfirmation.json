@@ -1,4 +1,5 @@
 {
+  "thankYou": "Thank you for your order!",
   "preparing": "Your order is being prepared.",
   "orderNumber": "Order Number",
   "actions": {
@@ -9,7 +10,7 @@
     "title": "Order Summary",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
-    "estimatedTax": "Estimated Tax",
+    "tax": "Tax",
     "total": "Total",
     "itemDetails": "Color: {{color}} | Size: {{size}}"
   }

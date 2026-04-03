@@ -87,6 +87,30 @@ const ShippingForm = withForm({
                 />
               )}
             />
+            <form.AppField
+              name="shipping.email"
+              children={(field) => (
+                <field.TextField
+                  label={translation("deliveryInfo.fields.email.label")}
+                  placeholder={translation(
+                    "deliveryInfo.fields.email.placeholder",
+                  )}
+                  required
+                />
+              )}
+            />
+            <form.AppField
+              name="shipping.phone"
+              children={(field) => (
+                <field.TextField
+                  label={translation("deliveryInfo.fields.phone.label")}
+                  placeholder={translation(
+                    "deliveryInfo.fields.phone.placeholder",
+                  )}
+                />
+              )}
+            />
+
             <div className="md:col-span-2">
               <form.AppField
                 name="shipping.streetAddress"

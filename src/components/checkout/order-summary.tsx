@@ -1,17 +1,18 @@
 import { FREE_SHIPPING_THRESHOLD } from "@/constants";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { formatPrice } from "@/lib/utils";
+import { clamp, formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import CartItem from "./cart/cart-item";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
-import { Separator } from "./ui/separator";
-import { Skeleton } from "./ui/skeleton";
-import useOrderSummary from "@/hooks/use-order-summary";
+import CartItem from "../cart/cart-item";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { Separator } from "../ui/separator";
+import { Skeleton } from "../ui/skeleton";
+import { calculateOrderSummary } from "@/lib/checkout-utils";
+import type { Order } from "@/types";
 
 type OrderSummaryProps = {
   data?: {
@@ -22,7 +23,7 @@ type OrderSummaryProps = {
   isCheckout?: boolean;
 };
 
-const OrderSummary = ({
+export const OrderSummary = ({
   data: summary = { shipping: 0 },
   showProducts = true,
   disableCheckout = false,
@@ -43,7 +44,7 @@ const OrderSummary = ({
     shippingCost,
     tax: taxValue,
     total: totalValue,
-  } = useOrderSummary({
+  } = calculateOrderSummary({
     subtotal: subtotalValue,
     shipping: shipping || 0,
     calculateTax: isCheckout,
@@ -58,7 +59,9 @@ const OrderSummary = ({
     0,
     FREE_SHIPPING_THRESHOLD - subtotalValue,
   );
-  const lineWidth = Math.min(
+
+  const lineWidth = clamp(
+    0,
     100,
     (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100,
   );
@@ -192,4 +195,92 @@ const OrderSummary = ({
   );
 };
 
-export default OrderSummary;
+export const SuccessOrderSummary = ({ order }: { order: Order }) => {
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.orderConfirmation);
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const {
+    total,
+    subtotal: subtotalValue,
+    shippingCost,
+    tax,
+  } = order.priceDetails;
+
+  return (
+    <Card className="w-full">
+      <CardHeader>
+        <h3 className="text-lg font-semibold">{t("summary.title")}</h3>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-8 md:grid md:grid-cols-2">
+        <ul className="flex min-w-0 flex-col gap-4 w-full">
+          {order.items.map((item) => (
+            <Suspense
+              fallback={<Skeleton className="h-16 w-full" />}
+              key={`${item.productId}-${item.selectionSnapshot.size}-${item.selectionSnapshot.color}`}
+            >
+              <CartItem
+                item={{
+                  id: item.productId,
+                  ...item,
+                }}
+                compact
+              />
+            </Suspense>
+          ))}
+        </ul>
+
+        <table className="w-full text-base md:max-w-sm">
+          <tbody>
+            <tr>
+              <th
+                scope="row"
+                className="text-muted-foreground py-2 text-left font-normal"
+              >
+                {t("summary.subtotal")}
+              </th>
+              <td className="text-right">
+                {formatPrice(subtotalValue, locale)}
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                className="text-muted-foreground py-2 text-left font-normal"
+              >
+                {t("summary.shipping")}
+              </th>
+              <td className="text-right">
+                {formatPrice(shippingCost, locale)}
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                className="text-muted-foreground py-2 text-left font-normal"
+              >
+                {t("summary.tax")}
+              </th>
+              <td className="text-right">{formatPrice(tax, locale)}</td>
+            </tr>
+            <tr>
+              <td colSpan={2} className="py-2">
+                <Separator />
+              </td>
+            </tr>
+
+            <tr>
+              <th
+                scope="row"
+                className="text-muted-foreground py-2 text-left font-bold"
+              >
+                {t("summary.total")}
+              </th>
+              <td className="text-right font-bold">
+                {formatPrice(total, locale)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </CardContent>
+    </Card>
+  );
+};
