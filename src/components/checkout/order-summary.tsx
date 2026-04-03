@@ -204,6 +204,7 @@ export const SuccessOrderSummary = ({ order }: { order: Order }) => {
     shippingCost,
     tax,
   } = order.priceDetails;
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -214,7 +215,7 @@ export const SuccessOrderSummary = ({ order }: { order: Order }) => {
           {order.items.map((item) => (
             <Suspense
               fallback={<Skeleton className="h-16 w-full" />}
-              key={item.productId}
+              key={`${item.productId}-${item.selectionSnapshot?.size}-${item.selectionSnapshot?.color}`}
             >
               <CartItem
                 item={{
