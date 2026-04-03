@@ -1,4 +1,10 @@
 import { FREE_SHIPPING_THRESHOLD } from "@/constants";
+import type { FormValues } from "./validators";
+import type { CartItem, Order, OrderItem } from "@/types";
+import { paymentMethods, shippingMethods } from "@/data/shipping";
+import { getProductById } from "./product-utils";
+import type { Languages } from "./i18n";
+import { saveOrder } from "./order-storage";
 
 export const handlePaymentSimulation = async (): Promise<void> => {
   await new Promise<void>((resolve) => {
@@ -41,4 +47,86 @@ export const calculateOrderSummary = ({
     tax,
     total,
   };
+};
+
+export const handleCreateOrder = async (
+  values: FormValues,
+  cartItems: CartItem[],
+  locale: Languages,
+  subtotal: number,
+) => {
+  const orderId = await createOrderSimulation();
+
+  const orderItems: OrderItem[] = await Promise.all(
+    cartItems.map(async (item) => {
+      const product = await getProductById(item.productId);
+      return {
+        productId: item.productId,
+        selectionSnapshot: item.selectionSnapshot,
+        quantity: item.quantity,
+        priceSnapshot: item.priceSnapshot,
+        nameSnapshot: product.name[locale],
+      };
+    }),
+  );
+
+  const shippingMethod = shippingMethods.find(
+    (method) => method.id === values.shipping.shippingMethod,
+  )!;
+  const paymentMethod = paymentMethods.find(
+    (method) => method.id === values.payment.paymentMethod,
+  )!;
+
+  const { shippingCost, tax } = calculateOrderSummary({
+    subtotal,
+    shipping: shippingMethod.price,
+    calculateTax: true,
+  });
+
+  const normalizedPhone = values.shipping.phone
+    ? values.shipping.phone.replace(/\D/g, "")
+    : undefined;
+
+  const normalizedShipping = {
+    firstName: values.shipping.firstName.trim(),
+    lastName: values.shipping.lastName.trim(),
+    email: values.shipping.email.trim(),
+    phone: normalizedPhone,
+    streetAddress: values.shipping.streetAddress.trim(),
+    city: values.shipping.city.trim(),
+    postalCode: values.shipping.postalCode.trim(),
+    country: values.shipping.country.trim(),
+  };
+
+  const order: Order = {
+    id: orderId,
+    sessionId: `sess-${Date.now()}`,
+    userId: null,
+    items: orderItems,
+    customer: {
+      firstName: normalizedShipping.firstName,
+      lastName: normalizedShipping.lastName,
+      email: normalizedShipping.email,
+      phone: normalizedShipping.phone || undefined,
+    },
+    address: {
+      street: normalizedShipping.streetAddress,
+      city: normalizedShipping.city,
+      postalCode: normalizedShipping.postalCode,
+      country: normalizedShipping.country,
+    },
+    shippingMethod: shippingMethod,
+    paymentMethod: paymentMethod,
+    priceDetails: {
+      subtotal: subtotal,
+      shippingCost,
+      tax: tax,
+      total: subtotal + shippingCost + tax,
+    },
+    status: "pending",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  saveOrder(order);
+  return order;
 };

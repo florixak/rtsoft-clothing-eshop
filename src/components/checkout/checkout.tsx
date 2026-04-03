@@ -1,14 +1,12 @@
 import type { CheckoutStep } from "@/constants";
-import { paymentMethods, shippingMethods } from "@/data";
+import { shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import {
-  calculateOrderSummary,
-  createOrderSimulation,
+  handleCreateOrder,
   handlePaymentSimulation,
 } from "@/lib/checkout-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { getProductById } from "@/lib/product-utils";
 import {
   formSchema,
   paymentSchema,
@@ -16,7 +14,7 @@ import {
   type FormValues,
 } from "@/lib/validators";
 import { useCartStore } from "@/stores/cart-store";
-import type { Order, OrderItem } from "@/types";
+import type { Order } from "@/types";
 import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
@@ -24,11 +22,10 @@ import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import PaymentForm from "../form/payment-form";
 import ShippingForm from "../form/shipping-form";
-import { OrderSummary } from "./order-summary";
 import { Skeleton } from "../ui/skeleton";
 import CheckoutReview from "./checkout-review";
 import CheckoutStepper from "./checkout-stepper";
-import { saveOrder } from "@/lib/order-storage";
+import { OrderSummary } from "./order-summary";
 
 const Checkout = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
@@ -64,68 +61,8 @@ const Checkout = () => {
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: async (values: FormValues) => {
-      const orderId = await createOrderSimulation();
-
-      const orderItems: OrderItem[] = await Promise.all(
-        items.map(async (item) => {
-          const product = await getProductById(item.productId);
-          return {
-            productId: item.productId,
-            selectionSnapshot: item.selectionSnapshot,
-            quantity: item.quantity,
-            priceSnapshot: item.priceSnapshot,
-            nameSnapshot: product.name[locale],
-          };
-        }),
-      );
-
-      const shippingMethod = shippingMethods.find(
-        (method) => method.id === values.shipping.shippingMethod,
-      )!;
-      const paymentMethod = paymentMethods.find(
-        (method) => method.id === values.payment.paymentMethod,
-      )!;
-      const subtotal = sub();
-
-      const { shippingCost, tax } = calculateOrderSummary({
-        subtotal,
-        shipping: shippingMethod.price,
-        calculateTax: true,
-      });
-
-      const order: Order = {
-        id: orderId,
-        sessionId: `sess-${Date.now()}`,
-        userId: null,
-        items: orderItems,
-        customer: {
-          firstName: values.shipping.firstName,
-          lastName: values.shipping.lastName,
-          email: values.shipping.email,
-          phone: values.shipping.phone || undefined,
-        },
-        address: {
-          street: values.shipping.streetAddress,
-          city: values.shipping.city,
-          postalCode: values.shipping.postalCode,
-          country: values.shipping.country,
-        },
-        shippingMethod: shippingMethod,
-        paymentMethod: paymentMethod,
-        priceDetails: {
-          subtotal: subtotal,
-          shippingCost,
-          tax: tax,
-          total: subtotal + shippingCost + tax,
-        },
-        status: "pending",
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      saveOrder(order);
-      return order;
-    },
+    mutationFn: (values: FormValues) =>
+      handleCreateOrder(values, items, locale, sub()),
     onSuccess: async (order: Order) => {
       if (
         order.paymentMethod.id === "payment-card" ||
