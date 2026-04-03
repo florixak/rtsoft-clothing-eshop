@@ -52,7 +52,10 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
         />
 
         <div className="flex-1">
-          <h2 className="text-sm font-medium">{product.name[locale]}</h2>
+          <h2 className="text-sm font-medium">
+            <span className="text-muted-foreground">{item.quantity} ×</span>{" "}
+            {product.name[locale]}
+          </h2>
           <p className="text-sm text-muted-foreground">
             {t("item.size", {
               size: item.selectionSnapshot.size.toUpperCase(),
