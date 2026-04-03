@@ -39,5 +39,12 @@ export const getCheckoutOrder = async (orderId: Order["id"]) => {
       resolve();
     }, 500);
   });
-  return readOrders()[orderId] ?? null;
+
+  const orders = readOrders();
+
+  if (!orders[orderId]) {
+    throw new Error("Order not found");
+  }
+
+  return orders[orderId];
 };
