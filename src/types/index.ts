@@ -113,7 +113,12 @@ export type Order = {
   address: Address;
   shippingMethod: ShippingMethod;
   paymentMethod: PaymentMethod;
-  totalPrice: number;
+  priceDetails: {
+    subtotal: number;
+    shippingCost: number;
+    tax: number;
+    total: number;
+  };
   status: OrderStatus;
   createdAt: string;
   updatedAt: string;

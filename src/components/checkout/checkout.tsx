@@ -3,6 +3,7 @@ import { paymentMethods, shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import {
+  calculateOrderSummary,
   createOrderSimulation,
   handlePaymentSimulation,
 } from "@/lib/checkout-utils";
@@ -87,6 +88,12 @@ const Checkout = () => {
       )!;
       const subtotal = sub();
 
+      const { shippingCost, tax } = calculateOrderSummary({
+        subtotal,
+        shipping: shippingMethod.price,
+        calculateTax: true,
+      });
+
       const order: Order = {
         id: orderId,
         sessionId: `sess-${Date.now()}`,
@@ -106,7 +113,12 @@ const Checkout = () => {
         },
         shippingMethod: shippingMethod,
         paymentMethod: paymentMethod,
-        totalPrice: subtotal + shippingMethod.price,
+        priceDetails: {
+          subtotal: subtotal,
+          shippingCost,
+          tax: tax,
+          total: subtotal + shippingCost + tax,
+        },
         status: "pending",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
