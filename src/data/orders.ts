@@ -3,7 +3,6 @@ import type { Order } from "../types";
 export const orders: Order[] = [
   {
     id: "ord-1",
-    sessionId: "sess-aaa111",
     userId: null,
     items: [
       {
@@ -43,14 +42,18 @@ export const orders: Order[] = [
       id: "payment-card",
       name: { cs: "Platební karta", en: "Payment Card" },
     },
-    totalPrice: 399 * 2 + 1229 + 79,
+    priceDetails: {
+      subtotal: 399 * 2 + 1229,
+      shippingCost: 79,
+      tax: Math.round((399 * 2 + 1229) * 0.21),
+      total: 399 * 2 + 1229 + 79 + Math.round((399 * 2 + 1229) * 0.21),
+    },
     status: "completed",
     createdAt: "2026-02-20T10:15:00.000Z",
     updatedAt: "2026-02-23T16:00:00.000Z",
   },
   {
     id: "ord-2",
-    sessionId: "sess-bbb222",
     userId: "user-42",
     items: [
       {
@@ -83,14 +86,18 @@ export const orders: Order[] = [
       id: "bank-transfer",
       name: { cs: "Bankovní převod", en: "Bank Transfer" },
     },
-    totalPrice: 2799 + 129,
+    priceDetails: {
+      subtotal: 2799,
+      shippingCost: 129,
+      tax: Math.round(2799 * 0.21),
+      total: 2799 + 129 + Math.round(2799 * 0.21),
+    },
     status: "shipped",
     createdAt: "2026-03-01T08:40:00.000Z",
     updatedAt: "2026-03-03T12:20:00.000Z",
   },
   {
     id: "ord-3",
-    sessionId: "sess-ccc333",
     userId: null,
     items: [
       {
@@ -137,14 +144,19 @@ export const orders: Order[] = [
       id: "cash-on-delivery",
       name: { cs: "Dobírka", en: "Cash on Delivery" },
     },
-    totalPrice: 569 + 1329 + 999 * 2 + 99,
+    priceDetails: {
+      subtotal: 569 + 1329 + 999 * 2,
+      shippingCost: 99,
+      tax: Math.round((569 + 1329 + 999 * 2) * 0.21),
+      total:
+        569 + 1329 + 999 * 2 + 99 + Math.round((569 + 1329 + 999 * 2) * 0.21),
+    },
     status: "paid",
     createdAt: "2026-03-10T17:55:00.000Z",
     updatedAt: "2026-03-10T18:01:00.000Z",
   },
   {
     id: "ord-4",
-    sessionId: "sess-ddd444",
     userId: "user-17",
     items: [
       {
@@ -180,14 +192,18 @@ export const orders: Order[] = [
       id: "apple-pay",
       name: { cs: "Apple Pay", en: "Apple Pay" },
     },
-    totalPrice: 1489,
+    priceDetails: {
+      subtotal: 1489,
+      shippingCost: 0,
+      tax: Math.round(1489 * 0.21),
+      total: 1489 + Math.round(1489 * 0.21),
+    },
     status: "pending",
     createdAt: "2026-03-13T08:10:00.000Z",
     updatedAt: "2026-03-13T08:10:00.000Z",
   },
   {
     id: "ord-5",
-    sessionId: "sess-eee555",
     userId: null,
     items: [
       {
@@ -220,7 +236,12 @@ export const orders: Order[] = [
       id: "payment-card",
       name: { cs: "Platební karta", en: "Payment Card" },
     },
-    totalPrice: 389 * 3 + 79,
+    priceDetails: {
+      subtotal: 389 * 3,
+      shippingCost: 79,
+      tax: Math.round(389 * 3 * 0.21),
+      total: 389 * 3 + 79 + Math.round(389 * 3 * 0.21),
+    },
     status: "cancelled",
     createdAt: "2026-03-05T13:00:00.000Z",
     updatedAt: "2026-03-06T09:30:00.000Z",

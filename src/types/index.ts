@@ -106,7 +106,6 @@ export type Address = {
 
 export type Order = {
   id: string;
-  sessionId: string;
   userId: string | null;
   items: OrderItem[];
   customer: Customer;

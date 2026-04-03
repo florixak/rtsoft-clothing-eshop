@@ -100,7 +100,6 @@ export const handleCreateOrder = async (
 
   const order: Order = {
     id: orderId,
-    sessionId: `sess-${Date.now()}`,
     userId: null,
     items: orderItems,
     customer: {
