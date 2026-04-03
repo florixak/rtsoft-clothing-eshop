@@ -17,7 +17,14 @@ const readOrders = (): StoredOrders => {
 };
 
 const writeOrders = (orders: StoredOrders) => {
-  sessionStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
+  if (typeof window === "undefined") {
+    return;
+  }
+  try {
+    sessionStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
+  } catch {
+    console.warn("Failed to persist order to sessionStorage");
+  }
 };
 
 export const saveOrder = (order: Order) => {
