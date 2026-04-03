@@ -24,7 +24,7 @@ import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import PaymentForm from "../form/payment-form";
 import ShippingForm from "../form/shipping-form";
-import OrderSummary from "../order-summary";
+import { OrderSummary } from "../order-summary";
 import { Skeleton } from "../ui/skeleton";
 import CheckoutReview from "./checkout-review";
 import CheckoutStepper from "./checkout-stepper";
