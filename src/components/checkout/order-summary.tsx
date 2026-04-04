@@ -66,6 +66,8 @@ export const OrderSummary = ({
     (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100,
   );
 
+  const slicedItems = items.slice(0, 3);
+
   const handleCheckout = () => {
     if (canProceedToCheckout) {
       navigate({ to: "/{-$locale}/checkout" });
@@ -78,7 +80,7 @@ export const OrderSummary = ({
       {showProducts && items.length > 0 && (
         <>
           <div className="flex flex-col gap-2 my-2">
-            {items.map((item) => (
+            {slicedItems.map((item) => (
               <Suspense
                 key={item.id}
                 fallback={<Skeleton className="h-16 w-full" />}
@@ -86,6 +88,11 @@ export const OrderSummary = ({
                 <CartItem item={item} compact />
               </Suspense>
             ))}
+            {items.length > 3 && (
+              <p className="text-sm text-muted-foreground">
+                {t("summary.andMore", { count: items.length - 3 })}
+              </p>
+            )}
           </div>
           <Separator />
         </>
