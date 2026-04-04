@@ -1,0 +1,76 @@
+{
+  "title": "Dashboard",
+  "nav": {
+    "overview": "Overview",
+    "orders": "Orders",
+    "products": "Products"
+  },
+  "overview": {
+    "stats": {
+      "totalRevenue": "Total Revenue",
+      "ordersToday": "Orders Today",
+      "activeUsers": "Active Users",
+      "conversionRate": "Conversion Rate"
+    },
+    "revenueAnalytics": {
+      "title": "Revenue Analytics",
+      "subtitle": "Weekly performance summary"
+    },
+    "days": {
+      "mon": "MON",
+      "tue": "TUE",
+      "wed": "WED",
+      "thu": "THU",
+      "fri": "FRI",
+      "sat": "SAT",
+      "sun": "SUN"
+    },
+    "bestSellers": {
+      "title": "Best Sellers",
+      "viewAll": "View All",
+      "sales": "{{count}} sale",
+      "sales_other": "{{count}} sales"
+    },
+    "recentTransactions": {
+      "title": "Recent Transactions"
+    }
+  },
+  "orders": {
+    "title": "Total Orders",
+    "search": "Search for orders...",
+    "table": {
+      "orderId": "Order ID",
+      "customer": "Customer",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "action": "Action"
+    },
+    "status": {
+      "completed": "Completed",
+      "processing": "Processing",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "refunded": "Refunded"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "search": "Search for products...",
+    "table": {
+      "productId": "Product ID",
+      "title": "Title",
+      "category": "Category",
+      "price": "Price",
+      "stock": "Stock",
+      "status": "Status",
+      "action": "Action"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "outOfStock": "Out of Stock",
+      "draft": "Draft"
+    }
+  }
+}
