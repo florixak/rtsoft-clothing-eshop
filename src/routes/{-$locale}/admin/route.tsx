@@ -13,11 +13,11 @@ export const Route = createFileRoute("/{-$locale}/admin")({
 
 function AdminLayout() {
   return (
-    <div className="flex min-h-screen flex-col md:flex-row">
+    <section className="container mx-auto flex flex-col md:flex-row">
       <AdminSidebar />
-      <main className="flex-1 p-6">
+      <div className="flex-1 p-6">
         <Outlet />
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }
