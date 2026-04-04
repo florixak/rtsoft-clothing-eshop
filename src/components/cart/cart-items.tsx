@@ -1,12 +1,12 @@
-import { CART_ITEM_SHOW_MORE } from "@/constants";
+import { MAX_CART_ITEMS_TO_SHOW } from "@/constants";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useCartStore } from "@/stores/cart-store";
 import { Link } from "@tanstack/react-router";
 import { Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
-import CartItem from "./cart-item";
 import { Skeleton } from "../ui/skeleton";
+import CartItem from "./cart-item";
 
 const CartItems = () => {
   const {
@@ -16,7 +16,7 @@ const CartItems = () => {
 
   const { t } = useTranslation(TRANSLATION_NAMESPACES.cart);
 
-  const visibleItems = showAll ? items : items.slice(0, CART_ITEM_SHOW_MORE);
+  const visibleItems = showAll ? items : items.slice(0, MAX_CART_ITEMS_TO_SHOW);
 
   const handleShowMore = () => {
     setShowAll((prev) => !prev);
@@ -41,7 +41,7 @@ const CartItems = () => {
           <CartItem item={item} />
         </Suspense>
       ))}
-      {items.length > CART_ITEM_SHOW_MORE && (
+      {items.length > MAX_CART_ITEMS_TO_SHOW && (
         <Button variant="outline" onClick={handleShowMore}>
           {showAll ? t("actions.showLess") : t("actions.showMore")}
         </Button>

@@ -1,7 +1,12 @@
-import { FREE_SHIPPING_THRESHOLD } from "@/constants";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY,
+} from "@/constants";
+import { calculateOrderSummary } from "@/lib/checkout-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { clamp, formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
+import type { Order } from "@/types";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { Suspense } from "react";
@@ -11,8 +16,6 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { Skeleton } from "../ui/skeleton";
-import { calculateOrderSummary } from "@/lib/checkout-utils";
-import type { Order } from "@/types";
 
 type OrderSummaryProps = {
   data?: {
@@ -66,6 +69,8 @@ export const OrderSummary = ({
     (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100,
   );
 
+  const slicedItems = items.slice(0, MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY);
+
   const handleCheckout = () => {
     if (canProceedToCheckout) {
       navigate({ to: "/{-$locale}/checkout" });
@@ -78,7 +83,7 @@ export const OrderSummary = ({
       {showProducts && items.length > 0 && (
         <>
           <div className="flex flex-col gap-2 my-2">
-            {items.map((item) => (
+            {slicedItems.map((item) => (
               <Suspense
                 key={item.id}
                 fallback={<Skeleton className="h-16 w-full" />}
@@ -86,6 +91,13 @@ export const OrderSummary = ({
                 <CartItem item={item} compact />
               </Suspense>
             ))}
+            {items.length > MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY && (
+              <p className="text-sm text-muted-foreground">
+                {t("summary.andMore", {
+                  count: items.length - MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY,
+                })}
+              </p>
+            )}
           </div>
           <Separator />
         </>

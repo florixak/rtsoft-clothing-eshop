@@ -25,7 +25,10 @@
     "shippingTaxNote": "Doprava a DPH jsou vypočítány při pokladně",
     "freeShippingNote": "Do dopravy zdarma chybí {{amount}}",
     "freeShippingEligible": "Gratulujeme! Máte nárok na dopravu zdarma.",
-    "freeShipping": "Doprava zdarma"
+    "freeShipping": "Doprava zdarma",
+    "andMore": "a {{count}} další",
+    "andMore_few": "a {{count}} další",
+    "andMore_other": "a {{count}} dalších"
   },
   "actions": {
     "proceedToCheckout": "Přejít k pokladně",
