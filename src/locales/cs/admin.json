@@ -1,0 +1,77 @@
+{
+  "title": "Dashboard",
+  "nav": {
+    "overview": "Přehled",
+    "orders": "Objednávky",
+    "products": "Produkty"
+  },
+  "overview": {
+    "stats": {
+      "totalRevenue": "Celkový příjem",
+      "ordersToday": "Objednávky dnes",
+      "activeUsers": "Aktivní uživatelé",
+      "conversionRate": "Míra konverze"
+    },
+    "revenueAnalytics": {
+      "title": "Přehled příjmů",
+      "subtitle": "Týdenní shrnutí výkonu"
+    },
+    "days": {
+      "mon": "PO",
+      "tue": "ÚT",
+      "wed": "ST",
+      "thu": "ČT",
+      "fri": "PÁ",
+      "sat": "SO",
+      "sun": "NE"
+    },
+    "bestSellers": {
+      "title": "Nejprodávanější",
+      "viewAll": "Zobrazit vše",
+      "sales": "{{count}} prodej",
+      "sales_few": "{{count}} prodeje",
+      "sales_other": "{{count}} prodejů"
+    },
+    "recentTransactions": {
+      "title": "Nedávné transakce"
+    }
+  },
+  "orders": {
+    "title": "Všechny objednávky",
+    "search": "Hledat objednávky...",
+    "table": {
+      "orderId": "ID objednávky",
+      "customer": "Zákazník",
+      "date": "Datum",
+      "amount": "Částka",
+      "status": "Stav",
+      "action": "Akce"
+    },
+    "status": {
+      "completed": "Dokončeno",
+      "processing": "Zpracovává se",
+      "pending": "Čeká na vyřízení",
+      "cancelled": "Zrušeno",
+      "refunded": "Vráceno"
+    }
+  },
+  "products": {
+    "title": "Produkty",
+    "search": "Hledat produkty...",
+    "table": {
+      "productId": "ID produktu",
+      "title": "Název",
+      "category": "Kategorie",
+      "price": "Cena",
+      "stock": "Sklad",
+      "status": "Stav",
+      "action": "Akce"
+    },
+    "status": {
+      "active": "Aktivní",
+      "inactive": "Neaktivní",
+      "outOfStock": "Není skladem",
+      "draft": "Koncept"
+    }
+  }
+}

@@ -14,6 +14,8 @@ import csCheckout from "@/locales/cs/checkout.json";
 import enCheckout from "@/locales/en/checkout.json";
 import csOrderConfirmation from "@/locales/cs/orderConfirmation.json";
 import enOrderConfirmation from "@/locales/en/orderConfirmation.json";
+import csAdmin from "@/locales/cs/admin.json";
+import enAdmin from "@/locales/en/admin.json";
 
 export const TRANSLATION_NAMESPACES = {
   common: "common",
@@ -22,6 +24,7 @@ export const TRANSLATION_NAMESPACES = {
   cart: "cart",
   checkout: "checkout",
   orderConfirmation: "orderConfirmation",
+  admin: "admin",
 } as const;
 
 const resources = {
@@ -32,6 +35,7 @@ const resources = {
     cart: csCart,
     checkout: csCheckout,
     orderConfirmation: csOrderConfirmation,
+    admin: csAdmin,
   },
   en: {
     common: enCommon,
@@ -40,6 +44,7 @@ const resources = {
     cart: enCart,
     checkout: enCheckout,
     orderConfirmation: enOrderConfirmation,
+    admin: enAdmin,
   },
 };
 
