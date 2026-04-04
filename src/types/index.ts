@@ -143,8 +143,19 @@ export type RevenueDataPoint = {
   revenue: number;
 };
 
+export type DashboardPeriod = "day" | "week" | "month" | "all";
+
+export type DashboardMetrics = {
+  period: DashboardPeriod;
+  totalOrders: number;
+  totalRevenue: number;
+  averageOrderValue: number;
+  conversionRate: number;
+  returningCustomerRate: number;
+};
+
 export type DashboardStats = {
-  period: "day" | "week" | "month" | "all";
+  period: DashboardPeriod;
   totalOrders: number;
   totalRevenue: number;
   topProducts: TopProduct[];
