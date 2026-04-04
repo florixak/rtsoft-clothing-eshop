@@ -1,5 +1,6 @@
 import { QUERY_KEYS } from "@/constants";
 import { getCategoryById } from "@/lib/category-utils";
+import { getDashboardMetrics } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
 import {
   getProductById,
@@ -7,6 +8,7 @@ import {
   getProducts,
   type Query,
 } from "@/lib/product-utils";
+import type { DashboardPeriod } from "@/types";
 import { queryOptions } from "@tanstack/react-query";
 
 export const createProductsQueryOptions = (query: Query) =>
@@ -37,4 +39,10 @@ export const createCheckoutOrderQueryOptions = (orderId: string) =>
   queryOptions({
     queryKey: QUERY_KEYS.checkoutOrder(orderId),
     queryFn: () => getCheckoutOrder(orderId),
+  });
+
+export const createMetricsQueryOptions = (period: DashboardPeriod) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.metrics(period),
+    queryFn: () => getDashboardMetrics(period),
   });

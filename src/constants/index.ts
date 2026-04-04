@@ -1,8 +1,12 @@
 import type { Query } from "@/lib/product-utils";
+import type { DashboardMetricsKey, DashboardPeriod } from "@/types";
 import {
+  Banknote,
+  HandCoins,
   LayoutTemplate,
   Shirt,
   ShoppingBag,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 
@@ -16,6 +20,7 @@ const QUERY_KEYS = {
   productId: (productId: string) => ["product", "id", productId] as const,
   category: (categoryId: string) => ["category", categoryId] as const,
   checkoutOrder: (orderId: string) => ["checkoutOrder", orderId] as const,
+  metrics: (period: DashboardPeriod) => ["metrics", period] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";
@@ -44,6 +49,17 @@ const ADMIN_MENU_ITEMS: {
   },
 ];
 
+const METRIC_CARDS: {
+  key: DashboardMetricsKey;
+  evolution: number;
+  icon: LucideIcon;
+}[] = [
+  { key: "totalRevenue", evolution: 5.2, icon: HandCoins },
+  { key: "totalOrders", evolution: 3.6, icon: ShoppingBag },
+  { key: "averageOrderValue", evolution: -1.3, icon: Banknote },
+  { key: "returningCustomerRate", evolution: 2.1, icon: Users },
+];
+
 export {
   MAX_COLORS_TO_SHOW_PER_CARD,
   MAX_SIZES_TO_SHOW_PER_CARD,
@@ -55,4 +71,5 @@ export {
   FREE_SHIPPING_THRESHOLD,
   CHECKOUT_STEPS,
   ADMIN_MENU_ITEMS,
+  METRIC_CARDS,
 };

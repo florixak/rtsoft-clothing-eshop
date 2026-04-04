@@ -145,6 +145,12 @@ export type RevenueDataPoint = {
 
 export type DashboardPeriod = "day" | "week" | "month" | "all";
 
+export type DashboardMetricsKey =
+  | "totalRevenue"
+  | "totalOrders"
+  | "averageOrderValue"
+  | "returningCustomerRate";
+
 export type DashboardMetrics = {
   period: DashboardPeriod;
   totalOrders: number;
