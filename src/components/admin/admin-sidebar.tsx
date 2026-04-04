@@ -8,13 +8,13 @@ import { Button } from "../ui/button";
 const AdminSidebar = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
   return (
-    <aside className="w-64 p-4">
-      <Card>
+    <aside className="w-full md:w-64">
+      <Card className="w-full md:gap-6">
         <CardHeader>
-          <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+          <h2 className="text-2xl font-bold">Dashboard</h2>
         </CardHeader>
         <CardContent>
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-row md:flex-col gap-2 w-full justify-center md:justify-start">
             {ADMIN_MENU_ITEMS.map((item) => (
               <Button
                 nativeButton={false}
@@ -24,9 +24,11 @@ const AdminSidebar = () => {
                 render={() => (
                   <Link
                     to={item.path}
-                    className="flex items-center px-3 py-2 rounded-md hover:bg-muted"
+                    className="flex flex-col md:flex-row items-center px-3 py-2 rounded-md hover:bg-muted gap-2"
+                    activeProps={{ className: "bg-muted" }}
+                    activeOptions={{ exact: true }}
                   >
-                    <item.icon className="inline-block mr-2" size={20} />
+                    <item.icon className="inline-block" size={20} />
                     {t(item.label)}
                   </Link>
                 )}
