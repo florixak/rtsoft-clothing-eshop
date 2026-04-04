@@ -1,7 +1,12 @@
-import { FREE_SHIPPING_THRESHOLD } from "@/constants";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY,
+} from "@/constants";
+import { calculateOrderSummary } from "@/lib/checkout-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { clamp, formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
+import type { Order } from "@/types";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { Suspense } from "react";
@@ -11,8 +16,6 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { Skeleton } from "../ui/skeleton";
-import { calculateOrderSummary } from "@/lib/checkout-utils";
-import type { Order } from "@/types";
 
 type OrderSummaryProps = {
   data?: {
@@ -66,7 +69,7 @@ export const OrderSummary = ({
     (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100,
   );
 
-  const slicedItems = items.slice(0, 3);
+  const slicedItems = items.slice(0, MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY);
 
   const handleCheckout = () => {
     if (canProceedToCheckout) {
@@ -88,9 +91,11 @@ export const OrderSummary = ({
                 <CartItem item={item} compact />
               </Suspense>
             ))}
-            {items.length > 3 && (
+            {items.length > MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY && (
               <p className="text-sm text-muted-foreground">
-                {t("summary.andMore", { count: items.length - 3 })}
+                {t("summary.andMore", {
+                  count: items.length - MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY,
+                })}
               </p>
             )}
           </div>
