@@ -13,9 +13,9 @@ export const Route = createFileRoute("/{-$locale}/admin")({
 
 function AdminLayout() {
   return (
-    <section className="container mx-auto flex flex-col md:flex-row">
+    <section className="container mx-auto flex flex-col md:flex-row gap-8">
       <AdminSidebar />
-      <div className="flex-1 p-6">
+      <div className="flex-1">
         <Outlet />
       </div>
     </section>
