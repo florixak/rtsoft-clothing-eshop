@@ -8,9 +8,15 @@
   "overview": {
     "stats": {
       "totalRevenue": "Total Revenue",
-      "ordersToday": "Orders Today",
-      "activeUsers": "Active Users",
-      "conversionRate": "Conversion Rate"
+      "totalOrders": "Total Orders",
+      "averageOrderValue": "Average Order Value",
+      "returningCustomerRate": "Returning Customer Rate"
+    },
+    "periods": {
+      "day": "Today",
+      "week": "7 days",
+      "month": "30 days",
+      "all": "All time"
     },
     "revenueAnalytics": {
       "title": "Revenue Analytics",
