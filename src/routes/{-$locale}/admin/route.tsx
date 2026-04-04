@@ -3,7 +3,7 @@ import AdminSidebar from "@/components/admin/admin-sidebar";
 
 export const Route = createFileRoute("/{-$locale}/admin")({
   component: AdminLayout,
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async (/*{ context }*/) => {
     const userIsAdmin = true; // Placeholder for actual admin check logic
     if (!userIsAdmin) {
       throw new Response("Unauthorized", { status: 401 });
