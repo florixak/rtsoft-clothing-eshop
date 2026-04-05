@@ -20,7 +20,7 @@
     },
     "revenueAnalytics": {
       "title": "Přehled příjmů",
-      "subtitle": "Týdenní shrnutí výkonu",
+      "subtitle": "Příjmy podle zvoleného období",
       "revenue": "Příjem"
     },
     "days": {
