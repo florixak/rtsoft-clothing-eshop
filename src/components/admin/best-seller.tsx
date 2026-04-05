@@ -5,10 +5,11 @@ type BestSellerCardProps = {
 };
 
 const BestSeller = ({ product }: BestSellerCardProps) => {
+  const imageUrl = product.images[0] || "/images/product-placeholder.png";
   return (
     <div className="flex flex-row items-center gap-2">
       <img
-        src={product.images[0]}
+        src={imageUrl}
         alt={product.name}
         className="h-12 w-12 rounded object-cover"
       />

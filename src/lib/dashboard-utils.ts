@@ -88,11 +88,12 @@ export const getBestSellingProducts = async (
 
   const topProductsWithDetails = await Promise.all(
     topProducts.map(async (product) => {
-      const details = await getProductById(product.productId);
-      return {
-        ...product,
-        images: details.images,
-      };
+      try {
+        const details = await getProductById(product.productId);
+        return { ...product, images: details.images };
+      } catch {
+        return { ...product, images: [] };
+      }
     }),
   );
 
