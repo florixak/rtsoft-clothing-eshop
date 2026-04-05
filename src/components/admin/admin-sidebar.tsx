@@ -28,7 +28,10 @@ const AdminSidebar = () => {
                     activeProps={{ className: "bg-muted" }}
                     activeOptions={{ exact: true }}
                   >
-                    <item.icon className="inline-block" size={20} />
+                    <item.icon
+                      className="inline-block text-primary"
+                      size={20}
+                    />
                     {t(item.label)}
                   </Link>
                 )}
