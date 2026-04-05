@@ -47,21 +47,23 @@ export const getRevenueChartLabel = (
   locale: Languages,
   period: DashboardPeriod,
 ) => {
-  const parsedDate = new Date(date);
-
-  if (Number.isNaN(parsedDate.getTime())) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+  if (!match) {
     return date;
   }
-
+  const parsedDate = new Date(
+    Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])),
+  );
   if (period === "all") {
     return new Intl.DateTimeFormat(locale, {
       month: "short",
       year: "numeric",
+      timeZone: "UTC",
     }).format(parsedDate);
   }
-
   return new Intl.DateTimeFormat(locale, {
     day: "numeric",
     month: "short",
+    timeZone: "UTC",
   }).format(parsedDate);
 };
