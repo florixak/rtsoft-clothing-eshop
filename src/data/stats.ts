@@ -12,7 +12,6 @@ export const dashboardMetrics: DashboardMetrics[] = [
     totalOrders: 3,
     totalRevenue: 5824,
     averageOrderValue: 1941.33,
-    conversionRate: 2.5,
     returningCustomerRate: 33.3,
   },
   {
@@ -20,7 +19,6 @@ export const dashboardMetrics: DashboardMetrics[] = [
     totalOrders: 18,
     totalRevenue: 25824,
     averageOrderValue: 1434.67,
-    conversionRate: 3.1,
     returningCustomerRate: 27.8,
   },
   {
@@ -28,7 +26,6 @@ export const dashboardMetrics: DashboardMetrics[] = [
     totalOrders: 74,
     totalRevenue: 138500,
     averageOrderValue: 1871.62,
-    conversionRate: 3.8,
     returningCustomerRate: 29.7,
   },
   {
@@ -36,7 +33,6 @@ export const dashboardMetrics: DashboardMetrics[] = [
     totalOrders: 312,
     totalRevenue: 589340,
     averageOrderValue: 1889.81,
-    conversionRate: 4.2,
     returningCustomerRate: 31.4,
   },
 ];

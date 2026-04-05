@@ -156,7 +156,6 @@ export type DashboardMetrics = {
   totalOrders: number;
   totalRevenue: number;
   averageOrderValue: number;
-  conversionRate: number;
   returningCustomerRate: number;
 };
 
