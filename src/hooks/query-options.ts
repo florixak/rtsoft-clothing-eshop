@@ -1,6 +1,7 @@
 import { QUERY_KEYS } from "@/constants";
 import { getCategoryById } from "@/lib/category-utils";
 import {
+  getBestSellingProducts,
   getDashboardMetrics,
   getRevenueChartData,
 } from "@/lib/dashboard-utils";
@@ -54,4 +55,10 @@ export const createRevenueChartDataQueryOptions = (period: DashboardPeriod) =>
   queryOptions({
     queryKey: QUERY_KEYS.revenueChartData(period),
     queryFn: () => getRevenueChartData(period),
+  });
+
+export const createBestSellersQueryOptions = (period: DashboardPeriod) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.bestSellers(period),
+    queryFn: () => getBestSellingProducts(period),
   });

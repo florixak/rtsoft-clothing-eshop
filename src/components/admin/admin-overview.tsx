@@ -5,6 +5,7 @@ import AdminPeriodFilter from "./admin-period-filter";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import RevenueChart from "./revenue-chart";
+import BestSellers from "./best-sellers";
 
 const AdminOverview = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
@@ -15,24 +16,27 @@ const AdminOverview = () => {
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <AdminPeriodFilter />
       </div>
-      <div className="flex flex-col gap-4">
-        <Suspense fallback={<Skeleton className="h-36 w-full rounded-md" />}>
-          <AdminMetrics />
-        </Suspense>
-      </div>
 
-      <div className="space-y-2 rounded-xl border bg-card p-4 shadow-sm">
-        <div>
-          <h2 className="text-lg font-semibold">
-            {t("overview.revenueAnalytics.title")}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("overview.revenueAnalytics.subtitle")}
-          </p>
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div className="flex flex-col gap-4 col-span-1 md:col-span-3">
+          <Suspense fallback={<Skeleton className="h-36 w-full rounded-md" />}>
+            <AdminMetrics />
+          </Suspense>
         </div>
-        <Suspense fallback={<Skeleton className="h-64 w-full rounded-md" />}>
-          <RevenueChart />
-        </Suspense>
+        <div className="space-y-2 rounded-xl border bg-card p-4 shadow-sm md:col-span-2">
+          <div>
+            <h2 className="text-lg font-semibold">
+              {t("overview.revenueAnalytics.title")}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {t("overview.revenueAnalytics.subtitle")}
+            </p>
+          </div>
+          <Suspense fallback={<Skeleton className="h-64 w-full rounded-md" />}>
+            <RevenueChart />
+          </Suspense>
+        </div>
+        <BestSellers />
       </div>
     </section>
   );

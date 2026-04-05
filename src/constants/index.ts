@@ -23,6 +23,7 @@ const QUERY_KEYS = {
   metrics: (period: DashboardPeriod) => ["metrics", period] as const,
   revenueChartData: (period: DashboardPeriod) =>
     ["revenueChartData", period] as const,
+  bestSellers: (period: DashboardPeriod) => ["bestSellers", period] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";

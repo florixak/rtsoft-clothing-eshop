@@ -3,8 +3,9 @@ import {
   dashboardStats,
   type RevenueChartDataPoint,
 } from "@/data/stats";
-import type { DashboardMetrics, DashboardPeriod } from "@/types";
+import type { DashboardMetrics, DashboardPeriod, TopProduct } from "@/types";
 import type { Languages } from "./i18n";
+import { getProductById } from "./product-utils";
 
 export const getDashboardMetrics = async (
   period: DashboardPeriod,
@@ -66,4 +67,35 @@ export const getRevenueChartLabel = (
     month: "short",
     timeZone: "UTC",
   }).format(parsedDate);
+};
+
+export const getBestSellingProducts = async (
+  period: DashboardPeriod,
+): Promise<TopProduct[]> => {
+  await new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000);
+  });
+
+  const stats = dashboardStats.find((entry) => entry.period === period);
+
+  if (!stats) {
+    throw new Error(`No stats found for period: ${period}`);
+  }
+
+  const topProducts = stats?.topProducts ?? dashboardStats[0].topProducts;
+
+  const topProductsWithDetails = await Promise.all(
+    topProducts.map(async (product) => {
+      try {
+        const details = await getProductById(product.productId);
+        return { ...product, images: details.images };
+      } catch {
+        return { ...product, images: [] };
+      }
+    }),
+  );
+
+  return topProductsWithDetails;
 };
