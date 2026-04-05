@@ -20,7 +20,8 @@
     },
     "revenueAnalytics": {
       "title": "Revenue Analytics",
-      "subtitle": "Weekly performance summary"
+      "subtitle": "Weekly performance summary",
+      "revenue": "Revenue"
     },
     "days": {
       "mon": "MON",
