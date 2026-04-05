@@ -11,28 +11,24 @@ export const dashboardMetrics: DashboardMetrics[] = [
     period: "day",
     totalOrders: 3,
     totalRevenue: 5824,
-    averageOrderValue: 1941.33,
     returningCustomerRate: 33.3,
   },
   {
     period: "week",
     totalOrders: 18,
     totalRevenue: 25824,
-    averageOrderValue: 1434.67,
     returningCustomerRate: 27.8,
   },
   {
     period: "month",
     totalOrders: 74,
     totalRevenue: 138500,
-    averageOrderValue: 1871.62,
     returningCustomerRate: 29.7,
   },
   {
     period: "all",
     totalOrders: 312,
     totalRevenue: 589340,
-    averageOrderValue: 1889.81,
     returningCustomerRate: 31.4,
   },
 ];

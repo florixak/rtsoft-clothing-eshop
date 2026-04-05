@@ -19,7 +19,10 @@ const AdminMetrics = () => {
   const formattedMetrics: Record<DashboardMetricsKey, string> = {
     totalRevenue: formatPrice(metrics.totalRevenue, locale),
     totalOrders: metrics.totalOrders.toString(),
-    averageOrderValue: formatPrice(metrics.averageOrderValue, locale),
+    averageOrderValue: formatPrice(
+      metrics.totalOrders > 0 ? metrics.totalRevenue / metrics.totalOrders : 0,
+      locale,
+    ),
     returningCustomerRate: `${metrics.returningCustomerRate.toFixed(1)}%`,
   };
 
