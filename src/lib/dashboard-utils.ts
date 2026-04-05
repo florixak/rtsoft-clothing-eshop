@@ -17,6 +17,10 @@ export const getDashboardMetrics = async (
 
   const metric = dashboardMetrics.find((metric) => metric.period === period);
 
+  if (!metric) {
+    throw new Error(`No metrics found for period: ${period}`);
+  }
+
   return metric ?? dashboardMetrics[0];
 };
 
@@ -30,6 +34,10 @@ export const getRevenueChartData = async (
   });
 
   const stats = dashboardStats.find((entry) => entry.period === period);
+
+  if (!stats) {
+    throw new Error(`No stats found for period: ${period}`);
+  }
 
   return stats?.revenueOverTime ?? dashboardStats[0].revenueOverTime;
 };
