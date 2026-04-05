@@ -21,6 +21,8 @@ const QUERY_KEYS = {
   category: (categoryId: string) => ["category", categoryId] as const,
   checkoutOrder: (orderId: string) => ["checkoutOrder", orderId] as const,
   metrics: (period: DashboardPeriod) => ["metrics", period] as const,
+  revenueChartData: (period: DashboardPeriod) =>
+    ["revenueChartData", period] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";

@@ -1,6 +1,9 @@
 import { QUERY_KEYS } from "@/constants";
 import { getCategoryById } from "@/lib/category-utils";
-import { getDashboardMetrics } from "@/lib/dashboard-utils";
+import {
+  getDashboardMetrics,
+  getRevenueChartData,
+} from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
 import {
   getProductById,
@@ -45,4 +48,10 @@ export const createMetricsQueryOptions = (period: DashboardPeriod) =>
   queryOptions({
     queryKey: QUERY_KEYS.metrics(period),
     queryFn: () => getDashboardMetrics(period),
+  });
+
+export const createRevenueChartDataQueryOptions = (period: DashboardPeriod) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.revenueChartData(period),
+    queryFn: () => getRevenueChartData(period),
   });
