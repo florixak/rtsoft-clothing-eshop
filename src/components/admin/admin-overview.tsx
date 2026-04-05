@@ -1,12 +1,10 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
+import { Skeleton } from "../ui/skeleton";
 import AdminMetrics from "./admin-metrics";
 import AdminPeriodFilter from "./admin-period-filter";
-import { Suspense } from "react";
-import { Skeleton } from "../ui/skeleton";
-import RevenueChart from "./revenue-chart";
 import BestSellers from "./best-sellers";
-import { Card, CardContent, CardHeader } from "../ui/card";
 import RevenueChartCard from "./revenue-chart-card";
 
 const AdminOverview = () => {
