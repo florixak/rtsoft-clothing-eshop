@@ -20,7 +20,7 @@ const MetricCard = ({
     <Card className="w-full">
       <CardHeader className="flex items-center justify-between">
         <div className="bg-muted p-2 rounded-full">
-          <Icon size={24} />
+          <Icon size={24} className="text-primary" />
         </div>
         <Badge
           variant="outline"
