@@ -1,0 +1,69 @@
+import {
+  dashboardMetrics,
+  dashboardStats,
+  type RevenueChartDataPoint,
+} from "@/data/stats";
+import type { DashboardMetrics, DashboardPeriod } from "@/types";
+import type { Languages } from "./i18n";
+
+export const getDashboardMetrics = async (
+  period: DashboardPeriod,
+): Promise<DashboardMetrics> => {
+  await new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000);
+  });
+
+  const metric = dashboardMetrics.find((metric) => metric.period === period);
+
+  if (!metric) {
+    throw new Error(`No metrics found for period: ${period}`);
+  }
+
+  return metric ?? dashboardMetrics[0];
+};
+
+export const getRevenueChartData = async (
+  period: DashboardPeriod,
+): Promise<RevenueChartDataPoint[]> => {
+  await new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000);
+  });
+
+  const stats = dashboardStats.find((entry) => entry.period === period);
+
+  if (!stats) {
+    throw new Error(`No stats found for period: ${period}`);
+  }
+
+  return stats?.revenueOverTime ?? dashboardStats[0].revenueOverTime;
+};
+
+export const getRevenueChartLabel = (
+  date: string,
+  locale: Languages,
+  period: DashboardPeriod,
+) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+  if (!match) {
+    return date;
+  }
+  const parsedDate = new Date(
+    Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])),
+  );
+  if (period === "all") {
+    return new Intl.DateTimeFormat(locale, {
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(parsedDate);
+  }
+  return new Intl.DateTimeFormat(locale, {
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  }).format(parsedDate);
+};

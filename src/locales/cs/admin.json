@@ -8,13 +8,20 @@
   "overview": {
     "stats": {
       "totalRevenue": "Celkový příjem",
-      "ordersToday": "Objednávky dnes",
-      "activeUsers": "Aktivní uživatelé",
-      "conversionRate": "Míra konverze"
+      "totalOrders": "Celkové objednávky",
+      "averageOrderValue": "Průměrná hodnota objednávky",
+      "returningCustomerRate": "Míra vracejících se zákazníků"
+    },
+    "periods": {
+      "day": "Dnes",
+      "week": "7 dní",
+      "month": "30 dní",
+      "all": "Celé období"
     },
     "revenueAnalytics": {
       "title": "Přehled příjmů",
-      "subtitle": "Týdenní shrnutí výkonu"
+      "subtitle": "Příjmy podle zvoleného období",
+      "revenue": "Příjem"
     },
     "days": {
       "mon": "PO",

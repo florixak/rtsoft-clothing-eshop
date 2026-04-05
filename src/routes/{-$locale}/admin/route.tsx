@@ -3,7 +3,7 @@ import AdminSidebar from "@/components/admin/admin-sidebar";
 
 export const Route = createFileRoute("/{-$locale}/admin")({
   component: AdminLayout,
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async (/*{ context }*/) => {
     const userIsAdmin = true; // Placeholder for actual admin check logic
     if (!userIsAdmin) {
       throw new Response("Unauthorized", { status: 401 });
@@ -13,11 +13,11 @@ export const Route = createFileRoute("/{-$locale}/admin")({
 
 function AdminLayout() {
   return (
-    <div className="flex min-h-screen flex-col md:flex-row">
+    <section className="container mx-auto flex flex-col md:flex-row gap-8">
       <AdminSidebar />
-      <main className="flex-1 p-6">
+      <div className="flex-1">
         <Outlet />
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }

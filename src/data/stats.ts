@@ -1,4 +1,44 @@
-import type { DashboardStats } from "../types";
+import type {
+  DashboardMetrics,
+  DashboardPeriod,
+  DashboardStats,
+} from "../types";
+
+export type RevenueChartDataPoint = DashboardStats["revenueOverTime"][number];
+
+export const dashboardMetrics: DashboardMetrics[] = [
+  {
+    period: "day",
+    totalOrders: 3,
+    totalRevenue: 5824,
+    returningCustomerRate: 33.3,
+  },
+  {
+    period: "week",
+    totalOrders: 18,
+    totalRevenue: 25824,
+    returningCustomerRate: 27.8,
+  },
+  {
+    period: "month",
+    totalOrders: 74,
+    totalRevenue: 138500,
+    returningCustomerRate: 29.7,
+  },
+  {
+    period: "all",
+    totalOrders: 312,
+    totalRevenue: 589340,
+    returningCustomerRate: 31.4,
+  },
+];
+
+export const dashboardPeriods: DashboardPeriod[] = [
+  "day",
+  "week",
+  "month",
+  "all",
+];
 
 export const dashboardStats: DashboardStats[] = [
   {
