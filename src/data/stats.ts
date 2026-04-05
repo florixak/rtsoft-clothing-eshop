@@ -46,9 +46,24 @@ export const dashboardStats: DashboardStats[] = [
     totalOrders: 3,
     totalRevenue: 5824,
     topProducts: [
-      { productId: "prod-1", name: "Basic Cotton Tee – White", sold: 5 },
-      { productId: "prod-3", name: "Zip Hoodie – Grey", sold: 2 },
-      { productId: "prod-7", name: "Winter Puffer Jacket – Black", sold: 1 },
+      {
+        productId: "prod-1",
+        name: { cs: "Základní bavlněné tričko", en: "Basic Cotton Tee" },
+        sold: 5,
+        images: [],
+      },
+      {
+        productId: "prod-3",
+        name: { cs: "Zipová mikina", en: "Zip Hoodie" },
+        sold: 2,
+        images: [],
+      },
+      {
+        productId: "prod-7",
+        name: { cs: "Zimní péřová bunda", en: "Winter Puffer Jacket" },
+        sold: 1,
+        images: [],
+      },
     ],
     revenueOverTime: [
       { date: "2026-03-10", revenue: 1200 },
@@ -62,9 +77,24 @@ export const dashboardStats: DashboardStats[] = [
     totalOrders: 18,
     totalRevenue: 25824,
     topProducts: [
-      { productId: "prod-7", name: "Winter Puffer Jacket – Black", sold: 12 },
-      { productId: "prod-4", name: "Oversized Fleece Hoodie – Black", sold: 9 },
-      { productId: "prod-1", name: "Basic Cotton Tee – White", sold: 8 },
+      {
+        productId: "prod-7",
+        name: { cs: "Zimní péřová bunda", en: "Winter Puffer Jacket" },
+        sold: 12,
+        images: [],
+      },
+      {
+        productId: "prod-4",
+        name: { cs: "Oversized fleece mikina", en: "Oversized Fleece Hoodie" },
+        sold: 9,
+        images: [],
+      },
+      {
+        productId: "prod-1",
+        name: { cs: "Základní bavlněné tričko", en: "Basic Cotton Tee" },
+        sold: 8,
+        images: [],
+      },
     ],
     revenueOverTime: [
       { date: "2026-03-07", revenue: 5000 },
@@ -81,9 +111,24 @@ export const dashboardStats: DashboardStats[] = [
     totalOrders: 74,
     totalRevenue: 138500,
     topProducts: [
-      { productId: "prod-7", name: "Winter Puffer Jacket – Black", sold: 41 },
-      { productId: "prod-3", name: "Zip Hoodie – Grey", sold: 33 },
-      { productId: "prod-5", name: "Slim Fit Jeans – Blue", sold: 28 },
+      {
+        productId: "prod-7",
+        name: { cs: "Zimní péřová bunda", en: "Winter Puffer Jacket" },
+        sold: 41,
+        images: [],
+      },
+      {
+        productId: "prod-3",
+        name: { cs: "Zipová mikina", en: "Zip Hoodie" },
+        sold: 33,
+        images: [],
+      },
+      {
+        productId: "prod-5",
+        name: { cs: "Slim fit džíny", en: "Slim Fit Jeans" },
+        sold: 28,
+        images: [],
+      },
     ],
     revenueOverTime: [
       { date: "2026-02-01", revenue: 4000 },
@@ -92,7 +137,7 @@ export const dashboardStats: DashboardStats[] = [
       { date: "2026-02-22", revenue: 15000 },
       { date: "2026-03-01", revenue: 20000 },
       { date: "2026-03-08", revenue: 30000 },
-      { date: "2026-03-13", revenue: 50000 },
+      { date: "2026-03-13", revenue: 54500 },
     ],
   },
   {
@@ -100,9 +145,24 @@ export const dashboardStats: DashboardStats[] = [
     totalOrders: 312,
     totalRevenue: 589340,
     topProducts: [
-      { productId: "prod-1", name: "Basic Cotton Tee – White", sold: 180 },
-      { productId: "prod-7", name: "Winter Puffer Jacket – Black", sold: 95 },
-      { productId: "prod-3", name: "Zip Hoodie – Grey", sold: 88 },
+      {
+        productId: "prod-1",
+        name: { cs: "Základní bavlněné tričko", en: "Basic Cotton Tee" },
+        sold: 180,
+        images: [],
+      },
+      {
+        productId: "prod-7",
+        name: { cs: "Zimní péřová bunda", en: "Winter Puffer Jacket" },
+        sold: 95,
+        images: [],
+      },
+      {
+        productId: "prod-3",
+        name: { cs: "Zipová mikina", en: "Zip Hoodie" },
+        sold: 88,
+        images: [],
+      },
     ],
     revenueOverTime: [
       { date: "2024-03-31", revenue: 32000 },

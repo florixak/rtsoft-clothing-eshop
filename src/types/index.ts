@@ -168,6 +168,6 @@ export type DashboardStats = {
 
 export type TopProduct = {
   productId: string;
-  name: string;
+  name: LocalizedString;
   sold: number;
 } & Pick<Product, "images">;
