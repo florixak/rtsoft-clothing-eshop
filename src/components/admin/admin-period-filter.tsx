@@ -13,7 +13,7 @@ const AdminPeriodFilter = () => {
   const navigate = useNavigate({ from: "/{-$locale}/admin/" });
 
   const handlePeriodChange = (period: DashboardPeriod) => {
-    navigate({ search: { period } });
+    navigate({ search: (prev) => ({ ...prev, period }) });
   };
 
   return (
