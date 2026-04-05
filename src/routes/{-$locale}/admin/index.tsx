@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import * as z from "zod";
 
 const overviewSchema = z.object({
-  period: z.enum(dashboardPeriods).default("all"),
+  period: z.enum(dashboardPeriods).default("all").catch("all"),
 });
 
 export const Route = createFileRoute("/{-$locale}/admin/")({
