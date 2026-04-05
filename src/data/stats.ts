@@ -4,6 +4,8 @@ import type {
   DashboardStats,
 } from "../types";
 
+export type RevenueChartDataPoint = DashboardStats["revenueOverTime"][number];
+
 export const dashboardMetrics: DashboardMetrics[] = [
   {
     period: "day",
