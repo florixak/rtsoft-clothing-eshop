@@ -16,12 +16,13 @@ const AdminOverview = () => {
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <AdminPeriodFilter />
       </div>
-      <div className="flex flex-col gap-4">
-        <Suspense fallback={<Skeleton className="h-36 w-full rounded-md" />}>
-          <AdminMetrics />
-        </Suspense>
-      </div>
-      <div className="grid gap-4 md:grid-cols-3">
+
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+        <div className="flex flex-col gap-4 col-span-1 md:col-span-3">
+          <Suspense fallback={<Skeleton className="h-36 w-full rounded-md" />}>
+            <AdminMetrics />
+          </Suspense>
+        </div>
         <div className="space-y-2 rounded-xl border bg-card p-4 shadow-sm md:col-span-2">
           <div>
             <h2 className="text-lg font-semibold">
