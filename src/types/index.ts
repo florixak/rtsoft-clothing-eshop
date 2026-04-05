@@ -170,4 +170,4 @@ export type TopProduct = {
   productId: string;
   name: string;
   sold: number;
-};
+} & Pick<Product, "images">;
