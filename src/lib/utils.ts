@@ -14,10 +14,14 @@ export const formatPrice = (price: number, locale: Languages) => {
 };
 
 export const formatDate = (date: string, locale: Languages) => {
+  const parsed = new Date(date);
+  if (Number.isNaN(parsed.getTime())) {
+    return date;
+  }
   return new Intl.DateTimeFormat(locale, {
     dateStyle: "medium",
     timeStyle: "short",
-  }).format(new Date(date));
+  }).format(parsed);
 };
 
 export const clamp = (value: number, min: number, max: number) => {
