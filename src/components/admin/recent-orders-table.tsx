@@ -1,14 +1,16 @@
 import { useMemo } from "react";
 
-import { orders, orderStatuses } from "@/data/orders";
 import { createAdminOrderColumns } from "@/components/orders/order-columns";
+import { orderStatuses } from "@/data/orders";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { Order } from "@/types";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 
+import { createRecentOrdersQueryOptions } from "@/hooks/query-options";
 import { useAdminOverviewOrderFilter } from "@/hooks/use-order-filter";
 import { globalOrderFilter } from "@/lib/dashboard-utils";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import DataTable from "../layout/data-table";
 import { Input } from "../ui/input";
 import {
@@ -22,6 +24,10 @@ import {
 const RecentOrdersTable = () => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
   const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
+
+  const { data: recentOrders } = useSuspenseQuery(
+    createRecentOrdersQueryOptions(),
+  );
 
   const {
     status,
@@ -42,7 +48,7 @@ const RecentOrdersTable = () => {
 
   return (
     <DataTable
-      data={orders}
+      data={recentOrders}
       columns={columns}
       sorting={sorting}
       onSortingChange={onSortingChange}
