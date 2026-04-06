@@ -6,7 +6,7 @@ export const orderStatuses: OrderStatus[] = [
   "shipped",
   "completed",
   "cancelled",
-];
+] as const;
 
 export const orders: Order[] = [
   {

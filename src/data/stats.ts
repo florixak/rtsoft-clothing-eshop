@@ -38,7 +38,7 @@ export const dashboardPeriods: DashboardPeriod[] = [
   "week",
   "month",
   "all",
-];
+] as const;
 
 export const dashboardStats: DashboardStats[] = [
   {
