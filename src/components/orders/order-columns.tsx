@@ -33,7 +33,8 @@ const statusColumn = ({ t }: Pick<OrderColumnsParams, "t">) =>
   columnHelper.accessor("status", {
     header: () => t("orders.table.status"),
     filterFn: (row, columnId, filterValue) => {
-      if (!filterValue) return true;
+      if (typeof filterValue !== "string" || filterValue.length === 0)
+        return true;
       return row.getValue(columnId) === filterValue;
     },
     cell: ({ row }) => {
