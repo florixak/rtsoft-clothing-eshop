@@ -1,0 +1,118 @@
+import { orderStatuses } from "@/data/orders";
+import type { OrderStatus } from "@/types";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import type {
+  ColumnFiltersState,
+  OnChangeFn,
+  PaginationState,
+  SortingState,
+} from "@tanstack/react-table";
+
+type UseOrderFilterProps = {
+  from: "/{-$locale}/admin/" /*| "/{-$locale}/admin/orders/"*/;
+};
+
+const useOrderFilter = ({ from }: UseOrderFilterProps) => {
+  const { q, sort, sortOrder, status, page, perPage } = useSearch({
+    from,
+  });
+  const navigate = useNavigate({ from });
+  const patchSearch = (
+    updates: Partial<{
+      q: string | undefined;
+      sort: string | undefined;
+      sortOrder: "asc" | "desc" | undefined;
+      status: OrderStatus | undefined;
+      page: number;
+      perPage: number;
+    }>,
+  ) => {
+    navigate({
+      search: (prev) => ({ ...prev, ...updates }),
+      replace: true,
+    });
+  };
+
+  const sorting: SortingState = sort
+    ? [{ id: sort, desc: sortOrder !== "asc" }]
+    : [{ id: "createdAt", desc: true }];
+
+  const columnFilters: ColumnFiltersState = status
+    ? [{ id: "status", value: status }]
+    : [];
+
+  const globalFilter = q ?? "";
+
+  const pagination: PaginationState = {
+    pageIndex: Math.max((page ?? 1) - 1, 0),
+    pageSize: perPage ?? 5,
+  };
+
+  const handleSortingChange: OnChangeFn<SortingState> = (updaterOrValue) => {
+    const nextSorting =
+      typeof updaterOrValue === "function"
+        ? updaterOrValue(sorting)
+        : updaterOrValue;
+    const firstSort = nextSorting[0];
+
+    patchSearch({
+      sort: firstSort?.id,
+      sortOrder: firstSort ? (firstSort.desc ? "desc" : "asc") : undefined,
+      page: 1,
+    });
+  };
+
+  const handleColumnFiltersChange: OnChangeFn<ColumnFiltersState> = (
+    updaterOrValue,
+  ) => {
+    const nextFilters =
+      typeof updaterOrValue === "function"
+        ? updaterOrValue(columnFilters)
+        : updaterOrValue;
+
+    const statusFilter = nextFilters.find((filter) => filter.id === "status");
+    const statusValue =
+      typeof statusFilter?.value === "string" ? statusFilter.value : undefined;
+    const nextStatus = orderStatuses.includes(statusValue as OrderStatus)
+      ? (statusValue as OrderStatus)
+      : undefined;
+
+    patchSearch({ status: nextStatus, page: 1 });
+  };
+
+  const handleGlobalFilterChange: OnChangeFn<string> = (updaterOrValue) => {
+    const nextValue =
+      typeof updaterOrValue === "function"
+        ? updaterOrValue(globalFilter)
+        : updaterOrValue;
+
+    patchSearch({ q: nextValue.trim() ? nextValue : undefined, page: 1 });
+  };
+
+  const handlePaginationChange: OnChangeFn<PaginationState> = (
+    updaterOrValue,
+  ) => {
+    const nextPagination =
+      typeof updaterOrValue === "function"
+        ? updaterOrValue(pagination)
+        : updaterOrValue;
+
+    patchSearch({
+      page: nextPagination.pageIndex + 1,
+      perPage: nextPagination.pageSize,
+    });
+  };
+
+  return {
+    sorting,
+    onSortingChange: handleSortingChange,
+    columnFilters,
+    onColumnFiltersChange: handleColumnFiltersChange,
+    globalFilter,
+    onGlobalFilterChange: handleGlobalFilterChange,
+    pagination,
+    onPaginationChange: handlePaginationChange,
+  };
+};
+
+export default useOrderFilter;
