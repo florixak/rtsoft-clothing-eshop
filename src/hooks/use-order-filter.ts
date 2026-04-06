@@ -9,13 +9,23 @@ import type {
 } from "@tanstack/react-table";
 
 type UseOrderFilterProps = {
-  from: "/{-$locale}/admin/" /*| "/{-$locale}/admin/orders/"*/;
+  from: "/{-$locale}/admin/";
+  /*| "/{-$locale}/admin/orders/"
+    | "/{-$locale}/account/";*/
+};
+
+type OrderTableSearch = {
+  q?: string;
+  sort?: string;
+  sortOrder?: "asc" | "desc";
+  status?: OrderStatus;
+  page?: number;
+  perPage?: number;
 };
 
 const useOrderFilter = ({ from }: UseOrderFilterProps) => {
-  const { q, sort, sortOrder, status, page, perPage } = useSearch({
-    from,
-  });
+  const search = useSearch({ from }) as OrderTableSearch;
+  const { q, sort, sortOrder, status, page, perPage } = search;
   const navigate = useNavigate({ from });
   const patchSearch = (
     updates: Partial<{
@@ -104,6 +114,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
   };
 
   return {
+    status,
     sorting,
     onSortingChange: handleSortingChange,
     columnFilters,
@@ -114,5 +125,14 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
     onPaginationChange: handlePaginationChange,
   };
 };
+
+export const useAdminOverviewOrderFilter = () =>
+  useOrderFilter({ from: "/{-$locale}/admin/" });
+
+/*export const useAdminOrdersRouteFilter = () =>
+  useOrderFilter({ from: "/{-$locale}/admin/orders/" });
+
+export const useAccountOrdersFilter = () =>
+  useOrderFilter({ from: "/{-$locale}/account/" });*/
 
 export default useOrderFilter;
