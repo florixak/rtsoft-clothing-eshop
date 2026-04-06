@@ -102,7 +102,7 @@ const RecentOrders = () => {
       {
         id: "payment",
         accessorFn: (order) => order.paymentMethod.id,
-        header: () => "Payment",
+        header: () => t("orders.table.paymentMethod"),
         cell: ({ row }) => row.original.paymentMethod.name[locale],
       },
       {
@@ -147,7 +147,7 @@ const RecentOrders = () => {
           pagination={pagination}
           onPaginationChange={setPagination}
           globalFilterFn={globalOrderFilter}
-          emptyLabel="No orders found."
+          emptyLabel={t("orders.noResults")}
           toolbar={(table) => {
             const statusColumn = table.getColumn("status");
             const currentStatus = String(
@@ -173,7 +173,7 @@ const RecentOrders = () => {
                     statusColumn?.setFilterValue(value);
                   }}
                 >
-                  <SelectTrigger className="w-full sm:w-[180px]">
+                  <SelectTrigger className="w-full sm:w-45">
                     <SelectValue placeholder={t("orders.status.all")} />
                   </SelectTrigger>
                   <SelectContent>
