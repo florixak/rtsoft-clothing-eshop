@@ -60,12 +60,12 @@ const RecentOrdersTable = () => {
         return (
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Input
+              aria-label={t("orders.search")}
               value={globalFilter}
               onChange={(e) => onGlobalFilterChange(e.target.value)}
               placeholder={t("orders.search")}
               className="sm:max-w-sm"
             />
-
             <Select
               value={currentStatus}
               onValueChange={(value) =>
@@ -78,7 +78,10 @@ const RecentOrdersTable = () => {
                 })
               }
             >
-              <SelectTrigger className="w-full sm:w-45">
+              <SelectTrigger
+                aria-label={t("orders.table.status")}
+                className="w-full sm:w-45"
+              >
                 <SelectValue>
                   {currentStatus === "all"
                     ? t("orders.status.all")
