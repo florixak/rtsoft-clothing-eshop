@@ -1,18 +1,13 @@
-import type { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
 import { useMemo } from "react";
 
 import { orders, orderStatuses } from "@/data/orders";
+import { createAdminOrderColumns } from "@/components/orders/order-columns";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { formatDate, formatPrice } from "@/lib/utils";
-import type { Order } from "@/types";
 import { useTranslation } from "react-i18next";
 
-import useOrderFilter from "@/hooks/use-order-filter";
-import { getStatusVariantMap, globalOrderFilter } from "@/lib/dashboard-utils";
+import { useAdminOverviewOrderFilter } from "@/hooks/use-order-filter";
+import { globalOrderFilter } from "@/lib/dashboard-utils";
 import DataTable from "../layout/data-table";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
   Select,
@@ -27,6 +22,7 @@ const RecentOrdersTable = () => {
   const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
 
   const {
+    status,
     sorting,
     columnFilters,
     globalFilter,
@@ -35,92 +31,13 @@ const RecentOrdersTable = () => {
     onGlobalFilterChange,
     onPaginationChange,
     onSortingChange,
-  } = useOrderFilter({ from: "/{-$locale}/admin/" });
+  } = useAdminOverviewOrderFilter();
 
-  const columns = useMemo<ColumnDef<Order>[]>(
-    () => [
-      {
-        accessorKey: "id",
-        header: () => t("orders.table.orderId"),
-        cell: ({ row }) => (
-          <span className="font-medium">{row.original.id.toUpperCase()}</span>
-        ),
-      },
-      {
-        id: "customer",
-        header: () => t("orders.table.customer"),
-        cell: ({ row }) => (
-          <div className="flex flex-col">
-            <span>
-              {row.original.customer.firstName} {row.original.customer.lastName}
-            </span>
-            <span className="text-xs text-muted-foreground">
-              {row.original.customer.email}
-            </span>
-          </div>
-        ),
-      },
-      {
-        accessorKey: "createdAt",
-        header: ({ column }) => (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            className="-ml-2"
-          >
-            {t("orders.table.date")}
-            <ArrowUpDown />
-          </Button>
-        ),
-        cell: ({ row }) => formatDate(row.original.createdAt, locale),
-      },
-      {
-        id: "amount",
-        accessorFn: (order) => order.priceDetails.total,
-        header: ({ column }) => (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            className="-ml-2"
-          >
-            {t("orders.table.amount")}
-            <ArrowUpDown />
-          </Button>
-        ),
-        cell: ({ row }) => (
-          <span className="font-medium">
-            {formatPrice(row.original.priceDetails.total, locale)}
-          </span>
-        ),
-      },
-      {
-        id: "payment",
-        accessorFn: (order) => order.paymentMethod.id,
-        header: () => t("orders.table.paymentMethod"),
-        cell: ({ row }) => row.original.paymentMethod.name[locale],
-      },
-      {
-        accessorKey: "status",
-        header: () => t("orders.table.status"),
-        filterFn: (row, columnId, filterValue) => {
-          if (!filterValue) return true;
-          return row.getValue(columnId) === filterValue;
-        },
-        cell: ({ row }) => {
-          const status = row.original.status;
-          const translationKey = "orders.status." + status;
-          return (
-            <Badge variant={getStatusVariantMap()[status]}>
-              {t(translationKey, { defaultValue: status })}
-            </Badge>
-          );
-        },
-      },
-    ],
+  const columns = useMemo(
+    () => createAdminOrderColumns({ locale, t }),
     [locale, t],
   );
+
   return (
     <DataTable
       data={orders}
@@ -160,7 +77,13 @@ const RecentOrdersTable = () => {
               }
             >
               <SelectTrigger className="w-full sm:w-45">
-                <SelectValue placeholder={t("orders.status.all")} />
+                <SelectValue>
+                  {currentStatus === "all"
+                    ? t("orders.status.all")
+                    : t("orders.status." + currentStatus, {
+                        defaultValue: currentStatus,
+                      })}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t("orders.status.all")}</SelectItem>
