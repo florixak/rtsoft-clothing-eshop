@@ -95,8 +95,8 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
       typeof updaterOrValue === "function"
         ? updaterOrValue(globalFilter)
         : updaterOrValue;
-
-    patchSearch({ q: nextValue.trim() ? nextValue : undefined, page: 1 });
+    const normalizedValue = nextValue.trim();
+    patchSearch({ q: normalizedValue || undefined, page: 1 });
   };
 
   const handlePaginationChange: OnChangeFn<PaginationState> = (
