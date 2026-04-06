@@ -55,11 +55,12 @@
       "action": "Akce"
     },
     "status": {
-      "completed": "Dokončeno",
-      "processing": "Zpracovává se",
+      "all": "Všechny",
       "pending": "Čeká na vyřízení",
-      "cancelled": "Zrušeno",
-      "refunded": "Vráceno"
+      "paid": "Zaplaceno",
+      "shipped": "Odesláno",
+      "completed": "Dokončeno",
+      "cancelled": "Zrušeno"
     }
   },
   "products": {

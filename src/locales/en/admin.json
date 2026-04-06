@@ -54,11 +54,12 @@
       "action": "Action"
     },
     "status": {
-      "completed": "Completed",
-      "processing": "Processing",
+      "all": "All",
       "pending": "Pending",
-      "cancelled": "Cancelled",
-      "refunded": "Refunded"
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
     }
   },
   "products": {
