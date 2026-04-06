@@ -7,7 +7,7 @@ import * as z from "zod";
 const overviewSchema = z.object({
   period: z.enum(dashboardPeriods).default("all").catch("all"),
   q: z.string().optional(),
-  sort: z.string().optional(),
+  sort: z.enum(["createdAt", "amount"]).optional(),
   sortOrder: z.enum(["asc", "desc"]).optional(),
   status: z.enum(orderStatuses).optional(),
   page: z.coerce.number().int().positive().default(1).catch(1),

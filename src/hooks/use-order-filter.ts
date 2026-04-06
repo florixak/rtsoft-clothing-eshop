@@ -30,7 +30,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
   const patchSearch = (
     updates: Partial<{
       q: string | undefined;
-      sort: string | undefined;
+      sort: "createdAt" | "amount" | undefined;
       sortOrder: "asc" | "desc" | undefined;
       status: OrderStatus | undefined;
       page: number;
@@ -66,7 +66,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
     const firstSort = nextSorting[0];
 
     patchSearch({
-      sort: firstSort?.id,
+      sort: firstSort?.id as "createdAt" | "amount" | undefined,
       sortOrder: firstSort ? (firstSort.desc ? "desc" : "asc") : undefined,
       page: 1,
     });
