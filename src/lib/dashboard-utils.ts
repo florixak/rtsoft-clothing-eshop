@@ -3,9 +3,16 @@ import {
   dashboardStats,
   type RevenueChartDataPoint,
 } from "@/data/stats";
-import type { DashboardMetrics, DashboardPeriod, TopProduct } from "@/types";
+import type {
+  DashboardMetrics,
+  DashboardPeriod,
+  Order,
+  OrderStatus,
+  TopProduct,
+} from "@/types";
 import type { Languages } from "./i18n";
 import { getProductById } from "./product-utils";
+import type { FilterFn } from "@tanstack/react-table";
 
 export const getDashboardMetrics = async (
   period: DashboardPeriod,
@@ -98,4 +105,43 @@ export const getBestSellingProducts = async (
   );
 
   return topProductsWithDetails;
+};
+
+export const globalOrderFilter: FilterFn<Order> = (
+  row,
+  _columnId,
+  filterValue,
+) => {
+  const search = String(filterValue ?? "")
+    .trim()
+    .toLowerCase();
+  if (!search) return true;
+
+  const order = row.original;
+  const customerName = (
+    order.customer.firstName +
+    " " +
+    order.customer.lastName
+  ).toLowerCase();
+  const email = order.customer.email.toLowerCase();
+  const id = order.id.toLowerCase();
+
+  return (
+    id.includes(search) ||
+    customerName.includes(search) ||
+    email.includes(search)
+  );
+};
+
+export const getStatusVariantMap = (): Record<
+  OrderStatus,
+  "default" | "secondary" | "destructive" | "outline"
+> => {
+  return {
+    pending: "outline",
+    paid: "secondary",
+    shipped: "secondary",
+    completed: "default",
+    cancelled: "destructive",
+  };
 };

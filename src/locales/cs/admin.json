@@ -46,20 +46,23 @@
   "orders": {
     "title": "Všechny objednávky",
     "search": "Hledat objednávky...",
+    "noResults": "Žádné objednávky nenalezeny.",
     "table": {
       "orderId": "ID objednávky",
       "customer": "Zákazník",
       "date": "Datum",
       "amount": "Částka",
+      "paymentMethod": "Způsob platby",
       "status": "Stav",
       "action": "Akce"
     },
     "status": {
-      "completed": "Dokončeno",
-      "processing": "Zpracovává se",
+      "all": "Všechny",
       "pending": "Čeká na vyřízení",
-      "cancelled": "Zrušeno",
-      "refunded": "Vráceno"
+      "paid": "Zaplaceno",
+      "shipped": "Odesláno",
+      "completed": "Dokončeno",
+      "cancelled": "Zrušeno"
     }
   },
   "products": {

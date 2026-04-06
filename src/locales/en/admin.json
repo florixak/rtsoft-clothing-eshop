@@ -45,20 +45,23 @@
   "orders": {
     "title": "Total Orders",
     "search": "Search for orders...",
+    "noResults": "No orders found.",
     "table": {
       "orderId": "Order ID",
       "customer": "Customer",
       "date": "Date",
       "amount": "Amount",
+      "paymentMethod": "Payment Method",
       "status": "Status",
       "action": "Action"
     },
     "status": {
-      "completed": "Completed",
-      "processing": "Processing",
+      "all": "All",
       "pending": "Pending",
-      "cancelled": "Cancelled",
-      "refunded": "Refunded"
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
     }
   },
   "products": {

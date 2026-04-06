@@ -6,6 +6,7 @@ import AdminMetrics from "./admin-metrics";
 import AdminPeriodFilter from "./admin-period-filter";
 import BestSellers from "./best-sellers";
 import RevenueChartCard from "./revenue-chart-card";
+import RecentOrders from "./recent-orders";
 
 const AdminOverview = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
@@ -27,6 +28,9 @@ const AdminOverview = () => {
           <RevenueChartCard />
         </div>
         <BestSellers />
+        <div className="col-span-1 md:col-span-3">
+          <RecentOrders />
+        </div>
       </div>
     </section>
   );
