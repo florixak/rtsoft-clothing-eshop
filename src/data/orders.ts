@@ -1,4 +1,12 @@
-import type { Order } from "../types";
+import type { Order, OrderStatus } from "../types";
+
+export const orderStatuses: OrderStatus[] = [
+  "pending",
+  "paid",
+  "shipped",
+  "completed",
+  "cancelled",
+];
 
 export const orders: Order[] = [
   {
