@@ -40,6 +40,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
     navigate({
       search: (prev) => ({ ...prev, ...updates }),
       replace: true,
+      resetScroll: false,
     });
   };
 

@@ -24,6 +24,7 @@ const QUERY_KEYS = {
   revenueChartData: (period: DashboardPeriod) =>
     ["revenueChartData", period] as const,
   bestSellers: (period: DashboardPeriod) => ["bestSellers", period] as const,
+  recentOrders: ["recentOrders"] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";
@@ -31,6 +32,8 @@ const MAX_SEEN_PRODUCTS = 3;
 
 const MAX_CART_ITEMS_TO_SHOW = 3;
 const MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY = 2;
+
+const MAX_RECENT_ORDERS_TO_SHOW = 5;
 
 const FREE_SHIPPING_THRESHOLD = 1000;
 
@@ -71,6 +74,7 @@ export {
   MAX_SEEN_PRODUCTS,
   MAX_CART_ITEMS_TO_SHOW,
   MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY,
+  MAX_RECENT_ORDERS_TO_SHOW,
   FREE_SHIPPING_THRESHOLD,
   CHECKOUT_STEPS,
   ADMIN_MENU_ITEMS,

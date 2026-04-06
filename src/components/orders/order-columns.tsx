@@ -7,6 +7,7 @@ import { ArrowUpDown } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import type { TFunction } from "i18next";
+import { orderStatuses } from "@/data/orders";
 
 type OrderColumnsParams = {
   locale: Languages;
@@ -33,7 +34,12 @@ const statusColumn = ({ t }: Pick<OrderColumnsParams, "t">) =>
   columnHelper.accessor("status", {
     header: () => t("orders.table.status"),
     filterFn: (row, columnId, filterValue) => {
-      if (!filterValue) return true;
+      if (
+        typeof filterValue !== "string" ||
+        filterValue.length === 0 ||
+        !orderStatuses.includes(filterValue as Order["status"])
+      )
+        return true;
       return row.getValue(columnId) === filterValue;
     },
     cell: ({ row }) => {
