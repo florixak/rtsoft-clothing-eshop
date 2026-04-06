@@ -13,6 +13,8 @@ import type {
 import type { Languages } from "./i18n";
 import { getProductById } from "./product-utils";
 import type { FilterFn } from "@tanstack/react-table";
+import { orders } from "@/data";
+import { MAX_RECENT_ORDERS_TO_SHOW } from "@/constants";
 
 export const getDashboardMetrics = async (
   period: DashboardPeriod,
@@ -144,4 +146,20 @@ export const getStatusVariantMap = (): Record<
     completed: "default",
     cancelled: "destructive",
   };
+};
+
+export const getRecentOrders = async (): Promise<Order[]> => {
+  await new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000);
+  });
+
+  return orders
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    )
+    .slice(0, MAX_RECENT_ORDERS_TO_SHOW);
 };

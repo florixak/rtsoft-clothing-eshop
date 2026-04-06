@@ -3,6 +3,7 @@ import { getCategoryById } from "@/lib/category-utils";
 import {
   getBestSellingProducts,
   getDashboardMetrics,
+  getRecentOrders,
   getRevenueChartData,
 } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
@@ -61,4 +62,10 @@ export const createBestSellersQueryOptions = (period: DashboardPeriod) =>
   queryOptions({
     queryKey: QUERY_KEYS.bestSellers(period),
     queryFn: () => getBestSellingProducts(period),
+  });
+
+export const createRecentOrdersQueryOptions = () =>
+  queryOptions({
+    queryKey: QUERY_KEYS.recentOrders,
+    queryFn: getRecentOrders,
   });
