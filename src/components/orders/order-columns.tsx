@@ -2,7 +2,7 @@ import type { Languages } from "@/lib/i18n";
 import { getStatusVariantMap } from "@/lib/dashboard-utils";
 import { formatDate, formatPrice } from "@/lib/utils";
 import type { Order } from "@/types";
-import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper, type HeaderContext } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -13,8 +13,10 @@ type OrderColumnsParams = {
   t: TFunction<"account" | "admin", undefined>;
 };
 
-const createSortableHeader = (label: string): ColumnDef<Order>["header"] => {
-  return ({ column }) => (
+const columnHelper = createColumnHelper<Order>();
+
+const createSortableHeader = (label: string) => {
+  return ({ column }: HeaderContext<Order, unknown>) => (
     <Button
       variant="ghost"
       size="sm"
@@ -27,39 +29,33 @@ const createSortableHeader = (label: string): ColumnDef<Order>["header"] => {
   );
 };
 
-const statusColumn = ({
-  t,
-}: Pick<OrderColumnsParams, "t">): ColumnDef<Order> => ({
-  accessorKey: "status",
-  header: () => t("orders.table.status"),
-  filterFn: (row, columnId, filterValue) => {
-    if (!filterValue) return true;
-    return row.getValue(columnId) === filterValue;
-  },
-  cell: ({ row }) => {
-    const status = row.original.status;
-    const translationKey = "orders.status." + status;
-    return (
-      <Badge variant={getStatusVariantMap()[status]}>
-        {t(translationKey, { defaultValue: status })}
-      </Badge>
-    );
-  },
-});
+const statusColumn = ({ t }: Pick<OrderColumnsParams, "t">) =>
+  columnHelper.accessor("status", {
+    header: () => t("orders.table.status"),
+    filterFn: (row, columnId, filterValue) => {
+      if (!filterValue) return true;
+      return row.getValue(columnId) === filterValue;
+    },
+    cell: ({ row }) => {
+      const status = row.original.status;
+      const translationKey = "orders.status." + status;
+      return (
+        <Badge variant={getStatusVariantMap()[status]}>
+          {t(translationKey, { defaultValue: status })}
+        </Badge>
+      );
+    },
+  });
 
-export const createAdminOrderColumns = ({
-  locale,
-  t,
-}: OrderColumnsParams): ColumnDef<Order>[] => {
+export const createAdminOrderColumns = ({ locale, t }: OrderColumnsParams) => {
   return [
-    {
-      accessorKey: "id",
+    columnHelper.accessor("id", {
       header: () => t("orders.table.orderId"),
       cell: ({ row }) => (
         <span className="font-medium">{row.original.id.toUpperCase()}</span>
       ),
-    },
-    {
+    }),
+    columnHelper.display({
       id: "customer",
       header: () => t("orders.table.customer"),
       cell: ({ row }) => (
@@ -72,28 +68,25 @@ export const createAdminOrderColumns = ({
           </span>
         </div>
       ),
-    },
-    {
-      accessorKey: "createdAt",
+    }),
+    columnHelper.accessor("createdAt", {
       header: createSortableHeader(t("orders.table.date")),
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
-    },
-    {
+    }),
+    columnHelper.accessor((order) => order.priceDetails.total, {
       id: "amount",
-      accessorFn: (order) => order.priceDetails.total,
       header: createSortableHeader(t("orders.table.amount")),
       cell: ({ row }) => (
         <span className="font-medium">
           {formatPrice(row.original.priceDetails.total, locale)}
         </span>
       ),
-    },
-    {
+    }),
+    columnHelper.accessor((order) => order.paymentMethod.id, {
       id: "payment",
-      accessorFn: (order) => order.paymentMethod.id,
       header: () => t("orders.table.paymentMethod"),
       cell: ({ row }) => row.original.paymentMethod.name[locale],
-    },
+    }),
     statusColumn({ t }),
   ];
 };
@@ -101,36 +94,32 @@ export const createAdminOrderColumns = ({
 export const createAccountOrderColumns = ({
   locale,
   t,
-}: OrderColumnsParams): ColumnDef<Order>[] => {
+}: OrderColumnsParams) => {
   return [
-    {
-      accessorKey: "id",
+    columnHelper.accessor("id", {
       header: () => t("orders.table.orderId"),
       cell: ({ row }) => (
         <span className="font-medium">{row.original.id.toUpperCase()}</span>
       ),
-    },
-    {
-      accessorKey: "createdAt",
+    }),
+    columnHelper.accessor("createdAt", {
       header: createSortableHeader(t("orders.table.date")),
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
-    },
-    {
+    }),
+    columnHelper.accessor((order) => order.priceDetails.total, {
       id: "amount",
-      accessorFn: (order) => order.priceDetails.total,
       header: createSortableHeader(t("orders.table.amount")),
       cell: ({ row }) => (
         <span className="font-medium">
           {formatPrice(row.original.priceDetails.total, locale)}
         </span>
       ),
-    },
-    {
+    }),
+    columnHelper.accessor((order) => order.paymentMethod.id, {
       id: "payment",
-      accessorFn: (order) => order.paymentMethod.id,
       header: () => t("orders.table.paymentMethod"),
       cell: ({ row }) => row.original.paymentMethod.name[locale],
-    },
+    }),
     statusColumn({ t }),
   ];
 };

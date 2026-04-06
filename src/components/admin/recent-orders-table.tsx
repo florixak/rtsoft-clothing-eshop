@@ -3,6 +3,8 @@ import { useMemo } from "react";
 import { orders, orderStatuses } from "@/data/orders";
 import { createAdminOrderColumns } from "@/components/orders/order-columns";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import type { Order } from "@/types";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 
 import { useAdminOverviewOrderFilter } from "@/hooks/use-order-filter";
@@ -34,7 +36,7 @@ const RecentOrdersTable = () => {
   } = useAdminOverviewOrderFilter();
 
   const columns = useMemo(
-    () => createAdminOrderColumns({ locale, t }),
+    () => createAdminOrderColumns({ locale, t }) as ColumnDef<Order>[],
     [locale, t],
   );
 
