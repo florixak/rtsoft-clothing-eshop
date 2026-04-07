@@ -9,9 +9,8 @@ import type {
 } from "@tanstack/react-table";
 
 type UseOrderFilterProps = {
-  from: "/{-$locale}/admin/";
-  /*| "/{-$locale}/admin/orders/"
-    | "/{-$locale}/account/";*/
+  from: "/{-$locale}/admin/" | "/{-$locale}/admin/orders/";
+  /*| "/{-$locale}/account/";*/
 };
 
 type OrderTableSearch = {
@@ -130,10 +129,10 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
 export const useAdminOverviewOrderFilter = () =>
   useOrderFilter({ from: "/{-$locale}/admin/" });
 
-/*export const useAdminOrdersRouteFilter = () =>
+export const useAdminOrdersRouteFilter = () =>
   useOrderFilter({ from: "/{-$locale}/admin/orders/" });
 
-export const useAccountOrdersFilter = () =>
+/*export const useAccountOrdersFilter = () =>
   useOrderFilter({ from: "/{-$locale}/account/" });*/
 
 export default useOrderFilter;

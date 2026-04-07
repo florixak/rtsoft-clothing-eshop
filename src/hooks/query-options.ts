@@ -1,9 +1,9 @@
-import { QUERY_KEYS } from "@/constants";
+import { MAX_RECENT_ORDERS_TO_SHOW, QUERY_KEYS } from "@/constants";
 import { getCategoryById } from "@/lib/category-utils";
 import {
   getBestSellingProducts,
   getDashboardMetrics,
-  getRecentOrders,
+  getOrders,
   getRevenueChartData,
 } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
@@ -67,5 +67,11 @@ export const createBestSellersQueryOptions = (period: DashboardPeriod) =>
 export const createRecentOrdersQueryOptions = () =>
   queryOptions({
     queryKey: QUERY_KEYS.recentOrders,
-    queryFn: getRecentOrders,
+    queryFn: () => getOrders({ limit: MAX_RECENT_ORDERS_TO_SHOW }),
+  });
+
+export const createAdminOrdersQueryOptions = () =>
+  queryOptions({
+    queryKey: QUERY_KEYS.adminOrders,
+    queryFn: () => getOrders({}),
   });

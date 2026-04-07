@@ -148,7 +148,11 @@ export const getStatusVariantMap = (): Record<
   };
 };
 
-export const getRecentOrders = async (): Promise<Order[]> => {
+type GetOrdersFilter = {
+  limit?: number;
+};
+
+export const getOrders = async (filter: GetOrdersFilter): Promise<Order[]> => {
   await new Promise<void>((resolve) => {
     setTimeout(() => {
       resolve();
@@ -161,5 +165,5 @@ export const getRecentOrders = async (): Promise<Order[]> => {
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     )
-    .slice(0, MAX_RECENT_ORDERS_TO_SHOW);
+    .slice(0, filter.limit ?? MAX_RECENT_ORDERS_TO_SHOW);
 };
