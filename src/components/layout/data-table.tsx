@@ -108,8 +108,10 @@ const DataTable = <TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  className="hover:cursor-pointer"
-                  onClick={() => onRowClick && onRowClick(row.original)}
+                  className={onRowClick ? "hover:cursor-pointer" : undefined}
+                  onClick={
+                    onRowClick ? () => onRowClick(row.original) : undefined
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
