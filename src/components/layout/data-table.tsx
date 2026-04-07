@@ -40,6 +40,7 @@ type DataTableProps<TData, TValue> = {
   globalFilterFn?: FilterFn<TData>;
   emptyLabel?: string;
   toolbar?: (table: TanstackTable<TData>) => ReactNode;
+  onRowClick?: (row: TData) => void;
 };
 
 const DataTable = <TData, TValue>({
@@ -56,6 +57,7 @@ const DataTable = <TData, TValue>({
   globalFilterFn,
   emptyLabel = "No results",
   toolbar,
+  onRowClick,
 }: DataTableProps<TData, TValue>) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const table = useReactTable({
@@ -104,7 +106,13 @@ const DataTable = <TData, TValue>({
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow
+                  key={row.id}
+                  className={onRowClick ? "hover:cursor-pointer" : undefined}
+                  onClick={
+                    onRowClick ? () => onRowClick(row.original) : undefined
+                  }
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(

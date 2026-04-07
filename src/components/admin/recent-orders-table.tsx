@@ -60,6 +60,7 @@ const RecentOrdersTable = () => {
       onPaginationChange={onPaginationChange}
       globalFilterFn={globalOrderFilter}
       emptyLabel={t("orders.noResults")}
+      onRowClick={(row) => console.log("click ", row.id)}
       toolbar={() => {
         const currentStatus = status ?? "all";
 
