@@ -1,4 +1,5 @@
 import { orderStatuses } from "@/data/orders";
+import type { OrdersSearch } from "@/lib/schema";
 import type { OrderStatus } from "@/types";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import type {
@@ -13,29 +14,11 @@ type UseOrderFilterProps = {
   /*| "/{-$locale}/account/";*/
 };
 
-type OrderTableSearch = {
-  q?: string;
-  sort?: string;
-  sortOrder?: "asc" | "desc";
-  status?: OrderStatus;
-  page?: number;
-  perPage?: number;
-};
-
 const useOrderFilter = ({ from }: UseOrderFilterProps) => {
-  const search = useSearch({ from }) as OrderTableSearch;
-  const { q, sort, sortOrder, status, page, perPage } = search;
+  const search = useSearch({ from }) as OrdersSearch;
+  const { orderQ, sort, sortOrder, status, page, perPage } = search;
   const navigate = useNavigate({ from });
-  const patchSearch = (
-    updates: Partial<{
-      q: string | undefined;
-      sort: "createdAt" | "amount" | undefined;
-      sortOrder: "asc" | "desc" | undefined;
-      status: OrderStatus | undefined;
-      page: number;
-      perPage: number;
-    }>,
-  ) => {
+  const patchSearch = (updates: Partial<OrdersSearch>) => {
     navigate({
       search: (prev) => ({ ...prev, ...updates }),
       replace: true,
@@ -51,7 +34,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
     ? [{ id: "status", value: status }]
     : [];
 
-  const globalFilter = q ?? "";
+  const globalFilter = orderQ ?? "";
 
   const pagination: PaginationState = {
     pageIndex: Math.max((page ?? 1) - 1, 0),
@@ -96,7 +79,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
         ? updaterOrValue(globalFilter)
         : updaterOrValue;
     const normalizedValue = nextValue.trim();
-    patchSearch({ q: normalizedValue || undefined, page: 1 });
+    patchSearch({ orderQ: normalizedValue || undefined, page: 1 });
   };
 
   const handlePaginationChange: OnChangeFn<PaginationState> = (
