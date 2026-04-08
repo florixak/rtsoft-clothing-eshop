@@ -19,13 +19,14 @@ const useLanguage = () => {
       );
       const localizedPath = `/${value}${pathnameWithoutLocale || "/"}`;
 
-      await i18n.changeLanguage(value);
       await navigate({
         to: localizedPath,
         replace: true,
-        search: location.search,
-        hash: location.hash,
+        search: true,
+        hash: true,
       });
+
+      await i18n.changeLanguage(value);
     }
   };
   return { currentLanguage, changeLanguage };
