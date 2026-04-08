@@ -60,7 +60,7 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
               render={
                 <Link
                   to="/{-$locale}"
-                  search={(old) => ({ ...old, category: product?.categoryId })}
+                  search={{ category: categoryData?.id }}
                   className="text-xs"
                 >
                   {category}
