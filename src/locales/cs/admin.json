@@ -73,8 +73,8 @@
       "title": "Název",
       "category": "Kategorie",
       "price": "Cena",
+      "dateAdded": "Datum přidání",
       "stock": "Sklad",
-      "status": "Stav",
       "action": "Akce"
     },
     "status": {

@@ -36,7 +36,7 @@ export const createAdminProductColumns = ({
       ),
     }),
     columnHelper.accessor("createdAt", {
-      header: createSortableHeader(t("products.table.date")),
+      header: createSortableHeader(t("products.table.dateAdded")),
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
     }),
     columnHelper.accessor((product) => product.basePrice, {
@@ -48,5 +48,22 @@ export const createAdminProductColumns = ({
         </span>
       ),
     }),
+    columnHelper.accessor(
+      (product) => product.skus.reduce((sum, sku) => sum + sku.stock, 0),
+      {
+        id: "stock",
+        header: () => t("products.table.stock"),
+        cell: ({ getValue }) => {
+          const totalStock = getValue();
+          return (
+            <span
+              className={`font-medium ${totalStock > 0 ? "" : "text-destructive"}`}
+            >
+              {totalStock}
+            </span>
+          );
+        },
+      },
+    ),
   ];
 };

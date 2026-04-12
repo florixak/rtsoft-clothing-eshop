@@ -155,6 +155,11 @@ const getProducts = async (
   };
 };
 
+const getAdminProducts = async (): Promise<Product[]> => {
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  return products;
+};
+
 const getProductBySlug = async (slug: string): Promise<Product> => {
   await new Promise((resolve) => setTimeout(resolve, 100));
   const product = findProductBySlug(slug);
@@ -415,6 +420,7 @@ export {
   hasInStockSkuBySelection,
   getAppliedFiltersLabel,
   getProducts,
+  getAdminProducts,
   getTotalStock,
   getAllColors,
   getAvailableColors,
