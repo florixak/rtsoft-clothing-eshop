@@ -12,7 +12,7 @@ const AdminProducts = () => {
     <Card>
       <CardHeader>
         <h2 className="text-lg font-semibold">
-          {t("overview.recentTransactions.title")}
+          {t("overview.products.title")}
         </h2>
       </CardHeader>
 
