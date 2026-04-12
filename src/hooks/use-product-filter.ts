@@ -15,7 +15,6 @@ const useProductFilter = () => {
         sortOrder: "sortOrder",
         page: "page",
         perPage: "perPage",
-        status: "status",
         allowedSortIds: ["createdAt", "amount"],
       },
       defaultSorting: {
