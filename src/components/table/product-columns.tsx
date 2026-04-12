@@ -40,7 +40,7 @@ export const createAdminProductColumns = ({
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
     }),
     columnHelper.accessor((product) => product.basePrice, {
-      id: "price",
+      id: "amount",
       header: createSortableHeader(t("products.table.price")),
       cell: ({ row }) => (
         <span className="font-medium">
