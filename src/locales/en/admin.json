@@ -72,8 +72,8 @@
       "title": "Title",
       "category": "Category",
       "price": "Price",
+      "dateAdded": "Date Added",
       "stock": "Stock",
-      "status": "Status",
       "action": "Action"
     },
     "status": {
