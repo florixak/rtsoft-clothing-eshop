@@ -8,6 +8,7 @@ import type {
   DashboardPeriod,
   Order,
   OrderStatus,
+  Product,
   TopProduct,
 } from "@/types";
 import type { Languages } from "./i18n";
@@ -134,6 +135,21 @@ export const globalOrderFilter: FilterFn<Order> = (
     email.includes(search)
   );
 };
+
+export const createGlobalProductFilter =
+  (locale: Languages): FilterFn<Product> =>
+  (row, _columnId, filterValue): boolean => {
+    const search = String(filterValue ?? "")
+      .trim()
+      .toLowerCase();
+    if (!search) return true;
+
+    const product = row.original;
+    const name = product.name[locale].toLowerCase();
+    const id = product.id.toLowerCase();
+
+    return id.includes(search) || name.includes(search);
+  };
 
 export const getStatusVariantMap = (): Record<
   OrderStatus,
