@@ -26,6 +26,7 @@ const QUERY_KEYS = {
   bestSellers: (period: DashboardPeriod) => ["bestSellers", period] as const,
   recentOrders: ["recentOrders"] as const,
   adminOrders: ["adminOrders"] as const,
+  adminProducts: ["adminProducts"] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";
