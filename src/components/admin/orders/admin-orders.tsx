@@ -10,9 +10,7 @@ const AdminOrders = () => {
   return (
     <Card>
       <CardHeader>
-        <h2 className="text-lg font-semibold">
-          {t("overview.recentTransactions.title")}
-        </h2>
+        <h2 className="text-lg font-semibold">{t("orders.title")}</h2>
       </CardHeader>
 
       <CardContent>
