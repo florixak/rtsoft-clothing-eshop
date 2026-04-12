@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { createAdminOrderColumns } from "@/components/orders/order-columns";
+import { createAdminOrderColumns } from "@/components/table/order-columns";
 import { orderStatuses } from "@/data/orders";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { Order } from "@/types";

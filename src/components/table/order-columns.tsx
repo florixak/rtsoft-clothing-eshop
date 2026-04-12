@@ -1,13 +1,12 @@
-import type { Languages } from "@/lib/i18n";
+import { orderStatuses } from "@/data/orders";
 import { getStatusVariantMap } from "@/lib/dashboard-utils";
+import type { Languages } from "@/lib/i18n";
 import { formatDate, formatPrice } from "@/lib/utils";
 import type { Order } from "@/types";
-import { createColumnHelper, type HeaderContext } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
+import { createColumnHelper } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { orderStatuses } from "@/data/orders";
+import { Badge } from "../ui/badge";
+import createSortableHeader from "./sortable-header";
 
 type OrderColumnsParams = {
   locale: Languages;
@@ -15,20 +14,6 @@ type OrderColumnsParams = {
 };
 
 const columnHelper = createColumnHelper<Order>();
-
-const createSortableHeader = (label: string) => {
-  return ({ column }: HeaderContext<Order, unknown>) => (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      className="-ml-2"
-    >
-      {label}
-      <ArrowUpDown />
-    </Button>
-  );
-};
 
 const statusColumn = ({ t }: Pick<OrderColumnsParams, "t">) =>
   columnHelper.accessor("status", {
