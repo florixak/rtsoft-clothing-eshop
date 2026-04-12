@@ -48,21 +48,22 @@ export const createAdminProductColumns = ({
         </span>
       ),
     }),
-    columnHelper.accessor("skus.stock", {
-      header: () => t("products.table.stock"),
-      cell: ({ row }) => {
-        const totalStock = row.original.skus.reduce(
-          (sum, sku) => sum + sku.stock,
-          0,
-        );
-        return (
-          <span
-            className={`font-medium ${totalStock > 0 ? "" : "text-destructive"}`}
-          >
-            {totalStock}
-          </span>
-        );
+    columnHelper.accessor(
+      (product) => product.skus.reduce((sum, sku) => sum + sku.stock, 0),
+      {
+        id: "stock",
+        header: () => t("products.table.stock"),
+        cell: ({ getValue }) => {
+          const totalStock = getValue();
+          return (
+            <span
+              className={`font-medium ${totalStock > 0 ? "" : "text-destructive"}`}
+            >
+              {totalStock}
+            </span>
+          );
+        },
       },
-    }),
+    ),
   ];
 };
