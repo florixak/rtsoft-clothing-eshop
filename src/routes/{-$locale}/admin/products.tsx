@@ -1,3 +1,4 @@
+import AdminProducts from "@/components/admin/products/admin-products";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/admin/products")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/{-$locale}/admin/products")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/-$locale/admin/products"!</div>;
+  return <AdminProducts />;
 }
