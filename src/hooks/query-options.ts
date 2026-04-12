@@ -8,6 +8,7 @@ import {
 } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
 import {
+  getAdminProducts,
   getProductById,
   getProductBySlug,
   getProducts,
@@ -74,4 +75,10 @@ export const createAdminOrdersQueryOptions = () =>
   queryOptions({
     queryKey: QUERY_KEYS.adminOrders,
     queryFn: () => getOrders({}),
+  });
+
+export const createAdminProductsQueryOptions = () =>
+  queryOptions({
+    queryKey: QUERY_KEYS.adminProducts,
+    queryFn: () => getAdminProducts(),
   });
