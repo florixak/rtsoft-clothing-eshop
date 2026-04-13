@@ -1,0 +1,10 @@
+{
+  "title": "Order #{{id}}",
+  "breadcrumbs": {
+    "orders": "Orders"
+  },
+  "actions": {
+    "backToOrders": "Back To Orders",
+    "cancelOrder": "Cancel Order"
+  }
+}
