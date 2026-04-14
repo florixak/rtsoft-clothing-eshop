@@ -4,7 +4,7 @@
     "orders": "Orders"
   },
   "actions": {
-    "backToOrders": "Back To Orders",
+    "backToOrders": "Back to Orders",
     "cancelOrder": "Cancel Order"
   }
 }
