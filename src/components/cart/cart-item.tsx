@@ -1,6 +1,6 @@
 import { createProductIdQueryOptions } from "@/hooks/query-options";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { hasInStockSku } from "@/lib/product-utils";
+import { getImageBySelectedColor, hasInStockSku } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
 import type { CartItem as CartItemType } from "@/types";
@@ -41,11 +41,13 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
 
   const price = formatPrice(item.priceSnapshot * item.quantity, locale);
 
+  const images = getImageBySelectedColor(product, item.selectionSnapshot.color);
+
   if (compact) {
     return (
       <div className="flex items-center gap-4">
         <img
-          src={product.images[0]}
+          src={images.primary}
           alt={product.name[locale]}
           className="size-16 object-cover rounded"
           loading="lazy"
@@ -71,7 +73,7 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   return (
     <div className="flex flex-col md:flex-row items-start w-full gap-4">
       <img
-        src={product?.images[0] ?? ""}
+        src={images.primary}
         alt={product?.name[locale] ?? ""}
         className="size-64 object-cover rounded"
         loading="lazy"

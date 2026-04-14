@@ -191,9 +191,9 @@ const HeaderSearch = ({ mode = "desktop" }: HeaderSearchProps) => {
                       setIsOpen(false);
                     }}
                   >
-                    {product.images[0] != null ? (
+                    {product.fallbackImages[0] != null ? (
                       <img
-                        src={product.images[0]}
+                        src={product.fallbackImages[0]}
                         alt={product.name[locale]}
                         className="size-11 rounded-md object-cover"
                       />

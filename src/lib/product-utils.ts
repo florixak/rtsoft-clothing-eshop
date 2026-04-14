@@ -388,25 +388,17 @@ const getImageBySelectedColor = (
   product: Product,
   selectedColor: string | undefined,
 ) => {
-  const placeholderImages = {
-    primary: product.images[0],
-    secondary: product.images[1] || product.images[0],
-  };
-  if (!selectedColor) {
-    return placeholderImages;
-  }
+  const fallbackImages = product.options.colors[0]?.images ?? [];
 
-  const colorImages = product.images.filter((image) =>
-    image.toLowerCase().includes(selectedColor.toLowerCase()),
-  );
+  const colorOption = selectedColor
+    ? product.options.colors.find((c) => c.code === selectedColor)
+    : product.options.colors[0];
 
-  if (colorImages.length === 0) {
-    return placeholderImages;
-  }
+  const images = colorOption?.images ?? fallbackImages;
 
   return {
-    primary: colorImages[0],
-    secondary: colorImages[1] || colorImages[0],
+    primary: images[0],
+    secondary: images[1] ?? images[0],
   };
 };
 
