@@ -23,11 +23,7 @@ const OrderItems = ({ orderItems }: OrderItemsProps) => {
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {orderItems.map((item) => (
             <li
-              key={
-                item.productId +
-                item.selectionSnapshot.color +
-                item.selectionSnapshot.size
-              }
+              key={`${item.productId}-${item.selectionSnapshot.color}-${item.selectionSnapshot.size}`}
             >
               <CartItem compact item={{ id: item.productId, ...item }} />
             </li>
