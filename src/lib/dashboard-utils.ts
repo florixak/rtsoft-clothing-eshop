@@ -100,9 +100,9 @@ export const getBestSellingProducts = async (
     topProducts.map(async (product) => {
       try {
         const details = await getProductById(product.productId);
-        return { ...product, images: details.images };
+        return { ...product, fallbackImages: details.fallbackImages };
       } catch {
-        return { ...product, images: [] };
+        return { ...product, fallbackImages: [] };
       }
     }),
   );

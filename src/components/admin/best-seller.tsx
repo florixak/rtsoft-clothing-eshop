@@ -7,7 +7,8 @@ type BestSellerCardProps = {
 };
 
 const BestSeller = ({ product }: BestSellerCardProps) => {
-  const imageUrl = product.images[0] || "/images/product-placeholder.png";
+  const imageUrl =
+    product.fallbackImages[0] || "/images/product-placeholder.png";
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   return (

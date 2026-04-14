@@ -34,7 +34,7 @@ export type Product = {
   description: LocalizedString;
   basePrice: number;
   categoryId: string;
-  images: string[];
+  fallbackImages: string[];
   options: ProductOptions;
   specifications: SpecificationObject;
   skus: SKU[];
@@ -47,6 +47,7 @@ export type ProductOption<TCode extends string = string> = {
   id: string;
   code: TCode;
   label: LocalizedString;
+  images?: string[];
 };
 
 export type ProductOptions = {
@@ -170,4 +171,4 @@ export type TopProduct = {
   productId: string;
   name: LocalizedString;
   sold: number;
-} & Pick<Product, "images">;
+} & Pick<Product, "fallbackImages">;
