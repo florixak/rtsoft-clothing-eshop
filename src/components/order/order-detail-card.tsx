@@ -60,7 +60,7 @@ const OrderDetailCard = ({
         )}
         {cardContent == null ? null : <>{cardContent}</>}
       </CardContent>
-      {cardFooter && <CardFooter>{cardFooter}</CardFooter>}
+      {cardFooter == null ? null : <CardFooter>{cardFooter}</CardFooter>}
     </Card>
   );
 };
