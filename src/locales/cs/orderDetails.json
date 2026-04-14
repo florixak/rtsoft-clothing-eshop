@@ -1,0 +1,10 @@
+{
+  "title": "Objednávka #{{id}}",
+  "breadcrumbs": {
+    "orders": "Objednávky"
+  },
+  "actions": {
+    "backToOrders": "Zpět na objednávky",
+    "cancelOrder": "Zrušit objednávku"
+  }
+}
