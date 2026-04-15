@@ -1,3 +1,4 @@
+import OrderDetails from "@/components/order/order-details";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/admin/orders/$orderId")({
@@ -5,11 +6,5 @@ export const Route = createFileRoute("/{-$locale}/admin/orders/$orderId")({
 });
 
 function RouteComponent() {
-  const { locale, orderId } = Route.useParams();
-
-  return (
-    <div>
-      Hello "/{locale ?? "cs"}/admin/orders/{orderId}"!
-    </div>
-  );
+  return <OrderDetails />;
 }
