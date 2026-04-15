@@ -207,7 +207,13 @@ export const OrderSummary = ({
   );
 };
 
-export const SuccessOrderSummary = ({ order }: { order: Order }) => {
+export const SuccessOrderSummary = ({
+  order,
+  showProducts = true,
+}: {
+  order: Order;
+  showProducts?: boolean;
+}) => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.orderConfirmation);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const {
@@ -222,23 +228,25 @@ export const SuccessOrderSummary = ({ order }: { order: Order }) => {
       <CardHeader>
         <h3 className="text-lg font-semibold">{t("summary.title")}</h3>
       </CardHeader>
-      <CardContent className="flex flex-col gap-8 md:grid md:grid-cols-2">
-        <ul className="flex min-w-0 flex-col gap-4 w-full">
-          {order.items.map((item) => (
-            <Suspense
-              fallback={<Skeleton className="h-16 w-full" />}
-              key={`${item.productId}-${item.selectionSnapshot.size}-${item.selectionSnapshot.color}`}
-            >
-              <CartItem
-                item={{
-                  id: item.productId,
-                  ...item,
-                }}
-                compact
-              />
-            </Suspense>
-          ))}
-        </ul>
+      <CardContent className="flex flex-col items-start gap-8 md:grid md:grid-cols-2">
+        {showProducts && (
+          <ul className="flex min-w-0 flex-col gap-4 w-full">
+            {order.items.map((item) => (
+              <Suspense
+                fallback={<Skeleton className="h-16 w-full" />}
+                key={`${item.productId}-${item.selectionSnapshot.size}-${item.selectionSnapshot.color}`}
+              >
+                <CartItem
+                  item={{
+                    id: item.productId,
+                    ...item,
+                  }}
+                  compact
+                />
+              </Suspense>
+            ))}
+          </ul>
+        )}
 
         <table className="w-full text-base md:max-w-sm">
           <tbody>
