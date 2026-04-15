@@ -2,11 +2,12 @@ import { orders } from "@/data";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 
+import { useTranslation } from "react-i18next";
+import { SuccessOrderSummary } from "../checkout/order-summary";
 import OrderDetailCards, {
   type OrderDetailCardsModel,
 } from "./order-detail-cards";
 import OrderDetailsHeader from "./order-details-header";
-import { useTranslation } from "react-i18next";
 import OrderItems from "./order-items";
 
 const OrderDetails = () => {
@@ -74,6 +75,8 @@ const OrderDetails = () => {
           edit: t("checkout:actions.edit"),
         }}
       />
+
+      <SuccessOrderSummary showProducts={false} order={order} />
     </section>
   );
 };
