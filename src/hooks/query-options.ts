@@ -7,6 +7,7 @@ import {
   getRevenueChartData,
 } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
+import { getOrderById } from "@/lib/order-utils";
 import {
   getAdminProducts,
   getProductById,
@@ -81,4 +82,11 @@ export const createAdminProductsQueryOptions = () =>
   queryOptions({
     queryKey: QUERY_KEYS.adminProducts,
     queryFn: () => getAdminProducts(),
+  });
+
+export const createOrderDetailsQueryOptions = (orderId: string) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.orderDetails(orderId),
+    queryFn: () => getOrderById(orderId),
+    retry: false,
   });

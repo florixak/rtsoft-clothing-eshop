@@ -1,7 +1,9 @@
-import { orders } from "@/data";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 
+import { createOrderDetailsQueryOptions } from "@/hooks/query-options";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useParams } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { SuccessOrderSummary } from "../checkout/order-summary";
 import OrderDetailCards, {
@@ -16,12 +18,11 @@ const OrderDetails = () => {
     TRANSLATION_NAMESPACES.checkout,
     TRANSLATION_NAMESPACES.orderConfirmation,
   ]);
+  const { orderId } = useParams({ from: "/{-$locale}/admin/orders/$orderId" });
+  const { data: order } = useSuspenseQuery(
+    createOrderDetailsQueryOptions(orderId),
+  );
   const locale = i18n.resolvedLanguage === "cs" ? "cs" : "en";
-  const order = orders[0];
-
-  if (!order) {
-    return null;
-  }
 
   const detailsModel: OrderDetailCardsModel = {
     shippingAddress: {
