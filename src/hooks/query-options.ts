@@ -88,4 +88,5 @@ export const createOrderDetailsQueryOptions = (orderId: string) =>
   queryOptions({
     queryKey: QUERY_KEYS.orderDetails(orderId),
     queryFn: () => getOrderById(orderId),
+    retry: false,
   });
