@@ -1,5 +1,5 @@
 import type { Query } from "@/lib/product-utils";
-import type { DashboardMetricsKey, DashboardPeriod } from "@/types";
+import type { DashboardMetricsKey, DashboardPeriod, Order } from "@/types";
 import {
   Banknote,
   HandCoins,
@@ -27,6 +27,7 @@ const QUERY_KEYS = {
   recentOrders: ["recentOrders"] as const,
   adminOrders: ["adminOrders"] as const,
   adminProducts: ["adminProducts"] as const,
+  orderDetails: (orderId: Order["id"]) => ["orderDetails", orderId] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";
