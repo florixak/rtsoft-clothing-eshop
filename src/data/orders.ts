@@ -72,10 +72,17 @@ export const orders: Order[] = [
       name: { cs: "Platební karta", en: "Payment Card" },
     },
     priceDetails: {
-      subtotal: 399 * 2 + 1229,
+      subtotal: 399 * 2 + 1229 + 499 + 799 + 1499,
       shippingCost: 79,
-      tax: Math.round((399 * 2 + 1229) * 0.21),
-      total: 399 * 2 + 1229 + 79 + Math.round((399 * 2 + 1229) * 0.21),
+      tax: Math.round((399 * 2 + 1229 + 499 + 799 + 1499) * 0.21),
+      total:
+        399 * 2 +
+        1229 +
+        499 +
+        799 +
+        1499 +
+        79 +
+        Math.round((399 * 2 + 1229 + 499 + 799 + 1499) * 0.21),
     },
     status: "completed",
     createdAt: "2026-02-20T10:15:00.000Z",
