@@ -27,6 +27,27 @@ export const orders: Order[] = [
         quantity: 1,
         priceSnapshot: 1229,
       },
+      {
+        productId: "prod-8",
+        nameSnapshot: "Baseball Cap",
+        selectionSnapshot: { size: "s", color: "navy" },
+        quantity: 1,
+        priceSnapshot: 499,
+      },
+      {
+        productId: "prod-9",
+        nameSnapshot: "Leather Belt",
+        selectionSnapshot: { size: "l", color: "brown" },
+        quantity: 1,
+        priceSnapshot: 799,
+      },
+      {
+        productId: "prod-10",
+        nameSnapshot: "Canvas Backpack",
+        selectionSnapshot: { size: "m", color: "green" },
+        quantity: 1,
+        priceSnapshot: 1499,
+      },
     ],
     customer: {
       firstName: "Jan",
