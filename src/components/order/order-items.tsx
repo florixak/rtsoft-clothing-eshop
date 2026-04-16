@@ -1,9 +1,8 @@
-import type { Order } from "@/types";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import type { Order } from "@/types";
+import { useTranslation } from "react-i18next";
 import CartItem from "../cart/cart-item";
 import OrderDetailCard from "./order-detail-card";
-import { ShoppingCart } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 type OrderItemsProps = {
   orderItems: Order["items"];
@@ -17,8 +16,8 @@ const OrderItems = ({ orderItems }: OrderItemsProps) => {
 
   return (
     <OrderDetailCard
-      icon={ShoppingCart}
       title={t("checkout:review.items", { count: orderItems.length })}
+      titleClassName="text-lg font-semibold"
       cardContent={
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {orderItems.map((item) => (

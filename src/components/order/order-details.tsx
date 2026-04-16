@@ -1,18 +1,19 @@
+import { getStatusVariantMap } from "@/lib/dashboard-utils";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { formatPrice } from "@/lib/utils";
 
 import { createOrderDetailsQueryOptions } from "@/hooks/query-options";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SuccessOrderSummary } from "../checkout/order-summary";
-import OrderDetailCards, {
-  type OrderDetailCardsModel,
-} from "./order-detail-cards";
+import { Badge } from "../ui/badge";
+import { Card, CardHeader } from "../ui/card";
 import OrderActions from "./order-actions";
 import OrderDetailsHeader from "./order-details-header";
+import OrderInformation from "./order-information";
 import OrderItems from "./order-items";
-import { useState } from "react";
+import { formatDate } from "@/lib/utils";
 
 const OrderDetails = () => {
   const { t, i18n } = useTranslation([
@@ -26,43 +27,6 @@ const OrderDetails = () => {
   const order = { ...data, status };
 
   const locale = i18n.resolvedLanguage === "cs" ? "cs" : "en";
-
-  const detailsModel: OrderDetailCardsModel = {
-    shippingAddress: {
-      name: `${order.customer.firstName} ${order.customer.lastName}`,
-      lines: [
-        order.customer.email || "-",
-        order.customer.phone || "-",
-        order.address.street || "-",
-        `${order.address.postalCode} ${order.address.city}`.trim() || "-",
-        order.address.country || "-",
-      ],
-      footer: (
-        <p className="text-sm text-muted-foreground">
-          {t("checkout:deliveryInfo.fields.street.label")},{" "}
-          {t("checkout:deliveryInfo.fields.city.label")},{" "}
-          {t("checkout:deliveryInfo.fields.postalCode.label")}
-        </p>
-      ),
-    },
-    shippingMethod: {
-      name: order.shippingMethod.name[locale],
-      description: order.shippingMethod.description[locale],
-      priceLabel:
-        order.shippingMethod.price === 0
-          ? t("checkout:shippingMethod.free")
-          : formatPrice(order.shippingMethod.price, locale),
-      footer: (
-        <p className="text-sm text-muted-foreground">
-          {t("checkout:review.includesTrackingAndInsurance")}
-        </p>
-      ),
-    },
-    paymentMethod: {
-      name: order.paymentMethod.name[locale],
-      footer: undefined,
-    },
-  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: (orderId: string) => {
@@ -85,29 +49,51 @@ const OrderDetails = () => {
     mutate(orderId);
   };
 
+  const formattedCreatedAt = formatDate(order.createdAt, locale);
+  const formattedUpdatedAt = formatDate(order.updatedAt, locale);
+
   return (
-    <section className="flex flex-col gap-8">
+    <section className="flex flex-col gap-8 xl:gap-10">
       <OrderDetailsHeader orderId={order.id} />
 
-      <OrderActions
-        order={order}
-        onCancel={handleCancel}
-        isPending={isPending}
-      />
+      <Card className="border-muted/70">
+        <CardHeader className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-2">
+            <Badge
+              variant={getStatusVariantMap()[order.status]}
+              className="w-fit px-3 py-1 text-sm font-semibold"
+            >
+              {t("orderDetails:status." + order.status)}
+            </Badge>
+            <div className="grid gap-1.5 text-sm text-muted-foreground">
+              <p>
+                {t("orderDetails:meta.placedAt")}: {formattedCreatedAt}
+              </p>
+              <p>
+                {t("orderDetails:meta.lastUpdated")}: {formattedUpdatedAt}
+              </p>
+            </div>
+          </div>
 
-      <OrderItems orderItems={order.items} />
+          <OrderActions
+            order={order}
+            onCancel={handleCancel}
+            isPending={isPending}
+          />
+        </CardHeader>
+      </Card>
 
-      <OrderDetailCards
-        model={detailsModel}
-        labels={{
-          shippingAddress: t("checkout:review.shippingAddress"),
-          shippingMethod: t("checkout:review.shippingMethod"),
-          paymentMethod: t("checkout:review.paymentMethod"),
-          edit: t("checkout:actions.edit"),
-        }}
-      />
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.75fr)_minmax(20rem,1fr)] lg:items-start">
+        <div className="flex flex-col gap-8">
+          <OrderItems orderItems={order.items} />
+        </div>
 
-      <SuccessOrderSummary showProducts={false} order={order} />
+        <div className="lg:sticky lg:top-24">
+          <SuccessOrderSummary showProducts={false} order={order} />
+        </div>
+      </div>
+
+      <OrderInformation order={order} />
     </section>
   );
 };

@@ -13,10 +13,14 @@
   "actions": {
     "backToOrders": "Back to Orders",
     "cancelOrder": "Cancel Order",
+    "cancelPending": "Cancelling...",
     "cancellingOrder": "Cancelling Order",
     "cancelConfirmation": "Are you sure you want to cancel this order?",
     "cancelSuccess": "Order cancelled successfully.",
-    "cancelError": "An error occurred while cancelling the order. Please try again.",
-    "cancelPending": "Cancelling order..."
+    "cancelError": "An error occurred while cancelling the order. Please try again."
+  },
+  "meta": {
+    "placedAt": "Placed",
+    "lastUpdated": "Last updated"
   }
 }
