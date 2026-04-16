@@ -11,7 +11,7 @@ import clsx from "clsx";
 import type { LucideIcon } from "lucide-react";
 
 type OrderDetailCardProps = {
-  icon: LucideIcon;
+  icon?: LucideIcon;
   title: string;
   cardTitle?: string;
   cardDescription?: React.ReactNode;
@@ -20,6 +20,8 @@ type OrderDetailCardProps = {
   editLabel?: string;
   onEdit?: () => void;
   className?: string;
+  titleClassName?: string;
+  cardTitleClassName?: string;
 };
 
 const OrderDetailCard = ({
@@ -32,8 +34,10 @@ const OrderDetailCard = ({
   editLabel,
   onEdit,
   className,
+  titleClassName,
+  cardTitleClassName,
 }: OrderDetailCardProps) => {
-  const Icon = icon;
+  const Icon = icon as LucideIcon;
   return (
     <Card className={clsx("flex flex-col gap-6 w-full", className)}>
       <CardHeader className="relative">
@@ -48,13 +52,25 @@ const OrderDetailCard = ({
             {editLabel}
           </Button>
         )}
-        <h4 className="text-lg font-medium flex items-center">
-          <Icon className="inline-block mr-2 text-muted-foreground" size={16} />
+        <h4
+          className={clsx(
+            "text-lg font-medium flex items-center",
+            titleClassName,
+          )}
+        >
+          {icon && (
+            <Icon
+              className="inline-block mr-2 text-muted-foreground"
+              size={16}
+            />
+          )}
           {title}
         </h4>
       </CardHeader>
       <CardContent className="flex-1">
-        {cardTitle == null ? null : <CardTitle>{cardTitle}</CardTitle>}
+        {cardTitle == null ? null : (
+          <CardTitle className={cardTitleClassName}>{cardTitle}</CardTitle>
+        )}
         {cardDescription == null ? null : (
           <CardDescription className="mt-2">{cardDescription}</CardDescription>
         )}
