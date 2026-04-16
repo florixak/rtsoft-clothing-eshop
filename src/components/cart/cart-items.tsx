@@ -29,13 +29,16 @@ const CartItems = () => {
           {t("empty.title")}
         </h2>
         <p className="text-muted-foreground">{t("empty.description")}</p>
-        <Button render={<Link to="/{-$locale}">{t("empty.action")}</Link>} />
+        <Button
+          nativeButton={false}
+          render={<Link to="/{-$locale}">{t("empty.action")}</Link>}
+        />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-4 sm:gap-6 w-full">
       {visibleItems.map((item) => (
         <Suspense key={item.id} fallback={<Skeleton className="h-16 w-full" />}>
           <CartItem item={item} />

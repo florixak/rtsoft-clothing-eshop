@@ -1,4 +1,5 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 import { Minus, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
@@ -9,14 +10,17 @@ type QuantityCounterProps = {
   quantity: number;
   onQuantityChange: (newQuantity: number) => void;
   disabled?: boolean;
+  size?: "default" | "compact";
 };
 
 const QuantityCounter = ({
   quantity,
   onQuantityChange,
   disabled,
+  size = "default",
 }: QuantityCounterProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.product);
+  const isCompact = size === "compact";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number.parseInt(e.target.value, 10);
@@ -27,8 +31,8 @@ const QuantityCounter = ({
     <ButtonGroup>
       <Button
         variant="outline"
+        size={isCompact ? "icon-sm" : "icon"}
         onClick={() => onQuantityChange(Math.max(1, quantity - 1))}
-        className="py-4"
         aria-label={t("quantity.decrease")}
         disabled={disabled}
       >
@@ -36,7 +40,10 @@ const QuantityCounter = ({
       </Button>
       <Input
         type="number"
-        className="w-16 py-4"
+        className={cn(
+          "appearance-none text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+          isCompact ? "h-7 w-12 px-1 text-sm" : "h-8 w-16",
+        )}
         min="1"
         value={quantity}
         onChange={handleInputChange}
@@ -45,8 +52,8 @@ const QuantityCounter = ({
       />
       <Button
         variant="outline"
+        size={isCompact ? "icon-sm" : "icon"}
         onClick={() => onQuantityChange(quantity + 1)}
-        className="py-4"
         aria-label={t("quantity.increase")}
         disabled={disabled}
       >
