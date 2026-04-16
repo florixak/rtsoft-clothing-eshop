@@ -2,7 +2,7 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 
 import { createOrderDetailsQueryOptions } from "@/hooks/query-options";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { SuccessOrderSummary } from "../checkout/order-summary";
@@ -64,15 +64,36 @@ const OrderDetails = () => {
     },
   };
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (orderId: string) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(orderId);
+        }, 1000);
+      });
+    },
+    onSuccess: (data) => {
+      console.log("Order cancelled: ", data);
+      setStatus("cancelled");
+    },
+    onError: (error) => {
+      console.error("Failed to cancel order: ", error);
+    },
+  });
+
   const handleCancel = (orderId: string) => {
-    setStatus("cancelled");
+    mutate(orderId);
   };
 
   return (
     <section className="flex flex-col gap-8">
       <OrderDetailsHeader orderId={order.id} />
 
-      <OrderActions order={order} onCancel={handleCancel} />
+      <OrderActions
+        order={order}
+        onCancel={handleCancel}
+        isPending={isPending}
+      />
 
       <OrderItems orderItems={order.items} />
 

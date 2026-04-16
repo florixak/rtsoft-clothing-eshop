@@ -7,11 +7,12 @@ import { Button } from "../ui/button";
 type OrderActionsProps = {
   order: Order;
   onCancel?: (orderId: string) => void;
+  isPending?: boolean;
 };
 
 const cancellableStatuses: Order["status"][] = ["pending", "paid"];
 
-const OrderActions = ({ order, onCancel }: OrderActionsProps) => {
+const OrderActions = ({ order, onCancel, isPending }: OrderActionsProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.orderDetails);
   const canCancel = cancellableStatuses.includes(order.status);
 
@@ -28,9 +29,9 @@ const OrderActions = ({ order, onCancel }: OrderActionsProps) => {
         <Button
           variant="destructive"
           onClick={() => onCancel?.(order.id)}
-          disabled={!onCancel}
+          disabled={!onCancel || isPending}
         >
-          {t("actions.cancelOrder")}
+          {isPending ? t("actions.cancelPending") : t("actions.cancelOrder")}
         </Button>
       ) : null}
     </div>
