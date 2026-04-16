@@ -12,6 +12,7 @@ import OrderDetailCards, {
 import OrderActions from "./order-actions";
 import OrderDetailsHeader from "./order-details-header";
 import OrderItems from "./order-items";
+import { useState } from "react";
 
 const OrderDetails = () => {
   const { t, i18n } = useTranslation([
@@ -20,9 +21,10 @@ const OrderDetails = () => {
     TRANSLATION_NAMESPACES.orderConfirmation,
   ]);
   const { orderId } = useParams({ from: "/{-$locale}/admin/orders/$orderId" });
-  const { data: order } = useSuspenseQuery(
-    createOrderDetailsQueryOptions(orderId),
-  );
+  const { data } = useSuspenseQuery(createOrderDetailsQueryOptions(orderId));
+  const [status, setStatus] = useState(data.status);
+  const order = { ...data, status };
+
   const locale = i18n.resolvedLanguage === "cs" ? "cs" : "en";
 
   const detailsModel: OrderDetailCardsModel = {
@@ -62,11 +64,15 @@ const OrderDetails = () => {
     },
   };
 
+  const handleCancel = (orderId: string) => {
+    setStatus("cancelled");
+  };
+
   return (
     <section className="flex flex-col gap-8">
       <OrderDetailsHeader orderId={order.id} />
 
-      <OrderActions order={order} />
+      <OrderActions order={order} onCancel={handleCancel} />
 
       <OrderItems orderItems={order.items} />
 
