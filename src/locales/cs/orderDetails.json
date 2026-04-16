@@ -13,10 +13,14 @@
   "actions": {
     "backToOrders": "Zpět na objednávky",
     "cancelOrder": "Zrušit objednávku",
+    "cancelPending": "Ruším...",
     "cancellingOrder": "Zrušení objednávky",
     "cancelConfirmation": "Opravdu chcete zrušit tuto objednávku?",
     "cancelSuccess": "Objednávka byla úspěšně zrušena.",
-    "cancelError": "Došlo k chybě při rušení objednávky. Zkuste to prosím znovu.",
-    "cancelPending": "Rušení objednávky..."
+    "cancelError": "Došlo k chybě při rušení objednávky. Zkuste to prosím znovu."
+  },
+  "meta": {
+    "placedAt": "Vytvořeno",
+    "lastUpdated": "Naposledy upraveno"
   }
 }
