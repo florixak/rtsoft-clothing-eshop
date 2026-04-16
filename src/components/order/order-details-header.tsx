@@ -28,7 +28,7 @@ const OrderDetailsHeader = ({ orderId }: OrderDetailsHeaderProps) => {
           <BreadcrumbItem>
             <BreadcrumbLink
               render={
-                <Link to="/{-$locale}" className="text-xs">
+                <Link to="/{-$locale}/admin/orders" className="text-xs">
                   {t("orderDetails:breadcrumbs.orders")}
                 </Link>
               }
