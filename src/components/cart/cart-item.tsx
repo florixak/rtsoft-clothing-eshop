@@ -39,7 +39,10 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
     item.selectionSnapshot.size,
   );
 
-  const price = formatPrice(item.priceSnapshot * item.quantity, locale);
+  const formattedPrice = formatPrice(
+    item.priceSnapshot * item.quantity,
+    locale,
+  );
 
   const images = getImageBySelectedColor(product, item.selectionSnapshot.color);
 
@@ -64,7 +67,9 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
             })}{" "}
             | {t("item.color", { color: item.selectionSnapshot.color })}
           </p>
-          <p className="text-sm font-semibold text-muted-foreground">{price}</p>
+          <p className="text-sm font-semibold text-muted-foreground">
+            {formattedPrice}
+          </p>
         </div>
       </div>
     );
@@ -75,7 +80,7 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
       <img
         src={images.primary}
         alt={product?.name[locale] ?? ""}
-        className="size-20 sm:size-24 md:size-34 object-cover rounded shrink-0"
+        className="size-20 sm:size-24 md:size-36 object-cover rounded shrink-0"
         loading="lazy"
       />
       <div className="flex flex-col justify-between flex-1 gap-2 w-full min-w-0">
@@ -88,22 +93,23 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
               {product?.name[locale] ?? ""}
             </h2>
           </Link>
-          <p className="text-xs sm:text-sm text-muted-foreground">
-            {t("item.size", {
-              size: item.selectionSnapshot.size.toUpperCase(),
-            })}{" "}
-            | {t("item.color", { color: item.selectionSnapshot.color })}
-          </p>
-          {!isInStock ? (
-            <Badge variant="destructive" className="text-xs sm:text-sm w-fit">
-              {t("item.outOfStock")}
-            </Badge>
-          ) : (
-            <Badge variant="default" className="text-xs sm:text-sm w-fit">
-              {t("item.inStock")}
-            </Badge>
-          )}
-          <p className="text-base sm:text-lg font-bold">{price}</p>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+            <p>
+              {t("item.size", {
+                size: item.selectionSnapshot.size.toUpperCase(),
+              })}{" "}
+              | {t("item.color", { color: item.selectionSnapshot.color })}
+            </p>
+            {!isInStock && (
+              <Badge
+                variant="destructive"
+                className="h-5 px-1.5 text-[10px] sm:text-xs"
+              >
+                {t("item.outOfStock")}
+              </Badge>
+            )}
+          </div>
+          <p className="text-base sm:text-lg font-bold">{formattedPrice}</p>
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           <QuantityCounter
