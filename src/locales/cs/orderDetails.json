@@ -3,8 +3,20 @@
   "breadcrumbs": {
     "orders": "Objednávky"
   },
+  "status": {
+    "pending": "Čeká na vyřízení",
+    "paid": "Zaplaceno",
+    "shipped": "Odesláno",
+    "completed": "Dokončeno",
+    "cancelled": "Zrušeno"
+  },
   "actions": {
     "backToOrders": "Zpět na objednávky",
-    "cancelOrder": "Zrušit objednávku"
+    "cancelOrder": "Zrušit objednávku",
+    "cancellingOrder": "Zrušení objednávky",
+    "cancelConfirmation": "Opravdu chcete zrušit tuto objednávku?",
+    "cancelSuccess": "Objednávka byla úspěšně zrušena.",
+    "cancelError": "Došlo k chybě při rušení objednávky. Zkuste to prosím znovu.",
+    "cancelPending": "Rušení objednávky..."
   }
 }
