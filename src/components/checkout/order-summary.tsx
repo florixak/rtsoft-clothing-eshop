@@ -228,7 +228,13 @@ export const SuccessOrderSummary = ({
       <CardHeader>
         <h3 className="text-lg font-semibold">{t("summary.title")}</h3>
       </CardHeader>
-      <CardContent className="flex flex-col items-start gap-8 md:grid md:grid-cols-2">
+      <CardContent
+        className={
+          showProducts
+            ? "flex flex-col items-start gap-8 md:grid md:grid-cols-2"
+            : "flex flex-col items-start gap-6"
+        }
+      >
         {showProducts && (
           <ul className="flex min-w-0 flex-col gap-4 w-full">
             {order.items.map((item) => (
@@ -248,7 +254,11 @@ export const SuccessOrderSummary = ({
           </ul>
         )}
 
-        <table className="w-full text-base md:max-w-sm">
+        <table
+          className={
+            showProducts ? "w-full text-base md:max-w-sm" : "w-full text-base"
+          }
+        >
           <tbody>
             <tr>
               <th
