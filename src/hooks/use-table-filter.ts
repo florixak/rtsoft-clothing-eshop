@@ -205,8 +205,16 @@ const useTableFilter = <
         ? updaterOrValue(pagination)
         : updaterOrValue;
 
+    const normalizedQuery = globalFilter.trim() || undefined;
+    const nextPage = nextPagination.pageIndex + 1;
+
+    if (nextPage === page && nextPagination.pageSize === perPage) {
+      return;
+    }
+
     patchSearch({
-      [searchKeys.page]: nextPagination.pageIndex + 1,
+      [searchKeys.query]: normalizedQuery,
+      [searchKeys.page]: nextPage,
       [searchKeys.perPage]: nextPagination.pageSize,
     } as Partial<TSearch>);
   };
