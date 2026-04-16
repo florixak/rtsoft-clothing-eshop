@@ -9,6 +9,7 @@ import { SuccessOrderSummary } from "../checkout/order-summary";
 import OrderDetailCards, {
   type OrderDetailCardsModel,
 } from "./order-detail-cards";
+import OrderActions from "./order-actions";
 import OrderDetailsHeader from "./order-details-header";
 import OrderItems from "./order-items";
 
@@ -64,6 +65,8 @@ const OrderDetails = () => {
   return (
     <section className="flex flex-col gap-8">
       <OrderDetailsHeader orderId={order.id} />
+
+      <OrderActions order={order} />
 
       <OrderItems orderItems={order.items} />
 
