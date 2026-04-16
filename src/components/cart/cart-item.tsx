@@ -71,45 +71,53 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-start w-full gap-4">
+    <div className="flex items-start w-full gap-3 sm:gap-4">
       <img
         src={images.primary}
         alt={product?.name[locale] ?? ""}
-        className="size-64 object-cover rounded"
+        className="size-20 sm:size-24 md:size-34 object-cover rounded shrink-0"
         loading="lazy"
       />
-      <div className="flex flex-col justify-between flex-1 gap-2 w-full h-full">
+      <div className="flex flex-col justify-between flex-1 gap-2 w-full min-w-0">
         <div className="flex flex-col gap-1">
           <Link
             to="/{-$locale}/product/$productSlug"
             params={{ productSlug: product.slug[locale] }}
           >
-            <h2 className="text-xl font-bold">{product?.name[locale] ?? ""}</h2>
+            <h2 className="text-base sm:text-lg font-bold leading-tight line-clamp-2">
+              {product?.name[locale] ?? ""}
+            </h2>
           </Link>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             {t("item.size", {
               size: item.selectionSnapshot.size.toUpperCase(),
             })}{" "}
             | {t("item.color", { color: item.selectionSnapshot.color })}
           </p>
           {!isInStock ? (
-            <Badge variant="destructive" className="text-sm">
+            <Badge variant="destructive" className="text-xs sm:text-sm w-fit">
               {t("item.outOfStock")}
             </Badge>
           ) : (
-            <Badge variant="default" className="text-sm">
+            <Badge variant="default" className="text-xs sm:text-sm w-fit">
               {t("item.inStock")}
             </Badge>
           )}
-          <p className="text-lg font-bold">{price}</p>
+          <p className="text-base sm:text-lg font-bold">{price}</p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           <QuantityCounter
             quantity={item.quantity}
             onQuantityChange={handleQuantityChange}
             disabled={!isInStock}
+            size="compact"
           />
-          <Button variant="outline" onClick={handleRemove} className="h-8">
+          <Button
+            variant="outline"
+            size="icon-sm"
+            onClick={handleRemove}
+            aria-label={t("item.remove")}
+          >
             <Trash size={16} />
           </Button>
         </div>
