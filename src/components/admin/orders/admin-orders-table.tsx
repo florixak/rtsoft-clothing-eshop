@@ -19,11 +19,12 @@ import { createAdminOrdersQueryOptions } from "@/hooks/query-options";
 import { useAdminOrdersRouteFilter } from "@/hooks/use-order-filter";
 import { globalOrderFilter } from "@/lib/dashboard-utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 const AdminOrdersTable = () => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
   const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
-
+  const navigate = useNavigate();
   const { data: recentOrders } = useSuspenseQuery(
     createAdminOrdersQueryOptions(),
   );
@@ -59,7 +60,12 @@ const AdminOrdersTable = () => {
       onPaginationChange={onPaginationChange}
       globalFilterFn={globalOrderFilter}
       emptyLabel={t("orders.noResults")}
-      onRowClick={(row) => console.log("click ", row.id)}
+      onRowClick={(row) =>
+        navigate({
+          to: "/{-$locale}/admin/orders/$orderId",
+          params: { orderId: row.id },
+        })
+      }
       toolbar={() => {
         const currentStatus = status ?? "all";
 
