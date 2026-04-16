@@ -73,6 +73,7 @@ const DataTable = <TData, TValue>({
     onColumnFiltersChange,
     onGlobalFilterChange,
     onPaginationChange,
+    autoResetPageIndex: false,
     globalFilterFn,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
