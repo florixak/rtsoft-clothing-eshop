@@ -40,6 +40,7 @@ const ThemeSwitcher = () => {
             {theme === "dark" && (
               <Moon className="scale-0 rotate-90 transition-all duration-300 dark:scale-100 dark:rotate-0" />
             )}
+            {theme === "system" && <Computer />}
             <ChevronDownIcon className="text-muted-foreground" />
           </Button>
         }
