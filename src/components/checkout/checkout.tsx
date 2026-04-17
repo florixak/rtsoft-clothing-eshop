@@ -19,6 +19,7 @@ import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Suspense } from "react";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import PaymentForm from "../form/payment-form";
 import ShippingForm from "../form/shipping-form";
@@ -28,7 +29,10 @@ import CheckoutStepper from "./checkout-stepper";
 import { OrderSummary } from "./order-summary";
 
 const Checkout = () => {
-  const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+  const { t } = useTranslation([
+    TRANSLATION_NAMESPACES.checkout,
+    TRANSLATION_NAMESPACES.common,
+  ]);
   const { i18n } = useTranslation();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
@@ -55,7 +59,11 @@ const Checkout = () => {
           replace: true,
         });
       } else {
-        await mutateAsync(form.state.values);
+        try {
+          await mutateAsync(form.state.values);
+        } catch {
+          // onError handles the toast
+        }
       }
     },
   });
@@ -70,6 +78,7 @@ const Checkout = () => {
       ) {
         await handlePaymentSimulation();
       }
+      toast.success(t("common:toast.orderPlaced"));
       navigate({
         to: "/{-$locale}/checkout/success",
         search: {
@@ -78,6 +87,9 @@ const Checkout = () => {
         replace: true,
       });
       clearCart();
+    },
+    onError: () => {
+      toast.error(t("common:toast.genericError"));
     },
   });
 
