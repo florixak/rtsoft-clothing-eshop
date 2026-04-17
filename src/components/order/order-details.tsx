@@ -49,11 +49,11 @@ const OrderDetails = () => {
   const formattedUpdatedAt = formatDate(order.updatedAt, locale);
 
   return (
-    <section className="flex flex-col gap-8 xl:gap-10">
+    <section className="flex flex-col gap-4">
       <OrderDetailsHeader orderId={order.id} />
 
       <Card className="border-muted/70">
-        <CardHeader className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+        <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
             <Badge
               variant={getStatusVariantMap()[order.status]}
@@ -61,7 +61,7 @@ const OrderDetails = () => {
             >
               {t("orderDetails:status." + order.status)}
             </Badge>
-            <div className="grid gap-1.5 text-sm text-muted-foreground">
+            <div className="grid gap-1 text-sm text-muted-foreground">
               <p>
                 {t("orderDetails:meta.placedAt")}: {formattedCreatedAt}
               </p>
@@ -79,14 +79,10 @@ const OrderDetails = () => {
         </CardHeader>
       </Card>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.75fr)_minmax(20rem,1fr)] lg:items-start">
-        <div className="flex flex-col gap-8">
-          <OrderItems orderItems={order.items} />
-        </div>
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.75fr)_minmax(20rem,1fr)] lg:items-start">
+        <OrderItems orderItems={order.items} />
 
-        <div className="lg:sticky lg:top-24">
-          <SuccessOrderSummary showProducts={false} order={order} />
-        </div>
+        <SuccessOrderSummary showProducts={false} order={order} />
       </div>
 
       <OrderInformation order={order} />
