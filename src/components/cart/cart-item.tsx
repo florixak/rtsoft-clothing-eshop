@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import QuantityCounter from "../product/quantity-counter";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import toast from "react-hot-toast";
 
 type CartItemProps = {
   item: CartItemType;
@@ -22,11 +23,21 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   const { data: product } = useSuspenseQuery(
     createProductIdQueryOptions(item.productId),
   );
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.cart);
+  const { t, i18n } = useTranslation([
+    TRANSLATION_NAMESPACES.cart,
+    TRANSLATION_NAMESPACES.common,
+  ]);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   const handleRemove = () => {
     removeItem(item.id);
+    const productName = product.name[locale];
+    const variantInfo = `(${item.selectionSnapshot.size.toUpperCase()} | ${item.selectionSnapshot.color})`;
+    toast.success(
+      t("common:toast.removedFromCart", {
+        name: `${productName} ${variantInfo}`,
+      }),
+    );
   };
 
   const handleQuantityChange = (newQuantity: number) => {
