@@ -5,6 +5,7 @@ import { createOrderDetailsQueryOptions } from "@/hooks/query-options";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { SuccessOrderSummary } from "../checkout/order-summary";
 import { Badge } from "../ui/badge";
@@ -16,7 +17,10 @@ import OrderItems from "./order-items";
 import { formatDate } from "@/lib/utils";
 
 const OrderDetails = () => {
-  const { t, i18n } = useTranslation([TRANSLATION_NAMESPACES.orderDetails]);
+  const { t, i18n } = useTranslation([
+    TRANSLATION_NAMESPACES.orderDetails,
+    TRANSLATION_NAMESPACES.common,
+  ]);
   const { orderId } = useParams({ from: "/{-$locale}/admin/orders/$orderId" });
   const { data } = useSuspenseQuery(createOrderDetailsQueryOptions(orderId));
   const [status, setStatus] = useState(data.status);
@@ -35,9 +39,11 @@ const OrderDetails = () => {
     onSuccess: (data) => {
       console.log("Order cancelled: ", data);
       setStatus("cancelled");
+      toast.success(t("common:toast.orderCancelled"));
     },
     onError: (error) => {
       console.error("Failed to cancel order: ", error);
+      toast.error(t("common:toast.genericError"));
     },
   });
 
