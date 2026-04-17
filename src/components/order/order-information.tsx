@@ -9,10 +9,7 @@ type OrderInformationProps = {
 };
 
 const OrderInformation = ({ order }: OrderInformationProps) => {
-  const { t, i18n } = useTranslation([
-    TRANSLATION_NAMESPACES.orderDetails,
-    TRANSLATION_NAMESPACES.checkout,
-  ]);
+  const { t, i18n } = useTranslation([TRANSLATION_NAMESPACES.checkout]);
   const { customer, address, shippingMethod, paymentMethod } = order;
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   return (

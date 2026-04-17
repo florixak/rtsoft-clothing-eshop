@@ -16,11 +16,7 @@ type OrderDetailsHeaderProps = {
 };
 
 const OrderDetailsHeader = ({ orderId }: OrderDetailsHeaderProps) => {
-  const { t } = useTranslation([
-    TRANSLATION_NAMESPACES.orderDetails,
-    TRANSLATION_NAMESPACES.checkout,
-    TRANSLATION_NAMESPACES.orderConfirmation,
-  ]);
+  const { t } = useTranslation([TRANSLATION_NAMESPACES.orderDetails]);
   return (
     <div className="flex flex-col gap-4">
       <Breadcrumb className="uppercase text-muted-foreground">

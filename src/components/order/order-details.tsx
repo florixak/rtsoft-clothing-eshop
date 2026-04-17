@@ -16,11 +16,7 @@ import OrderItems from "./order-items";
 import { formatDate } from "@/lib/utils";
 
 const OrderDetails = () => {
-  const { t, i18n } = useTranslation([
-    TRANSLATION_NAMESPACES.orderDetails,
-    TRANSLATION_NAMESPACES.checkout,
-    TRANSLATION_NAMESPACES.orderConfirmation,
-  ]);
+  const { t, i18n } = useTranslation([TRANSLATION_NAMESPACES.orderDetails]);
   const { orderId } = useParams({ from: "/{-$locale}/admin/orders/$orderId" });
   const { data } = useSuspenseQuery(createOrderDetailsQueryOptions(orderId));
   const [status, setStatus] = useState(data.status);
