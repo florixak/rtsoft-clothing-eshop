@@ -8,6 +8,7 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { Toaster } from "react-hot-toast";
 import * as z from "zod";
 
 export interface MyRouterContext {
@@ -62,6 +63,7 @@ function RootComponent() {
       <main className="min-h-screen bg-background px-4 py-6 pt-32 md:pt-24">
         <Outlet />
       </main>
+      <Toaster position="bottom-right" />
       <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
     </>

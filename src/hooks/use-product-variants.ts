@@ -5,12 +5,17 @@ import {
   hasInStockSku,
   matchesSelection,
 } from "@/lib/product-utils";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useCartStore } from "@/stores/cart-store";
 import type { Product, SizeCode, TypeCode } from "@/types";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const useProductVariants = (product: Product) => {
   const { addItem, getQuantity } = useCartStore();
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   const allColors = getAllColors(product);
   const inStockColorCodes = new Set(
@@ -63,6 +68,13 @@ const useProductVariants = (product: Product) => {
       color: selectedColor,
       quantity,
     });
+    const productName = product.name[locale];
+    const variantInfo = `(${selectedSize.toUpperCase()} | ${selectedColor})`;
+    toast.success(
+      t("toast.addedToCart", {
+        name: `${productName} ${variantInfo}`,
+      }),
+    );
   };
 
   const handleColorChange = (colorCode: TypeCode | undefined) => {
