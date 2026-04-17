@@ -8,11 +8,17 @@ type OrderActionsProps = {
   order: Order;
   onCancel?: (orderId: string) => void;
   isPending?: boolean;
+  ordersListPath: "/{-$locale}/admin/orders" | "/{-$locale}/account/orders";
 };
 
 const cancellableStatuses: Order["status"][] = ["pending", "paid"];
 
-const OrderActions = ({ order, onCancel, isPending }: OrderActionsProps) => {
+const OrderActions = ({
+  order,
+  onCancel,
+  isPending,
+  ordersListPath,
+}: OrderActionsProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.orderDetails);
   const canCancel = cancellableStatuses.includes(order.status);
 
@@ -20,9 +26,7 @@ const OrderActions = ({ order, onCancel, isPending }: OrderActionsProps) => {
     <div className="flex flex-wrap items-center gap-2">
       <Button
         variant="outline"
-        render={
-          <Link to="/{-$locale}/admin/orders">{t("actions.backToOrders")}</Link>
-        }
+        render={<Link to={ordersListPath}>{t("actions.backToOrders")}</Link>}
       />
 
       {canCancel ? (

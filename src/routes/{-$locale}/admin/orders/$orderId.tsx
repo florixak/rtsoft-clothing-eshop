@@ -16,5 +16,8 @@ export const Route = createFileRoute("/{-$locale}/admin/orders/$orderId")({
 });
 
 function RouteComponent() {
-  return <OrderDetails />;
+  const { orderId } = Route.useParams();
+  return (
+    <OrderDetails orderId={orderId} ordersListPath="/{-$locale}/admin/orders" />
+  );
 }

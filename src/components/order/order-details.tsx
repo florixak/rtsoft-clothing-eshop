@@ -3,7 +3,6 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 import { createOrderDetailsQueryOptions } from "@/hooks/query-options";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { useParams } from "@tanstack/react-router";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -15,13 +14,18 @@ import OrderDetailsHeader from "./order-details-header";
 import OrderInformation from "./order-information";
 import OrderItems from "./order-items";
 import { formatDate } from "@/lib/utils";
+import type { Order } from "@/types";
 
-const OrderDetails = () => {
+type OrderDetailsProps = {
+  orderId: Order["id"];
+  ordersListPath: "/{-$locale}/admin/orders" | "/{-$locale}/account/orders";
+};
+
+const OrderDetails = ({ orderId, ordersListPath }: OrderDetailsProps) => {
   const { t, i18n } = useTranslation([
     TRANSLATION_NAMESPACES.orderDetails,
     TRANSLATION_NAMESPACES.common,
   ]);
-  const { orderId } = useParams({ from: "/{-$locale}/admin/orders/$orderId" });
   const { data } = useSuspenseQuery(createOrderDetailsQueryOptions(orderId));
   const [status, setStatus] = useState(data.status);
   const order = { ...data, status };
@@ -56,7 +60,7 @@ const OrderDetails = () => {
 
   return (
     <section className="flex flex-col gap-4">
-      <OrderDetailsHeader orderId={order.id} />
+      <OrderDetailsHeader orderId={order.id} ordersListPath={ordersListPath} />
 
       <Card className="border-muted/70">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -81,6 +85,7 @@ const OrderDetails = () => {
             order={order}
             onCancel={handleCancel}
             isPending={isPending}
+            ordersListPath={ordersListPath}
           />
         </CardHeader>
       </Card>

@@ -5,9 +5,10 @@ import useTableFilter, { type TableFilterFrom } from "@/hooks/use-table-filter";
 type UseOrderFilterProps = {
   from: Extract<
     TableFilterFrom,
-    "/{-$locale}/admin/" | "/{-$locale}/admin/orders/"
+    | "/{-$locale}/admin/"
+    | "/{-$locale}/admin/orders/"
+    | "/{-$locale}/account/orders/"
   >;
-  /*| "/{-$locale}/account/";*/
 };
 
 const useOrderFilter = ({ from }: UseOrderFilterProps) => {
@@ -45,7 +46,7 @@ export const useAdminOverviewOrderFilter = () =>
 export const useAdminOrdersRouteFilter = () =>
   useOrderFilter({ from: "/{-$locale}/admin/orders/" });
 
-/*export const useAccountOrdersFilter = () =>
-  useOrderFilter({ from: "/{-$locale}/account/" });*/
+export const useAccountOrdersFilter = () =>
+  useOrderFilter({ from: "/{-$locale}/account/orders/" });
 
 export default useOrderFilter;
