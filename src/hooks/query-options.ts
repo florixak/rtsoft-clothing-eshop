@@ -78,6 +78,12 @@ export const createAdminOrdersQueryOptions = () =>
     queryFn: () => getOrders({}),
   });
 
+export const createAccountOrdersQueryOptions = (userId: string) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.accountOrders(userId),
+    queryFn: () => getOrders({ userId }),
+  });
+
 export const createAdminProductsQueryOptions = () =>
   queryOptions({
     queryKey: QUERY_KEYS.adminProducts,
