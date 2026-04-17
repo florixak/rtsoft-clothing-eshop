@@ -166,6 +166,7 @@ export const getStatusVariantMap = (): Record<
 
 type GetOrdersFilter = {
   limit?: number;
+  userId?: string;
 };
 
 export const getOrders = async (filter: GetOrdersFilter): Promise<Order[]> => {
@@ -176,7 +177,7 @@ export const getOrders = async (filter: GetOrdersFilter): Promise<Order[]> => {
   });
 
   return orders
-    .slice()
+    .filter((order) => (filter.userId ? order.userId === filter.userId : true))
     .sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
