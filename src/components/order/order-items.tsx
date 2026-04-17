@@ -9,10 +9,7 @@ type OrderItemsProps = {
 };
 
 const OrderItems = ({ orderItems }: OrderItemsProps) => {
-  const { t } = useTranslation([
-    TRANSLATION_NAMESPACES.checkout,
-    TRANSLATION_NAMESPACES.orderDetails,
-  ]);
+  const { t } = useTranslation([TRANSLATION_NAMESPACES.checkout]);
 
   return (
     <OrderDetailCard
