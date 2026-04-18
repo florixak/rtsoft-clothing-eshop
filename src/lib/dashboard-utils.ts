@@ -11,11 +11,9 @@ import type {
   Product,
   TopProduct,
 } from "@/types";
+import type { FilterFn } from "@tanstack/react-table";
 import type { Languages } from "./i18n";
 import { getProductById } from "./product-utils";
-import type { FilterFn } from "@tanstack/react-table";
-import { orders } from "@/data";
-import { MAX_RECENT_ORDERS_TO_SHOW } from "@/constants";
 
 export const getDashboardMetrics = async (
   period: DashboardPeriod,
@@ -162,25 +160,4 @@ export const getStatusVariantMap = (): Record<
     completed: "default",
     cancelled: "destructive",
   };
-};
-
-type GetOrdersFilter = {
-  limit?: number;
-  userId?: string;
-};
-
-export const getOrders = async (filter: GetOrdersFilter): Promise<Order[]> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
-
-  return orders
-    .filter((order) => (filter.userId ? order.userId === filter.userId : true))
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
-    .slice(0, filter.limit ?? MAX_RECENT_ORDERS_TO_SHOW);
 };
