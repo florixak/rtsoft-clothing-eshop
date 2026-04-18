@@ -24,7 +24,7 @@ import {
 
 const UserOrdersTable = () => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.account);
-  const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const navigate = useNavigate();
   const { data: userOrders } = useSuspenseQuery(
     createAccountOrdersQueryOptions(getCurrentUserId()),
