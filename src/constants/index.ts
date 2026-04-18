@@ -4,7 +4,6 @@ import {
   Banknote,
   HandCoins,
   LayoutTemplate,
-  LogOut,
   Shirt,
   ShoppingBag,
   Users,
@@ -69,11 +68,6 @@ const ADMIN_MENU_ITEMS: {
     icon: Shirt,
     label: "nav.products",
     path: "/{-$locale}/admin/products",
-  },
-  {
-    icon: LogOut,
-    label: "nav.logout",
-    path: "/logout",
   },
 ];
 
