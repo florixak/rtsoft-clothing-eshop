@@ -172,3 +172,28 @@ export type TopProduct = {
   name: LocalizedString;
   sold: number;
 } & Pick<Product, "fallbackImages">;
+
+export type Role = "user" | "admin";
+
+export type User = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: Role;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type AuthSession = {
+  userId: User["id"];
+  role: Role;
+  rememberMe: boolean;
+  createdAt: string;
+};
+
+export type LoginInput = {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+};
