@@ -49,7 +49,6 @@ const clearSession = () => {
 
 const createSession = (user: MockUser, rememberMe: boolean): AuthSession => ({
   userId: user.id,
-  role: user.role,
   rememberMe,
   createdAt: new Date().toISOString(),
 });
@@ -75,10 +74,6 @@ export const getCurrentSession = () => {
   return readSession();
 };
 
-export const getCurrentUserId = () => {
-  return readSession()?.userId ?? null;
-};
-
 export const getCurrentUser = (): User | null => {
   const session = readSession();
   if (!session) {
@@ -89,10 +84,14 @@ export const getCurrentUser = (): User | null => {
   return user ? toPublicUser(user) : null;
 };
 
+export const getCurrentUserId = () => {
+  return getCurrentUser()?.id ?? null;
+};
+
 export const isAuthenticated = () => {
-  return getCurrentUserId() !== null;
+  return getCurrentUser() !== null;
 };
 
 export const hasRole = (role: Role) => {
-  return getCurrentSession()?.role === role;
+  return getCurrentUser()?.role === role;
 };

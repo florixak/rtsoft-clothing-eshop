@@ -187,7 +187,6 @@ export type User = {
 
 export type AuthSession = {
   userId: User["id"];
-  role: Role;
   rememberMe: boolean;
   createdAt: string;
 };

@@ -27,6 +27,11 @@ const UserOrdersTable = () => {
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const navigate = useNavigate();
   const user = useUser();
+
+  if (!user) {
+    throw new Error("User must be authenticated to view orders");
+  }
+
   const { data: userOrders } = useSuspenseQuery(
     createAccountOrdersQueryOptions(user?.id || ""),
   );
