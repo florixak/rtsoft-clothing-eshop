@@ -1,12 +1,12 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
 import AdminSidebar from "@/components/admin/admin-sidebar";
+import { hasRole } from "@/lib/auth";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/admin")({
   component: AdminLayout,
   beforeLoad: async (/*{ context }*/) => {
-    const userIsAdmin = true; // Placeholder for actual admin check logic
-    if (!userIsAdmin) {
-      throw new Response("Unauthorized", { status: 401 });
+    if (!hasRole("admin")) {
+      throw redirect({ to: "/{-$locale}" });
     }
   },
 });
