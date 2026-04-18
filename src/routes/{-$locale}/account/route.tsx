@@ -1,13 +1,16 @@
 import UserSidebar from "@/components/user/user-sidebar";
-import { getCurrentUserId } from "@/lib/auth";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { isAuthenticated } from "@/lib/auth";
+
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/account")({
   component: AccountLayout,
+  pendingComponent: () => <div>Loading...</div>,
+  errorComponent: () => <div>Error loading account page</div>,
   beforeLoad: async (/*{ context }*/) => {
-    const isLoggedIn = Boolean(getCurrentUserId());
+    const isLoggedIn = isAuthenticated();
     if (!isLoggedIn) {
-      throw new Response("Unauthorized", { status: 401 });
+      throw redirect({ to: "/{-$locale}" });
     }
   },
 });
