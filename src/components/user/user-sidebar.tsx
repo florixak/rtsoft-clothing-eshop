@@ -6,12 +6,12 @@ import { Link } from "@tanstack/react-router";
 import { USER_MENU_ITEMS } from "@/constants";
 
 const UserSidebar = () => {
-  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.account);
   return (
     <aside className="w-full md:w-64">
       <Card className="w-full md:gap-6">
         <CardHeader>
-          <h2 className="text-2xl font-bold">Dashboard</h2>
+          <h2 className="text-2xl font-bold">{t("title")}</h2>
         </CardHeader>
         <CardContent>
           <nav className="flex flex-row md:flex-col gap-2 w-full justify-center md:justify-start">

@@ -1,0 +1,26 @@
+{
+  "title": "Účet",
+  "nav": {
+    "orders": "Mé Objednávky"
+  },
+  "orders": {
+    "title": "Objednávky",
+    "search": "Hledat objednávky...",
+    "noResults": "Žádné objednávky nenalezeny.",
+    "table": {
+      "orderId": "ID objednávky",
+      "date": "Datum",
+      "amount": "Částka",
+      "paymentMethod": "Způsob platby",
+      "status": "Stav"
+    },
+    "status": {
+      "all": "Všechny",
+      "pending": "Čeká na vyřízení",
+      "paid": "Zaplaceno",
+      "shipped": "Odesláno",
+      "completed": "Dokončeno",
+      "cancelled": "Zrušeno"
+    }
+  }
+}

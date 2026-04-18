@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 
 const UserOrdersTable = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.account);
   const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
   const navigate = useNavigate();
   const { data: userOrders } = useSuspenseQuery(

@@ -7,7 +7,7 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
 
 const UserOrders = () => {
-  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.account);
 
   return (
     <Card>
