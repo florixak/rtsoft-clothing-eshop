@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 
 const AdminProductsTable = () => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
-  const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
 
   const { data: products } = useSuspenseQuery(
     createAdminProductsQueryOptions(),

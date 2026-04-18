@@ -1,32 +1,33 @@
 import { useMemo } from "react";
 
-import { createAdminOrderColumns } from "@/components/table/order-columns";
+import DataTable from "@/components/layout/data-table";
+import { createAccountOrderColumns } from "@/components/table/order-columns";
+import { Input } from "@/components/ui/input";
 import { orderStatuses } from "@/data/orders";
+import { createAccountOrdersQueryOptions } from "@/hooks/query-options";
+import { useAccountOrdersFilter } from "@/hooks/use-order-filter";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { globalOrderFilter } from "@/lib/dashboard-utils";
+import { getCurrentUserId } from "@/lib/auth";
 import type { Order } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-
-import { createRecentOrdersQueryOptions } from "@/hooks/query-options";
-import { useAdminOverviewOrderFilter } from "@/hooks/use-order-filter";
-import { globalOrderFilter } from "@/lib/dashboard-utils";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import DataTable from "../layout/data-table";
-import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 
-const RecentOrdersTable = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
+const UserOrdersTable = () => {
+  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.account);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
-
-  const { data: recentOrders } = useSuspenseQuery(
-    createRecentOrdersQueryOptions(),
+  const navigate = useNavigate();
+  const { data: userOrders } = useSuspenseQuery(
+    createAccountOrdersQueryOptions(getCurrentUserId()),
   );
 
   const {
@@ -39,16 +40,16 @@ const RecentOrdersTable = () => {
     onGlobalFilterChange,
     onPaginationChange,
     onSortingChange,
-  } = useAdminOverviewOrderFilter();
+  } = useAccountOrdersFilter();
 
   const columns = useMemo(
-    () => createAdminOrderColumns({ locale, t }) as ColumnDef<Order>[],
+    () => createAccountOrderColumns({ locale, t }) as ColumnDef<Order>[],
     [locale, t],
   );
 
   return (
     <DataTable
-      data={recentOrders}
+      data={userOrders}
       columns={columns}
       sorting={sorting}
       onSortingChange={onSortingChange}
@@ -60,7 +61,12 @@ const RecentOrdersTable = () => {
       onPaginationChange={onPaginationChange}
       globalFilterFn={globalOrderFilter}
       emptyLabel={t("orders.noResults")}
-      onRowClick={(row) => console.log("click ", row.id)}
+      onRowClick={(row) =>
+        navigate({
+          to: "/{-$locale}/account/orders/$orderId",
+          params: { orderId: row.id },
+        })
+      }
       toolbar={() => {
         const currentStatus = status ?? "all";
 
@@ -115,4 +121,4 @@ const RecentOrdersTable = () => {
   );
 };
 
-export default RecentOrdersTable;
+export default UserOrdersTable;

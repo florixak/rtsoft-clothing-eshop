@@ -26,6 +26,7 @@ const QUERY_KEYS = {
   bestSellers: (period: DashboardPeriod) => ["bestSellers", period] as const,
   recentOrders: ["recentOrders"] as const,
   adminOrders: ["adminOrders"] as const,
+  accountOrders: (userId: string) => ["accountOrders", userId] as const,
   adminProducts: ["adminProducts"] as const,
   orderDetails: (orderId: Order["id"]) => ["orderDetails", orderId] as const,
 };
@@ -43,6 +44,18 @@ const FREE_SHIPPING_THRESHOLD = 1000;
 const CHECKOUT_STEPS = ["shipping", "payment", "review"] as const;
 
 export type CheckoutStep = (typeof CHECKOUT_STEPS)[number];
+
+const USER_MENU_ITEMS: {
+  icon: LucideIcon;
+  label: `nav.${string}`;
+  path: string;
+}[] = [
+  {
+    icon: ShoppingBag,
+    label: "nav.orders",
+    path: "/{-$locale}/account/orders",
+  },
+];
 
 const ADMIN_MENU_ITEMS: {
   icon: LucideIcon;
@@ -80,6 +93,7 @@ export {
   MAX_RECENT_ORDERS_TO_SHOW,
   FREE_SHIPPING_THRESHOLD,
   CHECKOUT_STEPS,
+  USER_MENU_ITEMS,
   ADMIN_MENU_ITEMS,
   METRIC_CARDS,
 };

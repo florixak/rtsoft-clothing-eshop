@@ -16,6 +16,8 @@ import csOrderConfirmation from "@/locales/cs/orderConfirmation.json";
 import enOrderConfirmation from "@/locales/en/orderConfirmation.json";
 import csAdmin from "@/locales/cs/admin.json";
 import enAdmin from "@/locales/en/admin.json";
+import csAccount from "@/locales/cs/account.json";
+import enAccount from "@/locales/en/account.json";
 import csOrderDetails from "@/locales/cs/orderDetails.json";
 import enOrderDetails from "@/locales/en/orderDetails.json";
 
@@ -27,6 +29,7 @@ export const TRANSLATION_NAMESPACES = {
   checkout: "checkout",
   orderConfirmation: "orderConfirmation",
   admin: "admin",
+  account: "account",
   orderDetails: "orderDetails",
 } as const;
 
@@ -39,6 +42,7 @@ const resources = {
     checkout: csCheckout,
     orderConfirmation: csOrderConfirmation,
     admin: csAdmin,
+    account: csAccount,
     orderDetails: csOrderDetails,
   },
   en: {
@@ -49,6 +53,7 @@ const resources = {
     checkout: enCheckout,
     orderConfirmation: enOrderConfirmation,
     admin: enAdmin,
+    account: enAccount,
     orderDetails: enOrderDetails,
   },
 };

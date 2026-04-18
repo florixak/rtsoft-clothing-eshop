@@ -23,7 +23,7 @@ import { useNavigate } from "@tanstack/react-router";
 
 const AdminOrdersTable = () => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
-  const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
+  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const navigate = useNavigate();
   const { data: recentOrders } = useSuspenseQuery(
     createAdminOrdersQueryOptions(),

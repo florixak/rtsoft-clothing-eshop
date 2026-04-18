@@ -3,11 +3,10 @@ import { getCategoryById } from "@/lib/category-utils";
 import {
   getBestSellingProducts,
   getDashboardMetrics,
-  getOrders,
   getRevenueChartData,
 } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
-import { getOrderById } from "@/lib/order-utils";
+import { getOrderById, getOrders } from "@/lib/order-utils";
 import {
   getAdminProducts,
   getProductById,
@@ -76,6 +75,12 @@ export const createAdminOrdersQueryOptions = () =>
   queryOptions({
     queryKey: QUERY_KEYS.adminOrders,
     queryFn: () => getOrders({}),
+  });
+
+export const createAccountOrdersQueryOptions = (userId: string) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.accountOrders(userId),
+    queryFn: () => getOrders({ userId }),
   });
 
 export const createAdminProductsQueryOptions = () =>

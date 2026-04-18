@@ -13,9 +13,13 @@ import type { Order } from "@/types";
 
 type OrderDetailsHeaderProps = {
   orderId: Order["id"];
+  ordersListPath: "/{-$locale}/admin/orders" | "/{-$locale}/account/orders";
 };
 
-const OrderDetailsHeader = ({ orderId }: OrderDetailsHeaderProps) => {
+const OrderDetailsHeader = ({
+  orderId,
+  ordersListPath,
+}: OrderDetailsHeaderProps) => {
   const { t } = useTranslation([TRANSLATION_NAMESPACES.orderDetails]);
   return (
     <div className="flex flex-col gap-4">
@@ -24,7 +28,7 @@ const OrderDetailsHeader = ({ orderId }: OrderDetailsHeaderProps) => {
           <BreadcrumbItem>
             <BreadcrumbLink
               render={
-                <Link to="/{-$locale}/admin/orders" className="text-xs">
+                <Link to={ordersListPath} className="text-xs">
                   {t("orderDetails:breadcrumbs.orders")}
                 </Link>
               }

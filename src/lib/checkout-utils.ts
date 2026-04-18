@@ -5,6 +5,7 @@ import { paymentMethods, shippingMethods } from "@/data/shipping";
 import { getProductById } from "./product-utils";
 import type { Languages } from "./i18n";
 import { saveOrder } from "./order-storage";
+import { getCurrentUserId } from "./auth";
 
 export const handlePaymentSimulation = async (): Promise<void> => {
   await new Promise<void>((resolve) => {
@@ -100,7 +101,7 @@ export const handleCreateOrder = async (
 
   const order: Order = {
     id: orderId,
-    userId: null,
+    userId: getCurrentUserId(),
     items: orderItems,
     customer: {
       firstName: normalizedShipping.firstName,

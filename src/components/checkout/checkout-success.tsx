@@ -37,7 +37,10 @@ const CheckoutSuccess = () => {
             variant="outline"
             nativeButton={false}
             render={
-              <Link to="/{-$locale}/account/$orderId" params={{ orderId }}>
+              <Link
+                to="/{-$locale}/account/orders/$orderId"
+                params={{ orderId }}
+              >
                 {t("actions.viewDetails")}
               </Link>
             }

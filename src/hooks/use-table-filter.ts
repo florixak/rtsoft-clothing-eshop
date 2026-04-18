@@ -13,7 +13,7 @@ export type TableFilterFrom =
   | "/{-$locale}/admin/"
   | "/{-$locale}/admin/orders/"
   | "/{-$locale}/admin/products"
-  | "/{-$locale}/account/";
+  | "/{-$locale}/account/orders/";
 
 type SearchKeys<
   TSearch extends Record<string, unknown>,

@@ -1,0 +1,26 @@
+{
+  "title": "Account",
+  "nav": {
+    "orders": "My Orders"
+  },
+  "orders": {
+    "title": "Orders",
+    "search": "Search for orders...",
+    "noResults": "No orders found.",
+    "table": {
+      "orderId": "Order ID",
+      "date": "Date",
+      "amount": "Amount",
+      "paymentMethod": "Payment Method",
+      "status": "Status"
+    },
+    "status": {
+      "all": "All",
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  }
+}
