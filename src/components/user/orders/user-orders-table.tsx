@@ -3,17 +3,6 @@ import { useMemo } from "react";
 import DataTable from "@/components/layout/data-table";
 import { createAccountOrderColumns } from "@/components/table/order-columns";
 import { Input } from "@/components/ui/input";
-import { orderStatuses } from "@/data/orders";
-import { createAccountOrdersQueryOptions } from "@/hooks/query-options";
-import { useAccountOrdersFilter } from "@/hooks/use-order-filter";
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { globalOrderFilter } from "@/lib/dashboard-utils";
-import { getCurrentUserId } from "@/lib/auth";
-import type { Order } from "@/types";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
-import type { ColumnDef } from "@tanstack/react-table";
-import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -21,13 +10,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { orderStatuses } from "@/data/orders";
+import { createAccountOrdersQueryOptions } from "@/hooks/query-options";
+import { useAccountOrdersFilter } from "@/hooks/use-order-filter";
+import { globalOrderFilter } from "@/lib/dashboard-utils";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import type { Order } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import type { ColumnDef } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
+import useUser from "@/hooks/use-user";
 
 const UserOrdersTable = () => {
   const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.account);
   const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
   const navigate = useNavigate();
+  const user = useUser();
   const { data: userOrders } = useSuspenseQuery(
-    createAccountOrdersQueryOptions(getCurrentUserId()),
+    createAccountOrdersQueryOptions(user?.id || ""),
   );
 
   const {
