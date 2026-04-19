@@ -1,7 +1,11 @@
 import type { CheckoutStep } from "@/constants";
 import { shippingMethods } from "@/data";
 import { useCheckoutForm } from "@/hooks/form";
-import { checkoutFormOpts } from "@/lib/checkout-form";
+import useUser from "@/hooks/use-user";
+import {
+  checkoutFormOpts,
+  getCheckoutDefaultValues,
+} from "@/lib/checkout-form";
 import {
   handleCreateOrder,
   handlePaymentSimulation,
@@ -36,6 +40,7 @@ const Checkout = () => {
   const { i18n } = useTranslation();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
+  const user = useUser();
   const {
     clearCart,
     cart: { items },
@@ -45,6 +50,7 @@ const Checkout = () => {
 
   const form = useCheckoutForm({
     ...checkoutFormOpts,
+    defaultValues: getCheckoutDefaultValues(user),
     onSubmit: async () => {
       if (section === "shipping") {
         navigate({
