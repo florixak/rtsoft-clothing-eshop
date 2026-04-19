@@ -20,6 +20,8 @@ import csAccount from "@/locales/cs/account.json";
 import enAccount from "@/locales/en/account.json";
 import csOrderDetails from "@/locales/cs/orderDetails.json";
 import enOrderDetails from "@/locales/en/orderDetails.json";
+import csAuth from "@/locales/cs/auth.json";
+import enAuth from "@/locales/en/auth.json";
 
 export const TRANSLATION_NAMESPACES = {
   common: "common",
@@ -31,6 +33,7 @@ export const TRANSLATION_NAMESPACES = {
   admin: "admin",
   account: "account",
   orderDetails: "orderDetails",
+  auth: "auth",
 } as const;
 
 const resources = {
@@ -44,6 +47,7 @@ const resources = {
     admin: csAdmin,
     account: csAccount,
     orderDetails: csOrderDetails,
+    auth: csAuth,
   },
   en: {
     common: enCommon,
@@ -55,6 +59,7 @@ const resources = {
     admin: enAdmin,
     account: enAccount,
     orderDetails: enOrderDetails,
+    auth: enAuth,
   },
 };
 

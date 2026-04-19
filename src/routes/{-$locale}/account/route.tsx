@@ -10,7 +10,7 @@ export const Route = createFileRoute("/{-$locale}/account")({
   beforeLoad: async (/*{ context }*/) => {
     const isLoggedIn = isAuthenticated();
     if (!isLoggedIn) {
-      throw redirect({ to: "/{-$locale}" });
+      throw redirect({ to: "/{-$locale}/login" });
     }
   },
 });

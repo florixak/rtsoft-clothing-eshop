@@ -20,5 +20,12 @@ export const productsSchema = z.object({
   perPage: z.coerce.number().int().positive().default(5).catch(5),
 });
 
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  rememberMe: z.boolean().default(false),
+});
+
 export type OrdersSearch = z.infer<typeof ordersSchema>;
 export type ProductsSearch = z.infer<typeof productsSchema>;
+export type LoginCredentials = z.infer<typeof loginSchema>;
