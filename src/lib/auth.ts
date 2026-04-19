@@ -1,6 +1,7 @@
 import { getUserByEmail, getUserById, toPublicUser } from "@/data";
 import type { MockUser } from "@/data/users";
 import type { AuthSession, LoginInput, Role, User } from "@/types";
+import { InvalidCredentialsError } from "./errors/auth-errors";
 
 const AUTH_SESSION_STORAGE_KEY = "auth-session";
 
@@ -63,7 +64,7 @@ export const login = async ({
   const user = getUserByEmail(email);
 
   if (!user || user.password !== password) {
-    throw new Error("login.errors.invalidCredentials");
+    throw new InvalidCredentialsError();
   }
 
   const session = createSession(user, rememberMe);

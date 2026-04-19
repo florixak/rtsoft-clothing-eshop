@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { login } from "@/lib/auth";
+import { InvalidCredentialsError } from "@/lib/errors/auth-errors";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
@@ -30,7 +31,9 @@ export function LoginForm({
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error ? t(error.message) : t("login.toast.error"),
+        error instanceof InvalidCredentialsError
+          ? t("login.toast.invalidCredentials")
+          : t("login.toast.error"),
       );
     },
   });
