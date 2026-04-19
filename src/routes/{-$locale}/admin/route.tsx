@@ -1,12 +1,15 @@
 import AdminSidebar from "@/components/admin/admin-sidebar";
-import { hasRole } from "@/lib/auth";
+import { hasRole, isAuthenticated } from "@/lib/auth";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/admin")({
   component: AdminLayout,
   beforeLoad: async (/*{ context }*/) => {
-    if (!hasRole("admin")) {
+    if (!isAuthenticated()) {
       throw redirect({ to: "/{-$locale}/login" });
+    }
+    if (!hasRole("admin")) {
+      throw redirect({ to: "/{-$locale}/account" });
     }
   },
 });
