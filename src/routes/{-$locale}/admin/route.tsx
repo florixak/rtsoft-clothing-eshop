@@ -6,7 +6,7 @@ export const Route = createFileRoute("/{-$locale}/admin")({
   component: AdminLayout,
   beforeLoad: async (/*{ context }*/) => {
     if (!hasRole("admin")) {
-      throw redirect({ to: "/{-$locale}" });
+      throw redirect({ to: "/{-$locale}/login" });
     }
   },
 });
