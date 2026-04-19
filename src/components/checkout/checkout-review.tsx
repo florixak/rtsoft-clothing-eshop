@@ -22,12 +22,14 @@ const CheckoutReview = withForm({
     const {
       city,
       country,
+      differentShippingAddress,
       firstName,
       lastName,
       email,
       phone,
       postalCode,
       streetAddress,
+      useDifferentShippingAddress,
     } = shipping;
     const { paymentMethod } = payment;
 
@@ -44,15 +46,26 @@ const CheckoutReview = withForm({
         lines: [
           email || "-",
           phone || "-",
-          streetAddress || "-",
-          postalCode || city ? `${postalCode} ${city}`.trim() : "-",
-          country || "-",
+          useDifferentShippingAddress
+            ? differentShippingAddress.streetAddress || "-"
+            : streetAddress || "-",
+          useDifferentShippingAddress
+            ? differentShippingAddress.postalCode ||
+              differentShippingAddress.city
+              ? `${differentShippingAddress.postalCode} ${differentShippingAddress.city}`.trim()
+              : "-"
+            : postalCode || city
+              ? `${postalCode} ${city}`.trim()
+              : "-",
+          useDifferentShippingAddress
+            ? differentShippingAddress.country || "-"
+            : country || "-",
         ],
         footer: (
           <p className="text-sm text-muted-foreground">
-            {translation("deliveryInfo.fields.street.label")},{" "}
-            {translation("deliveryInfo.fields.city.label")},{" "}
-            {translation("deliveryInfo.fields.postalCode.label")}
+            {useDifferentShippingAddress
+              ? translation("review.billingAddress")
+              : `${translation("deliveryInfo.fields.street.label")}, ${translation("deliveryInfo.fields.city.label")}, ${translation("deliveryInfo.fields.postalCode.label")}`}
           </p>
         ),
       },
