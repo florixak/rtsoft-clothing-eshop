@@ -97,7 +97,24 @@ export const handleCreateOrder = async (
     city: values.shipping.city.trim(),
     postalCode: values.shipping.postalCode.trim(),
     country: values.shipping.country.trim(),
+    useDifferentShippingAddress: values.shipping.useDifferentShippingAddress,
+    differentShippingAddress: {
+      streetAddress:
+        values.shipping.differentShippingAddress.streetAddress.trim(),
+      city: values.shipping.differentShippingAddress.city.trim(),
+      postalCode: values.shipping.differentShippingAddress.postalCode.trim(),
+      country: values.shipping.differentShippingAddress.country.trim(),
+    },
   };
+
+  const shippingAddress = normalizedShipping.useDifferentShippingAddress
+    ? normalizedShipping.differentShippingAddress
+    : {
+        streetAddress: normalizedShipping.streetAddress,
+        city: normalizedShipping.city,
+        postalCode: normalizedShipping.postalCode,
+        country: normalizedShipping.country,
+      };
 
   const order: Order = {
     id: orderId,
@@ -110,10 +127,10 @@ export const handleCreateOrder = async (
       phone: normalizedShipping.phone || undefined,
     },
     address: {
-      street: normalizedShipping.streetAddress,
-      city: normalizedShipping.city,
-      postalCode: normalizedShipping.postalCode,
-      country: normalizedShipping.country,
+      street: shippingAddress.streetAddress,
+      city: shippingAddress.city,
+      postalCode: shippingAddress.postalCode,
+      country: shippingAddress.country,
     },
     shippingMethod: shippingMethod,
     paymentMethod: paymentMethod,

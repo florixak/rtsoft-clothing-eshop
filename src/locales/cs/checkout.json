@@ -25,6 +25,8 @@
     "title": "Doručovací informace",
     "returningUser": "Již máte účet?",
     "logIn": "Přihlásit se",
+    "useDifferentShippingAddress": "Doručit na jinou adresu",
+    "differentShippingAddressTitle": "Doručovací adresa",
     "fields": {
       "firstName": {
         "label": "Jméno",
@@ -84,6 +86,7 @@
     "title": "Zkontrolujte objednávku",
     "items": "Položky ({{count}})",
     "shippingAddress": "Doručovací adresa",
+    "billingAddress": "Fakturační adresa",
     "shippingMethod": "Způsob doručení",
     "paymentMethod": "Způsob platby",
     "billingMatchesShipping": "Fakturační adresa je shodná s doručovací",
