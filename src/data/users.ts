@@ -41,10 +41,15 @@ export const getUserById = (id: string) => {
   return users.find((user) => user.id === id) ?? null;
 };
 
-export const getUserByEmail = (email: string) => {
+export const getUserByEmail = (email?: string | null) => {
+  if (!email) {
+    return null;
+  }
+
+  const normalizedEmail = email.toLowerCase();
+
   return (
-    users.find((user) => user.email.toLowerCase() === email.toLowerCase()) ??
-    null
+    users.find((user) => user.email.toLowerCase() === normalizedEmail) ?? null
   );
 };
 
