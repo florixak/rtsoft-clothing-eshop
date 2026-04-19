@@ -1,17 +1,18 @@
 import { shippingMethods } from "@/data";
 import { withForm } from "@/hooks/form";
+import { isAuthenticated } from "@/lib/auth";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
-import { CardContent, CardHeader } from "../ui/card";
 import { Link } from "@tanstack/react-router";
+import { CardContent, CardHeader } from "../ui/card";
 
 const ShippingForm = withForm({
   ...checkoutFormOpts,
   render: ({ form }) => {
     const locale = i18n.resolvedLanguage == "cs" ? "cs" : "en";
     const translation = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
-    const isLoggedIn = false;
+    const isLoggedIn = isAuthenticated();
     return (
       <div className="flex flex-col gap-8 w-full">
         <div className="flex flex-col gap-6">
