@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125LoginRouteImport } from './routes/{-$locale}/login'
 import { Route as Char123LocaleChar125AdminRouteRouteImport } from './routes/{-$locale}/admin/route'
 import { Route as Char123LocaleChar125AccountRouteRouteImport } from './routes/{-$locale}/account/route'
 import { Route as Char123LocaleChar125CheckoutIndexRouteImport } from './routes/{-$locale}/checkout/index'
@@ -35,6 +36,12 @@ const Char123LocaleChar125IndexRoute =
   Char123LocaleChar125IndexRouteImport.update({
     id: '/',
     path: '/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125LoginRoute =
+  Char123LocaleChar125LoginRouteImport.update({
+    id: '/login',
+    path: '/login',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125AdminRouteRoute =
@@ -120,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/account': typeof Char123LocaleChar125AccountRouteRouteWithChildren
   '/{-$locale}/admin': typeof Char123LocaleChar125AdminRouteRouteWithChildren
+  '/{-$locale}/login': typeof Char123LocaleChar125LoginRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/{-$locale}/admin/products': typeof Char123LocaleChar125AdminProductsRoute
   '/{-$locale}/checkout/success': typeof Char123LocaleChar125CheckoutSuccessRoute
@@ -134,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesByTo {
+  '/{-$locale}/login': typeof Char123LocaleChar125LoginRoute
   '/{-$locale}': typeof Char123LocaleChar125IndexRoute
   '/{-$locale}/admin/products': typeof Char123LocaleChar125AdminProductsRoute
   '/{-$locale}/checkout/success': typeof Char123LocaleChar125CheckoutSuccessRoute
@@ -152,6 +161,7 @@ export interface FileRoutesById {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/account': typeof Char123LocaleChar125AccountRouteRouteWithChildren
   '/{-$locale}/admin': typeof Char123LocaleChar125AdminRouteRouteWithChildren
+  '/{-$locale}/login': typeof Char123LocaleChar125LoginRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/{-$locale}/admin/products': typeof Char123LocaleChar125AdminProductsRoute
   '/{-$locale}/checkout/success': typeof Char123LocaleChar125CheckoutSuccessRoute
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/{-$locale}'
     | '/{-$locale}/account'
     | '/{-$locale}/admin'
+    | '/{-$locale}/login'
     | '/{-$locale}/'
     | '/{-$locale}/admin/products'
     | '/{-$locale}/checkout/success'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/orders/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/{-$locale}/login'
     | '/{-$locale}'
     | '/{-$locale}/admin/products'
     | '/{-$locale}/checkout/success'
@@ -202,6 +214,7 @@ export interface FileRouteTypes {
     | '/{-$locale}'
     | '/{-$locale}/account'
     | '/{-$locale}/admin'
+    | '/{-$locale}/login'
     | '/{-$locale}/'
     | '/{-$locale}/admin/products'
     | '/{-$locale}/checkout/success'
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/{-$locale}/'
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/login': {
+      id: '/{-$locale}/login'
+      path: '/login'
+      fullPath: '/{-$locale}/login'
+      preLoaderRoute: typeof Char123LocaleChar125LoginRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/admin': {
@@ -377,6 +397,7 @@ const Char123LocaleChar125AdminRouteRouteWithChildren =
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125AccountRouteRoute: typeof Char123LocaleChar125AccountRouteRouteWithChildren
   Char123LocaleChar125AdminRouteRoute: typeof Char123LocaleChar125AdminRouteRouteWithChildren
+  Char123LocaleChar125LoginRoute: typeof Char123LocaleChar125LoginRoute
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
   Char123LocaleChar125CheckoutSuccessRoute: typeof Char123LocaleChar125CheckoutSuccessRoute
   Char123LocaleChar125ProductProductSlugRoute: typeof Char123LocaleChar125ProductProductSlugRoute
@@ -390,6 +411,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
       Char123LocaleChar125AccountRouteRouteWithChildren,
     Char123LocaleChar125AdminRouteRoute:
       Char123LocaleChar125AdminRouteRouteWithChildren,
+    Char123LocaleChar125LoginRoute: Char123LocaleChar125LoginRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
     Char123LocaleChar125CheckoutSuccessRoute:
       Char123LocaleChar125CheckoutSuccessRoute,
