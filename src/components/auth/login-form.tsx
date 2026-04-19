@@ -24,8 +24,9 @@ export function LoginForm({
 
   const { mutateAsync: loginAsync, isPending } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(t("login.toast.success"));
+      await navigate({ to: "/{-$locale}/account" });
     },
     onError: (error) => {
       toast.error(
@@ -43,7 +44,6 @@ export function LoginForm({
     const rememberMe = formData.get("rememberMe") === "on";
 
     await loginAsync({ email, password, rememberMe });
-    await navigate({ to: "/{-$locale}/account" });
   };
 
   return (
