@@ -1,8 +1,9 @@
 import { formOptions } from "@tanstack/react-form";
+import type { User } from "@/types";
 import { type FormValues } from "./validators";
 import { formSchema } from "./validators";
 
-const defaultValues: FormValues = {
+const baseDefaultValues: FormValues = {
   shipping: {
     shippingMethod: "packeta",
     firstName: "",
@@ -19,8 +20,20 @@ const defaultValues: FormValues = {
   },
 };
 
+export const getCheckoutDefaultValues = (
+  user?: Pick<User, "firstName" | "lastName" | "email"> | null,
+): FormValues => ({
+  ...baseDefaultValues,
+  shipping: {
+    ...baseDefaultValues.shipping,
+    firstName: user?.firstName ?? "",
+    lastName: user?.lastName ?? "",
+    email: user?.email ?? "",
+  },
+});
+
 export const checkoutFormOpts = formOptions({
-  defaultValues,
+  defaultValues: getCheckoutDefaultValues(),
   validators: {
     onChange: formSchema,
     onBlur: formSchema,
