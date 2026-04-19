@@ -11,7 +11,7 @@ import { login } from "@/lib/auth";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -20,6 +20,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.auth);
+  const navigate = useNavigate();
 
   const { mutateAsync: loginAsync, isPending } = useMutation({
     mutationFn: login,
@@ -42,6 +43,7 @@ export function LoginForm({
     const rememberMe = formData.get("rememberMe") === "on";
 
     await loginAsync({ email, password, rememberMe });
+    await navigate({ to: "/{-$locale}/account" });
   };
 
   return (
