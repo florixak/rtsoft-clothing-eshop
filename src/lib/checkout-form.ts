@@ -14,6 +14,13 @@ const baseDefaultValues: FormValues = {
     city: "",
     postalCode: "",
     country: "",
+    useDifferentShippingAddress: false,
+    differentShippingAddress: {
+      streetAddress: "",
+      city: "",
+      postalCode: "",
+      country: "",
+    },
   },
   payment: {
     paymentMethod: "payment-card",
