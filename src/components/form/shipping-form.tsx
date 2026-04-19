@@ -192,69 +192,83 @@ const ShippingForm = withForm({
               />
             </div>
 
-            {form.state.values.shipping.useDifferentShippingAddress && (
-              <>
-                <div className="md:col-span-2">
-                  <h4 className="font-medium">
-                    {translation("deliveryInfo.differentShippingAddressTitle")}
-                  </h4>
-                </div>
-                <div className="md:col-span-2">
-                  <form.AppField
-                    name="shipping.differentShippingAddress.streetAddress"
-                    children={(field) => (
-                      <field.TextField
-                        label={translation("deliveryInfo.fields.street.label")}
-                        placeholder={translation(
-                          "deliveryInfo.fields.street.placeholder",
+            <form.Subscribe
+              selector={(state) =>
+                state.values.shipping.useDifferentShippingAddress
+              }
+            >
+              {(useDifferentShippingAddress) =>
+                useDifferentShippingAddress ? (
+                  <>
+                    <div className="md:col-span-2">
+                      <h4 className="font-medium">
+                        {translation(
+                          "deliveryInfo.differentShippingAddressTitle",
                         )}
-                        required
-                      />
-                    )}
-                  />
-                </div>
-                <form.AppField
-                  name="shipping.differentShippingAddress.city"
-                  children={(field) => (
-                    <field.TextField
-                      label={translation("deliveryInfo.fields.city.label")}
-                      placeholder={translation(
-                        "deliveryInfo.fields.city.placeholder",
-                      )}
-                      required
-                    />
-                  )}
-                />
-                <form.AppField
-                  name="shipping.differentShippingAddress.postalCode"
-                  children={(field) => (
-                    <field.TextField
-                      label={translation(
-                        "deliveryInfo.fields.postalCode.label",
-                      )}
-                      placeholder={translation(
-                        "deliveryInfo.fields.postalCode.placeholder",
-                      )}
-                      required
-                    />
-                  )}
-                />
-                <div className="md:col-span-2">
-                  <form.AppField
-                    name="shipping.differentShippingAddress.country"
-                    children={(field) => (
-                      <field.TextField
-                        label={translation("deliveryInfo.fields.country.label")}
-                        placeholder={translation(
-                          "deliveryInfo.fields.country.placeholder",
+                      </h4>
+                    </div>
+                    <div className="md:col-span-2">
+                      <form.AppField
+                        name="shipping.differentShippingAddress.streetAddress"
+                        children={(field) => (
+                          <field.TextField
+                            label={translation(
+                              "deliveryInfo.fields.street.label",
+                            )}
+                            placeholder={translation(
+                              "deliveryInfo.fields.street.placeholder",
+                            )}
+                            required
+                          />
                         )}
-                        required
                       />
-                    )}
-                  />
-                </div>
-              </>
-            )}
+                    </div>
+                    <form.AppField
+                      name="shipping.differentShippingAddress.city"
+                      children={(field) => (
+                        <field.TextField
+                          label={translation("deliveryInfo.fields.city.label")}
+                          placeholder={translation(
+                            "deliveryInfo.fields.city.placeholder",
+                          )}
+                          required
+                        />
+                      )}
+                    />
+                    <form.AppField
+                      name="shipping.differentShippingAddress.postalCode"
+                      children={(field) => (
+                        <field.TextField
+                          label={translation(
+                            "deliveryInfo.fields.postalCode.label",
+                          )}
+                          placeholder={translation(
+                            "deliveryInfo.fields.postalCode.placeholder",
+                          )}
+                          required
+                        />
+                      )}
+                    />
+                    <div className="md:col-span-2">
+                      <form.AppField
+                        name="shipping.differentShippingAddress.country"
+                        children={(field) => (
+                          <field.TextField
+                            label={translation(
+                              "deliveryInfo.fields.country.label",
+                            )}
+                            placeholder={translation(
+                              "deliveryInfo.fields.country.placeholder",
+                            )}
+                            required
+                          />
+                        )}
+                      />
+                    </div>
+                  </>
+                ) : null
+              }
+            </form.Subscribe>
           </div>
         </div>
       </div>
