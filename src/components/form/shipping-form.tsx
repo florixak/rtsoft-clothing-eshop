@@ -172,7 +172,7 @@ const ShippingForm = withForm({
               <form.AppField
                 name="shipping.useDifferentShippingAddress"
                 children={(field) => (
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <Checkbox
                       id="useDifferentShippingAddress"
                       checked={field.state.value}
