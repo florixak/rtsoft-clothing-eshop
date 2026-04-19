@@ -25,6 +25,8 @@
     "title": "Delivery Information",
     "returningUser": "Returning user?",
     "logIn": "Log In",
+    "useDifferentShippingAddress": "Ship to a different address",
+    "differentShippingAddressTitle": "Shipping Address",
     "fields": {
       "firstName": {
         "label": "First Name",
@@ -84,6 +86,7 @@
     "title": "Review your order",
     "items": "Items ({{count}})",
     "shippingAddress": "Shipping Address",
+    "billingAddress": "Billing Address",
     "shippingMethod": "Shipping Method",
     "paymentMethod": "Payment Method",
     "billingMatchesShipping": "Billing matches shipping",
