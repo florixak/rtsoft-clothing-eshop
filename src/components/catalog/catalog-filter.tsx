@@ -15,6 +15,7 @@ import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { Slider } from "../ui/slider";
+import AvailabilityFilter from "./availability-filter";
 
 const CatalogFilter = () => {
   const search = useSearch({ from: "/{-$locale}/" });
@@ -90,7 +91,7 @@ const CatalogFilter = () => {
       rating: number | undefined;
       availability: "inStock" | "outOfStock" | undefined;
     }>,
-  ) => {
+  ): void => {
     navigate({
       search: (prev) => ({ ...prev, ...updates, page: 1 }),
       replace: true,
@@ -343,49 +344,10 @@ const CatalogFilter = () => {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <Label className="uppercase text-base text-muted-foreground">
-          {t("filters.availability.title")}
-        </Label>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-            <Checkbox
-              id="in-stock"
-              className="size-4 accent-accent-foreground"
-              checked={availability === "inStock"}
-              onCheckedChange={(checked) =>
-                patchSearch({
-                  availability: checked ? "inStock" : undefined,
-                })
-              }
-            />
-            <Label
-              htmlFor="in-stock"
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              <span>{t("filters.availability.inStock")}</span>
-            </Label>
-          </div>
-          <div className="flex items-center gap-4">
-            <Checkbox
-              id="pre-order"
-              className="size-4 accent-accent-foreground"
-              checked={availability === "outOfStock"}
-              onCheckedChange={(checked) =>
-                patchSearch({
-                  availability: checked ? "outOfStock" : undefined,
-                })
-              }
-            />
-            <Label
-              htmlFor="pre-order"
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              <span>{t("filters.availability.outOfStock")}</span>
-            </Label>
-          </div>
-        </div>
-      </div>
+      <AvailabilityFilter
+        availability={availability}
+        patchSearch={(updates) => patchSearch(updates)}
+      />
     </aside>
   );
 };
