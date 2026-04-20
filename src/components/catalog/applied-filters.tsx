@@ -22,9 +22,24 @@ const AppliedFilters = () => {
 
   const appliedFilters = getAppliedFiltersLabel(search, language);
 
-  const clearFilter = (key: string) => {
+  const clearFilter = (key: string, removeValue?: string) => {
     navigate({
-      search: (prev) => ({ ...prev, [key]: undefined, page: 1 }),
+      search: (prev) => {
+        if (!removeValue || (key !== "size" && key !== "color")) {
+          return { ...prev, [key]: undefined, page: 1 };
+        }
+
+        const currentValues = key === "size" ? prev.size : prev.color;
+        const nextValues = currentValues?.filter(
+          (value) => value !== removeValue,
+        );
+
+        return {
+          ...prev,
+          [key]: nextValues && nextValues.length > 0 ? nextValues : undefined,
+          page: 1,
+        };
+      },
       replace: true,
     });
   };
@@ -34,12 +49,12 @@ const AppliedFilters = () => {
       <div className="flex flex-wrap items-center gap-2">
         {appliedFilters.map((label) => (
           <Badge
-            key={label.key}
+            key={`${label.key}-${label.removeValue ?? "all"}`}
             className="flex flex-row items-center gap-1 text-sm bg-primary text-primary-foreground rounded-full px-2 py-3"
           >
             <button
               type="button"
-              onClick={() => clearFilter(label.key)}
+              onClick={() => clearFilter(label.key, label.removeValue)}
               aria-label={t("filters.activeTags.remove", {
                 label: label.label,
               })}
