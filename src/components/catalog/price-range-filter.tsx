@@ -29,14 +29,6 @@ const PriceRangeFilter = ({
     queryFn: () => getProducts(search),
   });
 
-  const handleSetPriceRange = (min: number, max: number) => {
-    const baseMin = information.minFilterPrice;
-    const baseMax = information.maxFilterPrice;
-    const safeMin = Math.max(baseMin, Math.floor(min));
-    const safeMax = Math.min(baseMax, Math.floor(max));
-    setPriceRange(`${safeMin}-${safeMax}`);
-  };
-
   const [priceRangeState, setPriceRange] = useState<string | undefined>(
     search.priceRange,
   );
@@ -56,6 +48,14 @@ const PriceRangeFilter = ({
       patchSearch({ priceRange: value });
     },
   });
+
+  const handleSetPriceRange = (min: number, max: number) => {
+    const baseMin = information.minFilterPrice;
+    const baseMax = information.maxFilterPrice;
+    const safeMin = Math.max(baseMin, Math.floor(min));
+    const safeMax = Math.min(baseMax, Math.floor(max));
+    setPriceRange(`${safeMin}-${safeMax}`);
+  };
 
   const baseMin = information.minFilterPrice;
   const baseMax = information.maxFilterPrice;
