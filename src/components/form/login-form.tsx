@@ -15,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import { Trans, useTranslation } from "react-i18next";
+import { Checkbox } from "../ui/checkbox";
 
 export function LoginForm({
   className,
@@ -95,7 +96,7 @@ export function LoginForm({
               </Field>
               <Field>
                 <label className="inline-flex items-center justify-end gap-2">
-                  <Input name="rememberMe" type="checkbox" className="size-4" />
+                  <Checkbox name="rememberMe" />
                   <span className="text-sm">
                     {t("login.fields.rememberMe")}
                   </span>
