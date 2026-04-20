@@ -1,6 +1,7 @@
 import { categories } from "@/data";
 import { products, SORT_BY_OPTIONS, type SortOptions } from "@/data/products";
 import useDebounce from "@/hooks/use-debounce";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { getProducts } from "@/lib/product-utils";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
@@ -8,18 +9,12 @@ import { Star } from "lucide-react";
 import { useEffect, useEffectEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { Slider } from "../ui/slider";
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const CatalogFilter = () => {
   const search = useSearch({ from: "/{-$locale}/" });
@@ -73,13 +68,25 @@ const CatalogFilter = () => {
       ),
     ),
   );
+
+  const selectedSizes = size ?? [];
+  const selectedColors = color ?? [];
+
+  const toggleFilterValue = (current: string[], value: string) => {
+    if (current.includes(value)) {
+      return current.filter((entry) => entry !== value);
+    }
+
+    return [...current, value];
+  };
+
   const patchSearch = (
     updates: Partial<{
       category: string | undefined;
       sort: SortOptions | undefined;
       priceRange: string | undefined;
-      size: string | undefined;
-      color: string | undefined;
+      size: string[] | undefined;
+      color: string[] | undefined;
       rating: number | undefined;
       availability: "inStock" | "outOfStock" | undefined;
     }>,
@@ -295,22 +302,21 @@ const CatalogFilter = () => {
         >
           {t("filters.size")}
         </Label>
-        <Select
-          id="size"
-          value={size ?? undefined}
-          onValueChange={(value) => patchSearch({ size: value || undefined })}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={t("filters.selectAnOption")} />
-          </SelectTrigger>
-          <SelectContent>
-            {sizeOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option.toUpperCase()}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div id="size" className="flex flex-wrap items-center gap-2">
+          {sizeOptions.map((option) => (
+            <Button
+              key={option}
+              id={`size-${option}`}
+              variant={selectedSizes.includes(option) ? "default" : "outline"}
+              onClick={() => {
+                const next = toggleFilterValue(selectedSizes, option);
+                patchSearch({ size: next.length > 0 ? next : undefined });
+              }}
+            >
+              {option.toUpperCase()}
+            </Button>
+          ))}
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <Label
@@ -319,22 +325,23 @@ const CatalogFilter = () => {
         >
           {t("filters.color")}
         </Label>
-        <Select
-          id="color"
-          value={color ?? undefined}
-          onValueChange={(value) => patchSearch({ color: value || undefined })}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder={t("filters.selectAnOption")} />
-          </SelectTrigger>
-          <SelectContent>
-            {colorOptions.map((option) => (
-              <SelectItem key={option} value={option}>
+        <div id="color" className="grid grid-cols-2 gap-2">
+          {colorOptions.map((option) => (
+            <div key={option} className="flex items-center gap-3">
+              <Checkbox
+                id={`color-${option}`}
+                checked={selectedColors.includes(option)}
+                onCheckedChange={() => {
+                  const next = toggleFilterValue(selectedColors, option);
+                  patchSearch({ color: next.length > 0 ? next : undefined });
+                }}
+              />
+              <Label htmlFor={`color-${option}`} className="cursor-pointer">
                 {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+              </Label>
+            </div>
+          ))}
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <Label className="uppercase text-base text-muted-foreground">
@@ -342,14 +349,13 @@ const CatalogFilter = () => {
         </Label>
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-4">
-            <Input
-              type="checkbox"
+            <Checkbox
               id="in-stock"
               className="size-4 accent-accent-foreground"
               checked={availability === "inStock"}
-              onChange={(event) =>
+              onCheckedChange={(checked) =>
                 patchSearch({
-                  availability: event.target.checked ? "inStock" : undefined,
+                  availability: checked ? "inStock" : undefined,
                 })
               }
             />
@@ -361,14 +367,13 @@ const CatalogFilter = () => {
             </Label>
           </div>
           <div className="flex items-center gap-4">
-            <Input
-              type="checkbox"
+            <Checkbox
               id="pre-order"
               className="size-4 accent-accent-foreground"
               checked={availability === "outOfStock"}
-              onChange={(event) =>
+              onCheckedChange={(checked) =>
                 patchSearch({
-                  availability: event.target.checked ? "outOfStock" : undefined,
+                  availability: checked ? "outOfStock" : undefined,
                 })
               }
             />
