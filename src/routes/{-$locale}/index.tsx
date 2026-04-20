@@ -4,13 +4,28 @@ import { getProducts } from "@/lib/product-utils";
 import { createFileRoute } from "@tanstack/react-router";
 import * as z from "zod";
 
+const multiValueParamSchema = z
+  .union([z.string(), z.array(z.string())])
+  .optional()
+  .transform((value) => {
+    if (!value) return undefined;
+
+    const normalized = (Array.isArray(value) ? value : [value])
+      .map((entry) => entry.trim())
+      .filter((entry) => entry.length > 0);
+
+    if (normalized.length === 0) return undefined;
+
+    return Array.from(new Set(normalized));
+  });
+
 const filterSchema = z.object({
   category: z.string().optional(),
   sort: z.enum(SORT_BY_OPTIONS).optional(),
   priceRange: z.string().optional(),
   rating: z.coerce.number().optional(),
-  size: z.string().optional(),
-  color: z.string().optional(),
+  size: multiValueParamSchema,
+  color: multiValueParamSchema,
   availability: z.enum(["inStock", "outOfStock"]).optional(),
   page: z.coerce.number().int().positive().optional(),
   perPage: z.coerce.number().int().positive().optional(),

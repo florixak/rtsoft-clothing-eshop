@@ -12,8 +12,8 @@ export type Query = {
   priceRange?: string;
   sort?: SortOptions;
   rating?: number;
-  size?: string;
-  color?: string;
+  size?: string[];
+  color?: string[];
   availability?: "inStock" | "outOfStock";
   page?: number;
   perPage?: number;
@@ -41,16 +41,26 @@ const getProducts = async (
     options?: { includePriceRange?: boolean },
   ) => {
     const includePriceRange = options?.includePriceRange ?? false;
+    const selectedSizes = query.size ?? [];
+    const selectedColors = query.color ?? [];
 
     return p.skus.filter((sku) => {
-      if (query.size && sku.size !== query.size) return false;
-      if (query.color && sku.color !== query.color) return false;
+      if (selectedSizes.length > 0 && !selectedSizes.includes(sku.size)) {
+        return false;
+      }
+
+      if (
+        selectedColors.length > 0 &&
+        (!sku.color || !selectedColors.includes(sku.color))
+      ) {
+        return false;
+      }
 
       if (query.availability === "inStock") {
         if (sku.stock <= 0) return false;
       } else if (query.availability === "outOfStock") {
         if (sku.stock !== 0) return false;
-      } else if (query.size || query.color) {
+      } else if (selectedSizes.length > 0 || selectedColors.length > 0) {
         if (sku.stock <= 0) return false;
       }
 
@@ -325,7 +335,7 @@ const getAvailableSizes = (product: Product) => {
 };
 
 const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
-  const labels: { label: string; key: string }[] = [];
+  const labels: { label: string; key: string; removeValue?: string }[] = [];
   const t = i18n.getFixedT(locale, "catalog");
 
   if (query.category) {
@@ -358,17 +368,23 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
       key: "rating",
     });
   }
-  if (query.size) {
-    labels.push({
-      label: `${t("filters.size")}: ${query.size.toUpperCase()}`,
-      key: "size",
-    });
+  if (query.size?.length) {
+    for (const selectedSize of query.size) {
+      labels.push({
+        label: `${t("filters.size")}: ${selectedSize.toUpperCase()}`,
+        key: "size",
+        removeValue: selectedSize,
+      });
+    }
   }
-  if (query.color) {
-    labels.push({
-      label: `${t("filters.color")}: ${query.color}`,
-      key: "color",
-    });
+  if (query.color?.length) {
+    for (const selectedColor of query.color) {
+      labels.push({
+        label: `${t("filters.color")}: ${selectedColor}`,
+        key: "color",
+        removeValue: selectedColor,
+      });
+    }
   }
   if (query.availability) {
     labels.push({
