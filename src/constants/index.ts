@@ -92,9 +92,9 @@ const FOOTER_LINKS = {
     { label: "footer.account.orders", path: "/{-$locale}/account/orders" },
   ],
   SUPPORT: [
-    { label: "footer.support.contact", path: "/{-$locale}/contact" },
-    { label: "footer.support.privacy", path: "/{-$locale}/privacy" },
-    { label: "footer.support.terms", path: "/{-$locale}/terms" },
+    { label: "footer.support.contact", path: "." },
+    { label: "footer.support.privacy", path: "." },
+    { label: "footer.support.terms", path: "." },
   ],
 };
 
