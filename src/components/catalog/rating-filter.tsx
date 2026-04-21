@@ -36,7 +36,7 @@ const RatingFilter = ({ rating, patchSearch }: RatingFilterProps) => {
           className="peer sr-only absolute"
         />
         <Button
-          variant="outline"
+          variant={rating === 5 ? "default" : "outline"}
           className="w-fit"
           render={
             <Label
@@ -53,7 +53,7 @@ const RatingFilter = ({ rating, patchSearch }: RatingFilterProps) => {
           className="peer sr-only absolute"
         />
         <Button
-          variant="outline"
+          variant={rating === 4 ? "default" : "outline"}
           className="w-fit"
           render={
             <Label
@@ -71,7 +71,7 @@ const RatingFilter = ({ rating, patchSearch }: RatingFilterProps) => {
           className="peer sr-only absolute"
         />
         <Button
-          variant="outline"
+          variant={rating === 3 ? "default" : "outline"}
           className="w-fit"
           render={
             <Label
