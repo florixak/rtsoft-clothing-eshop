@@ -63,7 +63,8 @@ const PriceRangeFilter = ({
 
   const baseMin = information.minFilterPrice;
   const baseMax = information.maxFilterPrice;
-  const effectivePriceRange = priceRangeState ?? priceRange;
+  const effectivePriceRange =
+    priceRangeState ?? priceRange ?? `${baseMin}-${baseMax}`;
   const parsedRange = effectivePriceRange?.split("-").map(Number) ?? [];
   const rawMin = Number.isFinite(parsedRange[0]) ? parsedRange[0] : baseMin;
   const rawMax = Number.isFinite(parsedRange[1]) ? parsedRange[1] : baseMax;
@@ -96,7 +97,9 @@ const PriceRangeFilter = ({
         <Input
           placeholder={t("filters.minPrice")}
           type="number"
-          value={effectivePriceRange ? String(minFilterPrice) : ""}
+          min={baseMin}
+          max={baseMax}
+          value={String(minFilterPrice)}
           onChange={(event) => {
             if (event.target.value === "") {
               setPriceRange(undefined);
@@ -110,7 +113,9 @@ const PriceRangeFilter = ({
         <Input
           placeholder={t("filters.maxPrice")}
           type="number"
-          value={effectivePriceRange ? String(maxFilterPrice) : ""}
+          min={baseMin}
+          max={baseMax}
+          value={String(maxFilterPrice)}
           onChange={(event) => {
             if (event.target.value === "") {
               setPriceRange(undefined);
