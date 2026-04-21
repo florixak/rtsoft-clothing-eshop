@@ -69,16 +69,23 @@ const PickupPointDrawer = ({
     onSelectPickupPoint(pickupPoint);
   };
 
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen) {
+      setSearch("");
+    }
+
+    onOpenChange(nextOpen);
+  };
+
   const handleConfirm = () => {
     onConfirm();
-    setSearch("");
-    onOpenChange(false);
+    handleOpenChange(false);
   };
 
   const filteredPickupPointsList = filteredPickupPoints();
 
   return (
-    <Drawer direction="bottom" open={open} onOpenChange={onOpenChange}>
+    <Drawer direction="bottom" open={open} onOpenChange={handleOpenChange}>
       <DrawerContent
         className="gap-0"
         onClick={(event) => {
@@ -138,11 +145,7 @@ const PickupPointDrawer = ({
 
           <div className="flex gap-2">
             <DrawerClose asChild>
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => setSearch("")}
-              >
+              <Button variant="outline" className="flex-1">
                 Cancel
               </Button>
             </DrawerClose>
