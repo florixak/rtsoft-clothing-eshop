@@ -112,29 +112,6 @@ const ShippingContent = ({ form }: ShippingContentProps) => {
                                         {helperText}
                                       </p>
                                     </CardFooter>
-                                    <PickupPointDrawer
-                                      open={isPacketaDrawerOpen}
-                                      onOpenChange={(open) => {
-                                        setIsPacketaDrawerOpen(open);
-                                        if (!open) {
-                                          pickupPointField.handleBlur();
-                                        }
-                                      }}
-                                      selectedPickupPointId={
-                                        pickupPointField.state.value as
-                                          | string
-                                          | undefined
-                                      }
-                                      onSelectPickupPoint={(pickupPoint) => {
-                                        pickupPointField.handleChange(
-                                          pickupPoint.id,
-                                        );
-                                      }}
-                                      onConfirm={() => {
-                                        pickupPointField.handleBlur();
-                                      }}
-                                      isLoading={false}
-                                    />
                                   </>
                                 );
                               }}
@@ -148,6 +125,31 @@ const ShippingContent = ({ form }: ShippingContentProps) => {
               />
             ))}
           </div>
+
+          <form.AppField
+            name="shipping.packetaPickupPointId"
+            children={(pickupPointField) => (
+              <PickupPointDrawer
+                open={isPacketaDrawerOpen}
+                onOpenChange={(open) => {
+                  setIsPacketaDrawerOpen(open);
+                  if (!open) {
+                    pickupPointField.handleBlur();
+                  }
+                }}
+                selectedPickupPointId={
+                  pickupPointField.state.value as string | undefined
+                }
+                onSelectPickupPoint={(pickupPoint) => {
+                  pickupPointField.handleChange(pickupPoint.id);
+                }}
+                onConfirm={() => {
+                  pickupPointField.handleBlur();
+                }}
+                isLoading={false}
+              />
+            )}
+          />
         </div>
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-semibold">
