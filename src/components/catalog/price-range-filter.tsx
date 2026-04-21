@@ -1,6 +1,7 @@
 import useDebounce from "@/hooks/use-debounce";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { getProducts } from "@/lib/product-utils";
+import { clamp } from "@/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useSearch } from "@tanstack/react-router";
 import { useEffect, useEffectEvent, useState } from "react";
@@ -52,9 +53,11 @@ const PriceRangeFilter = ({
   const handleSetPriceRange = (min: number, max: number) => {
     const baseMin = information.minFilterPrice;
     const baseMax = information.maxFilterPrice;
-    const safeMin = Math.max(baseMin, Math.floor(min));
-    const safeMax = Math.min(baseMax, Math.floor(max));
-    setPriceRange(`${safeMin}-${safeMax}`);
+    const nextMin = clamp(Math.floor(min), baseMin, baseMax);
+    const nextMax = clamp(Math.floor(max), baseMin, baseMax);
+    setPriceRange(
+      `${Math.min(nextMin, nextMax)}-${Math.max(nextMin, nextMax)}`,
+    );
   };
 
   const baseMin = information.minFilterPrice;
