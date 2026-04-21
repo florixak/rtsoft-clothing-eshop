@@ -8,6 +8,7 @@ import { Link } from "@tanstack/react-router";
 import { CardContent, CardHeader } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 
 const ShippingForm = withForm({
   ...checkoutFormOpts,
@@ -29,20 +30,36 @@ const ShippingForm = withForm({
               <form.AppField
                 key={method.id}
                 name="shipping.shippingMethod"
-                children={(field) => (
-                  <field.RadioButtonField value={method.id} className="w-full">
-                    <CardHeader>{method.name[locale]}</CardHeader>
-                    <CardContent className="text-sm text-muted-foreground flex flex-col gap-2 w-full">
-                      <p>{method.description[locale]}</p>
+                children={(field) => {
+                  const shouldShowPacketaButton =
+                    method.id === "packeta" && field.state.value === method.id;
+                  return (
+                    <field.RadioButtonField
+                      value={method.id}
+                      className="w-full"
+                    >
+                      <CardHeader>{method.name[locale]}</CardHeader>
+                      <CardContent className="text-sm text-muted-foreground flex flex-col gap-2 w-full relative">
+                        <p>{method.description[locale]}</p>
 
-                      <span className="font-semibold text-lg">
-                        {method.price === 0
-                          ? translation("shippingMethod.free")
-                          : formatPrice(method.price, locale)}
-                      </span>
-                    </CardContent>
-                  </field.RadioButtonField>
-                )}
+                        <span className="font-semibold text-lg">
+                          {method.price === 0
+                            ? translation("shippingMethod.free")
+                            : formatPrice(method.price, locale)}
+                        </span>
+                        {shouldShowPacketaButton && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-max absolute bottom-0 right-2"
+                          >
+                            {translation("shippingMethod.packetaButton")}
+                          </Button>
+                        )}
+                      </CardContent>
+                    </field.RadioButtonField>
+                  );
+                }}
               />
             ))}
           </div>
