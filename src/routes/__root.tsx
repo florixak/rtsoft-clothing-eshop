@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import "@/lib/i18n";
 import type { QueryClient } from "@tanstack/react-query";
@@ -63,6 +64,7 @@ function RootComponent() {
       <main className="min-h-screen bg-background px-4 py-6 pt-32 md:pt-24">
         <Outlet />
       </main>
+      <Footer />
       <Toaster position="bottom-right" />
       <ReactQueryDevtools position="left" buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
