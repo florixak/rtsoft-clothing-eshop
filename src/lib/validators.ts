@@ -33,7 +33,7 @@ export const shippingSchema = z.object({
       if (shipping.shippingMethod === "packeta") {
         if (!shipping.packetaPickupPointId?.trim()) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: "validation.packetaPickupPointRequired",
             path: ["packetaPickupPointId"],
           });
@@ -43,7 +43,7 @@ export const shippingSchema = z.object({
       if (shipping.useDifferentShippingAddress) {
         if (!shipping.differentShippingAddress.streetAddress.trim()) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: "validation.streetAddressRequired",
             path: ["differentShippingAddress", "streetAddress"],
           });
@@ -51,7 +51,7 @@ export const shippingSchema = z.object({
 
         if (!shipping.differentShippingAddress.city.trim()) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: "validation.cityRequired",
             path: ["differentShippingAddress", "city"],
           });
@@ -59,7 +59,7 @@ export const shippingSchema = z.object({
 
         if (!shipping.differentShippingAddress.postalCode.trim()) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: "validation.postalCodeRequired",
             path: ["differentShippingAddress", "postalCode"],
           });
@@ -67,7 +67,7 @@ export const shippingSchema = z.object({
 
         if (!shipping.differentShippingAddress.country.trim()) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: "validation.countryRequired",
             path: ["differentShippingAddress", "country"],
           });
