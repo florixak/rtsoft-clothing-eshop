@@ -20,14 +20,15 @@ const PriceRangeFilter = ({
   patchSearch,
 }: PriceRangeFilterProps) => {
   const search = useSearch({ from: "/{-$locale}/" });
+  const searchWithoutPriceRange = { ...search, priceRange: undefined };
   const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const {
     data: { information } = {
       information: { total: 0, minFilterPrice: 0, maxFilterPrice: 0 },
     },
   } = useSuspenseQuery({
-    queryKey: ["products", search],
-    queryFn: () => getProducts(search),
+    queryKey: ["products", "bounds", searchWithoutPriceRange],
+    queryFn: () => getProducts(searchWithoutPriceRange),
   });
 
   const [priceRangeState, setPriceRange] = useState<string | undefined>(
