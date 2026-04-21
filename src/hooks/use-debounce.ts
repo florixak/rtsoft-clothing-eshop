@@ -9,6 +9,7 @@ type UseDebounceParams<T> = {
 const useDebounce = <T>({ value, delay, onDebounce }: UseDebounceParams<T>) => {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
   const onDebounceRef = useRef(onDebounce);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     onDebounceRef.current = onDebounce;
@@ -17,6 +18,11 @@ const useDebounce = <T>({ value, delay, onDebounce }: UseDebounceParams<T>) => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(value);
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+      }
+
       onDebounceRef.current?.(value);
     }, delay);
 
