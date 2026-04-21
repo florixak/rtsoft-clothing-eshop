@@ -80,6 +80,15 @@ export type ShippingMethod = {
   description: LocalizedString;
 };
 
+export type PickupPoint = {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  distance?: string;
+  openingHours?: string;
+};
+
 export type PAYMENT_METHODS_IDS =
   | "payment-card"
   | "bank-transfer"

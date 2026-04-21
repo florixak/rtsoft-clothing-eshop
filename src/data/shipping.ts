@@ -1,4 +1,4 @@
-import type { ShippingMethod, PaymentMethod } from "../types";
+import type { ShippingMethod, PaymentMethod, PickupPoint } from "../types";
 
 export const shippingMethods: ShippingMethod[] = [
   {
@@ -44,4 +44,23 @@ export const paymentMethods: PaymentMethod[] = [
     name: { cs: "Dobírka", en: "Cash on Delivery" },
   },
   { id: "apple-pay", name: { cs: "Apple Pay", en: "Apple Pay" } },
+] as const;
+
+export const pickupPoints: PickupPoint[] = [
+  {
+    id: "pickup-1",
+    name: "Zásilkovna Praha",
+    address: "Na Hřibě 123",
+    city: "Praha",
+    distance: "1.5 km",
+    openingHours: "Po-Pá 9:00-18:00",
+  },
+  {
+    id: "pickup-2",
+    name: "Zásilkovna Brno",
+    address: "Hlavní 456",
+    city: "Brno",
+    distance: "2.0 km",
+    openingHours: "Po-Pá 9:00-18:00",
+  },
 ] as const;
