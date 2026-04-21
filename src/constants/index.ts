@@ -82,6 +82,22 @@ const METRIC_CARDS: {
   { key: "returningCustomerRate", evolution: 2.1, icon: Users },
 ];
 
+const FOOTER_LINKS = {
+  SHOP: [
+    { label: "footer.shop.products", path: "/{-$locale}" },
+    { label: "footer.shop.cart", path: "/{-$locale}/cart" },
+  ],
+  ACCOUNT: [
+    { label: "footer.account.login", path: "/{-$locale}/login" },
+    { label: "footer.account.orders", path: "/{-$locale}/account/orders" },
+  ],
+  SUPPORT: [
+    { label: "footer.support.contact", path: "/{-$locale}/contact" },
+    { label: "footer.support.privacy", path: "/{-$locale}/privacy" },
+    { label: "footer.support.terms", path: "/{-$locale}/terms" },
+  ],
+};
+
 export {
   MAX_COLORS_TO_SHOW_PER_CARD,
   MAX_SIZES_TO_SHOW_PER_CARD,
@@ -96,4 +112,5 @@ export {
   USER_MENU_ITEMS,
   ADMIN_MENU_ITEMS,
   METRIC_CARDS,
+  FOOTER_LINKS,
 };
