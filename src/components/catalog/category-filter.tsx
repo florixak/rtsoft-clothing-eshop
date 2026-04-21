@@ -22,7 +22,7 @@ const CategoryFilter = ({ category, patchSearch }: CategoryFilterProps) => {
       <h3 className="uppercase text-base text-muted-foreground">
         {t("filters.categories")}
       </h3>
-      <ul className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button
           variant={category ? "outline" : "default"}
           onClick={() => handleSetCategory("")}
@@ -38,7 +38,7 @@ const CategoryFilter = ({ category, patchSearch }: CategoryFilterProps) => {
             {entry.name[locale]}
           </Button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
