@@ -1,5 +1,5 @@
 import { shippingMethods } from "@/data";
-import { useCheckoutForm, withForm } from "@/hooks/form";
+import { withForm, type CheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
@@ -15,7 +15,7 @@ import { Label } from "../ui/label";
 import useUser from "@/hooks/use-user";
 
 type ShippingContentProps = {
-  form: ReturnType<typeof useCheckoutForm>;
+  form: CheckoutForm;
 };
 
 const ShippingContent = ({ form }: ShippingContentProps) => {
@@ -280,13 +280,7 @@ const ShippingContent = ({ form }: ShippingContentProps) => {
 
             <form.Subscribe
               selector={(state) =>
-                (
-                  state as {
-                    values: {
-                      shipping: { useDifferentShippingAddress: boolean };
-                    };
-                  }
-                ).values.shipping.useDifferentShippingAddress
+                state.values.shipping.useDifferentShippingAddress
               }
             >
               {(useDifferentShippingAddress) =>
@@ -363,11 +357,7 @@ const ShippingContent = ({ form }: ShippingContentProps) => {
 const ShippingForm = withForm({
   ...checkoutFormOpts,
   render: ({ form }) => {
-    return (
-      <ShippingContent
-        form={form as unknown as ReturnType<typeof useCheckoutForm>}
-      />
-    );
+    return <ShippingContent form={form} />;
   },
 });
 
