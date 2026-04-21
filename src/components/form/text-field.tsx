@@ -29,7 +29,7 @@ const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
   const field = useFieldContext<string>();
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className="flex flex-col w-full gap-1 relative">
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
@@ -46,6 +46,9 @@ const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
         </em>
       ) : (
         <span className="opacity-0 pointer-events-none"></span>
+      )}
+      {props.required && (
+        <span className="text-destructive absolute right-2 top-5">*</span>
       )}
     </div>
   );
