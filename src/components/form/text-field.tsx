@@ -3,27 +3,11 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { getErrorMessage } from "@/lib/validators";
 
 type TextFieldProps = {
   label: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
-
-const getErrorMessage = (error: unknown): string => {
-  if (typeof error === "string") {
-    return error;
-  }
-
-  if (
-    typeof error === "object" &&
-    error !== null &&
-    "message" in error &&
-    typeof (error as { message?: unknown }).message === "string"
-  ) {
-    return (error as { message: string }).message;
-  }
-
-  return "validation.invalidValue";
-};
 
 const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
   const field = useFieldContext<string>();

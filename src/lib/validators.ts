@@ -87,4 +87,21 @@ export const formSchema = z.object({
   ...paymentSchema.shape,
 });
 
+export const getErrorMessage = (error: unknown): string => {
+  if (typeof error === "string") {
+    return error;
+  }
+
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as { message?: unknown }).message === "string"
+  ) {
+    return (error as { message: string }).message;
+  }
+
+  return "validation.invalidValue";
+};
+
 export type FormValues = z.infer<typeof formSchema>;
