@@ -7,17 +7,31 @@ import { useTranslation } from "react-i18next";
 const Footer = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   return (
-    <footer className="bg-footer text-secondary-foreground py-8 mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-12">
-      <div>
-        <div className="flex items-center gap-2 mb-4 font-heading">
-          <ShoppingBag className="inline-block" />
-          <h3 className="font-bold text-lg">E-Shop</h3>
+    <footer className="bg-footer text-secondary-foreground py-8 mt-12 px-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <div className="flex items-center gap-2 mb-4 font-heading">
+            <ShoppingBag className="inline-block" />
+            <h3 className="font-bold text-lg">E-Shop</h3>
+          </div>
+          <p className="text-sm">{t("footer.description")}</p>
         </div>
-        <p className="text-sm">{t("footer.description")}</p>
+        <FooterColumn title="footer.shop.title" links={FOOTER_LINKS.SHOP} />
+        <FooterColumn
+          title="footer.account.title"
+          links={FOOTER_LINKS.ACCOUNT}
+        />
+        <FooterColumn
+          title="footer.support.title"
+          links={FOOTER_LINKS.SUPPORT}
+        />
       </div>
-      <FooterColumn title="footer.shop.title" links={FOOTER_LINKS.SHOP} />
-      <FooterColumn title="footer.account.title" links={FOOTER_LINKS.ACCOUNT} />
-      <FooterColumn title="footer.support.title" links={FOOTER_LINKS.SUPPORT} />
+      <p className="text-xs col-span-full text-center mt-4">
+        {t("footer.copyright", {
+          year: new Date().getFullYear(),
+          name: "E-Shop",
+        })}
+      </p>
     </footer>
   );
 };
