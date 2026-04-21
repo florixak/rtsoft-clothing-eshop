@@ -7,6 +7,11 @@
   },
   "shippingMethod": {
     "title": "Způsob doručení",
+    "packetaButton": "Vyberte výdejní místo",
+    "packetaButtonRequired": "Vyberte výdejní místo (povinné)",
+    "packetaButtonChange": "Změnit výdejní místo",
+    "packetaHelper": "Ještě je potřeba vybrat výdejní místo.",
+    "packetaSelected": "Výdejní místo je vybrané.",
     "standard": {
       "label": "Standardní",
       "duration": "4–6 pracovních dní"
@@ -114,6 +119,7 @@
     "cityRequired": "Město je povinné",
     "postalCodeRequired": "PSČ je povinné",
     "countryRequired": "Země je povinná",
+    "packetaPickupPointRequired": "Vyberte prosím výdejní místo",
     "invalidValue": "Neplatná hodnota"
   }
 }

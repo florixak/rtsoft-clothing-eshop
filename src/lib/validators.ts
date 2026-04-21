@@ -27,42 +27,51 @@ export const shippingSchema = z.object({
         postalCode: z.string(),
         country: z.string(),
       }),
+      packetaPickupPointId: z.string().optional(),
     })
     .superRefine((shipping, ctx) => {
-      if (!shipping.useDifferentShippingAddress) {
-        return;
+      if (shipping.shippingMethod === "packeta") {
+        if (!shipping.packetaPickupPointId?.trim()) {
+          ctx.addIssue({
+            code: "custom",
+            message: "validation.packetaPickupPointRequired",
+            path: ["packetaPickupPointId"],
+          });
+        }
       }
 
-      if (!shipping.differentShippingAddress.streetAddress.trim()) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "validation.streetAddressRequired",
-          path: ["differentShippingAddress", "streetAddress"],
-        });
-      }
+      if (shipping.useDifferentShippingAddress) {
+        if (!shipping.differentShippingAddress.streetAddress.trim()) {
+          ctx.addIssue({
+            code: "custom",
+            message: "validation.streetAddressRequired",
+            path: ["differentShippingAddress", "streetAddress"],
+          });
+        }
 
-      if (!shipping.differentShippingAddress.city.trim()) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "validation.cityRequired",
-          path: ["differentShippingAddress", "city"],
-        });
-      }
+        if (!shipping.differentShippingAddress.city.trim()) {
+          ctx.addIssue({
+            code: "custom",
+            message: "validation.cityRequired",
+            path: ["differentShippingAddress", "city"],
+          });
+        }
 
-      if (!shipping.differentShippingAddress.postalCode.trim()) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "validation.postalCodeRequired",
-          path: ["differentShippingAddress", "postalCode"],
-        });
-      }
+        if (!shipping.differentShippingAddress.postalCode.trim()) {
+          ctx.addIssue({
+            code: "custom",
+            message: "validation.postalCodeRequired",
+            path: ["differentShippingAddress", "postalCode"],
+          });
+        }
 
-      if (!shipping.differentShippingAddress.country.trim()) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "validation.countryRequired",
-          path: ["differentShippingAddress", "country"],
-        });
+        if (!shipping.differentShippingAddress.country.trim()) {
+          ctx.addIssue({
+            code: "custom",
+            message: "validation.countryRequired",
+            path: ["differentShippingAddress", "country"],
+          });
+        }
       }
     }),
 });
@@ -77,5 +86,22 @@ export const formSchema = z.object({
   ...shippingSchema.shape,
   ...paymentSchema.shape,
 });
+
+export const getErrorMessage = (error: unknown): string => {
+  if (typeof error === "string") {
+    return error;
+  }
+
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as { message?: unknown }).message === "string"
+  ) {
+    return (error as { message: string }).message;
+  }
+
+  return "validation.invalidValue";
+};
 
 export type FormValues = z.infer<typeof formSchema>;

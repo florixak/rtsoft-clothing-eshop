@@ -15,6 +15,7 @@ const baseDefaultValues: FormValues = {
     postalCode: "",
     country: "",
     useDifferentShippingAddress: false,
+    packetaPickupPointId: "",
     differentShippingAddress: {
       streetAddress: "",
       city: "",

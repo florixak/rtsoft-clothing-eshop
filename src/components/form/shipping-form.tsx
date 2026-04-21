@@ -5,15 +5,16 @@ import { checkoutFormOpts } from "@/lib/checkout-form";
 import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { CardContent, CardHeader } from "../ui/card";
+import { CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 
 const ShippingForm = withForm({
   ...checkoutFormOpts,
   render: ({ form }) => {
     const locale = i18n.resolvedLanguage == "cs" ? "cs" : "en";
-    const translation = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
+    const t = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
     const isLoggedIn = isAuthenticated();
     return (
       <div className="flex flex-col gap-8 w-full">
@@ -22,27 +23,51 @@ const ShippingForm = withForm({
             <span className="bg-primary text-primary-foreground rounded-full px-3 py-1 mr-2">
               1
             </span>
-            {translation("shippingMethod.title")}
+            {t("shippingMethod.title")}
           </h3>
-          <div className="flex flex-col md:flex-row w-full gap-2">
+          <div className="flex flex-col md:flex-row w-full gap-2 items-stretch">
             {shippingMethods.map((method) => (
               <form.AppField
                 key={method.id}
                 name="shipping.shippingMethod"
-                children={(field) => (
-                  <field.RadioButtonField value={method.id} className="w-full">
-                    <CardHeader>{method.name[locale]}</CardHeader>
-                    <CardContent className="text-sm text-muted-foreground flex flex-col gap-2 w-full">
-                      <p>{method.description[locale]}</p>
+                children={(field) => {
+                  const shouldShowPacketaButton =
+                    method.id === "packeta" && field.state.value === method.id;
+                  const errorNotes = field.state.meta.errors.length;
+                  return (
+                    <field.RadioButtonField
+                      value={method.id}
+                      className="w-full"
+                    >
+                      <CardHeader>{method.name[locale]}</CardHeader>
+                      <CardContent className="text-sm text-muted-foreground flex flex-col gap-2 w-full relative">
+                        <p>{method.description[locale]}</p>
 
-                      <span className="font-semibold text-lg">
-                        {method.price === 0
-                          ? translation("shippingMethod.free")
-                          : formatPrice(method.price, locale)}
-                      </span>
-                    </CardContent>
-                  </field.RadioButtonField>
-                )}
+                        <span className="font-semibold text-lg">
+                          {method.price === 0
+                            ? t("shippingMethod.free")
+                            : formatPrice(method.price, locale)}
+                        </span>
+                      </CardContent>
+                      {shouldShowPacketaButton && (
+                        <CardFooter className="p-2 flex gap-1 flex-col items-start">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full"
+                          >
+                            {t("shippingMethod.packetaButton")}
+                          </Button>
+                          <p
+                            className={`text-sm ${errorNotes ? "text-destructive" : "text-muted-foreground"}`}
+                          >
+                            {t("shippingMethod.packetaHelper")}
+                          </p>
+                        </CardFooter>
+                      )}
+                    </field.RadioButtonField>
+                  );
+                }}
               />
             ))}
           </div>
@@ -52,16 +77,16 @@ const ShippingForm = withForm({
             <span className="bg-primary text-primary-foreground rounded-full px-3 py-1 mr-2">
               2
             </span>
-            {translation("deliveryInfo.title")}
+            {t("deliveryInfo.title")}
           </h3>
           {!isLoggedIn && (
             <div className="text-sm text-muted-foreground">
-              <span>{translation("deliveryInfo.returningUser")}</span>
+              <span>{t("deliveryInfo.returningUser")}</span>
               <Link
                 to="/{-$locale}"
                 className="text-primary ml-1 font-semibold"
               >
-                {translation("deliveryInfo.logIn")}
+                {t("deliveryInfo.logIn")}
               </Link>
             </div>
           )}
@@ -70,10 +95,8 @@ const ShippingForm = withForm({
               name="shipping.firstName"
               children={(field) => (
                 <field.TextField
-                  label={translation("deliveryInfo.fields.firstName.label")}
-                  placeholder={translation(
-                    "deliveryInfo.fields.firstName.placeholder",
-                  )}
+                  label={t("deliveryInfo.fields.firstName.label")}
+                  placeholder={t("deliveryInfo.fields.firstName.placeholder")}
                   required
                 />
               )}
@@ -82,10 +105,8 @@ const ShippingForm = withForm({
               name="shipping.lastName"
               children={(field) => (
                 <field.TextField
-                  label={translation("deliveryInfo.fields.lastName.label")}
-                  placeholder={translation(
-                    "deliveryInfo.fields.lastName.placeholder",
-                  )}
+                  label={t("deliveryInfo.fields.lastName.label")}
+                  placeholder={t("deliveryInfo.fields.lastName.placeholder")}
                   required
                 />
               )}
@@ -94,10 +115,8 @@ const ShippingForm = withForm({
               name="shipping.email"
               children={(field) => (
                 <field.TextField
-                  label={translation("deliveryInfo.fields.email.label")}
-                  placeholder={translation(
-                    "deliveryInfo.fields.email.placeholder",
-                  )}
+                  label={t("deliveryInfo.fields.email.label")}
+                  placeholder={t("deliveryInfo.fields.email.placeholder")}
                   required
                 />
               )}
@@ -106,10 +125,8 @@ const ShippingForm = withForm({
               name="shipping.phone"
               children={(field) => (
                 <field.TextField
-                  label={translation("deliveryInfo.fields.phone.label")}
-                  placeholder={translation(
-                    "deliveryInfo.fields.phone.placeholder",
-                  )}
+                  label={t("deliveryInfo.fields.phone.label")}
+                  placeholder={t("deliveryInfo.fields.phone.placeholder")}
                 />
               )}
             />
@@ -119,10 +136,8 @@ const ShippingForm = withForm({
                 name="shipping.streetAddress"
                 children={(field) => (
                   <field.TextField
-                    label={translation("deliveryInfo.fields.street.label")}
-                    placeholder={translation(
-                      "deliveryInfo.fields.street.placeholder",
-                    )}
+                    label={t("deliveryInfo.fields.street.label")}
+                    placeholder={t("deliveryInfo.fields.street.placeholder")}
                     required
                   />
                 )}
@@ -133,10 +148,8 @@ const ShippingForm = withForm({
               name="shipping.city"
               children={(field) => (
                 <field.TextField
-                  label={translation("deliveryInfo.fields.city.label")}
-                  placeholder={translation(
-                    "deliveryInfo.fields.city.placeholder",
-                  )}
+                  label={t("deliveryInfo.fields.city.label")}
+                  placeholder={t("deliveryInfo.fields.city.placeholder")}
                   required
                 />
               )}
@@ -145,10 +158,8 @@ const ShippingForm = withForm({
               name="shipping.postalCode"
               children={(field) => (
                 <field.TextField
-                  label={translation("deliveryInfo.fields.postalCode.label")}
-                  placeholder={translation(
-                    "deliveryInfo.fields.postalCode.placeholder",
-                  )}
+                  label={t("deliveryInfo.fields.postalCode.label")}
+                  placeholder={t("deliveryInfo.fields.postalCode.placeholder")}
                   required
                 />
               )}
@@ -158,10 +169,8 @@ const ShippingForm = withForm({
                 name="shipping.country"
                 children={(field) => (
                   <field.TextField
-                    label={translation("deliveryInfo.fields.country.label")}
-                    placeholder={translation(
-                      "deliveryInfo.fields.country.placeholder",
-                    )}
+                    label={t("deliveryInfo.fields.country.label")}
+                    placeholder={t("deliveryInfo.fields.country.placeholder")}
                     required
                   />
                 )}
@@ -185,7 +194,7 @@ const ShippingForm = withForm({
                       htmlFor="useDifferentShippingAddress"
                       className="text-sm leading-5"
                     >
-                      {translation("deliveryInfo.useDifferentShippingAddress")}
+                      {t("deliveryInfo.useDifferentShippingAddress")}
                     </Label>
                   </div>
                 )}
@@ -202,9 +211,7 @@ const ShippingForm = withForm({
                   <>
                     <div className="md:col-span-2">
                       <h4 className="font-medium">
-                        {translation(
-                          "deliveryInfo.differentShippingAddressTitle",
-                        )}
+                        {t("deliveryInfo.differentShippingAddressTitle")}
                       </h4>
                     </div>
                     <div className="md:col-span-2">
@@ -212,10 +219,8 @@ const ShippingForm = withForm({
                         name="shipping.differentShippingAddress.streetAddress"
                         children={(field) => (
                           <field.TextField
-                            label={translation(
-                              "deliveryInfo.fields.street.label",
-                            )}
-                            placeholder={translation(
+                            label={t("deliveryInfo.fields.street.label")}
+                            placeholder={t(
                               "deliveryInfo.fields.street.placeholder",
                             )}
                             required
@@ -227,8 +232,8 @@ const ShippingForm = withForm({
                       name="shipping.differentShippingAddress.city"
                       children={(field) => (
                         <field.TextField
-                          label={translation("deliveryInfo.fields.city.label")}
-                          placeholder={translation(
+                          label={t("deliveryInfo.fields.city.label")}
+                          placeholder={t(
                             "deliveryInfo.fields.city.placeholder",
                           )}
                           required
@@ -239,10 +244,8 @@ const ShippingForm = withForm({
                       name="shipping.differentShippingAddress.postalCode"
                       children={(field) => (
                         <field.TextField
-                          label={translation(
-                            "deliveryInfo.fields.postalCode.label",
-                          )}
-                          placeholder={translation(
+                          label={t("deliveryInfo.fields.postalCode.label")}
+                          placeholder={t(
                             "deliveryInfo.fields.postalCode.placeholder",
                           )}
                           required
@@ -254,10 +257,8 @@ const ShippingForm = withForm({
                         name="shipping.differentShippingAddress.country"
                         children={(field) => (
                           <field.TextField
-                            label={translation(
-                              "deliveryInfo.fields.country.label",
-                            )}
-                            placeholder={translation(
+                            label={t("deliveryInfo.fields.country.label")}
+                            placeholder={t(
                               "deliveryInfo.fields.country.placeholder",
                             )}
                             required

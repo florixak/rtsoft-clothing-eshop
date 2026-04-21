@@ -7,6 +7,11 @@
   },
   "shippingMethod": {
     "title": "Shipping Method",
+    "packetaButton": "Select pickup point",
+    "packetaButtonRequired": "Select pickup point (required)",
+    "packetaButtonChange": "Change pickup point",
+    "packetaHelper": "You still need to choose a pickup point.",
+    "packetaSelected": "Pickup point selected.",
     "standard": {
       "label": "Standard",
       "duration": "4-6 Business Days"
@@ -114,6 +119,7 @@
     "cityRequired": "City is required",
     "postalCodeRequired": "Postal code is required",
     "countryRequired": "Country is required",
+    "packetaPickupPointRequired": "Please select a pickup point",
     "invalidValue": "Invalid value"
   }
 }
