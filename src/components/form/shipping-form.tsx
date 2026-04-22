@@ -1,22 +1,35 @@
 import { shippingMethods } from "@/data";
-import { withForm } from "@/hooks/form";
-import { isAuthenticated } from "@/lib/auth";
+import { withForm, type CheckoutForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
-import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
+import { getErrorMessage } from "@/lib/validators";
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import PickupPointDrawer from "../checkout/pickup-point-drawer";
+import { Button } from "../ui/button";
 import { CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+import useUser from "@/hooks/use-user";
 
-const ShippingForm = withForm({
-  ...checkoutFormOpts,
-  render: ({ form }) => {
-    const locale = i18n.resolvedLanguage == "cs" ? "cs" : "en";
-    const t = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
-    const isLoggedIn = isAuthenticated();
-    return (
+type ShippingContentProps = {
+  form: CheckoutForm;
+};
+
+const ShippingContent = ({ form }: ShippingContentProps) => {
+  const {
+    t,
+    i18n: { resolvedLanguage },
+  } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+  const [isPacketaDrawerOpen, setIsPacketaDrawerOpen] = useState(false);
+  const locale = resolvedLanguage == "en" ? "en" : "cs";
+  const user = useUser();
+  const isLoggedIn = user !== null;
+
+  return (
+    <>
       <div className="flex flex-col gap-8 w-full">
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-semibold">
@@ -33,7 +46,6 @@ const ShippingForm = withForm({
                 children={(field) => {
                   const shouldShowPacketaButton =
                     method.id === "packeta" && field.state.value === method.id;
-                  const errorNotes = field.state.meta.errors.length;
                   return (
                     <field.RadioButtonField
                       value={method.id}
@@ -49,28 +61,95 @@ const ShippingForm = withForm({
                             : formatPrice(method.price, locale)}
                         </span>
                       </CardContent>
-                      {shouldShowPacketaButton && (
-                        <CardFooter className="p-2 flex gap-1 flex-col items-start">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full"
-                          >
-                            {t("shippingMethod.packetaButton")}
-                          </Button>
-                          <p
-                            className={`text-sm ${errorNotes ? "text-destructive" : "text-muted-foreground"}`}
-                          >
-                            {t("shippingMethod.packetaHelper")}
-                          </p>
-                        </CardFooter>
-                      )}
+                      {shouldShowPacketaButton ? (
+                        <form.Subscribe
+                          selector={(state) => state.submissionAttempts}
+                        >
+                          {(submissionAttempts) => (
+                            <form.AppField
+                              name="shipping.packetaPickupPointId"
+                              children={(pickupPointField) => {
+                                const hasError =
+                                  pickupPointField.state.meta.errors.length > 0;
+                                const shouldShowError =
+                                  hasError &&
+                                  (pickupPointField.state.meta.isTouched ||
+                                    submissionAttempts > 0);
+                                const helperText = shouldShowError
+                                  ? t(
+                                      getErrorMessage(
+                                        pickupPointField.state.meta.errors[0],
+                                      ),
+                                    )
+                                  : pickupPointField.state.value
+                                    ? t("shippingMethod.packetaSelected")
+                                    : t("shippingMethod.packetaHelper");
+
+                                return (
+                                  <>
+                                    <CardFooter className="p-2 flex gap-1 flex-col items-start">
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="w-full"
+                                        type="button"
+                                        onClick={(event) => {
+                                          event.stopPropagation();
+                                          setIsPacketaDrawerOpen(true);
+                                        }}
+                                      >
+                                        {pickupPointField.state.value
+                                          ? t(
+                                              "shippingMethod.packetaButtonChange",
+                                            )
+                                          : t(
+                                              "shippingMethod.packetaButtonRequired",
+                                            )}
+                                      </Button>
+                                      <p
+                                        className={`text-sm ${shouldShowError ? "text-destructive" : "text-muted-foreground"}`}
+                                      >
+                                        {helperText}
+                                      </p>
+                                    </CardFooter>
+                                  </>
+                                );
+                              }}
+                            />
+                          )}
+                        </form.Subscribe>
+                      ) : null}
                     </field.RadioButtonField>
                   );
                 }}
               />
             ))}
           </div>
+
+          <form.AppField
+            name="shipping.packetaPickupPointId"
+            children={(pickupPointField) => (
+              <PickupPointDrawer
+                open={isPacketaDrawerOpen}
+                onOpenChange={(open) => {
+                  setIsPacketaDrawerOpen(open);
+                  if (!open) {
+                    pickupPointField.handleBlur();
+                  }
+                }}
+                selectedPickupPointId={
+                  pickupPointField.state.value as string | undefined
+                }
+                onSelectPickupPoint={(pickupPoint) => {
+                  pickupPointField.handleChange(pickupPoint.id);
+                }}
+                onConfirm={() => {
+                  pickupPointField.handleBlur();
+                }}
+                isLoading={false}
+              />
+            )}
+          />
         </div>
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-semibold">
@@ -184,7 +263,7 @@ const ShippingForm = withForm({
                   <div className="flex items-center gap-3">
                     <Checkbox
                       id="useDifferentShippingAddress"
-                      checked={field.state.value}
+                      checked={Boolean(field.state.value)}
                       onCheckedChange={(checked) =>
                         field.handleChange(Boolean(checked))
                       }
@@ -273,7 +352,14 @@ const ShippingForm = withForm({
           </div>
         </div>
       </div>
-    );
+    </>
+  );
+};
+
+const ShippingForm = withForm({
+  ...checkoutFormOpts,
+  render: ({ form }) => {
+    return <ShippingContent form={form} />;
   },
 });
 
