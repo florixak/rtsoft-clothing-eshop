@@ -16,6 +16,8 @@ import {
 } from "../ui/drawer";
 import { Input } from "../ui/input";
 import PickupPointList from "./pickup-point-list";
+import useMediaQuery from "@/hooks/use-media-query";
+import { cn } from "@/lib/utils";
 
 type PickupPointDrawerProps = {
   open: boolean;
@@ -34,6 +36,7 @@ const PickupPointDrawer = ({
   onConfirm,
   isLoading = false,
 }: PickupPointDrawerProps) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [search, setSearch] = useState("");
 
   const { debouncedValue: debouncedSearch } = useDebounce({
@@ -85,9 +88,13 @@ const PickupPointDrawer = ({
   const filteredPickupPointsList = filteredPickupPoints();
 
   return (
-    <Drawer direction="bottom" open={open} onOpenChange={handleOpenChange}>
+    <Drawer
+      direction={isMobile ? "bottom" : "right"}
+      open={open}
+      onOpenChange={handleOpenChange}
+    >
       <DrawerContent
-        className="gap-0"
+        className={cn("gap-0", isMobile ? "h-[80dvh]" : "w-[80dvw]")}
         onClick={(event) => {
           event.stopPropagation();
         }}
