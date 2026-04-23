@@ -1,5 +1,6 @@
 import type { CheckoutStep } from "@/constants";
 import { paymentMethods, shippingMethods } from "@/data";
+import { pickupPoints } from "@/data/shipping";
 import { withForm } from "@/hooks/form";
 import { checkoutFormOpts } from "@/lib/checkout-form";
 import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
@@ -39,6 +40,9 @@ const CheckoutReview = withForm({
     const selectedPaymentMethod = paymentMethods.find(
       (method) => method.id === paymentMethod,
     );
+    const selectedPickupPoint = shipping.packetaPickupPointId
+      ? pickupPoints.find((point) => point.id === shipping.packetaPickupPointId)
+      : undefined;
 
     const detailsModel: OrderDetailCardsModel = {
       shippingAddress: {
@@ -79,9 +83,20 @@ const CheckoutReview = withForm({
             : formatPrice(selectedShippingMethod.price, locale)
           : "-",
         footer: (
-          <p className="text-sm text-muted-foreground">
-            {translation("review.includesTrackingAndInsurance")}
-          </p>
+          <div className="space-y-1 text-sm text-muted-foreground">
+            {selectedShippingMethod?.id === "packeta" && selectedPickupPoint ? (
+              <>
+                <p className="font-medium text-foreground">
+                  {translation("pickupDrawer.selectedTitle")}
+                </p>
+                <p>
+                  {selectedPickupPoint.name}, {selectedPickupPoint.address},{" "}
+                  {selectedPickupPoint.city}
+                </p>
+              </>
+            ) : null}
+            <p>{translation("review.includesTrackingAndInsurance")}</p>
+          </div>
         ),
       },
       paymentMethod: {
