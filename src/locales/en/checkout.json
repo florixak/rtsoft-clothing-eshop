@@ -26,6 +26,26 @@
     },
     "free": "Free"
   },
+  "pickupDrawer": {
+    "title": "Select pickup point",
+    "description": "Choose a Packeta pickup point to continue checkout.",
+    "close": "Close drawer",
+    "searchPlaceholder": "Search by name, city or address",
+    "selectedTitle": "Selected pickup point",
+    "emptySelection": "Choose one location to continue.",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "useSelected": "Use selected pickup point",
+    "list": {
+      "locationsFound": "{{count}} locations found",
+      "selected": "Selected",
+      "noResults": "No pickup points match your search."
+    },
+    "point": {
+      "open": "Open: {{hours}}",
+      "selected": "Selected pickup point"
+    }
+  },
   "deliveryInfo": {
     "title": "Delivery Information",
     "returningUser": "Returning user?",

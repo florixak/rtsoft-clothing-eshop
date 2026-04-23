@@ -26,6 +26,26 @@
     },
     "free": "Zdarma"
   },
+  "pickupDrawer": {
+    "title": "Vyberte výdejní místo",
+    "description": "Pro pokračování v objednávce vyberte výdejní místo Packeta.",
+    "close": "Zavřít panel",
+    "searchPlaceholder": "Hledat podle názvu, města nebo adresy",
+    "selectedTitle": "Vybrané výdejní místo",
+    "emptySelection": "Pro pokračování vyberte jedno místo.",
+    "cancel": "Zrušit",
+    "saving": "Ukládám...",
+    "useSelected": "Použít vybrané výdejní místo",
+    "list": {
+      "locationsFound": "Nalezeno míst: {{count}}",
+      "selected": "Vybráno",
+      "noResults": "Žádná výdejní místa neodpovídají vašemu hledání."
+    },
+    "point": {
+      "open": "Otevřeno: {{hours}}",
+      "selected": "Vybrané výdejní místo"
+    }
+  },
   "deliveryInfo": {
     "title": "Doručovací informace",
     "returningUser": "Již máte účet?",
