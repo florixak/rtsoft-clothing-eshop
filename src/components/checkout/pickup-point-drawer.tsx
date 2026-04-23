@@ -1,8 +1,10 @@
 import { Search, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { pickupPoints } from "@/data/shipping";
 import useDebounce from "@/hooks/use-debounce";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { PickupPoint as PickupPointType } from "@/types";
 import { Button } from "../ui/button";
 import {
@@ -36,6 +38,7 @@ const PickupPointDrawer = ({
   onConfirm,
   isLoading = false,
 }: PickupPointDrawerProps) => {
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [search, setSearch] = useState("");
 
@@ -102,15 +105,15 @@ const PickupPointDrawer = ({
         <DrawerHeader className="border-b px-4 pb-4 pt-4 text-left">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1">
-              <DrawerTitle>Select pickup point</DrawerTitle>
+              <DrawerTitle>{t("pickupDrawer.title")}</DrawerTitle>
               <DrawerDescription>
-                Choose a Packeta pickup point to continue checkout.
+                {t("pickupDrawer.description")}
               </DrawerDescription>
             </div>
             <DrawerClose asChild>
               <Button variant="ghost" size="icon" className="shrink-0">
                 <X aria-hidden="true" />
-                <span className="sr-only">Close drawer</span>
+                <span className="sr-only">{t("pickupDrawer.close")}</span>
               </Button>
             </DrawerClose>
           </div>
@@ -123,7 +126,7 @@ const PickupPointDrawer = ({
             <Input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search by name, city or address"
+              placeholder={t("pickupDrawer.searchPlaceholder")}
               className="pl-9"
             />
           </div>
@@ -138,7 +141,7 @@ const PickupPointDrawer = ({
         <DrawerFooter className="border-t bg-background">
           {selectedPickupPoint ? (
             <div className="rounded-xl bg-muted p-3 text-sm">
-              <p className="font-medium">Selected pickup point</p>
+              <p className="font-medium">{t("pickupDrawer.selectedTitle")}</p>
               <p className="text-muted-foreground">
                 {selectedPickupPoint.name}, {selectedPickupPoint.address},{" "}
                 {selectedPickupPoint.city}
@@ -146,14 +149,14 @@ const PickupPointDrawer = ({
             </div>
           ) : (
             <div className="rounded-xl bg-muted p-3 text-sm text-muted-foreground">
-              Choose one location to continue.
+              {t("pickupDrawer.emptySelection")}
             </div>
           )}
 
           <div className="flex gap-2">
             <DrawerClose asChild>
               <Button variant="outline" className="flex-1">
-                Cancel
+                {t("pickupDrawer.cancel")}
               </Button>
             </DrawerClose>
             <Button
@@ -161,7 +164,9 @@ const PickupPointDrawer = ({
               onClick={handleConfirm}
               disabled={!selectedPickupPoint || isLoading}
             >
-              {isLoading ? "Saving..." : "Use selected pickup point"}
+              {isLoading
+                ? t("pickupDrawer.saving")
+                : t("pickupDrawer.useSelected")}
             </Button>
           </div>
         </DrawerFooter>
