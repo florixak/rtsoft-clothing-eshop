@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
 import type { PickupPoint as PickupPointType } from "@/types";
 import { MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { Button } from "../ui/button";
 
 type PickupPointProps = {
@@ -14,6 +17,8 @@ const PickupPoint = ({
   isSelected,
   onSelect,
 }: PickupPointProps) => {
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+
   return (
     <Button
       key={pickupPoint.id}
@@ -46,13 +51,15 @@ const PickupPoint = ({
 
           {pickupPoint.openingHours ? (
             <p className="text-xs text-muted-foreground">
-              Open: {pickupPoint.openingHours}
+              {t("pickupDrawer.point.open", {
+                hours: pickupPoint.openingHours,
+              })}
             </p>
           ) : null}
 
           {isSelected ? (
             <p className="text-sm font-medium text-primary">
-              Selected pickup point
+              {t("pickupDrawer.point.selected")}
             </p>
           ) : null}
         </div>
