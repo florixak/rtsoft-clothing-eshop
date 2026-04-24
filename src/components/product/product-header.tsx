@@ -48,7 +48,7 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
           <BreadcrumbItem>
             <BreadcrumbLink
               render={
-                <Link to="/{-$locale}" className="text-xs">
+                <Link to="/{-$locale}" className="text-xs hover:underline">
                   {t("breadcrumbs.home")}
                 </Link>
               }
@@ -61,7 +61,7 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
                 <Link
                   to="/{-$locale}"
                   search={{ category: categoryData?.id }}
-                  className="text-xs"
+                  className="text-xs hover:underline"
                 >
                   {category}
                 </Link>

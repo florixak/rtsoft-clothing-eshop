@@ -28,7 +28,7 @@ const OrderDetailsHeader = ({
           <BreadcrumbItem>
             <BreadcrumbLink
               render={
-                <Link to={ordersListPath} className="text-xs">
+                <Link to={ordersListPath} className="text-xs hover:underline">
                   {t("orderDetails:breadcrumbs.orders")}
                 </Link>
               }

@@ -123,10 +123,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
               })}
             </span>
           </div>
-          <h3 className="text-lg font-bold hover:underline cursor-pointer">
+          <h3 className="text-lg font-bold">
             <Link
               to="/{-$locale}/product/$productSlug"
               params={{ locale, productSlug: product.slug[locale] }}
+              className="hover:underline"
             >
               {product.name[locale]}
             </Link>

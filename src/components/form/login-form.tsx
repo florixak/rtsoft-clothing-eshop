@@ -112,7 +112,9 @@ export function LoginForm({
 
               <FieldDescription className="text-center">
                 {t("login.doesNotHaveAccount")}{" "}
-                <Link to=".">{t("login.register")}</Link>
+                <Link to="." className="hover:underline">
+                  {t("login.register")}
+                </Link>
               </FieldDescription>
             </FieldGroup>
           </form>
