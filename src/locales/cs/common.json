@@ -37,6 +37,7 @@
   },
   "footer": {
     "description": "Popis obchodu",
+    "project": "Projekt byl vytvořen v rámci semestrální práce {{studentName}} ({{studentId}}) na FAV ZČU v Plzni.",
     "shop": {
       "title": "Obchod",
       "products": "Produkty",

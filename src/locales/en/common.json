@@ -37,6 +37,7 @@
   },
   "footer": {
     "description": "Description of the store",
+    "project": "The project was created as part of the semester assignment of {{studentName}} ({{studentId}}) at FAV ZČU in Plzeň.",
     "shop": {
       "title": "Shop",
       "products": "Products",
