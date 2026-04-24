@@ -96,14 +96,15 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
       />
       <div className="flex flex-col justify-between flex-1 gap-2 w-full min-w-0">
         <div className="flex flex-col gap-1">
-          <Link
-            to="/{-$locale}/product/$productSlug"
-            params={{ productSlug: product.slug[locale] }}
-          >
-            <h2 className="text-base sm:text-lg font-bold leading-tight line-clamp-2">
+          <h3 className="text-base sm:text-lg font-bold line-clamp-2">
+            <Link
+              to="/{-$locale}/product/$productSlug"
+              params={{ productSlug: product.slug[locale] }}
+              className="hover:underline"
+            >
               {product?.name[locale] ?? ""}
-            </h2>
-          </Link>
+            </Link>
+          </h3>
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
             <p>
               {t("item.size", {
