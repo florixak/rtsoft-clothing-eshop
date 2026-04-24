@@ -163,7 +163,7 @@ const ShippingContent = ({ form }: ShippingContentProps) => {
               <span>{t("deliveryInfo.returningUser")}</span>
               <Link
                 to="/{-$locale}"
-                className="text-primary ml-1 font-semibold"
+                className="text-primary ml-1 font-semibold hover:underline"
               >
                 {t("deliveryInfo.logIn")}
               </Link>
