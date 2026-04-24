@@ -48,6 +48,7 @@
   },
   "deliveryInfo": {
     "title": "Doručovací informace",
+    "requiredFieldsHint": "Povinná pole",
     "returningUser": "Již máte účet?",
     "logIn": "Přihlásit se",
     "useDifferentShippingAddress": "Doručit na jinou adresu",

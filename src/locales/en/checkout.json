@@ -48,6 +48,7 @@
   },
   "deliveryInfo": {
     "title": "Delivery Information",
+    "requiredFieldsHint": "Required fields",
     "returningUser": "Returning user?",
     "logIn": "Log In",
     "useDifferentShippingAddress": "Ship to a different address",
