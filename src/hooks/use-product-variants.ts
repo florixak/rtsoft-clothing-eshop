@@ -11,11 +11,12 @@ import type { Product, SizeCode, TypeCode } from "@/types";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import useLocale from "./use-locale";
 
 const useProductVariants = (product: Product) => {
   const { addItem, getQuantity } = useCartStore();
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.common);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const locale = useLocale();
 
   const allColors = getAllColors(product);
   const inStockColorCodes = new Set(

@@ -11,10 +11,11 @@ import type { Product } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
+import useLocale from "@/hooks/use-locale";
 
 const AdminProductsTable = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const locale = useLocale();
 
   const { data: products } = useSuspenseQuery(
     createAdminProductsQueryOptions(),

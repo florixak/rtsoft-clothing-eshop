@@ -1,6 +1,7 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { TopProduct } from "@/types";
 import { useTranslation } from "react-i18next";
+import useLocale from "@/hooks/use-locale";
 
 type BestSellerCardProps = {
   product: TopProduct;
@@ -9,8 +10,8 @@ type BestSellerCardProps = {
 const BestSeller = ({ product }: BestSellerCardProps) => {
   const imageUrl =
     product.fallbackImages[0] || "/images/product-placeholder.png";
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const locale = useLocale();
   return (
     <div className="flex flex-row items-center gap-2">
       <img

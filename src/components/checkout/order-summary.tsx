@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { Skeleton } from "../ui/skeleton";
+import useLocale from "@/hooks/use-locale";
 
 type OrderSummaryProps = {
   data?: {
@@ -38,8 +39,8 @@ export const OrderSummary = ({
     cart: { items },
   } = useCartStore();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.cart);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.cart);
+  const locale = useLocale();
   const { shipping } = summary;
   const subtotalValue = subtotal();
   const {
@@ -214,8 +215,8 @@ export const SuccessOrderSummary = ({
   order: Order;
   showProducts?: boolean;
 }) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.orderConfirmation);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.orderConfirmation);
+  const locale = useLocale();
   const {
     total,
     subtotal: subtotalValue,

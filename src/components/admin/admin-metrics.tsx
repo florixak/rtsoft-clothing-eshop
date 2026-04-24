@@ -7,10 +7,11 @@ import { useSearch } from "@tanstack/react-router";
 import MetricCard from "./metric-card";
 import { useTranslation } from "react-i18next";
 import type { DashboardMetricsKey } from "@/types";
+import useLocale from "@/hooks/use-locale";
 
 const AdminMetrics = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const locale = useLocale();
   const { period: selectedPeriod } = useSearch({ from: "/{-$locale}/admin/" });
 
   const { data: metrics } = useSuspenseQuery(

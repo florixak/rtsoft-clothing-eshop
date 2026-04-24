@@ -1,14 +1,15 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { Product } from "@/types";
 import { useTranslation } from "react-i18next";
+import useLocale from "@/hooks/use-locale";
 
 type ProductSpecificationsProps = {
   product: Product;
 };
 
 const ProductSpecifications = ({ product }: ProductSpecificationsProps) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.product);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.product);
+  const locale = useLocale();
   const { specifications } = product;
   return (
     <div className="flex flex-col gap-4">

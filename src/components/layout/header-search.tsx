@@ -11,13 +11,14 @@ import { searchForProducts, normalizeText } from "@/lib/search-utils";
 import useDebounce from "@/hooks/use-debounce";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import useLocale from "@/hooks/use-locale";
 
 type HeaderSearchProps = {
   mode?: "desktop" | "mobile";
 };
 
 const HeaderSearch = ({ mode = "desktop" }: HeaderSearchProps) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const navigate = useNavigate();
   const location = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,7 +43,7 @@ const HeaderSearch = ({ mode = "desktop" }: HeaderSearchProps) => {
     delay: 300,
   });
 
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
   const normalizedQuery = normalizeText(debouncedValue);
   const matchedProducts = searchForProducts(normalizedQuery, locale);
 

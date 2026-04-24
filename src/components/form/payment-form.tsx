@@ -8,9 +8,8 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 const PaymentForm = withForm({
   ...checkoutFormOpts,
   render: ({ form }) => {
-    const locale = i18n.resolvedLanguage == "cs" ? "cs" : "en";
+    const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
     const translation = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
-    const resolvedLanguage = i18n.resolvedLanguage === "cs" ? "cs" : "en";
     return (
       <div className="flex flex-col gap-8 w-full">
         <div className="flex flex-col gap-6">
@@ -27,7 +26,7 @@ const PaymentForm = withForm({
                 name="payment.paymentMethod"
                 children={(field) => (
                   <field.RadioButtonField value={method.id}>
-                    <CardHeader>{method.name[resolvedLanguage]}</CardHeader>
+                    <CardHeader>{method.name[locale]}</CardHeader>
                   </field.RadioButtonField>
                 )}
               />

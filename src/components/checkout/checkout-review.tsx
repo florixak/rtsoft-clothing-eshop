@@ -16,9 +16,8 @@ const CheckoutReview = withForm({
     onEditSection: (() => {}) as (section: CheckoutStep) => void,
   },
   render: ({ form, onEditSection }) => {
-    const locale = i18n.resolvedLanguage == "cs" ? "cs" : "en";
+    const locale = i18n.resolvedLanguage == "en" ? "en" : "cs";
     const translation = i18n.getFixedT(locale, TRANSLATION_NAMESPACES.checkout);
-    const resolvedLanguage = i18n.resolvedLanguage === "cs" ? "cs" : "en";
     const { payment, shipping } = form.state.values;
     const {
       city,
@@ -74,9 +73,8 @@ const CheckoutReview = withForm({
         ),
       },
       shippingMethod: {
-        name: selectedShippingMethod?.name[resolvedLanguage] ?? "-",
-        description:
-          selectedShippingMethod?.description[resolvedLanguage] ?? "-",
+        name: selectedShippingMethod?.name[locale] ?? "-",
+        description: selectedShippingMethod?.description[locale] ?? "-",
         priceLabel: selectedShippingMethod
           ? selectedShippingMethod.price === 0
             ? translation("shippingMethod.free")
@@ -100,7 +98,7 @@ const CheckoutReview = withForm({
         ),
       },
       paymentMethod: {
-        name: selectedPaymentMethod?.name[resolvedLanguage] ?? "-",
+        name: selectedPaymentMethod?.name[locale] ?? "-",
         footer:
           paymentMethod === "payment-card" || paymentMethod === "apple-pay" ? (
             <p className="text-sm text-muted-foreground flex items-center gap-1">

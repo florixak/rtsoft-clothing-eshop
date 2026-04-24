@@ -2,6 +2,7 @@ import { categories } from "@/data";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
+import useLocale from "@/hooks/use-locale";
 
 type CategoryFilterProps = {
   category?: string;
@@ -9,9 +10,8 @@ type CategoryFilterProps = {
 };
 
 const CategoryFilter = ({ category, patchSearch }: CategoryFilterProps) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
-
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
+  const locale = useLocale();
 
   const handleSetCategory = (category: string) => {
     patchSearch({ category: category || undefined });

@@ -1,13 +1,13 @@
 import type { Languages } from "@/lib/i18n";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import useLocale from "./use-locale";
 
 const useLanguage = () => {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const currentLanguage: Languages =
-    i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const currentLanguage: Languages = useLocale();
 
   const changeLanguage = async (value: string | null) => {
     if (value === "cs" || value === "en") {

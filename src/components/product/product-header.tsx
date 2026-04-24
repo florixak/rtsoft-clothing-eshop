@@ -19,6 +19,7 @@ import {
 import ProductActions from "./product-actions";
 import ProductImage from "./product-image";
 import { Link } from "@tanstack/react-router";
+import useLocale from "@/hooks/use-locale";
 
 type ProductHeaderProps = {
   product: Product;
@@ -31,8 +32,8 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
 
   const productVariants = useProductVariants(product);
 
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.product);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.product);
+  const locale = useLocale();
 
   const category = categoryData?.name[locale] ?? "";
 

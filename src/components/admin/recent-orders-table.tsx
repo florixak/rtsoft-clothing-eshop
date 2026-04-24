@@ -20,10 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import useLocale from "@/hooks/use-locale";
 
 const RecentOrdersTable = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const locale = useLocale();
 
   const { data: recentOrders } = useSuspenseQuery(
     createRecentOrdersQueryOptions(),
