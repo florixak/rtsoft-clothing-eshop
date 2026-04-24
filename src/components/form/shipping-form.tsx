@@ -158,6 +158,10 @@ const ShippingContent = ({ form }: ShippingContentProps) => {
             </span>
             {t("deliveryInfo.title")}
           </h3>
+          <p className="text-sm text-muted-foreground">
+            <span className="text-destructive">*</span>{" "}
+            {t("deliveryInfo.requiredFieldsHint")}
+          </p>
           {!isLoggedIn && (
             <div className="text-sm text-muted-foreground">
               <span>{t("deliveryInfo.returningUser")}</span>
