@@ -99,7 +99,7 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
           <h3 className="text-base sm:text-lg font-bold line-clamp-2">
             <Link
               to="/{-$locale}/product/$productSlug"
-              params={{ productSlug: product.slug[locale] }}
+              params={{ locale, productSlug: product.slug[locale] }}
               className="hover:underline"
             >
               {product?.name[locale] ?? ""}
