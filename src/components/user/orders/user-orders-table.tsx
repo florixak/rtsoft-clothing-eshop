@@ -21,10 +21,11 @@ import { useNavigate } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import useUser from "@/hooks/use-user";
+import useLocale from "@/hooks/use-locale";
 
 const UserOrdersTable = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.account);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.account);
+  const locale = useLocale();
   const navigate = useNavigate();
   const user = useUser();
 

@@ -12,13 +12,14 @@ import {
 } from "../ui/drawer";
 import CatalogFilter from "./catalog-filter";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import useLocale from "@/hooks/use-locale";
 
 const AppliedFilters = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const navigate = useNavigate({ from: "/{-$locale}/" });
   const search = useSearch({ from: "/{-$locale}/" });
 
-  const language = i18n.resolvedLanguage == "cs" ? "cs" : "en";
+  const language = useLocale();
 
   const appliedFilters = getAppliedFiltersLabel(search, language);
 

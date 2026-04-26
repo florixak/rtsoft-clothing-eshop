@@ -15,6 +15,7 @@ import OrderInformation from "./order-information";
 import OrderItems from "./order-items";
 import { formatDate } from "@/lib/utils";
 import type { Order } from "@/types";
+import useLocale from "@/hooks/use-locale";
 
 type OrderDetailsProps = {
   orderId: Order["id"];
@@ -22,7 +23,7 @@ type OrderDetailsProps = {
 };
 
 const OrderDetails = ({ orderId, ordersListPath }: OrderDetailsProps) => {
-  const { t, i18n } = useTranslation([
+  const { t } = useTranslation([
     TRANSLATION_NAMESPACES.orderDetails,
     TRANSLATION_NAMESPACES.common,
   ]);
@@ -30,7 +31,7 @@ const OrderDetails = ({ orderId, ordersListPath }: OrderDetailsProps) => {
   const [status, setStatus] = useState(data.status);
   const order = { ...data, status };
 
-  const locale = i18n.resolvedLanguage === "cs" ? "cs" : "en";
+  const locale = useLocale();
 
   const { mutate, isPending } = useMutation({
     mutationFn: (orderId: string) => {

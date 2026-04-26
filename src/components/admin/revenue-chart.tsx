@@ -14,6 +14,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "../ui/chart";
+import useLocale from "@/hooks/use-locale";
 
 const chartConfig = {
   revenue: {
@@ -23,7 +24,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 const RevenueChart = () => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.admin);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
   const { period } = useSearch({ from: "/{-$locale}/admin/" });
   const { data } = useSuspenseQuery(createRevenueChartDataQueryOptions(period));
   const selectedPeriod: DashboardPeriod = dashboardPeriods.includes(
@@ -31,7 +32,7 @@ const RevenueChart = () => {
   )
     ? (period as DashboardPeriod)
     : "all";
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
 
   return (
     <ChartContainer config={chartConfig} className="h-80 w-full">

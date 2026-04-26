@@ -12,6 +12,7 @@ import QuantityCounter from "../product/quantity-counter";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import toast from "react-hot-toast";
+import useLocale from "@/hooks/use-locale";
 
 type CartItemProps = {
   item: CartItemType;
@@ -23,11 +24,11 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   const { data: product } = useSuspenseQuery(
     createProductIdQueryOptions(item.productId),
   );
-  const { t, i18n } = useTranslation([
+  const { t } = useTranslation([
     TRANSLATION_NAMESPACES.cart,
     TRANSLATION_NAMESPACES.common,
   ]);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
 
   const handleRemove = () => {
     removeItem(item.id);

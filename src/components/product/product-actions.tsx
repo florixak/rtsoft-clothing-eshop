@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import QuantityCounter from "./quantity-counter";
+import useLocale from "@/hooks/use-locale";
 
 type ProductActionsProps = {
   selectedColor: TypeCode | undefined;
@@ -32,9 +33,9 @@ const ProductActions = ({
   inStockSizeCodes,
   isOutOfStock,
 }: ProductActionsProps) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.product);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.product);
   const { quantity, setQuantity } = useQuantityCounter();
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
 
   const selectedColorLabel: string =
     allColors.find((color) => color.code === selectedColor)?.label[locale] ||

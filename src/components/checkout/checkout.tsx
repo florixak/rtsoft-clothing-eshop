@@ -31,13 +31,13 @@ import { Skeleton } from "../ui/skeleton";
 import CheckoutReview from "./checkout-review";
 import CheckoutStepper from "./checkout-stepper";
 import { OrderSummary } from "./order-summary";
+import useLocale from "@/hooks/use-locale";
 
 const Checkout = () => {
   const { t } = useTranslation([
     TRANSLATION_NAMESPACES.checkout,
     TRANSLATION_NAMESPACES.common,
   ]);
-  const { i18n } = useTranslation();
   const { section } = useSearch({ from: "/{-$locale}/checkout/" });
   const navigate = useNavigate({ from: "/{-$locale}/checkout/" });
   const user = useUser();
@@ -46,7 +46,7 @@ const Checkout = () => {
     cart: { items },
     subtotal: sub,
   } = useCartStore();
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
 
   const form = useCheckoutForm({
     ...checkoutFormOpts,

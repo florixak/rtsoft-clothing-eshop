@@ -3,15 +3,16 @@ import type { Order } from "@/types";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { formatPrice } from "@/lib/utils";
+import useLocale from "@/hooks/use-locale";
 
 type OrderInformationProps = {
   order: Order;
 };
 
 const OrderInformation = ({ order }: OrderInformationProps) => {
-  const { t, i18n } = useTranslation([TRANSLATION_NAMESPACES.checkout]);
+  const { t } = useTranslation([TRANSLATION_NAMESPACES.checkout]);
   const { customer, address, shippingMethod, paymentMethod } = order;
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
   return (
     <Card className="border-muted/70">
       <CardHeader>

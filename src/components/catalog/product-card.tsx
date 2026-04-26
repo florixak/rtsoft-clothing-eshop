@@ -12,15 +12,16 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { getImageBySelectedColor } from "@/lib/product-utils";
+import useLocale from "@/hooks/use-locale";
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const locale = useLocale();
 
   const {
     selectedSize,
@@ -167,8 +168,8 @@ const ColorBadge = ({
   isOutOfStock: boolean;
   onClick: () => void;
 }) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
+  const locale = useLocale();
 
   return (
     <button
@@ -200,8 +201,8 @@ const SizeBadge = ({
   isOutOfStock: boolean;
   onClick: () => void;
 }) => {
-  const { t, i18n } = useTranslation(TRANSLATION_NAMESPACES.catalog);
-  const locale = i18n.resolvedLanguage === "en" ? "en" : "cs";
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
+  const locale = useLocale();
 
   return (
     <button
