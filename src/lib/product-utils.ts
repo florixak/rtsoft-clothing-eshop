@@ -337,6 +337,11 @@ const getAvailableSizes = (product: Product) => {
 const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   const labels: { label: string; key: string; removeValue?: string }[] = [];
   const t = i18n.getFixedT(locale, "catalog");
+  const colorLabelByCode = new Map(
+    products
+      .flatMap((product) => product.options.colors)
+      .map((colorOption) => [colorOption.code, colorOption.label[locale]]),
+  );
 
   if (query.category) {
     labels.push({
@@ -378,9 +383,11 @@ const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
     }
   }
   if (query.color?.length) {
-    for (const selectedColor of query.color) {
+    const selectedColors = Array.from(new Set(query.color));
+
+    for (const selectedColor of selectedColors) {
       labels.push({
-        label: `${t("filters.color")}: ${selectedColor}`,
+        label: `${t("filters.color")}: ${colorLabelByCode.get(selectedColor) ?? selectedColor}`,
         key: "color",
         removeValue: selectedColor,
       });
