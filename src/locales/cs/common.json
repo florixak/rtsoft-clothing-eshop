@@ -145,6 +145,10 @@
     "notFound": {
       "title": "Stránka nenalezena",
       "description": "Stránka, kterou hledáte, neexistuje."
+    },
+    "orderNotFound": {
+      "title": "Objednávka nenalezena",
+      "description": "Tuto objednávku jsme nenašli. Zkontrolujte ID objednávky nebo kontaktujte podporu."
     }
   }
 }
