@@ -4,7 +4,6 @@ import type { SizeCode, TypeCode } from "@/types";
 import { ShoppingBasket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import QuantityCounter from "./quantity-counter";
 import useLocale from "@/hooks/use-locale";
 
@@ -51,76 +50,53 @@ const ProductActions = ({
         <span className="text-sm text-muted-foreground uppercase">
           {t("color.label", { color: selectedColorLabel })}
         </span>
-        <Select
-          onValueChange={(value) => handleColorChange(value as TypeCode)}
-          defaultValue={selectedColor}
-          value={selectedColor}
-          disabled={allColors.length === 0}
-        >
-          <SelectTrigger
-            className="px-4 py-2"
-            disabled={allColors.length === 0}
-          >
-            {selectedColorLabel}
-          </SelectTrigger>
-          <SelectContent>
-            {allColors.map((color) => {
-              const isOutOfStock = !inStockColorCodes.has(color.code);
-              return (
-                <SelectItem
-                  key={color.code}
-                  value={color.code}
-                  disabled={isOutOfStock}
-                  className="flex items-center gap-2"
-                >
-                  {color.label[locale]}
-                  {isOutOfStock && (
-                    <span className="ml-1 rounded bg-muted px-1 py-0 text-[10px]">
-                      {t("badge.outOfStock")}
-                    </span>
-                  )}
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
+        <div className="flex flex-wrap gap-2">
+          {allColors.map((color) => {
+            const isColorSelected = selectedColor === color.code;
+            const isColorOutOfStock = !inStockColorCodes.has(color.code);
+
+            return (
+              <Button
+                key={color.code}
+                variant={isColorSelected ? "default" : "outline"}
+                size="sm"
+                disabled={isColorOutOfStock}
+                aria-pressed={isColorSelected}
+                onClick={() => handleColorChange(color.code)}
+              >
+                {color.label[locale]}
+                {isColorOutOfStock ? ` (${t("badge.outOfStock")})` : ""}
+              </Button>
+            );
+          })}
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <span className="text-sm text-muted-foreground uppercase">
           {t("size.label", { size: selectedSizeLabel })}
         </span>
-        <Select
-          onValueChange={(value) => handleSizeChange(value as SizeCode)}
-          defaultValue={selectedSize}
-          value={selectedSize}
-          disabled={allSizes.length === 0}
-        >
-          <SelectTrigger className="px-4 py-2" disabled={allSizes.length === 0}>
-            {selectedSizeLabel}
-          </SelectTrigger>
-          <SelectContent>
-            {allSizes.map((size) => {
-              const isOutOfStock = !inStockSizeCodes.has(size.code);
-              return (
-                <SelectItem
-                  key={size.code}
-                  value={size.code}
-                  disabled={isOutOfStock}
-                  className="flex items-center gap-2"
-                >
-                  {size.label[locale]}
-                  {isOutOfStock && (
-                    <span className="ml-1 rounded bg-muted px-1 py-0 text-[10px]">
-                      {t("badge.outOfStock")}
-                    </span>
-                  )}
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
+        <div className="flex flex-wrap gap-2">
+          {allSizes.map((size) => {
+            const isSizeSelected = selectedSize === size.code;
+            const isSizeOutOfStock = !inStockSizeCodes.has(size.code);
+
+            return (
+              <Button
+                key={size.code}
+                variant={isSizeSelected ? "default" : "outline"}
+                size="sm"
+                disabled={isSizeOutOfStock}
+                aria-pressed={isSizeSelected}
+                onClick={() => handleSizeChange(size.code)}
+              >
+                {size.label[locale]}
+                {isSizeOutOfStock ? ` (${t("badge.outOfStock")})` : ""}
+              </Button>
+            );
+          })}
+        </div>
       </div>
-      <div className="flex flex-col md:flex-row md:items-center gap-4">
+      <div className="flex flex-col md:flex-row md:items-center gap-4 mt-4">
         <QuantityCounter
           disabled={isOutOfStock}
           quantity={quantity}
