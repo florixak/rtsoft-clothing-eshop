@@ -1,6 +1,7 @@
 import CheckoutSuccess from "@/components/checkout/checkout-success";
 import { createCheckoutOrderQueryOptions } from "@/hooks/query-options";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import OrderNotFound from "@/components/order/order-not-found";
 import * as z from "zod";
 
 const successSchema = z.object({
@@ -11,7 +12,8 @@ export const Route = createFileRoute("/{-$locale}/checkout/success")({
   component: RouteComponent,
   validateSearch: successSchema,
   loaderDeps: ({ search }) => [search.orderId],
-  errorComponent: () => <div>Order not found</div>,
+  errorComponent: () => <OrderNotFound />,
+  notFoundComponent: () => <OrderNotFound />,
   pendingComponent: () => <div>Loading...</div>,
   loader: async ({ context, deps }) => {
     const orderId = deps[0];
@@ -20,7 +22,7 @@ export const Route = createFileRoute("/{-$locale}/checkout/success")({
     );
 
     if (!order) {
-      throw new Response("Order not found", { status: 404 });
+      throw notFound();
     }
   },
 });

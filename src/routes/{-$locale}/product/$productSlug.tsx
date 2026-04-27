@@ -10,7 +10,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   component: RouteComponent,
   notFoundComponent: () => <ProductNotFound />,
-  errorComponent: () => <ProductNotFound />,
+  errorComponent: () => <div>Error loading product details</div>,
   pendingComponent: () => <Skeleton className="h-10 w-full rounded" />,
   loader: async ({ context, params }) => {
     const { productSlug } = params;
