@@ -149,6 +149,10 @@
     "orderNotFound": {
       "title": "Order Not Found",
       "description": "We couldn't find that order. Check your order ID or contact support."
+    },
+    "productNotFound": {
+      "title": "Product Not Found",
+      "description": "We couldn't find that product. It may have been removed or the link might be incorrect."
     }
   }
 }

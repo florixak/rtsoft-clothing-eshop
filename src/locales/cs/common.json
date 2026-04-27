@@ -149,6 +149,10 @@
     "orderNotFound": {
       "title": "Objednávka nenalezena",
       "description": "Tuto objednávku jsme nenašli. Zkontrolujte ID objednávky nebo kontaktujte podporu."
+    },
+    "productNotFound": {
+      "title": "Produkt nenalezen",
+      "description": "Tento produkt jsme nenašli. Mohl být odstraněn nebo odkaz může být nesprávný."
     }
   }
 }
