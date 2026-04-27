@@ -1,3 +1,4 @@
+import NotFound from "@/components/layout/not-found";
 import { createFileRoute, notFound, Outlet } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,6 +7,7 @@ const VALID_LOCALES = ["en", "cs"] as const;
 type Locale = (typeof VALID_LOCALES)[number];
 
 export const Route = createFileRoute("/{-$locale}")({
+  notFoundComponent: () => <NotFound />,
   beforeLoad: ({ params }) => {
     const locale = params.locale;
 
