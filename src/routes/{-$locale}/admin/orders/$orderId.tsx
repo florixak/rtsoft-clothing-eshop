@@ -11,11 +11,15 @@ export const Route = createFileRoute("/{-$locale}/admin/orders/$orderId")({
   notFoundComponent: () => <OrderNotFound />,
   loader: async ({ params, context }) => {
     const { orderId } = params;
-    const order = await context.queryClient.ensureQueryData(
-      createOrderDetailsQueryOptions(orderId),
-    );
+    try {
+      const order = await context.queryClient.ensureQueryData(
+        createOrderDetailsQueryOptions(orderId),
+      );
 
-    if (!order) {
+      if (!order) {
+        throw notFound();
+      }
+    } catch {
       throw notFound();
     }
   },

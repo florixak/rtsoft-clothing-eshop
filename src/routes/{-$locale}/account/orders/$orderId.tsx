@@ -12,16 +12,20 @@ export const Route = createFileRoute("/{-$locale}/account/orders/$orderId")({
   notFoundComponent: () => <OrderNotFound />,
   loader: async ({ params, context }) => {
     const { orderId } = params;
-    const order = await context.queryClient.ensureQueryData(
-      createOrderDetailsQueryOptions(orderId),
-    );
+    try {
+      const order = await context.queryClient.ensureQueryData(
+        createOrderDetailsQueryOptions(orderId),
+      );
 
-    if (!order) {
+      if (!order) {
+        throw notFound();
+      }
+
+      if (order.userId !== getCurrentUserId()) {
+        throw new Response("Forbidden", { status: 403 });
+      }
+    } catch {
       throw notFound();
-    }
-
-    if (order.userId !== getCurrentUserId()) {
-      throw new Response("Forbidden", { status: 403 });
     }
   },
 });
