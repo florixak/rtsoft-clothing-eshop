@@ -91,18 +91,6 @@
   },
   "paymentMethod": {
     "title": "Způsob platby",
-    "creditCard": {
-      "label": "Platební karta",
-      "description": "Visa, Mastercard, AMEX, Discover"
-    },
-    "paypal": {
-      "label": "PayPal",
-      "description": "Rychlá a bezpečná platba přes PayPal"
-    },
-    "cashOnDelivery": {
-      "label": "Dobírka",
-      "description": "Zaplatíte při převzetí zásilky"
-    },
     "redirect": {
       "title": "Platba po vytvoření objednávky",
       "description": "Po odeslání objednávky vás přesměrujeme na vybranou platební bránu, kde bezpečně dokončíte platbu."

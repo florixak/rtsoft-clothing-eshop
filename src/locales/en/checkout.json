@@ -91,18 +91,6 @@
   },
   "paymentMethod": {
     "title": "Payment Method",
-    "creditCard": {
-      "label": "Credit Card",
-      "description": "Visa, Mastercard, AMEX, Discover"
-    },
-    "paypal": {
-      "label": "PayPal",
-      "description": "Fast and secure checkout via PayPal"
-    },
-    "cashOnDelivery": {
-      "label": "Cash on delivery",
-      "description": "Pay when you receive the order"
-    },
     "redirect": {
       "title": "Pay After Order Creation",
       "description": "After you place your order, we will redirect you to the selected payment provider to complete your payment securely."
