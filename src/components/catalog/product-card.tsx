@@ -48,13 +48,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <img
           src={images.primary}
           alt={product.name[locale]}
-          className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover aspect-square group-hover:hidden"
+          className="w-full object-cover aspect-square group-hover:hidden"
           loading="lazy"
         />
         <img
           src={images.secondary}
           alt={product.name[locale]}
-          className="max-h-100 md:max-h-80 lg:max-h-68 w-full object-cover aspect-square hidden group-hover:block"
+          className="w-full object-cover aspect-square hidden group-hover:block"
           loading="lazy"
         />
         <div className="absolute bottom-2 left-2 flex flex-col text-xs items-start gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity w-[calc(100%-1rem)]">
