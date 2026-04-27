@@ -52,8 +52,9 @@ const ProductActions = ({
         </span>
         <div className="flex flex-wrap gap-2">
           {allColors.map((color) => {
-            const isColorSelected = selectedColor === color.code;
             const isColorOutOfStock = !inStockColorCodes.has(color.code);
+            const isColorSelected =
+              selectedColor === color.code && !isColorOutOfStock;
 
             return (
               <Button
@@ -77,8 +78,8 @@ const ProductActions = ({
         </span>
         <div className="flex flex-wrap gap-2">
           {allSizes.map((size) => {
-            const isSizeSelected = selectedSize === size.code;
             const isSizeOutOfStock = !inStockSizeCodes.has(size.code);
+            const isSizeSelected = selectedSize === size.code && !isSizeOutOfStock;
 
             return (
               <Button
