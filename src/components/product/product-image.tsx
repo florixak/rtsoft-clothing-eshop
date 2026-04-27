@@ -34,13 +34,13 @@ const ProductImage = ({ images, product, locale }: ProductImageProps) => {
         <img
           src={selectedImage}
           alt={product.name[locale] ?? "Product image"}
-          className="w-full md:size-120 object-cover rounded shadow-image"
+          className="w-full max-w-120 aspect-square object-cover rounded shadow-image"
         />
       ) : (
         <div
           role="img"
           aria-label={product.name[locale] ?? "Product image"}
-          className="w-full md:size-120 bg-muted rounded shadow-image"
+          className="w-full max-w-120 aspect-square bg-muted rounded shadow-image"
         />
       )}
       {images.primary || images.secondary ? (
