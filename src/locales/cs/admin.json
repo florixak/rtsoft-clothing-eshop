@@ -23,15 +23,6 @@
       "subtitle": "Příjmy podle zvoleného období",
       "revenue": "Příjem"
     },
-    "days": {
-      "mon": "PO",
-      "tue": "ÚT",
-      "wed": "ST",
-      "thu": "ČT",
-      "fri": "PÁ",
-      "sat": "SO",
-      "sun": "NE"
-    },
     "bestSellers": {
       "title": "Nejprodávanější",
       "viewAll": "Zobrazit vše",
@@ -53,8 +44,7 @@
       "date": "Datum",
       "amount": "Částka",
       "paymentMethod": "Způsob platby",
-      "status": "Stav",
-      "action": "Akce"
+      "status": "Stav"
     },
     "status": {
       "all": "Všechny",
@@ -71,11 +61,9 @@
     "table": {
       "productId": "ID produktu",
       "title": "Název",
-      "category": "Kategorie",
       "price": "Cena",
       "dateAdded": "Datum přidání",
-      "stock": "Sklad",
-      "action": "Akce"
+      "stock": "Sklad"
     },
     "status": {
       "active": "Aktivní",

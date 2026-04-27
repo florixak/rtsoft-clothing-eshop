@@ -129,13 +129,6 @@
     "sessionExpired": "Vaše relace vypršela. Přihlaste se prosím znovu.",
     "copied": "Zkopírováno do schránky!"
   },
-  "dialog": {
-    "confirmDelete": "Opravdu chcete tuto položku smazat?",
-    "confirmDeleteDescription": "Tuto akci nelze vrátit zpět.",
-    "confirmLogout": "Opravdu se chcete odhlásit?",
-    "unsavedChanges": "Máte neuložené změny.",
-    "unsavedChangesDescription": "Opravdu chcete odejít? Vaše změny budou ztraceny."
-  },
   "pagination": {
     "previous": "Předchozí",
     "next": "Další",
@@ -144,28 +137,6 @@
     "pageOf": "Stránka {{current}} z {{total}}",
     "showing": "Zobrazeno {{from}}–{{to}} z {{total}} výsledků",
     "rowsPerPage": "Řádků na stránku"
-  },
-  "filters": {
-    "title": "Filtry",
-    "sort": "Seřadit podle",
-    "sortOptions": {
-      "newest": "Nejnovější",
-      "priceAsc": "Cena: od nejnižší",
-      "priceDesc": "Cena: od nejvyšší",
-      "nameAsc": "Název: A–Z",
-      "nameDesc": "Název: Z–A",
-      "popularity": "Nejoblíbenější"
-    },
-    "priceRange": "Cenové rozpětí",
-    "from": "Od",
-    "to": "Do",
-    "clear": "Vymazat filtry",
-    "clearAll": "Vymazat vše",
-    "apply": "Použít filtry",
-    "activeFilters": "{{count}} aktivní filtr",
-    "activeFilters_few": "{{count}} aktivní filtry",
-    "activeFilters_other": "{{count}} aktivních filtrů",
-    "noFilters": "Žádné filtry nejsou aktivní."
   },
   "breadcrumbs": {
     "home": "Domů"

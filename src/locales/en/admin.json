@@ -23,15 +23,6 @@
       "subtitle": "Revenue for the selected period",
       "revenue": "Revenue"
     },
-    "days": {
-      "mon": "MON",
-      "tue": "TUE",
-      "wed": "WED",
-      "thu": "THU",
-      "fri": "FRI",
-      "sat": "SAT",
-      "sun": "SUN"
-    },
     "bestSellers": {
       "title": "Best Sellers",
       "viewAll": "View All",
@@ -52,8 +43,7 @@
       "date": "Date",
       "amount": "Amount",
       "paymentMethod": "Payment Method",
-      "status": "Status",
-      "action": "Action"
+      "status": "Status"
     },
     "status": {
       "all": "All",
@@ -70,11 +60,9 @@
     "table": {
       "productId": "Product ID",
       "title": "Title",
-      "category": "Category",
       "price": "Price",
       "dateAdded": "Date Added",
-      "stock": "Stock",
-      "action": "Action"
+      "stock": "Stock"
     },
     "status": {
       "active": "Active",
