@@ -9,6 +9,7 @@ import type {
 type OptionDef = {
   code: TypeCode;
   label: LocalizedString;
+  images?: string[];
 };
 
 type SizeOptionDef = {
@@ -44,11 +45,11 @@ const createTypeOptions = (
   productId: string,
   options: OptionDef[],
 ): ProductOption<TypeCode>[] => {
-  return options.map(({ code, label }) => ({
+  return options.map(({ code, label, images }) => ({
     id: `${productId}-type-${code}`,
     code,
     label,
-    images: [
+    images: images ?? [
       `https://placehold.co/600x800?text=${productId}+${code}+Front`,
       `https://placehold.co/600x800?text=${productId}+${code}+Back`,
     ],
@@ -121,6 +122,10 @@ export const products: Product[] = [
         {
           code: "white",
           label: { cs: "Bílé", en: "White" },
+          images: [
+            "https://m.media-amazon.com/images/I/61qC9IqwprL._AC_SX679_.jpg",
+            "https://m.media-amazon.com/images/I/61bigqtSm9L._AC_SX679_.jpg",
+          ],
         },
         {
           code: "black",
