@@ -3,10 +3,9 @@ import { Home } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { useTranslation } from "react-i18next";
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { Button } from "../ui/button";
 
-export interface NotFoundProps {
+type NotFoundProps = {
   title?: ReactNode;
   description?: ReactNode;
   primary?: {
@@ -20,7 +19,7 @@ export interface NotFoundProps {
     label?: ReactNode;
   };
   className?: string;
-}
+};
 
 const NotFound = ({
   title,
@@ -29,7 +28,7 @@ const NotFound = ({
   secondary,
   className,
 }: NotFoundProps) => {
-  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const { t } = useTranslation();
   const router = useRouter();
 
   const primaryLabel = primary?.label ?? t("buttons.goHome");
