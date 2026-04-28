@@ -29,8 +29,12 @@ export const Route = createFileRoute("/{-$locale}/checkout/success")({
       if (!order) {
         throw notFound();
       }
-    } catch {
-      throw notFound();
+    } catch (error) {
+      if (error instanceof Error && error.message === "Order not found") {
+        throw notFound();
+      }
+
+      throw error;
     }
   },
 });

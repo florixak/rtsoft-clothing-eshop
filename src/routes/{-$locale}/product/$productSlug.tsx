@@ -14,23 +14,28 @@ export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   pendingComponent: () => <Skeleton className="h-10 w-full rounded" />,
   loader: async ({ context, params }) => {
     const { productSlug } = params;
+    let product;
     try {
-      const product = await context.queryClient.ensureQueryData(
+      product = await context.queryClient.ensureQueryData(
         createProductSlugQueryOptions(productSlug),
       );
-
-      if (!product) {
+    } catch (error) {
+      if (error instanceof Error && error.message === "Product not found") {
         throw notFound();
       }
 
-      const category = await context.queryClient.ensureQueryData(
-        createCategoryQueryOptions(product.categoryId),
-      );
+      throw error;
+    }
 
-      if (!category) {
-        throw notFound();
-      }
-    } catch {
+    if (!product) {
+      throw notFound();
+    }
+
+    const category = await context.queryClient.ensureQueryData(
+      createCategoryQueryOptions(product.categoryId),
+    );
+
+    if (!category) {
       throw notFound();
     }
   },
