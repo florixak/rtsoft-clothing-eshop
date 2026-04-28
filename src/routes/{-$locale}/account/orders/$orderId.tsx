@@ -3,6 +3,7 @@ import OrderNotFound from "@/components/order/order-not-found";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createOrderDetailsQueryOptions } from "@/hooks/query-options";
 import { getCurrentUserId } from "@/lib/auth";
+import { ERROR_CODES, isErrorCode } from "@/lib/errors";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/account/orders/$orderId")({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/{-$locale}/account/orders/$orderId")({
         createOrderDetailsQueryOptions(orderId),
       );
     } catch (error) {
-      if (error instanceof Error && error.message === "Order not found") {
+      if (isErrorCode(error, ERROR_CODES.orderNotFound)) {
         throw notFound();
       }
 

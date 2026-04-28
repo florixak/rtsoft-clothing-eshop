@@ -1,4 +1,5 @@
 import type { Order } from "@/types";
+import { NotFoundError, ERROR_CODES } from "./errors";
 
 const ORDERS_STORAGE_KEY = "checkout-orders";
 
@@ -43,7 +44,7 @@ export const getCheckoutOrder = async (orderId: Order["id"]) => {
   const orders = readOrders();
 
   if (!orders[orderId]) {
-    throw new Error("Order not found");
+    throw new NotFoundError(ERROR_CODES.orderNotFound);
   }
 
   return orders[orderId];

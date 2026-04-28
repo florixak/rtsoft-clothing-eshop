@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { login } from "@/lib/auth";
-import { InvalidCredentialsError } from "@/lib/errors/auth-errors";
+import { InvalidCredentialsError } from "@/lib/errors";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";

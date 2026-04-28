@@ -2,6 +2,7 @@ import { products } from "@/data";
 import type { SortOptions } from "@/data/products";
 import type { Category, Product, SizeCode, SKU, TypeCode } from "@/types";
 import { findCategoryById } from "./category-utils";
+import { NotFoundError, ERROR_CODES } from "./errors";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
 import { formatPrice, isDefined } from "./utils";
@@ -174,7 +175,7 @@ const getProductBySlug = async (slug: string): Promise<Product> => {
   await new Promise((resolve) => setTimeout(resolve, 100));
   const product = findProductBySlug(slug);
   if (!product) {
-    throw new Error("Product not found");
+    throw new NotFoundError(ERROR_CODES.productNotFound);
   }
 
   return product;
@@ -184,7 +185,7 @@ const getProductById = async (productId: string): Promise<Product> => {
   await new Promise((resolve) => setTimeout(resolve, 100));
   const product = findProductById(productId);
   if (!product) {
-    throw new Error("Product not found");
+    throw new NotFoundError(ERROR_CODES.productNotFound);
   }
 
   return product;
