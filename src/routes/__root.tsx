@@ -1,5 +1,6 @@
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import NotFound from "@/components/layout/not-found";
 import "@/lib/i18n";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -22,7 +23,7 @@ const searchSchema = z.object({
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: RootComponent,
-  notFoundComponent: () => <div>Not found</div>,
+  notFoundComponent: () => <NotFound />,
   validateSearch: searchSchema,
   head: () => {
     return {

@@ -4,13 +4,14 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useSearch } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { SuccessOrderSummary } from "./order-summary";
 import { Button } from "../ui/button";
+import { SuccessOrderSummary } from "./order-summary";
 
 const CheckoutSuccess = () => {
   const { orderId } = useSearch({ from: "/{-$locale}/checkout/success" });
+  const checkoutOrderId = orderId ?? "";
   const { data: order } = useSuspenseQuery(
-    createCheckoutOrderQueryOptions(orderId),
+    createCheckoutOrderQueryOptions(checkoutOrderId),
   );
 
   const { t } = useTranslation(TRANSLATION_NAMESPACES.orderConfirmation);
@@ -39,7 +40,7 @@ const CheckoutSuccess = () => {
             render={
               <Link
                 to="/{-$locale}/account/orders/$orderId"
-                params={{ orderId }}
+                params={{ orderId: checkoutOrderId }}
               >
                 {t("actions.viewDetails")}
               </Link>

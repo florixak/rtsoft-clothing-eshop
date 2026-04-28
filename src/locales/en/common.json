@@ -143,8 +143,16 @@
   },
   "meta": {
     "notFound": {
-      "title": "404 – Page Not Found",
+      "title": "Page Not Found",
       "description": "The page you are looking for does not exist."
+    },
+    "orderNotFound": {
+      "title": "Order Not Found",
+      "description": "We couldn't find that order. Check your order ID or contact support."
+    },
+    "productNotFound": {
+      "title": "Product Not Found",
+      "description": "We couldn't find that product. It may have been removed or the link might be incorrect."
     }
   }
 }
