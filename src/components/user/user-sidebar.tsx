@@ -1,12 +1,18 @@
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { Button } from "../ui/button";
-import { Link } from "@tanstack/react-router";
 import { USER_MENU_ITEMS } from "@/constants";
+import { logout } from "@/lib/auth";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader } from "../ui/card";
 
 const UserSidebar = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.account);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate({ to: "/{-$locale}/login" });
+  };
   return (
     <aside className="w-full md:w-64">
       <Card className="w-full md:gap-6">
@@ -37,6 +43,14 @@ const UserSidebar = () => {
                 )}
               />
             ))}
+            <Button
+              nativeButton={false}
+              className="w-full p-0 mt-2"
+              variant="outline"
+              onClick={handleLogout}
+            >
+              {t("nav.logout")}
+            </Button>
           </nav>
         </CardContent>
       </Card>

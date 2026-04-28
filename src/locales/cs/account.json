@@ -1,7 +1,8 @@
 {
   "title": "Účet",
   "nav": {
-    "orders": "Mé Objednávky"
+    "orders": "Mé Objednávky",
+    "logout": "Odhlásit se"
   },
   "orders": {
     "title": "Objednávky",
