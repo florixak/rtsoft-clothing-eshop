@@ -28,7 +28,8 @@ const QUERY_KEYS = {
   adminOrders: ["adminOrders"] as const,
   accountOrders: (userId: string) => ["accountOrders", userId] as const,
   adminProducts: ["adminProducts"] as const,
-  orderDetails: (orderId: Order["id"]) => ["orderDetails", orderId] as const,
+  orderDetails: (orderId: Order["id"], includeSessionFallback = false) =>
+    ["orderDetails", orderId, includeSessionFallback] as const,
 };
 
 const SEEN_PRODUCTS_STORAGE_KEY = "seenProducts";

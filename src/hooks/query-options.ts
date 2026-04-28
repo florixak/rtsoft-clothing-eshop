@@ -14,6 +14,7 @@ import {
   getProducts,
   type Query,
 } from "@/lib/product-utils";
+import { ERROR_CODES, isErrorCode } from "@/lib/errors";
 import type { DashboardPeriod } from "@/types";
 import { queryOptions } from "@tanstack/react-query";
 
@@ -89,9 +90,28 @@ export const createAdminProductsQueryOptions = () =>
     queryFn: () => getAdminProducts(),
   });
 
-export const createOrderDetailsQueryOptions = (orderId: string) =>
+export const createOrderDetailsQueryOptions = (
+  orderId: string,
+  options?: { includeSessionFallback?: boolean },
+) =>
   queryOptions({
-    queryKey: QUERY_KEYS.orderDetails(orderId),
-    queryFn: () => getOrderById(orderId),
+    queryKey: QUERY_KEYS.orderDetails(
+      orderId,
+      options?.includeSessionFallback ?? false,
+    ),
+    queryFn: async () => {
+      try {
+        return await getOrderById(orderId);
+      } catch (error) {
+        if (
+          options?.includeSessionFallback &&
+          isErrorCode(error, ERROR_CODES.orderNotFound)
+        ) {
+          return await getCheckoutOrder(orderId);
+        }
+
+        throw error;
+      }
+    },
     retry: false,
   });

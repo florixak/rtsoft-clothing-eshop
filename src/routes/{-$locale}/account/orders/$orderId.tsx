@@ -16,7 +16,9 @@ export const Route = createFileRoute("/{-$locale}/account/orders/$orderId")({
     let order;
     try {
       order = await context.queryClient.ensureQueryData(
-        createOrderDetailsQueryOptions(orderId),
+        createOrderDetailsQueryOptions(orderId, {
+          includeSessionFallback: true,
+        }),
       );
     } catch (error) {
       if (isErrorCode(error, ERROR_CODES.orderNotFound)) {
@@ -40,6 +42,7 @@ function RouteComponent() {
     <OrderDetails
       orderId={orderId}
       ordersListPath="/{-$locale}/account/orders"
+      includeSessionFallback
     />
   );
 }
