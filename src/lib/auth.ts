@@ -1,7 +1,7 @@
 import { getUserByEmail, getUserById, toPublicUser } from "@/lib/user-utils";
 import type { MockUser } from "@/data/users";
 import type { AuthSession, LoginInput, Role, User } from "@/types";
-import { InvalidCredentialsError } from "./errors/auth-errors";
+import { InvalidCredentialsError } from "./errors";
 
 const AUTH_SESSION_STORAGE_KEY = "auth-session";
 
