@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import Navigation from "../layout/navigation";
 import CatalogHeader from "./catalog-header";
-import ProductCard from "./product-card";
+import CatalogProducts from "./catalog-products";
 
 const Catalog = () => {
   const search = useSearch({ from: "/{-$locale}/" });
@@ -29,11 +29,9 @@ const Catalog = () => {
   return (
     <section className="container mx-auto flex flex-col items-center">
       <CatalogHeader />
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+
+      <CatalogProducts products={products} />
+
       <Navigation
         page={safePage}
         pageSize={perPage}

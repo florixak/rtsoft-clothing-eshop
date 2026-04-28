@@ -1,9 +1,7 @@
 {
   "catalog": {
-    "title": "Katalog produktů"
-  },
-  "categories": {
-    "title": "Kategorie"
+    "title": "Katalog produktů",
+    "noResults": "Nebyly nalezeny žádné produkty."
   },
   "filters": {
     "all": "Vše",

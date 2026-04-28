@@ -1,8 +1,8 @@
 {
   "catalog": {
-    "title": "Product Catalog"
+    "title": "Product Catalog",
+    "noResults": "No products found."
   },
-
   "filters": {
     "all": "All",
     "title": "Filters",
