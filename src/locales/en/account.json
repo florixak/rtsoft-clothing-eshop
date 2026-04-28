@@ -1,7 +1,8 @@
 {
   "title": "Account",
   "nav": {
-    "orders": "My Orders"
+    "orders": "My Orders",
+    "logout": "Logout"
   },
   "orders": {
     "title": "Orders",
