@@ -1,5 +1,6 @@
 import { orders } from "@/data";
 import type { Order } from "@/types";
+import { NotFoundError, ERROR_CODES } from "./errors";
 
 export const getOrderById = async (orderId: string) => {
   await new Promise<void>((resolve) => {
@@ -11,7 +12,7 @@ export const getOrderById = async (orderId: string) => {
   const order = orders.find((order) => order.id === orderId);
 
   if (!order) {
-    throw new Error("Order not found");
+    throw new NotFoundError(ERROR_CODES.orderNotFound);
   }
 
   return order;

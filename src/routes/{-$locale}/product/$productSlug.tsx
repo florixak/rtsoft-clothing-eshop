@@ -5,6 +5,7 @@ import {
   createCategoryQueryOptions,
   createProductSlugQueryOptions,
 } from "@/hooks/query-options";
+import { ERROR_CODES, isErrorCode } from "@/lib/errors";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
         createProductSlugQueryOptions(productSlug),
       );
     } catch (error) {
-      if (error instanceof Error && error.message === "Product not found") {
+      if (isErrorCode(error, ERROR_CODES.productNotFound)) {
         throw notFound();
       }
 
