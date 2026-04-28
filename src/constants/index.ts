@@ -3,6 +3,7 @@ import type { DashboardMetricsKey, DashboardPeriod, Order } from "@/types";
 import {
   Banknote,
   HandCoins,
+  LayoutDashboard,
   LayoutTemplate,
   Shirt,
   ShoppingBag,
@@ -50,11 +51,19 @@ const USER_MENU_ITEMS: {
   icon: LucideIcon;
   label: `nav.${string}`;
   path: string;
+  adminOnly?: boolean;
 }[] = [
   {
     icon: ShoppingBag,
     label: "nav.orders",
     path: "/{-$locale}/account/orders",
+    adminOnly: false,
+  },
+  {
+    icon: LayoutDashboard,
+    label: "nav.admin",
+    path: "/{-$locale}/admin",
+    adminOnly: true,
   },
 ];
 

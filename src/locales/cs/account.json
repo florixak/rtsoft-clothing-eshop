@@ -2,6 +2,7 @@
   "title": "Účet",
   "nav": {
     "orders": "Mé Objednávky",
+    "admin": "Admin Dashboard",
     "logout": "Odhlásit se"
   },
   "orders": {

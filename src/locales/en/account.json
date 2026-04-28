@@ -2,6 +2,7 @@
   "title": "Account",
   "nav": {
     "orders": "My Orders",
+    "admin": "Admin Dashboard",
     "logout": "Logout"
   },
   "orders": {
