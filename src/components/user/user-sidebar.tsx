@@ -1,5 +1,5 @@
 import { USER_MENU_ITEMS } from "@/constants";
-import { logout } from "@/lib/auth";
+import { hasRole, logout } from "@/lib/auth";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
@@ -21,28 +21,33 @@ const UserSidebar = () => {
         </CardHeader>
         <CardContent>
           <nav className="flex flex-row md:flex-col gap-2 w-full justify-center md:justify-start">
-            {USER_MENU_ITEMS.map((item) => (
-              <Button
-                nativeButton={false}
-                key={item.path}
-                className="w-full p-0"
-                variant="ghost"
-                render={() => (
-                  <Link
-                    to={item.path}
-                    className="flex flex-col md:flex-row items-center px-3 py-2 rounded-md hover:bg-muted gap-2"
-                    activeProps={{ className: "bg-muted" }}
-                    activeOptions={{ exact: true }}
-                  >
-                    <item.icon
-                      className="inline-block text-primary"
-                      size={20}
-                    />
-                    {t(item.label)}
-                  </Link>
-                )}
-              />
-            ))}
+            {USER_MENU_ITEMS.map((item) => {
+              if (item.adminOnly && !hasRole("admin")) {
+                return null;
+              }
+              return (
+                <Button
+                  nativeButton={false}
+                  key={item.path}
+                  className="w-full p-0"
+                  variant="ghost"
+                  render={() => (
+                    <Link
+                      to={item.path}
+                      className="flex flex-col md:flex-row items-center px-3 py-2 rounded-md hover:bg-muted gap-2"
+                      activeProps={{ className: "bg-muted" }}
+                      activeOptions={{ exact: true }}
+                    >
+                      <item.icon
+                        className="inline-block text-primary"
+                        size={20}
+                      />
+                      {t(item.label)}
+                    </Link>
+                  )}
+                />
+              );
+            })}
             <Button
               nativeButton={false}
               className="w-full p-0 mt-2"
