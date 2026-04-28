@@ -20,14 +20,21 @@ import useLocale from "@/hooks/use-locale";
 type OrderDetailsProps = {
   orderId: Order["id"];
   ordersListPath: "/{-$locale}/admin/orders" | "/{-$locale}/account/orders";
+  includeSessionFallback?: boolean;
 };
 
-const OrderDetails = ({ orderId, ordersListPath }: OrderDetailsProps) => {
+const OrderDetails = ({
+  orderId,
+  ordersListPath,
+  includeSessionFallback = false,
+}: OrderDetailsProps) => {
   const { t } = useTranslation([
     TRANSLATION_NAMESPACES.orderDetails,
     TRANSLATION_NAMESPACES.common,
   ]);
-  const { data } = useSuspenseQuery(createOrderDetailsQueryOptions(orderId));
+  const { data } = useSuspenseQuery(
+    createOrderDetailsQueryOptions(orderId, { includeSessionFallback }),
+  );
   const [status, setStatus] = useState(data.status);
   const order = { ...data, status };
 
