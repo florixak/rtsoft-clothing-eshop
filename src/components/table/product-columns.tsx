@@ -26,14 +26,7 @@ export const createAdminProductColumns = ({
     columnHelper.display({
       id: "name",
       header: () => t("products.table.title"),
-      cell: ({ row }) => (
-        <div className="flex flex-col">
-          <span>{row.original.name[locale]}</span>
-          <span className="text-xs text-muted-foreground">
-            {row.original.name[locale]}
-          </span>
-        </div>
-      ),
+      cell: ({ row }) => <span>{row.original.name[locale]}</span>,
     }),
     columnHelper.accessor("createdAt", {
       header: createSortableHeader(t("products.table.dateAdded")),
