@@ -1,4 +1,5 @@
 import CheckoutSuccess from "@/components/checkout/checkout-success";
+import RouteError from "@/components/layout/route-error";
 import { createCheckoutOrderQueryOptions } from "@/hooks/query-options";
 import { ERROR_CODES, isErrorCode } from "@/lib/errors";
 import { createFileRoute, notFound } from "@tanstack/react-router";
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/{-$locale}/checkout/success")({
   validateSearch: successSchema,
   loaderDeps: ({ search }) => [search.orderId],
   notFoundComponent: () => <OrderNotFound />,
-  errorComponent: () => <div>Error loading order details</div>,
+  errorComponent: RouteError,
   pendingComponent: () => <div>Loading...</div>,
   loader: async ({ context, deps }) => {
     const orderId = deps[0];

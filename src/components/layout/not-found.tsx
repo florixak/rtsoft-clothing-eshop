@@ -1,5 +1,5 @@
 import { Link, useRouter } from "@tanstack/react-router";
-import { Home } from "lucide-react";
+import { Home, RotateCcw } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { useTranslation } from "react-i18next";
@@ -62,6 +62,7 @@ const NotFound = ({
           variant="outline"
           onClick={secondary?.onClick ?? (() => router.invalidate())}
         >
+          <RotateCcw size={18} />
           {secondaryLabel}
         </Button>
       </div>

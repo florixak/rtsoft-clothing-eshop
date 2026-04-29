@@ -1,5 +1,6 @@
 import Product from "@/components/product/product";
 import ProductNotFound from "@/components/product/product-not-found";
+import RouteError from "@/components/layout/route-error";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   createCategoryQueryOptions,
@@ -11,7 +12,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   component: RouteComponent,
   notFoundComponent: () => <ProductNotFound />,
-  errorComponent: () => <div>Error loading product details</div>,
+  errorComponent: RouteError,
   pendingComponent: () => <Skeleton className="h-10 w-full rounded" />,
   loader: async ({ context, params }) => {
     const { productSlug } = params;
