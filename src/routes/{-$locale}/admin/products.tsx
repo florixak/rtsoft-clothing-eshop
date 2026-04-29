@@ -1,12 +1,13 @@
 import AdminProducts from "@/components/admin/products/admin-products";
 import RouteError from "@/components/layout/route-error";
 import { productsSchema } from "@/lib/schema";
+import { OrderListSkeleton } from "@/components/skeletons";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/admin/products")({
   component: RouteComponent,
   validateSearch: productsSchema,
-  pendingComponent: () => <div>Loading...</div>,
+  pendingComponent: OrderListSkeleton,
   errorComponent: RouteError,
 });
 

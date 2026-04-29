@@ -2,7 +2,10 @@ import Catalog from "@/components/catalog/catalog";
 import { SORT_BY_OPTIONS } from "@/data/products";
 import { getProducts } from "@/lib/product-utils";
 import { createFileRoute } from "@tanstack/react-router";
+import RouteError from "@/components/layout/route-error";
+import NotFound from "@/components/layout/not-found";
 import * as z from "zod";
+import { CatalogSkeleton } from "@/components/skeletons";
 
 const multiValueParamSchema = z
   .union([z.string(), z.array(z.string())])
@@ -35,6 +38,9 @@ export const Route = createFileRoute("/{-$locale}/")({
   component: HomeComponent,
   validateSearch: filterSchema,
   loaderDeps: ({ search }) => search,
+  pendingComponent: CatalogSkeleton,
+  errorComponent: RouteError,
+  notFoundComponent: () => <NotFound />,
   loader: async ({ context, deps }) => {
     const filters = deps;
     await context.queryClient.ensureQueryData({

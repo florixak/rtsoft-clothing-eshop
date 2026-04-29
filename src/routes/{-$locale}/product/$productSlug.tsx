@@ -1,7 +1,7 @@
 import Product from "@/components/product/product";
 import ProductNotFound from "@/components/product/product-not-found";
 import RouteError from "@/components/layout/route-error";
-import { Skeleton } from "@/components/ui/skeleton";
+import { ProductDetailSkeleton } from "@/components/skeletons";
 import {
   createCategoryQueryOptions,
   createProductSlugQueryOptions,
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/{-$locale}/product/$productSlug")({
   component: RouteComponent,
   notFoundComponent: () => <ProductNotFound />,
   errorComponent: RouteError,
-  pendingComponent: () => <Skeleton className="h-10 w-full rounded" />,
+  pendingComponent: ProductDetailSkeleton,
   loader: async ({ context, params }) => {
     const { productSlug } = params;
     let product;
