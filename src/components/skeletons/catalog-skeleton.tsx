@@ -41,7 +41,7 @@ export const CatalogSkeleton = () => {
       <div className="w-full flex flex-col gap-3 items-center pt-4">
         <Skeleton className="h-5 w-48 rounded" />
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {Array.from({ length: 7 }).map((_, i) => (
             <Skeleton
               key={i}
