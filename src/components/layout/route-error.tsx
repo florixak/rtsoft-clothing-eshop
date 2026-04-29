@@ -96,11 +96,11 @@ const getRouteErrorCopy = (
     };
   }
 
-  if (error instanceof Error && error.message.trim()) {
+  if (error instanceof Error) {
     return {
       icon: <AlertTriangle size={64} className="text-primary" />,
       title: t("errors.generic"),
-      description: error.message,
+      description: t("errors.generic"),
     };
   }
 
