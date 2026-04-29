@@ -48,15 +48,15 @@ const UserSidebar = () => {
                 />
               );
             })}
-            <Button
-              nativeButton={false}
-              className="w-full p-0 mt-2"
-              variant="outline"
-              onClick={handleLogout}
-            >
-              {t("nav.logout")}
-            </Button>
           </nav>
+          <Button
+            nativeButton={false}
+            className="w-full p-0 mt-2"
+            variant="outline"
+            onClick={handleLogout}
+          >
+            {t("nav.logout")}
+          </Button>
         </CardContent>
       </Card>
     </aside>
