@@ -5,3 +5,5 @@ export { OrderDetailSkeleton } from "./order-detail-skeleton";
 export { ProductDetailSkeleton } from "./product-detail-skeleton";
 export { OrderListSkeleton } from "./order-list-skeleton";
 export { CatalogSkeleton } from "./catalog-skeleton";
+export { CheckoutSkeleton } from "./checkout-skeleton";
+export { CartSkeleton } from "./cart-skeleton";
