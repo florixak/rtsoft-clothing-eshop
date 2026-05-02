@@ -1,3 +1,4 @@
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import {
   findInStockSku,
   getAllColors,
@@ -5,13 +6,46 @@ import {
   hasInStockSku,
   matchesSelection,
 } from "@/lib/product-utils";
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useCartStore } from "@/stores/cart-store";
 import type { Product, SizeCode, TypeCode } from "@/types";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import useLocale from "./use-locale";
+
+const getPreferredColor = (product: Product) => {
+  const allColors = getAllColors(product);
+  const inStockColorCodes = new Set(
+    product.skus
+      .filter((sku) => sku.stock > 0 && sku.color)
+      .map((sku) => sku.color as TypeCode),
+  );
+
+  return (
+    allColors.find((color) => inStockColorCodes.has(color.code))?.code ??
+    allColors[0]?.code
+  );
+};
+
+const getPreferredSize = (
+  product: Product,
+  selectedColor: TypeCode | undefined,
+) => {
+  const allSizes = getAllSizes(product);
+  const inStockSizeCodes = new Set(
+    product.skus
+      .filter(
+        (sku) =>
+          sku.stock > 0 && (!selectedColor || sku.color === selectedColor),
+      )
+      .map((sku) => sku.size),
+  );
+
+  return (
+    allSizes.find((size) => inStockSizeCodes.has(size.code))?.code ??
+    allSizes[0]?.code
+  );
+};
 
 const useProductVariants = (product: Product) => {
   const { addItem, getQuantity } = useCartStore();
@@ -24,9 +58,7 @@ const useProductVariants = (product: Product) => {
       .filter((sku) => sku.stock > 0 && sku.color)
       .map((sku) => sku.color as TypeCode),
   );
-  const preferredColor =
-    allColors.find((color) => inStockColorCodes.has(color.code))?.code ??
-    allColors[0]?.code;
+  const preferredColor = getPreferredColor(product);
   const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
     preferredColor,
   );
@@ -39,9 +71,7 @@ const useProductVariants = (product: Product) => {
       )
       .map((sku) => sku.size),
   );
-  const preferredSize =
-    allSizes.find((size) => inStockSizeCodes.has(size.code))?.code ??
-    allSizes[0]?.code;
+  const preferredSize = getPreferredSize(product, selectedColor);
   const [selectedSize, setSelectedSize] = useState<SizeCode | undefined>(
     preferredSize,
   );
@@ -57,8 +87,7 @@ const useProductVariants = (product: Product) => {
       matchesSelection(sku, selectedColor, selectedSize),
     );
 
-  const currentSKU = selectedSku;
-  const priceWithVariants = currentSKU?.price ?? product.basePrice;
+  const priceWithVariants = selectedSku?.price ?? product.basePrice;
   const isOutOfStock = !selectedInStockSku;
 
   const handleAddToCart = (quantity: number = 1) => {
@@ -119,7 +148,6 @@ const useProductVariants = (product: Product) => {
     selectedSize,
     selectedInStockSku,
     selectedSku,
-    currentSKU,
     priceWithVariants,
     isOutOfStock,
     allColors,

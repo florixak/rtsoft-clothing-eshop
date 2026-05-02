@@ -23,7 +23,7 @@ const Product = () => {
 
   return (
     <section className="max-w-5xl w-full mx-auto flex flex-col gap-6 py-8">
-      <ProductHeader product={product} />
+      <ProductHeader key={product?.id} product={product} />
       <Separator className="my-8" />
       <ProductSpecifications product={product} />
       <Separator className="my-8" />
