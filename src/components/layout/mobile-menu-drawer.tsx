@@ -27,7 +27,9 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 const MobileMenuDrawer = () => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
-  const { itemsCount } = useCartStore();
+  const itemsCount = useCartStore((state) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0),
+  );
 
   const closeDrawer = () => {
     setOpen(false);
@@ -98,7 +100,7 @@ const MobileMenuDrawer = () => {
               {t("header.menu.cart")}
               <div className="flex items-center gap-2 ml-auto">
                 <span className="text-muted-foreground">
-                  {t("header.menu.cartItemCount", { count: itemsCount() })}
+                  {t("header.menu.cartItemCount", { count: itemsCount })}
                 </span>
                 <ArrowRight size={16} />
               </div>

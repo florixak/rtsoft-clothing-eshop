@@ -48,7 +48,7 @@ const getPreferredSize = (
 };
 
 const useProductVariants = (product: Product) => {
-  const { addItem, getQuantity } = useCartStore();
+  const addItem = useCartStore((state) => state.addItem);
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const locale = useLocale();
 
@@ -86,6 +86,12 @@ const useProductVariants = (product: Product) => {
     product.skus.find((sku) =>
       matchesSelection(sku, selectedColor, selectedSize),
     );
+
+  const quantity = useCartStore(
+    (state) =>
+      state.cart.items.find((item) => item.id === selectedSku?.id)?.quantity ??
+      1,
+  );
 
   const priceWithVariants = selectedSku?.price ?? product.basePrice;
   const isOutOfStock = !selectedInStockSku;
@@ -157,7 +163,7 @@ const useProductVariants = (product: Product) => {
     handleAddToCart,
     handleColorChange,
     handleSizeChange,
-    quantity: getQuantity(selectedInStockSku?.id ?? "") ?? 1,
+    quantity,
   };
 };
 
