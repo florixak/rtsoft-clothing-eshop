@@ -4,6 +4,7 @@ import { checkoutFormOpts } from "@/lib/checkout-form";
 import i18n, { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { Lock } from "lucide-react";
 import { Card, CardContent, CardHeader } from "../ui/card";
+import { Button } from "../ui/button";
 
 const PaymentForm = withForm({
   ...checkoutFormOpts,
@@ -25,9 +26,15 @@ const PaymentForm = withForm({
                 key={method.id}
                 name="payment.paymentMethod"
                 children={(field) => (
-                  <field.RadioButtonField value={method.id}>
-                    <CardHeader>{method.name[locale]}</CardHeader>
-                  </field.RadioButtonField>
+                  <Button
+                    variant="outline"
+                    className="h-full items-start"
+                    render={
+                      <field.RadioButtonField value={method.id}>
+                        {method.name[locale]}
+                      </field.RadioButtonField>
+                    }
+                  />
                 )}
               />
             ))}
