@@ -81,6 +81,7 @@ export function LoginForm({
                   </FieldLabel>
                   <Link
                     to="."
+                    tabIndex={-1}
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
                     {t("login.fields.forgotPassword")}
