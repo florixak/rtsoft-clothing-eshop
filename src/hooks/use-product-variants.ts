@@ -87,13 +87,18 @@ const useProductVariants = (product: Product) => {
       matchesSelection(sku, selectedColor, selectedSize),
     );
 
+  const priceWithVariants = selectedSku?.price ?? product.basePrice;
+
   const quantity = useCartStore(
     (state) =>
-      state.cart.items.find((item) => item.id === selectedSku?.id)?.quantity ??
-      1,
+      state.cart.items.find(
+        (item) =>
+          item.productId === product.id &&
+          item.selectionSnapshot.size === selectedSku?.size &&
+          item.selectionSnapshot.color === selectedSku?.color &&
+          item.priceSnapshot === priceWithVariants,
+      )?.quantity ?? 1,
   );
-
-  const priceWithVariants = selectedSku?.price ?? product.basePrice;
   const isOutOfStock = !selectedInStockSku;
 
   const handleAddToCart = (quantity: number = 1) => {
