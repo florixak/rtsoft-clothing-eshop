@@ -48,7 +48,7 @@ const getPreferredSize = (
 };
 
 const useProductVariants = (product: Product) => {
-  const { addItem, getQuantity } = useCartStore();
+  const addItem = useCartStore((state) => state.addItem);
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
   const locale = useLocale();
 
@@ -88,6 +88,17 @@ const useProductVariants = (product: Product) => {
     );
 
   const priceWithVariants = selectedSku?.price ?? product.basePrice;
+
+  const quantity = useCartStore(
+    (state) =>
+      state.cart.items.find(
+        (item) =>
+          item.productId === product.id &&
+          item.selectionSnapshot.size === selectedSku?.size &&
+          item.selectionSnapshot.color === selectedSku?.color &&
+          item.priceSnapshot === priceWithVariants,
+      )?.quantity ?? 1,
+  );
   const isOutOfStock = !selectedInStockSku;
 
   const handleAddToCart = (quantity: number = 1) => {
@@ -157,7 +168,7 @@ const useProductVariants = (product: Product) => {
     handleAddToCart,
     handleColorChange,
     handleSizeChange,
-    quantity: getQuantity(selectedInStockSku?.id ?? "") ?? 1,
+    quantity,
   };
 };
 

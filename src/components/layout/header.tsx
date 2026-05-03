@@ -11,7 +11,9 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 const Header = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
-  const { itemsCount } = useCartStore();
+  const itemsCount = useCartStore((state) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0),
+  );
 
   return (
     <header className="fixed w-full border-b bg-header px-4 py-3 z-50">
@@ -40,7 +42,7 @@ const Header = () => {
                 <ShoppingCart size={24} />
               </Link>
               <span className="absolute -top-1 -right-1 text-xs bg-primary text-primary-foreground rounded-full px-1">
-                {itemsCount()}
+                {itemsCount}
               </span>
             </li>
             <li className="hidden md:block">

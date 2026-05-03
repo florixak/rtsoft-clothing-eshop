@@ -20,7 +20,8 @@ type CartItemProps = {
 };
 
 const CartItem = ({ item, compact = false }: CartItemProps) => {
-  const { removeItem, changeItemQuantity } = useCartStore();
+  const removeItem = useCartStore((state) => state.removeItem);
+  const changeItemQuantity = useCartStore((state) => state.changeItemQuantity);
   const { data: product } = useSuspenseQuery(
     createProductIdQueryOptions(item.productId),
   );
