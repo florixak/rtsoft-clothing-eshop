@@ -6,6 +6,9 @@ import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const studentName = import.meta.env.VITE_STUDENT_NAME;
+  const studentId = import.meta.env.VITE_STUDENT_ID;
+
   return (
     <footer className="bg-footer text-secondary-foreground py-8 mt-12 px-12 space-y-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -33,11 +36,10 @@ const Footer = () => {
             name: "E-Shop",
           })}
         </p>
+        <p>{t("footer.project")}</p>
         <p>
-          {t("footer.project", {
-            studentName: import.meta.env.VITE_STUDENT_NAME,
-            studentId: import.meta.env.VITE_STUDENT_ID,
-          })}
+          {studentName ? `${studentName}` : ""}
+          {studentId ? ` (${studentId})` : ""}
         </p>
       </div>
     </footer>
