@@ -2,6 +2,7 @@ import { getUserByEmail, getUserById, toPublicUser } from "@/lib/user-utils";
 import type { MockUser } from "@/data/users";
 import type { AuthSession, LoginInput, Role, User } from "@/types";
 import { InvalidCredentialsError } from "./errors";
+import { delayFor } from "./network";
 
 const AUTH_SESSION_STORAGE_KEY = "auth-session";
 
@@ -59,7 +60,7 @@ export const login = async ({
   password,
   rememberMe = false,
 }: LoginInput): Promise<User> => {
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await delayFor("auth");
 
   const user = getUserByEmail(email);
 

@@ -14,15 +14,12 @@ import type {
 import type { FilterFn } from "@tanstack/react-table";
 import type { Languages } from "./i18n";
 import { getProductById } from "./product-utils";
+import { delayFor } from "./network";
 
 export const getDashboardMetrics = async (
   period: DashboardPeriod,
 ): Promise<DashboardMetrics> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
+  await delayFor("adminData");
 
   const metric = dashboardMetrics.find((metric) => metric.period === period);
 
@@ -36,11 +33,7 @@ export const getDashboardMetrics = async (
 export const getRevenueChartData = async (
   period: DashboardPeriod,
 ): Promise<RevenueChartDataPoint[]> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
+  await delayFor("adminData");
 
   const stats = dashboardStats.find((entry) => entry.period === period);
 
@@ -80,11 +73,7 @@ export const getRevenueChartLabel = (
 export const getBestSellingProducts = async (
   period: DashboardPeriod,
 ): Promise<TopProduct[]> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
+  await delayFor("adminData");
 
   const stats = dashboardStats.find((entry) => entry.period === period);
 

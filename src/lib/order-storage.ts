@@ -1,5 +1,6 @@
 import type { Order } from "@/types";
 import { NotFoundError, ERROR_CODES } from "./errors";
+import { delayFor } from "./network";
 
 const ORDERS_STORAGE_KEY = "checkout-orders";
 
@@ -35,11 +36,7 @@ export const saveOrder = (order: Order) => {
 };
 
 export const getCheckoutOrder = async (orderId: Order["id"]) => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 500);
-  });
+  await delayFor("checkoutOrder");
 
   const orders = readOrders();
 

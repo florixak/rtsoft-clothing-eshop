@@ -6,6 +6,7 @@ import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { delayFor } from "@/lib/network";
 import { SuccessOrderSummary } from "../checkout/order-summary";
 import { Badge } from "../ui/badge";
 import { Card, CardHeader } from "../ui/card";
@@ -41,12 +42,9 @@ const OrderDetails = ({
   const locale = useLocale();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (orderId: string) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(orderId);
-        }, 1000);
-      });
+    mutationFn: async (orderId: string) => {
+      await delayFor("orderMutation");
+      return orderId;
     },
     onSuccess: (data) => {
       console.log("Order cancelled: ", data);

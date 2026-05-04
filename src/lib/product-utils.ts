@@ -3,6 +3,7 @@ import type { SortOptions } from "@/data/products";
 import type { Category, Product, SizeCode, SKU, TypeCode } from "@/types";
 import { findCategoryById } from "./category-utils";
 import { NotFoundError, ERROR_CODES } from "./errors";
+import { delayFor } from "./network";
 import type { Languages } from "./i18n";
 import i18n from "./i18n";
 import { formatPrice, isDefined } from "./utils";
@@ -159,7 +160,7 @@ const getProducts = async (
   const end = start + perPage;
   const pagedProducts = productsWithMatchingSkus.slice(start, end);
 
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await delayFor("product");
   return {
     products: pagedProducts.map(({ p }) => p),
     information: { total, maxFilterPrice, minFilterPrice },
@@ -167,12 +168,12 @@ const getProducts = async (
 };
 
 const getAdminProducts = async (): Promise<Product[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await delayFor("product");
   return products;
 };
 
 const getProductBySlug = async (slug: string): Promise<Product> => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await delayFor("product");
   const product = findProductBySlug(slug);
   if (!product) {
     throw new NotFoundError(ERROR_CODES.productNotFound);
@@ -182,7 +183,7 @@ const getProductBySlug = async (slug: string): Promise<Product> => {
 };
 
 const getProductById = async (productId: string): Promise<Product> => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await delayFor("product");
   const product = findProductById(productId);
   if (!product) {
     throw new NotFoundError(ERROR_CODES.productNotFound);
