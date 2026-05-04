@@ -1,13 +1,10 @@
 import { orders } from "@/data";
 import type { Order } from "@/types";
 import { NotFoundError, ERROR_CODES } from "./errors";
+import { delayFor } from "./network";
 
 export const getOrderById = async (orderId: string) => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 500);
-  });
+  await delayFor("orders");
 
   const order = orders.find((order) => order.id === orderId);
 
@@ -24,11 +21,7 @@ type GetOrdersFilter = {
 };
 
 export const getOrders = async (filter: GetOrdersFilter): Promise<Order[]> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
+  await delayFor("ordersList");
 
   const sortedOrders = orders
     .filter((order) => (filter.userId ? order.userId === filter.userId : true))

@@ -6,21 +6,14 @@ import { getProductById } from "./product-utils";
 import type { Languages } from "./i18n";
 import { saveOrder } from "./order-storage";
 import { getCurrentUserId } from "./auth";
+import { delayFor } from "./network";
 
 export const handlePaymentSimulation = async (): Promise<void> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 2000);
-  });
+  await delayFor("payment");
 };
 
 export const createOrderSimulation = async (): Promise<string> => {
-  await new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 800);
-  });
+  await delayFor("createOrder");
 
   return `ord-${Date.now()}`;
 };
