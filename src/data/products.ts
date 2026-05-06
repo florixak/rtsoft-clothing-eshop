@@ -1060,4 +1060,247 @@ export const products: Product[] = [
     rating: 4.2,
     reviewsCount: 5,
   },
+  {
+    id: "prod-16",
+    slug: { cs: "letni-saty-elegantni", en: "summer-elegant-dress" },
+    name: { cs: "Elegantní letní šaty", en: "Elegant Summer Dress" },
+    description: {
+      cs: "Vzdušné šaty vhodné na volnočasové i formální události.",
+      en: "Airy dress suitable for casual and formal occasions.",
+    },
+    basePrice: 1199,
+    categoryId: "cat-7",
+    fallbackImages: [
+      "https://placehold.co/600x800?text=Summer+Dress+Front",
+      "https://placehold.co/600x800?text=Summer+Dress+Back",
+    ],
+    options: {
+      sizes: createSizeOptions("prod-16", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
+      colors: createTypeOptions("prod-16", [
+        { code: "beige", label: { cs: "Béžová", en: "Beige" } },
+      ]),
+    },
+    specifications: {
+      material: { cs: "100% viskóza", en: "100% viscose" },
+      care: { cs: "Šetrné praní", en: "Gentle wash" },
+      origin: { cs: "Vyrobeno v Indii", en: "Made in India" },
+    },
+    skus: createSkus(
+      "prod-16",
+      1199,
+      [
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 30 },
+      ],
+      {
+        colors: [
+          {
+            code: "beige",
+            label: { cs: "Béžová", en: "Beige" },
+            priceAdjustment: 0,
+          },
+        ],
+      },
+    ),
+    createdAt: "2026-03-10T10:00:00.000Z",
+    rating: 4.2,
+    reviewsCount: 4,
+  },
+  {
+    id: "prod-17",
+    slug: { cs: "kratka-sukne-denni", en: "day-skirt" },
+    name: { cs: "Denní sukně", en: "Day Skirt" },
+    description: {
+      cs: "Lehká sukně do města.",
+      en: "Light skirt for everyday.",
+    },
+    basePrice: 749,
+    categoryId: "cat-8",
+    fallbackImages: ["https://placehold.co/600x800?text=Day+Skirt+Front"],
+    options: {
+      sizes: createSizeOptions("prod-17", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
+      colors: createTypeOptions("prod-17", [
+        { code: "navy", label: { cs: "Tmavě modrá", en: "Navy" } },
+      ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální praní", en: "Normal wash" },
+      origin: { cs: "Vyrobeno v EU", en: "Made in EU" },
+    },
+    skus: createSkus(
+      "prod-17",
+      749,
+      [
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+      ],
+      {
+        colors: [
+          {
+            code: "navy",
+            label: { cs: "Tmavě modrá", en: "Navy" },
+            priceAdjustment: 0,
+          },
+        ],
+      },
+    ),
+    createdAt: "2026-03-11T09:00:00.000Z",
+    rating: 4.0,
+    reviewsCount: 2,
+  },
+  {
+    id: "prod-18",
+    slug: { cs: "kratasy-lehke", en: "light-shorts" },
+    name: { cs: "Lehké šortky", en: "Light Shorts" },
+    description: {
+      cs: "Praktické šortky na léto.",
+      en: "Practical shorts for summer.",
+    },
+    basePrice: 599,
+    categoryId: "cat-9",
+    fallbackImages: ["https://placehold.co/600x800?text=Shorts+Front"],
+    options: {
+      sizes: createSizeOptions("prod-18", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
+      colors: createTypeOptions("prod-18", [
+        { code: "khaki", label: { cs: "Khaki", en: "Khaki" } },
+      ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální praní", en: "Normal wash" },
+      origin: { cs: "Vyrobeno ve Vietnamu", en: "Made in Vietnam" },
+    },
+    skus: createSkus(
+      "prod-18",
+      599,
+      [
+        { code: "s", priceAdjustment: -10 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 20 },
+      ],
+      {
+        colors: [
+          {
+            code: "khaki",
+            label: { cs: "Khaki", en: "Khaki" },
+            priceAdjustment: 0,
+          },
+        ],
+      },
+    ),
+    createdAt: "2026-03-12T08:30:00.000Z",
+    rating: 4.1,
+    reviewsCount: 3,
+  },
+  {
+    id: "prod-19",
+    slug: { cs: "pracovni-overal", en: "utility-overall" },
+    name: { cs: "Pracovní overal", en: "Utility Overall" },
+    description: {
+      cs: "Robustní overal s kapsami.",
+      en: "Robust overall with pockets.",
+    },
+    basePrice: 1899,
+    categoryId: "cat-10",
+    fallbackImages: ["https://placehold.co/600x800?text=Overall+Front"],
+    options: {
+      sizes: createSizeOptions("prod-19", [
+        { code: "m" },
+        { code: "l" },
+        { code: "xl" },
+      ]),
+      colors: createTypeOptions("prod-19", [
+        { code: "olive", label: { cs: "Olivová", en: "Olive" } },
+      ]),
+    },
+    specifications: {
+      material: { cs: "100% bavlna", en: "100% cotton" },
+      care: { cs: "Normální praní", en: "Normal wash" },
+      origin: { cs: "Vyrobeno v EU", en: "Made in EU" },
+    },
+    skus: createSkus(
+      "prod-19",
+      1899,
+      [
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 80 },
+        { code: "xl", priceAdjustment: 150 },
+      ],
+      {
+        colors: [
+          {
+            code: "olive",
+            label: { cs: "Olivová", en: "Olive" },
+            priceAdjustment: 0,
+          },
+        ],
+      },
+    ),
+    createdAt: "2026-03-13T10:20:00.000Z",
+    rating: 4.3,
+    reviewsCount: 1,
+  },
+  {
+    id: "prod-20",
+    slug: { cs: "plavky-simple", en: "simple-swimwear" },
+    name: { cs: "Jednodílné plavky", en: "Simple Swimwear" },
+    description: {
+      cs: "Praktické plavky pro koupání.",
+      en: "Practical swimwear for swimming.",
+    },
+    basePrice: 899,
+    categoryId: "cat-11",
+    fallbackImages: ["https://placehold.co/600x800?text=Swimwear+Front"],
+    options: {
+      sizes: createSizeOptions("prod-20", [
+        { code: "s" },
+        { code: "m" },
+        { code: "l" },
+      ]),
+      colors: createTypeOptions("prod-20", [
+        { code: "blue", label: { cs: "Modrá", en: "Blue" } },
+      ]),
+    },
+    specifications: {
+      material: { cs: "80% nylon, 20% elastan", en: "80% nylon, 20% elastane" },
+      care: { cs: "Šetrné praní", en: "Gentle wash" },
+      origin: { cs: "Vyrobeno v EU", en: "Made in EU" },
+    },
+    skus: createSkus(
+      "prod-20",
+      899,
+      [
+        { code: "s", priceAdjustment: -20 },
+        { code: "m", priceAdjustment: 0 },
+        { code: "l", priceAdjustment: 30 },
+      ],
+      {
+        colors: [
+          {
+            code: "blue",
+            label: { cs: "Modrá", en: "Blue" },
+            priceAdjustment: 0,
+          },
+        ],
+      },
+    ),
+    createdAt: "2026-03-14T09:10:00.000Z",
+    rating: 4.0,
+    reviewsCount: 0,
+  },
 ];
