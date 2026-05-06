@@ -29,24 +29,24 @@ export const orders: Order[] = [
       },
       {
         productId: "prod-8",
-        nameSnapshot: "Baseball Cap",
-        selectionSnapshot: { size: "s", color: "navy" },
+        nameSnapshot: "Linen Shirt",
+        selectionSnapshot: { size: "s", color: "white" },
         quantity: 1,
-        priceSnapshot: 499,
+        priceSnapshot: 839,
       },
       {
         productId: "prod-9",
-        nameSnapshot: "Leather Belt",
-        selectionSnapshot: { size: "l", color: "brown" },
+        nameSnapshot: "Floral Summer Dress",
+        selectionSnapshot: { size: "l", color: "floral" },
         quantity: 1,
-        priceSnapshot: 799,
+        priceSnapshot: 1024,
       },
       {
         productId: "prod-10",
-        nameSnapshot: "Canvas Backpack",
-        selectionSnapshot: { size: "m", color: "green" },
+        nameSnapshot: "Canvas Shorts",
+        selectionSnapshot: { size: "m", color: "khaki" },
         quantity: 1,
-        priceSnapshot: 1499,
+        priceSnapshot: 649,
       },
     ],
     customer: {
@@ -72,17 +72,17 @@ export const orders: Order[] = [
       name: { cs: "Platební karta", en: "Payment Card" },
     },
     priceDetails: {
-      subtotal: 399 * 2 + 1229 + 499 + 799 + 1499,
+      subtotal: 399 * 2 + 1229 + 839 + 1024 + 649,
       shippingCost: 79,
-      tax: Math.round((399 * 2 + 1229 + 499 + 799 + 1499) * 0.21),
+      tax: Math.round((399 * 2 + 1229 + 839 + 1024 + 649) * 0.21),
       total:
         399 * 2 +
         1229 +
-        499 +
-        799 +
-        1499 +
+        839 +
+        1024 +
+        649 +
         79 +
-        Math.round((399 * 2 + 1229 + 499 + 799 + 1499) * 0.21),
+        Math.round((399 * 2 + 1229 + 839 + 1024 + 649) * 0.21),
     },
     status: "completed",
     createdAt: "2026-02-20T10:15:00.000Z",
@@ -522,10 +522,10 @@ export const orders: Order[] = [
       },
       {
         productId: "prod-8",
-        nameSnapshot: "Baseball Cap",
-        selectionSnapshot: { size: "m", color: "black" },
+        nameSnapshot: "Linen Shirt",
+        selectionSnapshot: { size: "m", color: "white" },
         quantity: 1,
-        priceSnapshot: 499,
+        priceSnapshot: 849,
       },
     ],
     customer: {
@@ -554,10 +554,10 @@ export const orders: Order[] = [
       name: { cs: "Platební karta", en: "Payment Card" },
     },
     priceDetails: {
-      subtotal: 569 + 499,
+      subtotal: 569 + 849,
       shippingCost: 0,
-      tax: Math.round((569 + 499) * 0.21),
-      total: 569 + 499 + Math.round((569 + 499) * 0.21),
+      tax: Math.round((569 + 849) * 0.21),
+      total: 569 + 849 + Math.round((569 + 849) * 0.21),
     },
     status: "completed",
     createdAt: "2026-03-25T09:20:00.000Z",
@@ -569,17 +569,17 @@ export const orders: Order[] = [
     items: [
       {
         productId: "prod-10",
-        nameSnapshot: "Canvas Backpack",
-        selectionSnapshot: { size: "l", color: "green" },
+        nameSnapshot: "Canvas Shorts",
+        selectionSnapshot: { size: "l", color: "navy" },
         quantity: 1,
-        priceSnapshot: 1499,
+        priceSnapshot: 729,
       },
       {
         productId: "prod-9",
-        nameSnapshot: "Leather Belt",
-        selectionSnapshot: { size: "m", color: "brown" },
+        nameSnapshot: "Floral Summer Dress",
+        selectionSnapshot: { size: "m", color: "floral" },
         quantity: 1,
-        priceSnapshot: 799,
+        priceSnapshot: 999,
       },
     ],
     customer: {
@@ -605,10 +605,10 @@ export const orders: Order[] = [
       name: { cs: "Bankovní převod", en: "Bank Transfer" },
     },
     priceDetails: {
-      subtotal: 1499 + 799,
+      subtotal: 729 + 999,
       shippingCost: 129,
-      tax: Math.round((1499 + 799) * 0.21),
-      total: 1499 + 799 + 129 + Math.round((1499 + 799) * 0.21),
+      tax: Math.round((729 + 999) * 0.21),
+      total: 729 + 999 + 129 + Math.round((729 + 999) * 0.21),
     },
     status: "paid",
     createdAt: "2026-03-26T14:10:00.000Z",
