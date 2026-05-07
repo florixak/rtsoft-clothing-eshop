@@ -12,7 +12,7 @@ import { login } from "@/lib/auth";
 import { InvalidCredentialsError } from "@/lib/errors";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { loginSchema } from "@/lib/app-schemas";
+import { loginSchema } from "@/lib/schema";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
