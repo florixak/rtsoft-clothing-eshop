@@ -5,6 +5,8 @@ Součástí aplikace je katalog produktů s filtrací, detail produktu, checkout
 Cílem testování je zjistit, jak aplikace působí na běžného uživatele a jestli je vše dostatečně srozumitelné a pohodlné na používání.
 Nemusíš se bát, nezabere to dlouho, je to čistě o tvém zájmu a času, který tomu chceš věnovat.
 
+Aplikace je dostupná na: https://rtsoft-clothing-eshop.vercel.app/
+
 Tohle jsou tvé úkoly:
 1. Najdi produkt, který by sis koupil, vyfiltruj ho, zobraz detail a přidej ho do košíku. Následně projdi celý checkout proces až po dokončení objednávky.
 2. Přidej do košíku více produktů a následně uprav jejich množství nebo je odeber. Zkontroluj, zda se správně přepočítává cena.
