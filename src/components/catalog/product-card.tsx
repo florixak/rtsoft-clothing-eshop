@@ -41,7 +41,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card
-      className="p-0 shadow-sm gap-2 overflow-hidden group max-w-sm w-full max-h-fit"
+      className="p-0 shadow-sm gap-2 overflow-hidden group w-full"
       key={product.id}
     >
       <CardHeader className="p-0 relative">
@@ -133,7 +133,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.name[locale]}
             </Link>
           </h3>
-          <p className="text-muted-foreground line-clamp-3">
+          <p className="text-muted-foreground line-clamp-2">
             {product.description[locale]}
           </p>
         </div>
