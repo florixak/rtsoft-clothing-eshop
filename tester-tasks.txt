@@ -1,0 +1,31 @@
+
+Čau, zde jsem ti připravil nějaké úkoly pro mou webovou aplikaci. 
+Jedná se o moderní e-shop zaměřený na jednoduchost, přehlednost a intuitivní ovládání. 
+Součástí aplikace je katalog produktů s filtrací, detail produktu, checkout proces i administrace.
+Cílem testování je zjistit, jak aplikace působí na běžného uživatele a jestli je vše dostatečně srozumitelné a pohodlné na používání.
+Nemusíš se bát, nezabere to dlouho, je to čistě o tvém zájmu a času, který tomu chceš věnovat.
+
+Aplikace je dostupná na: https://rtsoft-clothing-eshop.vercel.app/
+
+Tohle jsou tvé úkoly:
+1. Najdi produkt, který by sis koupil, vyfiltruj ho, zobraz detail a přidej ho do košíku. Následně projdi celý checkout proces až po dokončení objednávky.
+2. Přidej do košíku více produktů a následně uprav jejich množství nebo je odeber. Zkontroluj, zda se správně přepočítává cena.
+3. Projdi aplikaci jako nový uživatel a zkus najít konkrétní typ produktu (např. tričko určité velikosti nebo barvy). Zaměř se na přehlednost a jednoduchost ovládání.
+4. Vyzkoušej administraci – vyfiltruj dashboard, vyhledej objednávku, zobraz si detail objednávky.
+
+Napiš krátkou zpětnou vazbu s tímto obsahem:
+– co bylo srozumitelné / nesrozumitelné
+– co ti přišlo matoucí / zavádějící
+– co bys změnil/a
+– případné chyby (bugy)
+
+Zde jsou testovní přihlašovací údaje:
+Admin:                       Uživatel 1:                     Uživatel 2:
+E-mail: admin@example.com    E-mail: customer@example.com    E-mail: milan@example.com
+Heslo: admin123              Heslo: password123              Heslo: password123
+
+Ještě jednou díky!
+Pokud by něco nebylo jasné či tě něco zajímalo, ozvi se, rád upřesním či vysvětlím.
+
+Zpětná vazba: (zde napiš svou zprávu)
+
