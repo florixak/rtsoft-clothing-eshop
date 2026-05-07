@@ -127,7 +127,9 @@
     "streetAddressRequired": "Ulice a číslo popisné jsou povinné",
     "cityRequired": "Město je povinné",
     "postalCodeRequired": "PSČ je povinné",
+    "invalidPostalCode": "Zadejte platné PSČ",
     "countryRequired": "Země je povinná",
+    "invalidPhone": "Zadejte platné telefonní číslo",
     "packetaPickupPointRequired": "Vyberte prosím výdejní místo",
     "invalidValue": "Neplatná hodnota"
   }

@@ -3,6 +3,7 @@ import type { MockUser } from "@/data/users";
 import type { AuthSession, LoginInput, Role, User } from "@/types";
 import { InvalidCredentialsError } from "./errors";
 import { delayFor } from "./network";
+import { loginSchema } from "./schema";
 
 const AUTH_SESSION_STORAGE_KEY = "auth-session";
 
@@ -62,13 +63,23 @@ export const login = async ({
 }: LoginInput): Promise<User> => {
   await delayFor("auth");
 
-  const user = getUserByEmail(email);
+  const validationResult = loginSchema.safeParse({
+    email,
+    password,
+    rememberMe,
+  });
 
-  if (!user || user.password !== password) {
+  if (!validationResult.success) {
     throw new InvalidCredentialsError();
   }
 
-  const session = createSession(user, rememberMe);
+  const user = getUserByEmail(validationResult.data.email);
+
+  if (!user || user.password !== validationResult.data.password) {
+    throw new InvalidCredentialsError();
+  }
+
+  const session = createSession(user, validationResult.data.rememberMe);
   writeSession(session);
 
   return toPublicUser(user);

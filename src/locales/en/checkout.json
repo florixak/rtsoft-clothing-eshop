@@ -127,7 +127,9 @@
     "streetAddressRequired": "Street address is required",
     "cityRequired": "City is required",
     "postalCodeRequired": "Postal code is required",
+    "invalidPostalCode": "Please enter a valid postal code",
     "countryRequired": "Country is required",
+    "invalidPhone": "Please enter a valid phone number",
     "packetaPickupPointRequired": "Please select a pickup point",
     "invalidValue": "Invalid value"
   }

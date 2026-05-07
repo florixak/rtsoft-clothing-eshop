@@ -25,13 +25,18 @@ export const loginSchema = z.object({
   email: z
     .string()
     .trim()
-    .email("validation.invalidEmail")
-    .min(1, "validation.required"),
+    .min(1, "validation.required")
+    .email("validation.invalidEmail"),
   password: z
     .string()
     .trim()
     .min(1, "validation.required")
-    .min(MIN_PASSWORD_LENGTH, "validation.passwordTooShort"),
+    .refine(
+      (value) => value.length === 0 || value.length >= MIN_PASSWORD_LENGTH,
+      {
+        message: "validation.passwordTooShort",
+      },
+    ),
   rememberMe: z.boolean().default(false),
 });
 

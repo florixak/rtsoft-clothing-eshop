@@ -12,13 +12,12 @@ import { login } from "@/lib/auth";
 import { InvalidCredentialsError } from "@/lib/errors";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { loginSchema } from "@/lib/schema";
+import { loginSchema } from "@/lib/app-schemas";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import { Trans, useTranslation } from "react-i18next";
 import { Checkbox } from "../ui/checkbox";
-import { ZodError } from "zod";
 import { MIN_PASSWORD_LENGTH } from "@/constants";
 
 type FieldErrors = {
@@ -58,26 +57,31 @@ export function LoginForm({
     const password = formData.get("password") as string;
     const rememberMe = formData.get("rememberMe") === "on";
 
-    try {
-      const validatedData = loginSchema.parse({ email, password, rememberMe });
-      await loginAsync(validatedData);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        const errors: FieldErrors = {};
-        for (const issue of error.issues) {
-          const field = issue.path[0] as string;
-          errors[field as keyof FieldErrors] = t(issue.message);
+    const result = loginSchema.safeParse({ email, password, rememberMe });
+
+    if (!result.success) {
+      const errors: FieldErrors = {};
+
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as keyof FieldErrors;
+
+        if (!errors[field]) {
+          errors[field] = issue.message;
         }
-        setFieldErrors(errors);
       }
+
+      setFieldErrors(errors);
+      return;
     }
+
+    await loginAsync(result.data);
   };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="p-0">
-          <form className="p-6 md:p-8" onSubmit={handleSubmit}>
+          <form className="p-6 md:p-8" onSubmit={handleSubmit} noValidate>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">{t("login.title")}</h1>
@@ -94,12 +98,29 @@ export function LoginForm({
                     id="email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     placeholder={t("login.fields.email.placeholder")}
                     required
+                    aria-invalid={Boolean(fieldErrors.email)}
+                    aria-describedby={
+                      fieldErrors.email ? "login-email-error" : undefined
+                    }
                     className={fieldErrors.email ? "border-destructive" : ""}
+                    onChange={() => {
+                      if (fieldErrors.email) {
+                        setFieldErrors((prev) => ({
+                          ...prev,
+                          email: undefined,
+                        }));
+                      }
+                    }}
                   />
                   {fieldErrors.email && (
-                    <em className="text-destructive text-sm">
+                    <em
+                      id="login-email-error"
+                      className="text-destructive text-sm"
+                      role="alert"
+                    >
                       {t("common:" + fieldErrors.email)}
                     </em>
                   )}
@@ -123,12 +144,29 @@ export function LoginForm({
                     id="password"
                     name="password"
                     type="password"
+                    autoComplete="current-password"
                     required
                     placeholder={t("login.fields.password.placeholder")}
+                    aria-invalid={Boolean(fieldErrors.password)}
+                    aria-describedby={
+                      fieldErrors.password ? "login-password-error" : undefined
+                    }
                     className={fieldErrors.password ? "border-destructive" : ""}
+                    onChange={() => {
+                      if (fieldErrors.password) {
+                        setFieldErrors((prev) => ({
+                          ...prev,
+                          password: undefined,
+                        }));
+                      }
+                    }}
                   />
                   {fieldErrors.password && (
-                    <em className="text-destructive text-sm">
+                    <em
+                      id="login-password-error"
+                      className="text-destructive text-sm"
+                      role="alert"
+                    >
                       {t("common:" + fieldErrors.password, {
                         min: MIN_PASSWORD_LENGTH,
                       })}
