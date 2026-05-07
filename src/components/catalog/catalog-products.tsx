@@ -11,7 +11,7 @@ const CatalogProducts = ({ products }: CatalogProductsProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
   return (
-    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-stretch w-full">
       {products.length === 0 && (
         <div className="text-center text-muted-foreground col-span-full min-h-80 py-16 ">
           <p>{t("catalog.noResults")}</p>
