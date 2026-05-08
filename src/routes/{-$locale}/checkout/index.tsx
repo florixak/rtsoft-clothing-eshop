@@ -2,7 +2,8 @@ import Checkout from "@/components/checkout/checkout";
 import RouteError from "@/components/layout/route-error";
 import { CheckoutSkeleton } from "@/components/skeletons";
 import { CHECKOUT_STEPS } from "@/constants";
-import { createFileRoute } from "@tanstack/react-router";
+import { useCartStore } from "@/stores/cart-store";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import * as z from "zod";
 
 const checkoutSearchSchema = z.object({
@@ -14,6 +15,12 @@ export const Route = createFileRoute("/{-$locale}/checkout/")({
   pendingComponent: CheckoutSkeleton,
   errorComponent: RouteError,
   component: RouteComponent,
+  loader: () => {
+    const hasNoItems = useCartStore.getState().cart.items.length === 0;
+    if (hasNoItems) {
+      throw redirect({ to: "/{-$locale}/cart" });
+    }
+  },
 });
 
 function RouteComponent() {
