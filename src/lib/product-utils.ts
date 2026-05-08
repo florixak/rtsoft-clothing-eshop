@@ -9,6 +9,11 @@ import i18n from "./i18n";
 import { formatPrice, isDefined } from "./utils";
 import { MAX_SEEN_PRODUCTS, SEEN_PRODUCTS_STORAGE_KEY } from "@/constants";
 
+const PRODUCT_PLACEHOLDER_IMAGE = "/images/placeholder-image.png";
+
+const getProductImage = (image?: string | null) =>
+  image ?? PRODUCT_PLACEHOLDER_IMAGE;
+
 export type Query = {
   category?: Category["id"];
   priceRange?: string;
@@ -420,10 +425,12 @@ const getImageBySelectedColor = (
     : product.options.colors[0];
 
   const images = colorOption?.images ?? fallbackImages;
+  const primary = images[0] ?? PRODUCT_PLACEHOLDER_IMAGE;
+  const secondary = images[1] ?? primary;
 
   return {
-    primary: images[0],
-    secondary: images[1] ?? images[0],
+    primary,
+    secondary,
   };
 };
 
@@ -444,8 +451,10 @@ export {
   getAllSizes,
   getAvailableSizes,
   getImageBySelectedColor,
+  getProductImage,
   getProductBySlug,
   getProductById,
   setLastSeenProduct,
   getLastSeenProducts,
+  PRODUCT_PLACEHOLDER_IMAGE,
 };

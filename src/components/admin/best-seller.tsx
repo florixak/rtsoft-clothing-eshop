@@ -1,4 +1,5 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { getProductImage } from "@/lib/product-utils";
 import type { TopProduct } from "@/types";
 import { useTranslation } from "react-i18next";
 import useLocale from "@/hooks/use-locale";
@@ -8,8 +9,7 @@ type BestSellerCardProps = {
 };
 
 const BestSeller = ({ product }: BestSellerCardProps) => {
-  const imageUrl =
-    product.fallbackImages[0] || "/images/product-placeholder.png";
+  const imageUrl = getProductImage(product.fallbackImages[0]);
   const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
   const locale = useLocale();
   return (
