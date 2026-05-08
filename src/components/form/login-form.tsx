@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -11,18 +12,26 @@ import { login } from "@/lib/auth";
 import { InvalidCredentialsError } from "@/lib/errors";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { loginSchema } from "@/lib/schema";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import { Trans, useTranslation } from "react-i18next";
 import { Checkbox } from "../ui/checkbox";
+import { MIN_PASSWORD_LENGTH } from "@/constants";
+
+type FieldErrors = {
+  email?: string;
+  password?: string;
+};
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { t } = useTranslation(TRANSLATION_NAMESPACES.auth);
+  const { t } = useTranslation([TRANSLATION_NAMESPACES.auth, "common"]);
   const navigate = useNavigate();
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   const { mutateAsync: loginAsync, isPending } = useMutation({
     mutationFn: login,
@@ -41,20 +50,38 @@ export function LoginForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFieldErrors({});
 
     const formData = new FormData(e.currentTarget as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const rememberMe = formData.get("rememberMe") === "on";
 
-    await loginAsync({ email, password, rememberMe });
+    const result = loginSchema.safeParse({ email, password, rememberMe });
+
+    if (!result.success) {
+      const errors: FieldErrors = {};
+
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as keyof FieldErrors;
+
+        if (!errors[field]) {
+          errors[field] = issue.message;
+        }
+      }
+
+      setFieldErrors(errors);
+      return;
+    }
+
+    await loginAsync(result.data);
   };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="p-0">
-          <form className="p-6 md:p-8" onSubmit={handleSubmit}>
+          <form className="p-6 md:p-8" onSubmit={handleSubmit} noValidate>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">{t("login.title")}</h1>
@@ -66,13 +93,38 @@ export function LoginForm({
                 <FieldLabel htmlFor="email">
                   {t("login.fields.email.label")}
                 </FieldLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder={t("login.fields.email.placeholder")}
-                  required
-                />
+                <div>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder={t("login.fields.email.placeholder")}
+                    required
+                    aria-invalid={Boolean(fieldErrors.email)}
+                    aria-describedby={
+                      fieldErrors.email ? "login-email-error" : undefined
+                    }
+                    className={fieldErrors.email ? "border-destructive" : ""}
+                    onChange={() => {
+                      if (fieldErrors.email) {
+                        setFieldErrors((prev) => ({
+                          ...prev,
+                          email: undefined,
+                        }));
+                      }
+                    }}
+                  />
+                  {fieldErrors.email && (
+                    <em
+                      id="login-email-error"
+                      className="text-destructive text-sm"
+                      role="alert"
+                    >
+                      {t("common:" + fieldErrors.email)}
+                    </em>
+                  )}
+                </div>
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -87,13 +139,40 @@ export function LoginForm({
                     {t("login.fields.forgotPassword")}
                   </Link>
                 </div>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  placeholder={t("login.fields.password.placeholder")}
-                />
+                <div>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    placeholder={t("login.fields.password.placeholder")}
+                    aria-invalid={Boolean(fieldErrors.password)}
+                    aria-describedby={
+                      fieldErrors.password ? "login-password-error" : undefined
+                    }
+                    className={fieldErrors.password ? "border-destructive" : ""}
+                    onChange={() => {
+                      if (fieldErrors.password) {
+                        setFieldErrors((prev) => ({
+                          ...prev,
+                          password: undefined,
+                        }));
+                      }
+                    }}
+                  />
+                  {fieldErrors.password && (
+                    <em
+                      id="login-password-error"
+                      className="text-destructive text-sm"
+                      role="alert"
+                    >
+                      {t("common:" + fieldErrors.password, {
+                        min: MIN_PASSWORD_LENGTH,
+                      })}
+                    </em>
+                  )}
+                </div>
               </Field>
               <Field>
                 <label className="inline-flex items-center justify-end gap-2">

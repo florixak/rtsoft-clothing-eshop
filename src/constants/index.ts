@@ -43,6 +43,8 @@ const MAX_RECENT_ORDERS_TO_SHOW = 5;
 
 const FREE_SHIPPING_THRESHOLD = 1000;
 
+const MIN_PASSWORD_LENGTH = 6;
+
 const CHECKOUT_STEPS = ["shipping", "payment", "review"] as const;
 
 export type CheckoutStep = (typeof CHECKOUT_STEPS)[number];
@@ -118,6 +120,7 @@ export {
   MAX_CART_ITEMS_TO_SHOW_IN_ORDER_SUMMARY,
   MAX_RECENT_ORDERS_TO_SHOW,
   FREE_SHIPPING_THRESHOLD,
+  MIN_PASSWORD_LENGTH,
   CHECKOUT_STEPS,
   USER_MENU_ITEMS,
   ADMIN_MENU_ITEMS,

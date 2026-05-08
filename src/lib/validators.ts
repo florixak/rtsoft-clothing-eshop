@@ -1,6 +1,9 @@
 import { paymentMethods, shippingMethods } from "@/data";
 import * as z from "zod";
 
+const PHONE_REGEX = /^(?=.*\d)[+0-9()\s-]{6,20}$/;
+const POSTAL_CODE_REGEX = /^[0-9A-Za-z\s-]{3,10}$/;
+
 export const shippingSchema = z.object({
   shipping: z
     .object({
@@ -12,13 +15,28 @@ export const shippingSchema = z.object({
         .trim()
         .min(1, "validation.emailRequired")
         .email("validation.emailInvalid"),
-      phone: z.string().optional(),
+      phone: z
+        .string()
+        .trim()
+        .optional()
+        .refine((value) => !value || PHONE_REGEX.test(value), {
+          message: "validation.invalidPhone",
+        }),
       streetAddress: z
         .string()
         .trim()
         .min(1, "validation.streetAddressRequired"),
       city: z.string().trim().min(1, "validation.cityRequired"),
-      postalCode: z.string().trim().min(1, "validation.postalCodeRequired"),
+      postalCode: z
+        .string()
+        .trim()
+        .min(1, "validation.postalCodeRequired")
+        .refine(
+          (value) => value.length === 0 || POSTAL_CODE_REGEX.test(value),
+          {
+            message: "validation.invalidPostalCode",
+          },
+        ),
       country: z.string().trim().min(1, "validation.countryRequired"),
       useDifferentShippingAddress: z.boolean(),
       differentShippingAddress: z.object({
@@ -61,6 +79,16 @@ export const shippingSchema = z.object({
           ctx.addIssue({
             code: "custom",
             message: "validation.postalCodeRequired",
+            path: ["differentShippingAddress", "postalCode"],
+          });
+        } else if (
+          !POSTAL_CODE_REGEX.test(
+            shipping.differentShippingAddress.postalCode.trim(),
+          )
+        ) {
+          ctx.addIssue({
+            code: "custom",
+            message: "validation.invalidPostalCode",
             path: ["differentShippingAddress", "postalCode"],
           });
         }

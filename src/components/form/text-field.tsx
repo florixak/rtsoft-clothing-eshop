@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { getErrorMessage } from "@/lib/validators";
+import { useFormContext } from "@/hooks/form-context";
 
 type TextFieldProps = {
   label: string;
@@ -11,21 +12,31 @@ type TextFieldProps = {
 
 const TextField = ({ label, id, type, ...props }: TextFieldProps) => {
   const field = useFieldContext<string>();
+  const form = useFormContext();
   const { t } = useTranslation(TRANSLATION_NAMESPACES.checkout);
+  const inputId = id ?? String(field.name).replace(/\./g, "-");
+  const errorId = `${inputId}-error`;
+  const hasError = field.state.meta.errors.length > 0;
+  const shouldShowError =
+    hasError &&
+    (field.state.meta.isTouched || form.state.submissionAttempts > 0);
+
   return (
     <div className="flex flex-col w-full gap-1 relative">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={inputId}>{label}</Label>
       <Input
-        id={id}
+        id={inputId}
         type={type}
         className="border p-2 rounded w-full"
         {...props}
+        aria-invalid={shouldShowError}
+        aria-describedby={shouldShowError ? errorId : undefined}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
         onBlur={field.handleBlur}
       />
-      {field.state.meta.isDirty && field.state.meta.errors.length ? (
-        <em className="text-destructive text-sm">
+      {shouldShowError ? (
+        <em id={errorId} className="text-destructive text-sm" role="alert">
           {t(getErrorMessage(field.state.meta.errors[0]))}
         </em>
       ) : (

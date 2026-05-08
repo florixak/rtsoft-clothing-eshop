@@ -1,6 +1,7 @@
 import { dashboardPeriods } from "@/data/stats";
 import { orderStatuses } from "@/data/orders";
 import * as z from "zod";
+import { MIN_PASSWORD_LENGTH } from "@/constants";
 
 export const ordersSchema = z.object({
   period: z.enum(dashboardPeriods).default("all").catch("all"),
@@ -21,8 +22,21 @@ export const productsSchema = z.object({
 });
 
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z
+    .string()
+    .trim()
+    .min(1, "validation.required")
+    .email("validation.invalidEmail"),
+  password: z
+    .string()
+    .trim()
+    .min(1, "validation.required")
+    .refine(
+      (value) => value.length === 0 || value.length >= MIN_PASSWORD_LENGTH,
+      {
+        message: "validation.passwordTooShort",
+      },
+    ),
   rememberMe: z.boolean().default(false),
 });
 
