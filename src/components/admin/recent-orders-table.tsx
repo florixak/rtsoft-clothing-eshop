@@ -21,10 +21,12 @@ import {
   SelectValue,
 } from "../ui/select";
 import useLocale from "@/hooks/use-locale";
+import { useNavigate } from "@tanstack/react-router";
 
 const RecentOrdersTable = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.admin);
   const locale = useLocale();
+  const navigate = useNavigate();
 
   const { data: recentOrders } = useSuspenseQuery(
     createRecentOrdersQueryOptions(),
@@ -61,7 +63,12 @@ const RecentOrdersTable = () => {
       onPaginationChange={onPaginationChange}
       globalFilterFn={globalOrderFilter}
       emptyLabel={t("orders.noResults")}
-      onRowClick={(row) => console.log("click ", row.id)}
+      onRowClick={(row) =>
+        navigate({
+          to: "/{-$locale}/admin/orders/$orderId",
+          params: { orderId: row.id },
+        })
+      }
       toolbar={() => {
         const currentStatus = status ?? "all";
 
