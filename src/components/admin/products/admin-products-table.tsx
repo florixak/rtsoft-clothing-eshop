@@ -51,7 +51,6 @@ const AdminProductsTable = () => {
       onPaginationChange={onPaginationChange}
       globalFilterFn={createGlobalProductFilter(locale)}
       emptyLabel={t("products.noResults")}
-      onRowClick={(row) => console.log("click ", row.id)}
       toolbar={() => {
         return (
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
