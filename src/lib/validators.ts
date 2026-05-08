@@ -1,7 +1,7 @@
 import { paymentMethods, shippingMethods } from "@/data";
 import * as z from "zod";
 
-const PHONE_REGEX = /^[+0-9()\s-]{6,20}$/;
+const PHONE_REGEX = /^(?=.*\d)[+0-9()\s-]{6,20}$/;
 const POSTAL_CODE_REGEX = /^[0-9A-Za-z\s-]{3,10}$/;
 
 export const shippingSchema = z.object({
