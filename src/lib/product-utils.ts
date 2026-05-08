@@ -12,7 +12,7 @@ import { MAX_SEEN_PRODUCTS, SEEN_PRODUCTS_STORAGE_KEY } from "@/constants";
 const PRODUCT_PLACEHOLDER_IMAGE = "/images/placeholder-image.png";
 
 const getProductImage = (image?: string | null) =>
-  image ?? PRODUCT_PLACEHOLDER_IMAGE;
+  image || PRODUCT_PLACEHOLDER_IMAGE;
 
 export type Query = {
   category?: Category["id"];
