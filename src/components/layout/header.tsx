@@ -8,9 +8,11 @@ import { LanguageSwitcher } from "./language-switcher";
 import { useCartStore } from "@/stores/cart-store";
 import HeaderSearch from "./header-search";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import useLocale from "@/hooks/use-locale";
 
 const Header = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const locale = useLocale();
   const itemsCount = useCartStore((state) =>
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0),
   );
@@ -21,6 +23,7 @@ const Header = () => {
         <div className="flex-1">
           <Link
             to="/{-$locale}"
+            params={{ locale }}
             className="flex items-center w-fit"
             aria-label={t("header.aria.logo")}
           >

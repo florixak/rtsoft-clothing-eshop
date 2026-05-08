@@ -52,7 +52,7 @@ const NotFound = ({
         <Button
           nativeButton={false}
           render={
-            <Link to={primary?.to ?? `/${locale}/`}>
+            <Link to={primary?.to ?? "/{-$locale}"} params={{ locale }}>
               {primary?.icon ?? <Home size={18} />}
               {primaryLabel}
             </Link>
