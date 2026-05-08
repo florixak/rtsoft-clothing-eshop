@@ -8,6 +8,7 @@ import { cn, formatPrice } from "@/lib/utils";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { searchForProducts, normalizeText } from "@/lib/search-utils";
+import { getProductImage } from "@/lib/product-utils";
 import useDebounce from "@/hooks/use-debounce";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
@@ -192,13 +193,11 @@ const HeaderSearch = ({ mode = "desktop" }: HeaderSearchProps) => {
                       setIsOpen(false);
                     }}
                   >
-                    {product.fallbackImages[0] != null ? (
-                      <img
-                        src={product.fallbackImages[0]}
-                        alt={product.name[locale]}
-                        className="size-11 rounded-md object-cover"
-                      />
-                    ) : null}
+                    <img
+                      src={getProductImage(product.fallbackImages[0])}
+                      alt={product.name[locale]}
+                      className="size-11 rounded-md object-cover"
+                    />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-foreground">
                         {product.name[locale]}
