@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
+import useLocale from "@/hooks/use-locale";
 
 type NotFoundProps = {
   title?: ReactNode;
@@ -29,6 +30,7 @@ const NotFound = ({
   className,
 }: NotFoundProps) => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const router = useRouter();
 
   const primaryLabel = primary?.label ?? t("buttons.goHome");
@@ -50,7 +52,7 @@ const NotFound = ({
         <Button
           nativeButton={false}
           render={
-            <Link to={primary?.to ?? "/{-$locale}"}>
+            <Link to={primary?.to ?? "/{-$locale}"} params={{ locale }}>
               {primary?.icon ?? <Home size={18} />}
               {primaryLabel}
             </Link>
