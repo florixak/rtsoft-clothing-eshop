@@ -57,7 +57,17 @@ const CatalogFilter = () => {
 
   const clearAllFilters = () => {
     navigate({
-      search: {},
+      search: (prev) => ({
+        ...prev,
+        category: undefined,
+        sort: undefined,
+        priceRange: undefined,
+        size: undefined,
+        color: undefined,
+        rating: undefined,
+        availability: undefined,
+        page: 1,
+      }),
       replace: true,
     });
   };
