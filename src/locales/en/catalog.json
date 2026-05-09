@@ -7,6 +7,7 @@
     "all": "All",
     "title": "Filters",
     "close": "Close filters",
+    "clearAll": "Clear all filters",
     "categories": "Categories",
     "priceRange": "Price Range",
     "sortBy": "Sort by",
