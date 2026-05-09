@@ -1,6 +1,9 @@
 import { type SortOptions } from "@/data/products";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Suspense } from "react";
+import { Button } from "../ui/button";
+import { useTranslation } from "react-i18next";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 
 import { Skeleton } from "../ui/skeleton";
 import AvailabilityFilter from "./availability-filter";
@@ -12,6 +15,7 @@ import SizeFilter from "./size-filter";
 import SortFilter from "./sort-filter";
 
 const CatalogFilter = () => {
+  const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
   const search = useSearch({ from: "/{-$locale}/" });
   const { category, sort, priceRange, size, color, rating, availability } =
     search;
@@ -38,6 +42,32 @@ const CatalogFilter = () => {
   ): void => {
     navigate({
       search: (prev) => ({ ...prev, ...updates, page: 1 }),
+      replace: true,
+    });
+  };
+
+  const hasActiveFilters =
+    category ||
+    sort ||
+    priceRange ||
+    size?.length ||
+    color?.length ||
+    rating ||
+    availability;
+
+  const clearAllFilters = () => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        category: undefined,
+        sort: undefined,
+        priceRange: undefined,
+        size: undefined,
+        color: undefined,
+        rating: undefined,
+        availability: undefined,
+        page: 1,
+      }),
       replace: true,
     });
   };
@@ -73,6 +103,16 @@ const CatalogFilter = () => {
         availability={availability}
         patchSearch={(updates) => patchSearch(updates)}
       />
+
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={clearAllFilters}
+        className={"mt-auto"}
+        disabled={!hasActiveFilters}
+      >
+        {t("filters.clearAll")}
+      </Button>
     </aside>
   );
 };
