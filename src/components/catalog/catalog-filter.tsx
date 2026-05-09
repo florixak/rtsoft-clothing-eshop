@@ -93,16 +93,16 @@ const CatalogFilter = () => {
         availability={availability}
         patchSearch={(updates) => patchSearch(updates)}
       />
-      {hasActiveFilters && (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={clearAllFilters}
-          className="w-full"
-        >
-          {t("filters.clearAll")}
-        </Button>
-      )}
+
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={clearAllFilters}
+        className={"mt-auto"}
+        disabled={!hasActiveFilters}
+      >
+        {t("filters.clearAll")}
+      </Button>
     </aside>
   );
 };
