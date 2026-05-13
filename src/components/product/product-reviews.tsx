@@ -12,8 +12,7 @@ const ProductReviews = () => {
 
   const handleWriteReview = () => {
     toast(t("common:toast.comingSoon"), {
-      icon: <Info size={18} />,
-      duration: 3000,
+      icon: <Info size={24} className="text-primary" />,
     });
   };
 
