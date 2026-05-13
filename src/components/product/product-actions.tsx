@@ -1,3 +1,4 @@
+import useLocale from "@/hooks/use-locale";
 import { useQuantityCounter } from "@/hooks/use-quantity-counter";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import type { SizeCode, TypeCode } from "@/types";
@@ -5,7 +6,6 @@ import { ShoppingBasket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import QuantityCounter from "./quantity-counter";
-import useLocale from "@/hooks/use-locale";
 
 type ProductActionsProps = {
   selectedColor: TypeCode | undefined;
@@ -33,7 +33,7 @@ const ProductActions = ({
   isOutOfStock,
 }: ProductActionsProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.product);
-  const { quantity, setQuantity } = useQuantityCounter();
+  const { quantity, setQuantity, reset } = useQuantityCounter();
   const locale = useLocale();
 
   const selectedColorLabel: string =
@@ -63,7 +63,11 @@ const ProductActions = ({
                 size="sm"
                 disabled={isColorOutOfStock}
                 aria-pressed={isColorSelected}
-                onClick={() => handleColorChange(color.code)}
+                onClick={() => {
+                  if (isColorSelected) return;
+                  handleColorChange(color.code);
+                  reset();
+                }}
               >
                 {color.label[locale]}
                 {isColorOutOfStock ? ` (${t("badge.outOfStock")})` : ""}
@@ -89,7 +93,11 @@ const ProductActions = ({
                 size="sm"
                 disabled={isSizeOutOfStock}
                 aria-pressed={isSizeSelected}
-                onClick={() => handleSizeChange(size.code)}
+                onClick={() => {
+                  if (isSizeSelected) return;
+                  handleSizeChange(size.code);
+                  reset();
+                }}
               >
                 {size.label[locale]}
                 {isSizeOutOfStock ? ` (${t("badge.outOfStock")})` : ""}
