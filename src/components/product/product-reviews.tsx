@@ -1,8 +1,7 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { showInfoToast } from "@/lib/toasts";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
-import toast from "react-hot-toast";
-import { Info } from "lucide-react";
 
 const ProductReviews = () => {
   const { t } = useTranslation([
@@ -11,9 +10,7 @@ const ProductReviews = () => {
   ]);
 
   const handleWriteReview = () => {
-    toast(t("common:toast.comingSoon"), {
-      icon: <Info size={24} className="text-primary" />,
-    });
+    showInfoToast(t("common:toast.comingSoon"));
   };
 
   return (

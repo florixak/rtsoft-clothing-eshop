@@ -1,21 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import {
-  Heart,
-  Info,
-  ShoppingBag,
-  ShoppingCart,
-  UserCircle,
-} from "lucide-react";
+import { Heart, ShoppingBag, ShoppingCart, UserCircle } from "lucide-react";
 
+import useLocale from "@/hooks/use-locale";
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { showInfoToast } from "@/lib/toasts";
+import { useCartStore } from "@/stores/cart-store";
 import { useTranslation } from "react-i18next";
+import HeaderSearch from "./header-search";
+import { LanguageSwitcher } from "./language-switcher";
 import MobileMenuDrawer from "./mobile-menu-drawer";
 import { ThemeSwitcher } from "./theme-switcher";
-import { LanguageSwitcher } from "./language-switcher";
-import { useCartStore } from "@/stores/cart-store";
-import HeaderSearch from "./header-search";
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import useLocale from "@/hooks/use-locale";
-import toast from "react-hot-toast";
 
 const Header = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
@@ -47,11 +41,7 @@ const Header = () => {
                 to="."
                 aria-label={t("header.aria.wishlist")}
                 disabled
-                onClick={() =>
-                  toast(t("toast.comingSoon"), {
-                    icon: <Info size={24} className="text-primary" />,
-                  })
-                }
+                onClick={() => showInfoToast(t("toast.comingSoon"))}
               >
                 <Heart size={24} />
               </Link>
