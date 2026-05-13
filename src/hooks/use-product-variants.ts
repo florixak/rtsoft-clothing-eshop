@@ -49,7 +49,10 @@ const getPreferredSize = (
 
 const useProductVariants = (product: Product) => {
   const addItem = useCartStore((state) => state.addItem);
-  const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
+  const { t } = useTranslation([
+    TRANSLATION_NAMESPACES.common,
+    TRANSLATION_NAMESPACES.product,
+  ]);
   const locale = useLocale();
 
   const allColors = getAllColors(product);
@@ -103,12 +106,40 @@ const useProductVariants = (product: Product) => {
 
   const handleAddToCart = (quantity: number = 1) => {
     if (!selectedInStockSku || !selectedSize || !selectedColor) return;
-    addItem({
+    const prevQuantity =
+      useCartStore
+        .getState()
+        .cart.items.find(
+          (item) =>
+            item.productId === product.id &&
+            item.selectionSnapshot.size === selectedSku?.size &&
+            item.selectionSnapshot.color === selectedSku?.color &&
+            item.priceSnapshot === priceWithVariants,
+        )?.quantity ?? 0;
+
+    const added = addItem({
       productId: product.id,
       size: selectedSize,
       color: selectedColor,
       quantity,
     });
+
+    const newQuantity =
+      useCartStore
+        .getState()
+        .cart.items.find(
+          (item) =>
+            item.productId === product.id &&
+            item.selectionSnapshot.size === selectedSku?.size &&
+            item.selectionSnapshot.color === selectedSku?.color &&
+            item.priceSnapshot === priceWithVariants,
+        )?.quantity ?? 0;
+
+    if (!added || newQuantity <= prevQuantity) {
+      toast.error(t("product:addToCart.outOfStock"));
+      return;
+    }
+
     const productName = product.name[locale];
     const variantInfo = `(${selectedSize.toUpperCase()} | ${selectedColor})`;
     toast.success(
