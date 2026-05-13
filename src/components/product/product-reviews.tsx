@@ -23,7 +23,7 @@ const ProductReviews = () => {
       <div className="flex items-center justify-center py-12 px-4 border border-dashed rounded-lg bg-muted/30">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-muted-foreground">{t("reviews.comingSoon")}</p>
-          <Button onClick={handleWriteReview} disabled>
+          <Button onClick={handleWriteReview}>
             {t("reviews.writeReview")}
           </Button>
         </div>
