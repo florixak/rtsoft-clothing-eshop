@@ -1,5 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, ShoppingBag, ShoppingCart, UserCircle } from "lucide-react";
+import {
+  Heart,
+  Info,
+  ShoppingBag,
+  ShoppingCart,
+  UserCircle,
+} from "lucide-react";
 
 import { useTranslation } from "react-i18next";
 import MobileMenuDrawer from "./mobile-menu-drawer";
@@ -9,6 +15,7 @@ import { useCartStore } from "@/stores/cart-store";
 import HeaderSearch from "./header-search";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import useLocale from "@/hooks/use-locale";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.common);
@@ -36,7 +43,16 @@ const Header = () => {
         <nav className="flex flex-1 justify-end">
           <ul className="flex flex-row items-center gap-4">
             <li className="hidden md:block">
-              <Link to="." aria-label={t("header.aria.wishlist")}>
+              <Link
+                to="."
+                aria-label={t("header.aria.wishlist")}
+                disabled
+                onClick={() =>
+                  toast(t("toast.comingSoon"), {
+                    icon: <Info size={24} className="text-primary" />,
+                  })
+                }
+              >
                 <Heart size={24} />
               </Link>
             </li>

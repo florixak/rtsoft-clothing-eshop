@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Heart,
+  Info,
   Menu,
   ShoppingBag,
   ShoppingCart,
@@ -23,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useCartStore } from "@/stores/cart-store";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { toast } from "react-hot-toast";
 
 const MobileMenuDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -81,7 +83,12 @@ const MobileMenuDrawer = () => {
             <Link
               to="."
               aria-label={t("header.aria.wishlist")}
-              onClick={closeDrawer}
+              disabled
+              onClick={() =>
+                toast(t("toast.comingSoon"), {
+                  icon: <Info size={24} className="text-primary" />,
+                })
+              }
               className="flex items-center"
             >
               <Heart size={24} className="inline-block mr-2" />
