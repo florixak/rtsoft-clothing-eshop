@@ -67,7 +67,6 @@ export const useCartStore = create<CartStore>()(
         }
         if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return false;
         quantity = Math.max(1, Math.floor(quantity));
-        if (quantity <= 0) return false;
 
         // Check current cart to decide if add is possible before calling set
         const existing = get().cart.items.find(
