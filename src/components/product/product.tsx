@@ -6,6 +6,7 @@ import { Separator } from "../ui/separator";
 import LastSeenProducts from "./last-seen-products";
 import ProductHeader from "./product-header";
 import ProductSpecifications from "./product-specifications";
+import ProductReviews from "./product-reviews";
 import { useEffect } from "react";
 import { setLastSeenProduct } from "@/lib/product-utils";
 
@@ -26,6 +27,8 @@ const Product = () => {
       <ProductHeader key={product?.id} product={product} />
       <Separator className="my-8" />
       <ProductSpecifications product={product} />
+      <Separator className="my-8" />
+      <ProductReviews />
       <Separator className="my-8" />
       <LastSeenProducts product={product} />
     </section>

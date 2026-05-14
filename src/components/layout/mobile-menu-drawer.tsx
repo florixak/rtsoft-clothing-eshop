@@ -1,3 +1,6 @@
+import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { showInfoToast } from "@/lib/toasts";
+import { useCartStore } from "@/stores/cart-store";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -8,6 +11,8 @@ import {
   UserCircle,
   X,
 } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import {
   Drawer,
@@ -17,12 +22,8 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "../ui/drawer";
-import { MobileThemeSwitcher } from "./theme-switcher";
 import { MobileLanguageSwitcher } from "./language-switcher";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import { useCartStore } from "@/stores/cart-store";
-import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import { MobileThemeSwitcher } from "./theme-switcher";
 
 const MobileMenuDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -81,7 +82,8 @@ const MobileMenuDrawer = () => {
             <Link
               to="."
               aria-label={t("header.aria.wishlist")}
-              onClick={closeDrawer}
+              disabled
+              onClick={() => showInfoToast(t("toast.comingSoon"))}
               className="flex items-center"
             >
               <Heart size={24} className="inline-block mr-2" />

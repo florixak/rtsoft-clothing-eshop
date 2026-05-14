@@ -7,7 +7,7 @@ const CatalogHeader = () => {
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <h2 className="text-2xl font-heading font-semibold">
+      <h2 className="text-3xl font-heading font-semibold">
         {t("catalog.title")}
       </h2>
 

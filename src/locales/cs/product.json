@@ -43,6 +43,12 @@
     "subtitle": "Položky, které jste již viděli",
     "empty": "Zatím jste si neprohlédli žádné produkty."
   },
+  "reviews": {
+    "title": "Recenze",
+    "subtitle": "Podívejte se, co si o tomto produktu myslí ostatní",
+    "comingSoon": "Recenze produktů již brzy. Buďte první, kdo se podělí o svůj názor!",
+    "writeReview": "Napsat recenzi"
+  },
   "breadcrumbs": {
     "home": "Domov"
   }

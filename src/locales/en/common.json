@@ -119,6 +119,7 @@
     "error": "Error!",
     "warning": "Warning!",
     "info": "Info",
+    "comingSoon": "Coming soon...",
     "addedToCart": "Product {{name}} added to cart.",
     "removedFromCart": "Product {{name}} removed from cart.",
     "orderPlaced": "Order placed successfully.",

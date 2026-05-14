@@ -14,7 +14,7 @@ type CartStore = {
   cart: Cart;
   itemsCount: () => number;
   subtotal: () => number;
-  addItem: (input: AddItemInput) => void;
+  addItem: (input: AddItemInput) => boolean;
   removeItem: (itemId: string) => void;
   getQuantity: (itemId: string) => number | undefined;
   changeItemQuantity: (itemId: string, newQuantity: number) => void;
@@ -63,14 +63,27 @@ export const useCartStore = create<CartStore>()(
           !Number.isFinite(unitPrice) ||
           unitPrice < 0
         ) {
-          return;
+          return false;
         }
-        if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return;
+        if (!Number.isFinite(quantity) || Number.isNaN(quantity)) return false;
         quantity = Math.max(1, Math.floor(quantity));
-        if (quantity <= 0) return;
+
+        // Check current cart to decide if add is possible before calling set
+        const existing = get().cart.items.find(
+          (item) =>
+            item.productId === productId &&
+            item.selectionSnapshot.size === size &&
+            item.selectionSnapshot.color === color &&
+            item.priceSnapshot === unitPrice,
+        );
+
+        const nextQuantity = (existing?.quantity ?? 0) + quantity;
+        if (nextQuantity > selectedSku.stock) {
+          return false;
+        }
 
         set((state) => {
-          const existing = state.cart.items.find(
+          const existingInner = state.cart.items.find(
             (item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
@@ -78,20 +91,18 @@ export const useCartStore = create<CartStore>()(
               item.priceSnapshot === unitPrice,
           );
 
-          const nextQuantity = (existing?.quantity ?? 0) + quantity;
-          if (nextQuantity > selectedSku.stock) {
-            return state;
-          }
-
           let nextItems: CartItem[];
 
-          if (existing) {
+          if (existingInner) {
             nextItems = state.cart.items.map((item) =>
               item.productId === productId &&
               item.selectionSnapshot.size === size &&
               item.selectionSnapshot.color === color &&
               item.priceSnapshot === unitPrice
-                ? { ...item, quantity: nextQuantity }
+                ? {
+                    ...item,
+                    quantity: (existingInner.quantity ?? 0) + quantity,
+                  }
                 : item,
             );
           } else {
@@ -114,6 +125,8 @@ export const useCartStore = create<CartStore>()(
             }),
           };
         });
+
+        return true;
       },
 
       removeItem: (itemId) => {

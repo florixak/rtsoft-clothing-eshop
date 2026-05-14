@@ -41,6 +41,12 @@
     "subtitle": "Items you have viewed before",
     "empty": "You haven't viewed any products yet."
   },
+  "reviews": {
+    "title": "Reviews",
+    "subtitle": "See what others think about this product",
+    "comingSoon": "Product reviews are coming soon. Be the first to share your thoughts!",
+    "writeReview": "Write a Review"
+  },
   "breadcrumbs": {
     "home": "Home"
   }

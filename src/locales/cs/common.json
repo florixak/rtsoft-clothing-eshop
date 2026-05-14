@@ -119,6 +119,7 @@
     "error": "Chyba!",
     "warning": "Upozornění!",
     "info": "Informace",
+    "comingSoon": "Již brzy...",
     "addedToCart": "Produkt {{name}} byl přidán do košíku.",
     "removedFromCart": "Produkt {{name}} byl odstraněn z košíku.",
     "orderPlaced": "Objednávka byla úspěšně vytvořena.",
