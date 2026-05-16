@@ -10,7 +10,7 @@ export const ordersSchema = z.object({
   sortOrder: z.enum(["asc", "desc"]).optional(),
   status: z.enum(orderStatuses).optional(),
   page: z.coerce.number().int().positive().default(1).catch(1),
-  perPage: z.coerce.number().int().positive().default(5).catch(5),
+  perPage: z.coerce.number().int().positive().default(10).catch(10),
 });
 
 export const productsSchema = z.object({
@@ -18,7 +18,7 @@ export const productsSchema = z.object({
   sort: z.enum(["createdAt", "amount"]).optional(),
   sortOrder: z.enum(["asc", "desc"]).optional(),
   page: z.coerce.number().int().positive().default(1).catch(1),
-  perPage: z.coerce.number().int().positive().default(5).catch(5),
+  perPage: z.coerce.number().int().positive().default(10).catch(10),
 });
 
 export const loginSchema = z.object({
@@ -26,6 +26,7 @@ export const loginSchema = z.object({
     .string()
     .trim()
     .min(1, "validation.required")
+    .max(254, "validation.emailTooLong")
     .email("validation.invalidEmail"),
   password: z
     .string()

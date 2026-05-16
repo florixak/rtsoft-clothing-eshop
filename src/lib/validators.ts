@@ -14,6 +14,7 @@ export const shippingSchema = z.object({
         .string()
         .trim()
         .min(1, "validation.emailRequired")
+        .max(254, "validation.emailTooLong")
         .email("validation.emailInvalid"),
       phone: z
         .string()

@@ -21,7 +21,7 @@ const useProductFilter = () => {
         id: "createdAt",
         desc: true,
       },
-      defaultPerPage: 5,
+      defaultPerPage: 10,
       debounceMs: 300,
     }),
   };

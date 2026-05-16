@@ -54,7 +54,10 @@ export const createAdminOrderColumns = ({ locale, t }: OrderColumnsParams) => {
           <span>
             {row.original.customer.firstName} {row.original.customer.lastName}
           </span>
-          <span className="text-xs text-muted-foreground">
+          <span
+            className="text-xs text-muted-foreground truncate"
+            title={row.original.customer.email}
+          >
             {row.original.customer.email}
           </span>
         </div>
