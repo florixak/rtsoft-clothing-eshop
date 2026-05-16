@@ -1,14 +1,68 @@
-# Průvodce nastavením a spuštěním aplikace
+# Clothing Eshop
 
-> Tento dokument popisuje, jak nastavit a spustit e-shop aplikaci **RTSoft Clothing Eshop**.
+> E-commerce aplikace pro prodej oblečení s moderním uživatelským rozhraním
+
+## O aplikaci
+
+**Clothing Eshop** je plnohodnotná e-commerce aplikace zaměřená na prodej oblečení a módních doplňků. Aplikace poskytuje kompletní nákupní zážitek pro zákazníky i uživatelský panel pro správce prodejny.
+
+### Klíčové vlastnosti
+
+- 🛍️ **Katalog produktů** - Procházejte a filtrujte oblečení podle kategorií, ceny, velikosti a barvy
+- 🛒 **Nákupní košík** - Spravujte své položky s možností úpravy quantidade
+- 💳 **Bezpečný checkout** - Vícekrokový proces objednávky s ověřením údajů
+- 🌍 **Vícejazyčnost** - Podpora pro češtinu a angličtinu
+- 👤 **Účty uživatelů** - Registrace, přihlášení a správa objednávek
+- 📊 **Administrační panel** - Dashboard pro správu objednávek, produktů a statistik
+- 📱 **Responzivní design** - Funguje na desktopech, tabletech i mobilních zařízeních
+- 🔍 **Vyhledávání a filtrování** - Pokročilé možnosti pro snadné vyhledání produktů
+- 📈 **Analytika a grafy** - Přehledy tržeb a nejprodávanějších produktů
+
+### Informace o autorovi
+
+- **Autor**: Ondřej Pták
+- **Škola**: Západočeská univerzita v Plzni
+- **Předmět**: KIV/UUR - Návrh uživatelských rozhraní
+
+---
 
 ## Obsah
 
+- [O aplikaci](#o-aplikaci)
 - [Požadavky](#požadavky)
 - [Instalace](#instalace)
 - [Spuštění aplikace](#spuštění-aplikace)
 - [Dostupné skripty](#dostupné-skripty)
 - [Struktura projektu](#struktura-projektu)
+- [Konfigurace prostředí](#konfigurace-prostředí)
+- [Typické pracovní postupy](#typické-pracovní-postupy)
+- [Technologický stack](#technologický-stack)
+- [Řešení problémů](#řešení-problémů)
+- [Nasazení do produkce](#nasazení-do-produkce)
+- [Kontakt a podpora](#kontakt-a-podpora)
+
+---
+
+## 🚀 Rychlý start
+
+Máte Node.js a pnpm nainstalované? Pak jde to jednoduše:
+
+```bash
+# 1. Klonujte projekt
+git clone https://github.com/florixak/rtsoft-clothing-eshop.git
+cd rtsoft-clothing-eshop
+
+# 2. Instalujte závislosti
+pnpm install
+
+# 3. Spusťte aplikaci
+pnpm dev
+
+# 4. Otevřete prohlížeč
+# Aplikace je dostupná na: http://localhost:5173
+```
+
+**Hotovo!** 🎉 Aplikace je spuštěná. Teď můžete začít vyvíjet!
 
 ---
 
@@ -104,7 +158,7 @@ Pokud chcete místně vidět, jak bude aplikace vypadat v produkci:
 pnpm preview
 ```
 
-Aplikace bude dostupná na: **http://localhost:4173**
+Aplikace bude dostupná na: **http://localhost:5173**
 
 ---
 
@@ -186,31 +240,14 @@ Projekt používá lokální soubor `.env.local` pro proměnné prostředí. Pok
 1. Vytvořte soubor `.env.local` v kořenovém adresáři
 2. Přidejte potřebné proměnné
 
-```
+```bash
+# URL aplikace (pro vývoj)
 VITE_APP_URL=http://localhost:5173
-VITE_STUDENT_NAME=
-VITE_STUDENT_ID=
+
+# Informace o studentovi (zobrazuje se v aplikaci)
+VITE_STUDENT_NAME=Jméno
+VITE_STUDENT_ID=Studentské Číslo
 ```
-
----
-
-## Typické pracovní postupy
-
-### Vývoj nové funkce
-
-1. Spusťte vývojový server:
-   ```bash
-   pnpm dev
-   ```
-
-2. Otevřete aplikaci v prohlížeči na http://localhost:5173
-
-3. Editujte soubory v `src/` - změny se projeví okamžitě
-
-4. Spusťte linter, aby se ujistil korektnosti kódu:
-   ```bash
-   pnpm lint
-   ```
 
 ### Příprava na produkci
 
@@ -223,12 +260,14 @@ VITE_STUDENT_ID=
    ```bash
    pnpm preview
    ```
+   
+   Aplikace bude dostupná na http://localhost:5173
 
-3. Pokud vše funguje, můžete nasadit obsah `dist/` na produkční server
+3. Pokud vše funguje správně, můžete nasadit obsah `dist/` na produkční server
 
 ### Kontrola kódu
 
-1. Spusťte linter:
+1. Spusťte linter pro zjištění problémů:
    ```bash
    pnpm lint
    ```
@@ -258,15 +297,95 @@ Aplikace je vytvořena s následujícími technologiemi:
 
 ---
 
-## Kontakt a podpora
+## Řešení problémů
 
-Pokud máte otázky nebo narazíte na problém:
+### Problém: Příkaz `pnpm` není nalezen
 
-1. Přečtěte si tuto příručku znovu
-2. Zkontrolujte konzoli prohlížeče (F12 - Konzole)
+**Řešení:**
+```bash
+# Instalace pnpm globálně
+npm install -g pnpm
+
+# Ověřte instalaci
+pnpm --version
+```
+
+### Problém: Port 5173 je již využíván
+
+**Řešení:**
+```bash
+# Vite automaticky použije další dostupný port
+pnpm dev
+
+# Nebo manuálně zadejte jiný port
+pnpm dev -- --port 3000
+```
+
+### Problém: Chyby při instalaci závislostí
+
+**Řešení:**
+```bash
+# Smažte cache
+pnpm store prune
+rm -rf node_modules pnpm-lock.yaml
+
+# Nainstalujem znovu
+pnpm install
+```
+
+### Problém: Aplikace se nezačne načítat
+
+**Řešení:**
+1. Otevřete konzolu prohlížeče (F12)
+2. Zkontrolujte chyby v konzoli
 3. Zkontrolujte terminál, kde běží `pnpm dev`
-4. Kontaktujte vedoucího práce nebo cvičícího
+4. Vymažte cache prohlížeče (Ctrl+Shift+Delete nebo Cmd+Shift+Delete)
+5. Obnovte stránku (F5 nebo Ctrl+R)
+
+### Problém: CSS se neaplikuje správně
+
+**Řešení:**
+```bash
+# Restartujte dev server
+pnpm dev
+
+# Pokud problém trvá, vymažte build cache
+rm -rf dist
+pnpm build
+```
+
+### Problém: TypeScript chyby
+
+**Řešení:**
+```bash
+# Zkontrolujte typ chyb
+pnpm build
+
+# Opravte chyby v src/ nebo vymažte cache
+pnpm lint -- --fix
+```
 
 ---
 
-**Poslední aktualizace:** 29. dubna 2026
+### Lokální produkční server
+
+Pro testování produkčního buildu lokálně:
+
+```bash
+pnpm build
+pnpm preview
+```
+
+---
+
+### Užitečné zdroje
+
+- [React dokumentace](https://react.dev)
+- [Vite dokumentace](https://vitejs.dev)
+- [TanStack Router](https://tanstack.com/router/latest)
+- [Tailwind CSS](https://tailwindcss.com)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs)
+
+---
+
+**Poslední aktualizace:** 16. května 2026
