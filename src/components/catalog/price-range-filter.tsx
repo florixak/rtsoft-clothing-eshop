@@ -88,15 +88,14 @@ const PriceRangeFilter = ({
   const commitMin = (raw: string) => {
     const parsed = Number(raw);
     const next = Number.isFinite(parsed) && raw !== "" ? parsed : baseMin;
-    const clamped = clamp(Math.floor(next), baseMin, baseMax);
+    const clamped = clamp(Math.floor(next), baseMin, maxFilterPrice);
     handleSetPriceRange(clamped, maxFilterPrice);
     setMinRaw(String(clamped));
   };
-
   const commitMax = (raw: string) => {
     const parsed = Number(raw);
     const next = Number.isFinite(parsed) && raw !== "" ? parsed : baseMax;
-    const clamped = clamp(Math.floor(next), baseMin, baseMax);
+    const clamped = clamp(Math.floor(next), minFilterPrice, baseMax);
     handleSetPriceRange(minFilterPrice, clamped);
     setMaxRaw(String(clamped));
   };
