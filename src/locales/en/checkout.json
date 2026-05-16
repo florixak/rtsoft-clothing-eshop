@@ -124,6 +124,7 @@
     "lastNameRequired": "Last name is required",
     "emailRequired": "Email is required",
     "emailInvalid": "Invalid email address",
+    "emailTooLong": "Email address is too long (maximum 254 characters)",
     "streetAddressRequired": "Street address is required",
     "cityRequired": "City is required",
     "postalCodeRequired": "Postal code is required",

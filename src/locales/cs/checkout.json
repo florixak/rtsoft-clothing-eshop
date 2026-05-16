@@ -124,6 +124,7 @@
     "lastNameRequired": "Příjmení je povinné",
     "emailRequired": "E-mail je povinný",
     "emailInvalid": "Neplatná e-mailová adresa",
+    "emailTooLong": "E-mailová adresa je příliš dlouhá (maximum 254 znaků)",
     "streetAddressRequired": "Ulice a číslo popisné jsou povinné",
     "cityRequired": "Město je povinné",
     "postalCodeRequired": "PSČ je povinné",

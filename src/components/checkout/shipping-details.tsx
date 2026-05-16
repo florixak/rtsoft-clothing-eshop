@@ -65,6 +65,8 @@ const ShippingDetails = ({ form }: ShippingDetailsProps) => {
             <field.TextField
               label={t("deliveryInfo.fields.email.label")}
               placeholder={t("deliveryInfo.fields.email.placeholder")}
+              type="email"
+              maxLength={254}
               required
             />
           )}
