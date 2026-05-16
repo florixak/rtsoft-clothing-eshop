@@ -29,7 +29,7 @@ export const categories: Category[] = [
   {
     id: "cat-6",
     slug: { cs: "cepice", en: "caps" },
-    name: { cs: "Cepice", en: "caps" },
+    name: { cs: "Čepice", en: "caps" },
   },
   {
     id: "cat-7",
