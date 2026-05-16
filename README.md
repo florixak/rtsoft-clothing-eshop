@@ -158,7 +158,7 @@ Pokud chcete místně vidět, jak bude aplikace vypadat v produkci:
 pnpm preview
 ```
 
-Aplikace bude dostupná na: **http://localhost:5173**
+Aplikace bude dostupná na: **http://localhost:4173**
 
 ---
 
@@ -261,7 +261,7 @@ VITE_STUDENT_ID=Studentské Číslo
    pnpm preview
    ```
    
-   Aplikace bude dostupná na http://localhost:5173
+   Aplikace bude dostupná na http://localhost:4173
 
 3. Pokud vše funguje správně, můžete nasadit obsah `dist/` na produkční server
 
