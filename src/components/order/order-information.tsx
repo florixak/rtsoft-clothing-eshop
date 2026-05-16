@@ -30,7 +30,9 @@ const OrderInformation = ({ order }: OrderInformationProps) => {
             <p className="font-medium">
               {customer.firstName} {customer.lastName}
             </p>
-            <p className="text-muted-foreground">{customer.email || "-"}</p>
+            <p className="text-muted-foreground truncate">
+              {customer.email || "-"}
+            </p>
             <p className="text-muted-foreground">{customer.phone || "-"}</p>
           </div>
         </div>
