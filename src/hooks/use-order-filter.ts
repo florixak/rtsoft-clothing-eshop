@@ -33,7 +33,7 @@ const useOrderFilter = ({ from }: UseOrderFilterProps) => {
         id: "createdAt",
         desc: true,
       },
-      defaultPerPage: 5,
+      defaultPerPage: 10,
       debounceMs: 300,
       statusValues: orderStatuses,
     }),
