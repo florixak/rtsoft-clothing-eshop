@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import { Trans, useTranslation } from "react-i18next";
 import { Checkbox } from "../ui/checkbox";
 import { MIN_PASSWORD_LENGTH } from "@/constants";
+import { showInfoToast } from "@/lib/toasts";
 
 type FieldErrors = {
   email?: string;
@@ -75,6 +76,10 @@ export function LoginForm({
     }
 
     await loginAsync(result.data);
+  };
+
+  const sendComingSoonToast = () => {
+    showInfoToast(t("common:toast.comingSoon"));
   };
 
   return (
@@ -135,6 +140,7 @@ export function LoginForm({
                     to="."
                     tabIndex={-1}
                     className="ml-auto text-sm underline-offset-2 hover:underline"
+                    onClick={sendComingSoonToast}
                   >
                     {t("login.fields.forgotPassword")}
                   </Link>
@@ -192,7 +198,11 @@ export function LoginForm({
 
               <FieldDescription className="text-center">
                 {t("login.doesNotHaveAccount")}{" "}
-                <Link to="." className="hover:underline">
+                <Link
+                  to="."
+                  className="hover:underline"
+                  onClick={sendComingSoonToast}
+                >
                   {t("login.register")}
                 </Link>
               </FieldDescription>
@@ -205,8 +215,20 @@ export function LoginForm({
           ns={TRANSLATION_NAMESPACES.auth}
           i18nKey="login.conditions"
           components={{
-            terms: <Link to="." className="underline" />,
-            privacy: <Link to="." className="underline" />,
+            terms: (
+              <Link
+                to="."
+                className="underline"
+                onClick={sendComingSoonToast}
+              />
+            ),
+            privacy: (
+              <Link
+                to="."
+                className="underline"
+                onClick={sendComingSoonToast}
+              />
+            ),
           }}
         />
       </FieldDescription>
