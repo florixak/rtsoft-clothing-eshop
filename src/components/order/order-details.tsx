@@ -46,8 +46,7 @@ const OrderDetails = ({
       await delayFor("orderMutation");
       return orderId;
     },
-    onSuccess: (data) => {
-      console.log("Order cancelled: ", data);
+    onSuccess: () => {
       setStatus("cancelled");
       toast.success(t("common:toast.orderCancelled"));
     },
