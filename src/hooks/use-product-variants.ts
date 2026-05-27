@@ -215,22 +215,37 @@ const useProductVariants = (
   };
 
   const sortedColors = allColors.sort((a, b) => {
+    const aInPrefs = filterPreferences?.color?.includes(a.code);
+    const bInPrefs = filterPreferences?.color?.includes(b.code);
+
+    if (aInPrefs && bInPrefs) {
+      const aIndex = filterPreferences!.color!.indexOf(a.code);
+      const bIndex = filterPreferences!.color!.indexOf(b.code);
+      return aIndex - bIndex;
+    }
+    if (aInPrefs) return -1;
+    if (bInPrefs) return 1;
+
     const aInStock = inStockColorCodes.has(a.code);
     const bInStock = inStockColorCodes.has(b.code);
-    if (filterPreferences?.color?.includes(a.code)) return -1;
-    if (filterPreferences?.color?.includes(b.code)) return 1;
-    if (aInStock === bInStock) return 0;
     if (aInStock && !bInStock) return -1;
     if (!aInStock && bInStock) return 1;
     return 0;
   });
 
   const sortedSizes = allSizes.sort((a, b) => {
+    const aInPrefs = filterPreferences?.size?.includes(a.code);
+    const bInPrefs = filterPreferences?.size?.includes(b.code);
+    if (aInPrefs && bInPrefs) {
+      const aIndex = filterPreferences!.size!.indexOf(a.code);
+      const bIndex = filterPreferences!.size!.indexOf(b.code);
+      return aIndex - bIndex;
+    }
+    if (aInPrefs) return -1;
+    if (bInPrefs) return 1;
+
     const aInStock = inStockSizeCodes.has(a.code);
     const bInStock = inStockSizeCodes.has(b.code);
-    if (filterPreferences?.size?.includes(a.code)) return -1;
-    if (filterPreferences?.size?.includes(b.code)) return 1;
-    if (aInStock === bInStock) return 0;
     if (aInStock && !bInStock) return -1;
     if (!aInStock && bInStock) return 1;
     return 0;
