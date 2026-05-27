@@ -121,6 +121,7 @@
     "info": "Info",
     "comingSoon": "Coming soon...",
     "addedToCart": "Product {{name}} added to cart.",
+    "addedToCartWithQuantity": "Product {{name}} added to cart. ({{numberInCart}} in cart)",
     "removedFromCart": "Product {{name}} removed from cart.",
     "orderPlaced": "Order placed successfully.",
     "orderCancelled": "Order cancelled successfully.",

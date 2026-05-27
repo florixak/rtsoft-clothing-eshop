@@ -100,7 +100,7 @@ const useProductVariants = (product: Product) => {
           item.selectionSnapshot.size === selectedSku?.size &&
           item.selectionSnapshot.color === selectedSku?.color &&
           item.priceSnapshot === priceWithVariants,
-      )?.quantity ?? 1,
+      )?.quantity ?? 0,
   );
   const isOutOfStock = !selectedInStockSku;
 
@@ -142,10 +142,16 @@ const useProductVariants = (product: Product) => {
 
     const productName = product.name[locale];
     const variantInfo = `(${selectedSize.toUpperCase()} | ${selectedColor})`;
+    const name = `${productName} ${variantInfo}`;
     toast.success(
-      t("toast.addedToCart", {
-        name: `${productName} ${variantInfo}`,
-      }),
+      prevQuantity > 0
+        ? t("toast.addedToCartWithQuantity", {
+            name,
+            numberInCart: newQuantity.toString(),
+          })
+        : t("toast.addedToCart", {
+            name,
+          }),
     );
   };
 

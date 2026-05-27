@@ -27,7 +27,8 @@
   },
   "addToCart": {
     "addToCart": "Add to Cart",
-    "outOfStock": "Sold Out"
+    "outOfStock": "Sold Out",
+    "inCart": "{{numberInCart}} in cart"
   },
   "specifications": {
     "title": "Specifications",

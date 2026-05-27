@@ -6,6 +6,7 @@ import { ShoppingBasket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import QuantityCounter from "./quantity-counter";
+import { Badge } from "../ui/badge";
 
 type ProductActionsProps = {
   selectedColor: TypeCode | undefined;
@@ -18,6 +19,7 @@ type ProductActionsProps = {
   inStockColorCodes: Set<TypeCode>;
   inStockSizeCodes: Set<SizeCode>;
   isOutOfStock: boolean;
+  quantityInCart: number;
 };
 
 const ProductActions = ({
@@ -31,6 +33,7 @@ const ProductActions = ({
   inStockColorCodes,
   inStockSizeCodes,
   isOutOfStock,
+  quantityInCart,
 }: ProductActionsProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.product);
   const { quantity, setQuantity, reset } = useQuantityCounter();
@@ -123,6 +126,12 @@ const ProductActions = ({
           <ShoppingBasket size={16} />
           {isOutOfStock ? t("addToCart.outOfStock") : t("addToCart.addToCart")}
         </Button>
+
+        {quantityInCart > 0 && (
+          <Badge variant="outline" className="text-xs uppercase">
+            {t("addToCart.inCart", { numberInCart: quantityInCart.toString() })}
+          </Badge>
+        )}
       </div>
     </div>
   );

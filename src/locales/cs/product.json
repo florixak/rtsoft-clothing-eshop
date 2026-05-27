@@ -29,7 +29,8 @@
   },
   "addToCart": {
     "addToCart": "Přidat do košíku",
-    "outOfStock": "Vyprodáno"
+    "outOfStock": "Vyprodáno",
+    "inCart": "{{numberInCart}} v košíku"
   },
   "specifications": {
     "title": "Specifikace",

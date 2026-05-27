@@ -110,7 +110,10 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
                 {product?.description[locale]}
               </p>
             </div>
-            <ProductActions {...productVariants} />
+            <ProductActions
+              {...productVariants}
+              quantityInCart={productVariants.quantity}
+            />
           </div>
         </div>
       </div>
