@@ -14,6 +14,8 @@ const PRODUCT_PLACEHOLDER_IMAGE = "/images/placeholder-image.png";
 const getProductImage = (image?: string | null) =>
   image || PRODUCT_PLACEHOLDER_IMAGE;
 
+export type FilterPreferences = Pick<Query, "color" | "size">;
+
 export type Query = {
   category?: Category["id"];
   priceRange?: string;
@@ -341,6 +343,35 @@ const getAvailableSizes = (product: Product) => {
     .filter(isDefined);
 };
 
+const findPreferredSelectionFromFilters = (
+  product: Product,
+  filterPreferences?: FilterPreferences,
+): { color: TypeCode; size: SizeCode } | null => {
+  const selectedColors = filterPreferences?.color;
+  const selectedSizes = filterPreferences?.size;
+
+  if (!selectedColors?.length && !selectedSizes?.length) {
+    return null;
+  }
+
+  const colorOrder = selectedColors?.length
+    ? selectedColors
+    : getAllColors(product).map((color) => color.code);
+  const sizeOrder = selectedSizes?.length
+    ? selectedSizes
+    : getAllSizes(product).map((size) => size.code);
+
+  for (const color of colorOrder) {
+    for (const size of sizeOrder) {
+      if (findInStockSku(product, color, size as SizeCode)) {
+        return { color, size: size as SizeCode };
+      }
+    }
+  }
+
+  return null;
+};
+
 const getAppliedFiltersLabel = (query: Query, locale: Languages) => {
   const labels: { label: string; key: string; removeValue?: string }[] = [];
   const t = i18n.getFixedT(locale, "catalog");
@@ -440,6 +471,7 @@ export {
   findSKU,
   matchesSelection,
   findInStockSku,
+  findPreferredSelectionFromFilters,
   hasInStockSku,
   hasInStockSkuBySelection,
   getAppliedFiltersLabel,

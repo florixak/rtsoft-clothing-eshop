@@ -11,14 +11,18 @@ import { ShoppingBasket, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { getImageBySelectedColor } from "@/lib/product-utils";
+import {
+  getImageBySelectedColor,
+  type FilterPreferences,
+} from "@/lib/product-utils";
 import useLocale from "@/hooks/use-locale";
 
 type ProductCardProps = {
   product: Product;
+  filterPreferences?: FilterPreferences;
 };
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, filterPreferences }: ProductCardProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
   const locale = useLocale();
@@ -35,7 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     handleColorChange,
     handleSizeChange,
     inStockSizeCodes,
-  } = useProductVariants(product);
+  } = useProductVariants(product, filterPreferences);
 
   const images = getImageBySelectedColor(product, selectedColor);
 

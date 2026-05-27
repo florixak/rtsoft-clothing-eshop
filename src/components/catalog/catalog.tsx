@@ -30,7 +30,10 @@ const Catalog = () => {
     <section className="container mx-auto flex flex-col items-center">
       <CatalogHeader />
 
-      <CatalogProducts products={products} />
+      <CatalogProducts
+        products={products}
+        filterPreferences={{ color: search.color, size: search.size }}
+      />
 
       <Navigation
         page={safePage}
