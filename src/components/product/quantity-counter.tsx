@@ -74,7 +74,7 @@ const QuantityCounter = ({
       <Input
         type="number"
         className={cn(
-          "appearance-none text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+          "appearance-none text-center [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
           isCompact ? "h-7 w-12 px-1 text-sm" : "h-8 w-16",
         )}
         min={0}
