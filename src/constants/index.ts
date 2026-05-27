@@ -2,6 +2,7 @@ import type { Query } from "@/lib/product-utils";
 import type { DashboardMetricsKey, DashboardPeriod, Order } from "@/types";
 import {
   Banknote,
+  Contact,
   HandCoins,
   LayoutDashboard,
   LayoutTemplate,
@@ -28,6 +29,7 @@ const QUERY_KEYS = {
   recentOrders: ["recentOrders"] as const,
   adminOrders: ["adminOrders"] as const,
   accountOrders: (userId: string) => ["accountOrders", userId] as const,
+  userProfile: (userId: string) => ["userProfile", userId] as const,
   adminProducts: ["adminProducts"] as const,
   orderDetails: (orderId: Order["id"], includeSessionFallback = false) =>
     ["orderDetails", orderId, includeSessionFallback] as const,
@@ -43,6 +45,7 @@ const MAX_RECENT_ORDERS_TO_SHOW = 5;
 
 const FREE_SHIPPING_THRESHOLD = 1000;
 
+const USER_PROFILES_STORAGE_KEY = "userProfiles";
 const MIN_PASSWORD_LENGTH = 6;
 
 const CHECKOUT_STEPS = ["shipping", "payment", "review"] as const;
@@ -59,6 +62,12 @@ const USER_MENU_ITEMS: {
     icon: ShoppingBag,
     label: "nav.orders",
     path: "/{-$locale}/account/orders",
+    adminOnly: false,
+  },
+  {
+    icon: Contact,
+    label: "nav.profile",
+    path: "/{-$locale}/account/profile",
     adminOnly: false,
   },
   {
@@ -113,6 +122,7 @@ const FOOTER_LINKS = {
 export {
   MAX_COLORS_TO_SHOW_PER_CARD,
   MAX_SIZES_TO_SHOW_PER_CARD,
+  USER_PROFILES_STORAGE_KEY,
   QUERY_KEYS,
   SEEN_PRODUCTS_STORAGE_KEY,
   MAX_SEEN_PRODUCTS,

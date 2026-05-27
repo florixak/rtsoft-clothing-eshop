@@ -194,6 +194,14 @@ export type User = {
   updatedAt: string;
 };
 
+export type UserProfile = {
+  phone?: string;
+  streetAddress: string;
+  city: string;
+  postalCode: string;
+  country: string;
+};
+
 export type AuthSession = {
   userId: User["id"];
   rememberMe: boolean;

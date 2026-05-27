@@ -5,6 +5,7 @@ import { paymentMethods, shippingMethods } from "@/data/shipping";
 import { getProductById } from "./product-utils";
 import type { Languages } from "./i18n";
 import { saveOrder } from "./order-storage";
+import { saveUserProfileFromShipping } from "./user-profile-storage";
 import { getCurrentUserId } from "./auth";
 import { delayFor } from "./network";
 
@@ -138,5 +139,17 @@ export const handleCreateOrder = async (
     updatedAt: new Date().toISOString(),
   };
   saveOrder(order);
+
+  const userId = getCurrentUserId();
+  if (userId && !normalizedShipping.useDifferentShippingAddress) {
+    saveUserProfileFromShipping(userId, {
+      phone: normalizedShipping.phone,
+      streetAddress: normalizedShipping.streetAddress,
+      city: normalizedShipping.city,
+      postalCode: normalizedShipping.postalCode,
+      country: normalizedShipping.country,
+    });
+  }
+
   return order;
 };

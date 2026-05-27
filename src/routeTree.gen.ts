@@ -22,6 +22,7 @@ import { Route as Char123LocaleChar125ProductProductSlugRouteImport } from './ro
 import { Route as Char123LocaleChar125CheckoutSuccessRouteImport } from './routes/{-$locale}/checkout/success'
 import { Route as Char123LocaleChar125AdminProductsRouteImport } from './routes/{-$locale}/admin/products'
 import { Route as Char123LocaleChar125AdminOrdersIndexRouteImport } from './routes/{-$locale}/admin/orders/index'
+import { Route as Char123LocaleChar125AccountProfileIndexRouteImport } from './routes/{-$locale}/account/profile/index'
 import { Route as Char123LocaleChar125AccountOrdersIndexRouteImport } from './routes/{-$locale}/account/orders/index'
 import { Route as Char123LocaleChar125AdminOrdersOrderIdRouteImport } from './routes/{-$locale}/admin/orders/$orderId'
 import { Route as Char123LocaleChar125AccountOrdersOrderIdRouteImport } from './routes/{-$locale}/account/orders/$orderId'
@@ -104,6 +105,12 @@ const Char123LocaleChar125AdminOrdersIndexRoute =
     path: '/orders/',
     getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
   } as any)
+const Char123LocaleChar125AccountProfileIndexRoute =
+  Char123LocaleChar125AccountProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
+  } as any)
 const Char123LocaleChar125AccountOrdersIndexRoute =
   Char123LocaleChar125AccountOrdersIndexRouteImport.update({
     id: '/orders/',
@@ -139,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/account/orders/$orderId': typeof Char123LocaleChar125AccountOrdersOrderIdRoute
   '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
   '/{-$locale}/account/orders/': typeof Char123LocaleChar125AccountOrdersIndexRoute
+  '/{-$locale}/account/profile/': typeof Char123LocaleChar125AccountProfileIndexRoute
   '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -154,6 +162,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/account/orders/$orderId': typeof Char123LocaleChar125AccountOrdersOrderIdRoute
   '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
   '/{-$locale}/account/orders': typeof Char123LocaleChar125AccountOrdersIndexRoute
+  '/{-$locale}/account/profile': typeof Char123LocaleChar125AccountProfileIndexRoute
   '/{-$locale}/admin/orders': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesById {
@@ -173,6 +182,7 @@ export interface FileRoutesById {
   '/{-$locale}/account/orders/$orderId': typeof Char123LocaleChar125AccountOrdersOrderIdRoute
   '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
   '/{-$locale}/account/orders/': typeof Char123LocaleChar125AccountOrdersIndexRoute
+  '/{-$locale}/account/profile/': typeof Char123LocaleChar125AccountProfileIndexRoute
   '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRouteTypes {
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/account/orders/$orderId'
     | '/{-$locale}/admin/orders/$orderId'
     | '/{-$locale}/account/orders/'
+    | '/{-$locale}/account/profile/'
     | '/{-$locale}/admin/orders/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/account/orders/$orderId'
     | '/{-$locale}/admin/orders/$orderId'
     | '/{-$locale}/account/orders'
+    | '/{-$locale}/account/profile'
     | '/{-$locale}/admin/orders'
   id:
     | '__root__'
@@ -226,6 +238,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/account/orders/$orderId'
     | '/{-$locale}/admin/orders/$orderId'
     | '/{-$locale}/account/orders/'
+    | '/{-$locale}/account/profile/'
     | '/{-$locale}/admin/orders/'
   fileRoutesById: FileRoutesById
 }
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125AdminOrdersIndexRouteImport
       parentRoute: typeof Char123LocaleChar125AdminRouteRoute
     }
+    '/{-$locale}/account/profile/': {
+      id: '/{-$locale}/account/profile/'
+      path: '/profile'
+      fullPath: '/{-$locale}/account/profile/'
+      preLoaderRoute: typeof Char123LocaleChar125AccountProfileIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
+    }
     '/{-$locale}/account/orders/': {
       id: '/{-$locale}/account/orders/'
       path: '/orders'
@@ -354,6 +374,7 @@ interface Char123LocaleChar125AccountRouteRouteChildren {
   Char123LocaleChar125AccountIndexRoute: typeof Char123LocaleChar125AccountIndexRoute
   Char123LocaleChar125AccountOrdersOrderIdRoute: typeof Char123LocaleChar125AccountOrdersOrderIdRoute
   Char123LocaleChar125AccountOrdersIndexRoute: typeof Char123LocaleChar125AccountOrdersIndexRoute
+  Char123LocaleChar125AccountProfileIndexRoute: typeof Char123LocaleChar125AccountProfileIndexRoute
 }
 
 const Char123LocaleChar125AccountRouteRouteChildren: Char123LocaleChar125AccountRouteRouteChildren =
@@ -364,6 +385,8 @@ const Char123LocaleChar125AccountRouteRouteChildren: Char123LocaleChar125Account
       Char123LocaleChar125AccountOrdersOrderIdRoute,
     Char123LocaleChar125AccountOrdersIndexRoute:
       Char123LocaleChar125AccountOrdersIndexRoute,
+    Char123LocaleChar125AccountProfileIndexRoute:
+      Char123LocaleChar125AccountProfileIndexRoute,
   }
 
 const Char123LocaleChar125AccountRouteRouteWithChildren =
