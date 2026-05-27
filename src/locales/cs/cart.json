@@ -10,6 +10,11 @@
   },
   "item": {
     "remove": "Odebrat položku",
+    "removeConfirm": {
+      "title": "Odebrat z košíku?",
+      "description": "{{name}} bude odebrán z košíku.",
+      "action": "Odebrat"
+    },
     "inStock": "Skladem",
     "outOfStock": "Není skladem",
     "size": "Velikost: {{size}}",
