@@ -31,7 +31,7 @@ const ShippingDetails = ({ form }: ShippingDetailsProps) => {
         <div className="text-sm text-muted-foreground">
           <span>{t("deliveryInfo.returningUser")}</span>
           <Link
-            to="/{-$locale}"
+            to="/{-$locale}/login"
             className="text-primary ml-1 font-semibold hover:underline"
           >
             {t("deliveryInfo.logIn")}
