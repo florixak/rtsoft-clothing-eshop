@@ -138,7 +138,6 @@ export function LoginForm({
                   </FieldLabel>
                   <Link
                     to="."
-                    disabled
                     tabIndex={-1}
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                     onClick={sendComingSoonToast}
@@ -201,7 +200,6 @@ export function LoginForm({
                 {t("login.doesNotHaveAccount")}{" "}
                 <Link
                   to="."
-                  disabled
                   className="hover:underline"
                   onClick={sendComingSoonToast}
                 >
@@ -220,7 +218,6 @@ export function LoginForm({
             terms: (
               <Link
                 to="."
-                disabled
                 className="underline"
                 onClick={sendComingSoonToast}
               />
@@ -228,7 +225,6 @@ export function LoginForm({
             privacy: (
               <Link
                 to="."
-                disabled
                 className="underline"
                 onClick={sendComingSoonToast}
               />
