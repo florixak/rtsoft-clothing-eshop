@@ -218,6 +218,7 @@ const useProductVariants = (
     const aInPrefs = filterPreferences?.color?.includes(a.code);
     const bInPrefs = filterPreferences?.color?.includes(b.code);
 
+    // Sort by filter preferences
     if (aInPrefs && bInPrefs) {
       const aIndex = filterPreferences!.color!.indexOf(a.code);
       const bIndex = filterPreferences!.color!.indexOf(b.code);
@@ -226,6 +227,7 @@ const useProductVariants = (
     if (aInPrefs) return -1;
     if (bInPrefs) return 1;
 
+    // Sort by stock availability, when no filter preferences are set
     const aInStock = inStockColorCodes.has(a.code);
     const bInStock = inStockColorCodes.has(b.code);
     if (aInStock && !bInStock) return -1;
