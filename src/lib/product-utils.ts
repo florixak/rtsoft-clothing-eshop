@@ -347,8 +347,15 @@ const findPreferredSelectionFromFilters = (
   product: Product,
   filterPreferences?: FilterPreferences,
 ): { color: TypeCode; size: SizeCode } | null => {
-  const selectedColors = filterPreferences?.color;
-  const selectedSizes = filterPreferences?.size;
+  const validColors = new Set(getAllColors(product).map((c) => c.code));
+  const validSizes = new Set(getAllSizes(product).map((s) => s.code));
+
+  const selectedColors = (filterPreferences?.color ?? []).filter(
+    (c): c is TypeCode => Boolean(c) && validColors.has(c as TypeCode),
+  );
+  const selectedSizes = (filterPreferences?.size ?? []).filter(
+    (s): s is SizeCode => Boolean(s) && validSizes.has(s as SizeCode),
+  );
 
   if (!selectedColors?.length && !selectedSizes?.length) {
     return null;
@@ -363,8 +370,8 @@ const findPreferredSelectionFromFilters = (
 
   for (const color of colorOrder) {
     for (const size of sizeOrder) {
-      if (findInStockSku(product, color, size as SizeCode)) {
-        return { color, size: size as SizeCode };
+      if (findInStockSku(product, color, size)) {
+        return { color, size };
       }
     }
   }
