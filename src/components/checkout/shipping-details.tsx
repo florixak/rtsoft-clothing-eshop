@@ -79,7 +79,7 @@ const ShippingDetails = ({ form }: ShippingDetailsProps) => {
               placeholder={t("deliveryInfo.fields.phone.placeholder")}
               type="tel"
               inputMode="tel"
-              pattern="\+?[0-9()\s-]{6,25}"
+              pattern="\\+?[0-9()\\s-]{6,25}"
               maxLength={25}
               minLength={6}
             />
@@ -117,7 +117,7 @@ const ShippingDetails = ({ form }: ShippingDetailsProps) => {
               placeholder={t("deliveryInfo.fields.postalCode.placeholder")}
               type="text"
               inputMode="text"
-              pattern="^[0-9A-Za-z\s-]{3,10}$"
+              pattern="^[0-9A-Za-z\\s-]{3,10}$"
               maxLength={10}
               minLength={3}
               required
@@ -208,7 +208,7 @@ const ShippingDetails = ({ form }: ShippingDetailsProps) => {
                       )}
                       type="text"
                       inputMode="text"
-                      pattern="^[0-9A-Za-z\s-]{3,10}$"
+                      pattern="^[0-9A-Za-z\\s-]{3,10}$"
                       maxLength={10}
                       minLength={3}
                       required
