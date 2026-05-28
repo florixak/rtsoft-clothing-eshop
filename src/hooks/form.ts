@@ -10,7 +10,7 @@ const RadioButtonField = lazy(
 const TextField = lazy(() => import("@/components/form/text-field.tsx"));
 
 export const {
-  useAppForm: useCheckoutForm,
+  useAppForm: useCheckoutForm, // it should be called just useForm
   withForm,
   withFieldGroup,
 } = createFormHook({
@@ -24,6 +24,8 @@ export const {
   fieldContext,
   formContext,
 });
+
+export { useCheckoutForm as useProfileForm };
 
 const TypedCheckoutForm = withForm({
   ...checkoutFormOpts,

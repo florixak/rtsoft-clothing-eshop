@@ -2,6 +2,7 @@
   "title": "Account",
   "nav": {
     "orders": "My Orders",
+    "profile": "Personal Data",
     "admin": "Admin Dashboard",
     "logout": "Logout"
   },
@@ -23,6 +24,15 @@
       "shipped": "Shipped",
       "completed": "Completed",
       "cancelled": "Cancelled"
+    }
+  },
+  "profile": {
+    "title": "Personal Data",
+    "description": "Manage your delivery details. Name and email come from your account and are used automatically at checkout.",
+    "addressTitle": "Delivery Address",
+    "actions": {
+      "save": "Save changes",
+      "saving": "Saving..."
     }
   }
 }

@@ -116,6 +116,26 @@ export const formSchema = z.object({
   ...paymentSchema.shape,
 });
 
+export const userProfileSchema = z.object({
+  phone: z
+    .string()
+    .trim()
+    .optional()
+    .refine((value) => !value || PHONE_REGEX.test(value), {
+      message: "validation.invalidPhone",
+    }),
+  streetAddress: z.string().trim().min(1, "validation.streetAddressRequired"),
+  city: z.string().trim().min(1, "validation.cityRequired"),
+  postalCode: z
+    .string()
+    .trim()
+    .min(1, "validation.postalCodeRequired")
+    .refine((value) => POSTAL_CODE_REGEX.test(value), {
+      message: "validation.invalidPostalCode",
+    }),
+  country: z.string().trim().min(1, "validation.countryRequired"),
+});
+
 export const getErrorMessage = (error: unknown): string => {
   if (typeof error === "string") {
     return error;
@@ -133,4 +153,5 @@ export const getErrorMessage = (error: unknown): string => {
   return "validation.invalidValue";
 };
 
+export type UserProfileInput = z.infer<typeof userProfileSchema>;
 export type FormValues = z.infer<typeof formSchema>;

@@ -161,10 +161,24 @@ const Checkout = () => {
     });
   };
 
+  const completedSteps = (): CheckoutStep[] => {
+    const steps: CheckoutStep[] = [];
+    if (isCurrentStepValid(currentValues, "shipping")) {
+      steps.push("shipping");
+    }
+    if (isCurrentStepValid(currentValues, "payment")) {
+      steps.push("payment");
+    }
+    if (isCurrentStepValid(currentValues, "review")) {
+      steps.push("review");
+    }
+    return steps;
+  };
+
   return (
     <section className="container mx-auto flex flex-col gap-8">
       <h2 className="text-2xl font-heading font-semibold">{t("title")}</h2>
-      <CheckoutStepper />
+      <CheckoutStepper completedSteps={completedSteps()} />
       <div className="flex flex-col lg:flex-row gap-8 w-full items-start justify-between">
         <form
           className="flex-1 flex flex-col gap-8 w-full"

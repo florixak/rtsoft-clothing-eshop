@@ -1,13 +1,28 @@
 import { useTranslation } from "react-i18next";
 import ProductCard from "./product-card";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
+import type { FilterPreferences } from "@/lib/product-utils";
 import type { Product } from "@/types";
 
 type CatalogProductsProps = {
   products: Product[];
+  filterPreferences?: FilterPreferences;
 };
 
-const CatalogProducts = ({ products }: CatalogProductsProps) => {
+const getProductCardKey = (
+  productId: Product["id"],
+  filterPreferences?: FilterPreferences,
+) =>
+  [
+    productId,
+    filterPreferences?.color?.join(",") ?? "",
+    filterPreferences?.size?.join(",") ?? "",
+  ].join("-");
+
+const CatalogProducts = ({
+  products,
+  filterPreferences,
+}: CatalogProductsProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
   return (
@@ -18,7 +33,11 @@ const CatalogProducts = ({ products }: CatalogProductsProps) => {
         </div>
       )}
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard
+          key={getProductCardKey(product.id, filterPreferences)}
+          product={product}
+          filterPreferences={filterPreferences}
+        />
       ))}
     </div>
   );

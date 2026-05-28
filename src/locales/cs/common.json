@@ -121,6 +121,7 @@
     "info": "Informace",
     "comingSoon": "Již brzy...",
     "addedToCart": "Produkt {{name}} byl přidán do košíku.",
+    "addedToCartWithQuantity": "Produkt {{name}} byl přidán do košíku. ({{numberInCart}} v košíku)",
     "removedFromCart": "Produkt {{name}} byl odstraněn z košíku.",
     "orderPlaced": "Objednávka byla úspěšně vytvořena.",
     "orderCancelled": "Objednávka byla úspěšně zrušena.",

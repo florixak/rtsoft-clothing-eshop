@@ -145,8 +145,11 @@ export const useCartStore = create<CartStore>()(
 
       changeItemQuantity: (itemId, newQuantity) => {
         if (!Number.isFinite(newQuantity) || Number.isNaN(newQuantity)) return;
-        newQuantity = Math.max(1, Math.floor(newQuantity));
-        if (newQuantity <= 0) return;
+        newQuantity = Math.floor(newQuantity);
+        if (newQuantity <= 0) {
+          get().removeItem(itemId);
+          return;
+        }
 
         set((state) => {
           const item = state.cart.items.find((item) => item.id === itemId);

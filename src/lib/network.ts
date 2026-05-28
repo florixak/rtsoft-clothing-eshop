@@ -12,6 +12,7 @@ const NETWORK_DELAY_MS = {
   createOrder: 800,
   payment: 2000,
   orderMutation: 1000,
+  userProfile: 500,
 } as const;
 
 type NetworkDelayKey = keyof typeof NETWORK_DELAY_MS;

@@ -74,10 +74,12 @@ const CatalogFilter = () => {
 
   return (
     <aside className="flex flex-col gap-8 p-4 overflow-y-auto h-full">
-      <CategoryFilter
-        category={category}
-        patchSearch={(updates) => patchSearch(updates)}
-      />
+      <Suspense fallback={<Skeleton className="w-full h-48" />}>
+        <CategoryFilter
+          category={category}
+          patchSearch={(updates) => patchSearch(updates)}
+        />
+      </Suspense>
       <Suspense fallback={<Skeleton className="w-full h-24" />}>
         <PriceRangeFilter
           priceRange={priceRange}

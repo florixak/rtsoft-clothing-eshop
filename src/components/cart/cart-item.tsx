@@ -7,12 +7,21 @@ import type { CartItem as CartItemType } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Trash } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import useLocale from "@/hooks/use-locale";
 import QuantityCounter from "../product/quantity-counter";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import toast from "react-hot-toast";
-import useLocale from "@/hooks/use-locale";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 type CartItemProps = {
   item: CartItemType;
@@ -22,6 +31,7 @@ type CartItemProps = {
 const CartItem = ({ item, compact = false }: CartItemProps) => {
   const removeItem = useCartStore((state) => state.removeItem);
   const changeItemQuantity = useCartStore((state) => state.changeItemQuantity);
+  const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
   const { data: product } = useSuspenseQuery(
     createProductIdQueryOptions(item.productId),
   );
@@ -31,18 +41,34 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   ]);
   const locale = useLocale();
 
-  const handleRemove = () => {
+  const productName = product.name[locale];
+  const variantInfo = `(${item.selectionSnapshot.size.toUpperCase()} | ${item.selectionSnapshot.color})`;
+  const itemLabel = `${productName} ${variantInfo}`;
+
+  const confirmRemove = () => {
     removeItem(item.id);
-    const productName = product.name[locale];
-    const variantInfo = `(${item.selectionSnapshot.size.toUpperCase()} | ${item.selectionSnapshot.color})`;
+    setRemoveDialogOpen(false);
     toast.success(
       t("common:toast.removedFromCart", {
-        name: `${productName} ${variantInfo}`,
+        name: itemLabel,
       }),
     );
   };
 
+  const handleRemoveClick = () => {
+    setRemoveDialogOpen(true);
+  };
+
+  const handleRemoveDialogOpenChange = (open: boolean) => {
+    setRemoveDialogOpen(open);
+  };
+
   const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity === 0) {
+      setRemoveDialogOpen(true);
+      return;
+    }
+
     changeItemQuantity(item.id, newQuantity);
   };
 
@@ -89,60 +115,87 @@ const CartItem = ({ item, compact = false }: CartItemProps) => {
   }
 
   return (
-    <div className="flex items-start w-full gap-3 sm:gap-4">
-      <img
-        src={images.primary}
-        alt={product?.name[locale] ?? ""}
-        className="size-20 sm:size-24 md:size-36 object-cover rounded shrink-0"
-        loading="lazy"
-      />
-      <div className="flex flex-col justify-between flex-1 gap-2 w-full min-w-0">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-base sm:text-lg font-bold line-clamp-2">
-            <Link
-              to="/{-$locale}/product/$productSlug"
-              params={{ locale, productSlug: product.slug[locale] }}
-              className="hover:underline"
-            >
-              {product?.name[locale] ?? ""}
-            </Link>
-          </h3>
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
-            <p>
-              {t("item.size", {
-                size: item.selectionSnapshot.size.toUpperCase(),
-              })}{" "}
-              | {t("item.color", { color: item.selectionSnapshot.color })}
-            </p>
-            {!isInStock && (
-              <Badge
-                variant="destructive"
-                className="h-5 px-1.5 text-[10px] sm:text-xs"
+    <>
+      <div className="flex items-start w-full gap-3 sm:gap-4">
+        <img
+          src={images.primary}
+          alt={product?.name[locale] ?? ""}
+          className="size-20 sm:size-24 md:size-36 object-cover rounded shrink-0"
+          loading="lazy"
+        />
+        <div className="flex flex-col justify-between flex-1 gap-2 w-full min-w-0">
+          <div className="flex flex-col gap-1">
+            <h3 className="text-base sm:text-lg font-bold line-clamp-2">
+              <Link
+                to="/{-$locale}/product/$productSlug"
+                params={{ locale, productSlug: product.slug[locale] }}
+                className="hover:underline"
               >
-                {t("item.outOfStock")}
-              </Badge>
-            )}
+                {product?.name[locale] ?? ""}
+              </Link>
+            </h3>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-muted-foreground">
+              <p>
+                {t("item.size", {
+                  size: item.selectionSnapshot.size.toUpperCase(),
+                })}{" "}
+                | {t("item.color", { color: item.selectionSnapshot.color })}
+              </p>
+              {!isInStock && (
+                <Badge
+                  variant="destructive"
+                  className="h-5 px-1.5 text-[10px] sm:text-xs"
+                >
+                  {t("item.outOfStock")}
+                </Badge>
+              )}
+            </div>
+            <p className="text-base sm:text-lg font-bold">{formattedPrice}</p>
           </div>
-          <p className="text-base sm:text-lg font-bold">{formattedPrice}</p>
-        </div>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <QuantityCounter
-            quantity={item.quantity}
-            onQuantityChange={handleQuantityChange}
-            disabled={!isInStock}
-            size="compact"
-          />
-          <Button
-            variant="outline"
-            size="icon-sm"
-            onClick={handleRemove}
-            aria-label={t("item.remove")}
-          >
-            <Trash size={16} />
-          </Button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <QuantityCounter
+              quantity={removeDialogOpen ? 0 : item.quantity}
+              onQuantityChange={handleQuantityChange}
+              disabled={!isInStock}
+              size="compact"
+            />
+            <Button
+              variant="outline"
+              size="icon-sm"
+              onClick={handleRemoveClick}
+              aria-label={t("item.remove")}
+            >
+              <Trash size={16} />
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+
+      <Dialog
+        open={removeDialogOpen}
+        onOpenChange={handleRemoveDialogOpenChange}
+      >
+        <DialogContent showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>{t("item.removeConfirm.title")}</DialogTitle>
+            <DialogDescription>
+              {t("item.removeConfirm.description", { name: itemLabel })}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setRemoveDialogOpen(false)}
+            >
+              {t("common:buttons.cancel")}
+            </Button>
+            <Button variant="destructive" onClick={confirmRemove}>
+              {t("item.removeConfirm.action")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

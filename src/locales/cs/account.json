@@ -2,6 +2,7 @@
   "title": "Účet",
   "nav": {
     "orders": "Mé Objednávky",
+    "profile": "Osobní údaje",
     "admin": "Admin Dashboard",
     "logout": "Odhlásit se"
   },
@@ -23,6 +24,15 @@
       "shipped": "Odesláno",
       "completed": "Dokončeno",
       "cancelled": "Zrušeno"
+    }
+  },
+  "profile": {
+    "title": "Osobní údaje",
+    "description": "Spravujte své dodací údaje. Jméno a e-mail se načítají z účtu a při objednávce se vyplní automaticky.",
+    "addressTitle": "Dodací adresa",
+    "actions": {
+      "save": "Uložit změny",
+      "saving": "Ukládám..."
     }
   }
 }

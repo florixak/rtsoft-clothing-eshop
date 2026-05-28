@@ -9,6 +9,11 @@
   },
   "item": {
     "remove": "Remove item",
+    "removeConfirm": {
+      "title": "Remove from cart?",
+      "description": "{{name}} will be removed from your cart.",
+      "action": "Remove"
+    },
     "inStock": "In Stock",
     "outOfStock": "Out of Stock",
     "size": "Size: {{size}}",

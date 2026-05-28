@@ -1,10 +1,12 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import {
   findInStockSku,
+  findPreferredSelectionFromFilters,
   getAllColors,
   getAllSizes,
   hasInStockSku,
   matchesSelection,
+  type FilterPreferences,
 } from "@/lib/product-utils";
 import { useCartStore } from "@/stores/cart-store";
 import type { Product, SizeCode, TypeCode } from "@/types";
@@ -12,6 +14,25 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import useLocale from "./use-locale";
+
+const getInitialSelection = (
+  product: Product,
+  filterPreferences?: FilterPreferences,
+) => {
+  const fromFilters = findPreferredSelectionFromFilters(
+    product,
+    filterPreferences,
+  );
+
+  if (fromFilters) {
+    return fromFilters;
+  }
+
+  const color = getPreferredColor(product);
+  const size = getPreferredSize(product, color);
+
+  return { color, size };
+};
 
 const getPreferredColor = (product: Product) => {
   const allColors = getAllColors(product);
@@ -47,7 +68,10 @@ const getPreferredSize = (
   );
 };
 
-const useProductVariants = (product: Product) => {
+const useProductVariants = (
+  product: Product,
+  filterPreferences?: FilterPreferences,
+) => {
   const addItem = useCartStore((state) => state.addItem);
   const { t } = useTranslation([
     TRANSLATION_NAMESPACES.common,
@@ -55,15 +79,15 @@ const useProductVariants = (product: Product) => {
   ]);
   const locale = useLocale();
 
+  const initialSelection = getInitialSelection(product, filterPreferences);
   const allColors = getAllColors(product);
   const inStockColorCodes = new Set(
     product.skus
       .filter((sku) => sku.stock > 0 && sku.color)
       .map((sku) => sku.color as TypeCode),
   );
-  const preferredColor = getPreferredColor(product);
   const [selectedColor, setSelectedColor] = useState<TypeCode | undefined>(
-    preferredColor,
+    initialSelection.color,
   );
   const allSizes = getAllSizes(product);
   const inStockSizeCodes = new Set(
@@ -74,9 +98,8 @@ const useProductVariants = (product: Product) => {
       )
       .map((sku) => sku.size),
   );
-  const preferredSize = getPreferredSize(product, selectedColor);
   const [selectedSize, setSelectedSize] = useState<SizeCode | undefined>(
-    preferredSize,
+    initialSelection.size,
   );
 
   const selectedInStockSku = findInStockSku(
@@ -100,7 +123,7 @@ const useProductVariants = (product: Product) => {
           item.selectionSnapshot.size === selectedSku?.size &&
           item.selectionSnapshot.color === selectedSku?.color &&
           item.priceSnapshot === priceWithVariants,
-      )?.quantity ?? 1,
+      )?.quantity ?? 0,
   );
   const isOutOfStock = !selectedInStockSku;
 
@@ -142,10 +165,16 @@ const useProductVariants = (product: Product) => {
 
     const productName = product.name[locale];
     const variantInfo = `(${selectedSize.toUpperCase()} | ${selectedColor})`;
+    const name = `${productName} ${variantInfo}`;
     toast.success(
-      t("toast.addedToCart", {
-        name: `${productName} ${variantInfo}`,
-      }),
+      prevQuantity > 0
+        ? t("toast.addedToCartWithQuantity", {
+            name,
+            numberInCart: newQuantity.toString(),
+          })
+        : t("toast.addedToCart", {
+            name,
+          }),
     );
   };
 
@@ -185,6 +214,45 @@ const useProductVariants = (product: Product) => {
     });
   };
 
+  const sortedColors = allColors.sort((a, b) => {
+    const aInPrefs = filterPreferences?.color?.includes(a.code);
+    const bInPrefs = filterPreferences?.color?.includes(b.code);
+
+    // Sort by filter preferences
+    if (aInPrefs && bInPrefs) {
+      const aIndex = filterPreferences!.color!.indexOf(a.code);
+      const bIndex = filterPreferences!.color!.indexOf(b.code);
+      return aIndex - bIndex;
+    }
+    if (aInPrefs) return -1;
+    if (bInPrefs) return 1;
+
+    // Sort by stock availability, when no filter preferences are set
+    const aInStock = inStockColorCodes.has(a.code);
+    const bInStock = inStockColorCodes.has(b.code);
+    if (aInStock && !bInStock) return -1;
+    if (!aInStock && bInStock) return 1;
+    return 0;
+  });
+
+  const sortedSizes = allSizes.sort((a, b) => {
+    const aInPrefs = filterPreferences?.size?.includes(a.code);
+    const bInPrefs = filterPreferences?.size?.includes(b.code);
+    if (aInPrefs && bInPrefs) {
+      const aIndex = filterPreferences!.size!.indexOf(a.code);
+      const bIndex = filterPreferences!.size!.indexOf(b.code);
+      return aIndex - bIndex;
+    }
+    if (aInPrefs) return -1;
+    if (bInPrefs) return 1;
+
+    const aInStock = inStockSizeCodes.has(a.code);
+    const bInStock = inStockSizeCodes.has(b.code);
+    if (aInStock && !bInStock) return -1;
+    if (!aInStock && bInStock) return 1;
+    return 0;
+  });
+
   return {
     selectedColor,
     selectedSize,
@@ -192,8 +260,8 @@ const useProductVariants = (product: Product) => {
     selectedSku,
     priceWithVariants,
     isOutOfStock,
-    allColors,
-    allSizes,
+    allColors: sortedColors,
+    allSizes: sortedSizes,
     inStockColorCodes,
     inStockSizeCodes,
     handleAddToCart,
