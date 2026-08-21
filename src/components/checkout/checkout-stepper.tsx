@@ -24,9 +24,11 @@ const CheckoutStepper = ({ completedSteps }: CheckoutStepperProps) => {
   return (
     <div className="flex justify-center items-center flex-row gap-12">
       {CHECKOUT_STEPS.map((step) => (
-        <span
+        <button
           key={step}
-          className={`px-4 py-2 flex items-center gap-2 cursor-pointer ${
+          type="button"
+          aria-current={section === step ? "step" : undefined}
+          className={`px-4 py-2 flex items-center gap-2 cursor-pointer bg-transparent border-0 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
             section === step
               ? "border-b-2 border-primary"
               : completedSteps.includes(step)
@@ -39,7 +41,7 @@ const CheckoutStepper = ({ completedSteps }: CheckoutStepperProps) => {
           {completedSteps.includes(step) && (
             <CheckCircle className="w-4 h-4 text-primary" />
           )}
-        </span>
+        </button>
       ))}
     </div>
   );
