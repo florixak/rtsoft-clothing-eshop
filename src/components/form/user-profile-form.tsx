@@ -16,7 +16,7 @@ import {
   profileFormOpts,
 } from "@/lib/user-profile-form";
 import { saveUserProfile } from "@/lib/user-profile-storage";
-import type { UserProfile } from "@/types";
+import type { User, UserProfile } from "@/types";
 import {
   useMutation,
   useQueryClient,
@@ -25,23 +25,28 @@ import {
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
-const UserProfileForm = () => {
+type AuthenticatedUserProfileFormProps = {
+  user: User;
+};
+
+const AuthenticatedUserProfileForm = ({
+  user,
+}: AuthenticatedUserProfileFormProps) => {
   const { t } = useTranslation([
     TRANSLATION_NAMESPACES.account,
     TRANSLATION_NAMESPACES.common,
     TRANSLATION_NAMESPACES.checkout,
   ]);
-  const user = useUser();
   const queryClient = useQueryClient();
 
   const { data: profile } = useSuspenseQuery(
-    createUserProfileQueryOptions(user!.id),
+    createUserProfileQueryOptions(user.id),
   );
 
   const { mutateAsync: saveProfile } = useMutation({
-    mutationFn: (values: UserProfile) => saveUserProfile(user!.id, values),
+    mutationFn: (values: UserProfile) => saveUserProfile(user.id, values),
     onSuccess: (savedProfile) => {
-      queryClient.setQueryData(QUERY_KEYS.userProfile(user!.id), savedProfile);
+      queryClient.setQueryData(QUERY_KEYS.userProfile(user.id), savedProfile);
       toast.success(t("common:toast.savedChanges"));
     },
     onError: () => {
@@ -56,10 +61,6 @@ const UserProfileForm = () => {
       await saveProfile(value);
     },
   });
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <form
@@ -203,6 +204,16 @@ const UserProfileForm = () => {
       </form.AppForm>
     </form>
   );
+};
+
+const UserProfileForm = () => {
+  const user = useUser();
+
+  if (!user) {
+    return null;
+  }
+
+  return <AuthenticatedUserProfileForm user={user} />;
 };
 
 export default UserProfileForm;
