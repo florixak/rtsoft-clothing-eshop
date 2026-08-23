@@ -9,10 +9,13 @@ export const Route = createFileRoute("/{-$locale}/account")({
   component: AccountLayout,
   pendingComponent: AccountLayoutSkeleton,
   errorComponent: RouteError,
-  beforeLoad: async (/*{ context }*/) => {
+  beforeLoad: async ({ location }) => {
     const isLoggedIn = isAuthenticated();
     if (!isLoggedIn) {
-      throw redirect({ to: "/{-$locale}/login" });
+      throw redirect({
+        to: "/{-$locale}/login",
+        search: { redirect: location.href },
+      });
     }
   },
 });

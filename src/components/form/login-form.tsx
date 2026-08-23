@@ -14,7 +14,8 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { loginSchema } from "@/lib/schema";
 import { useMutation } from "@tanstack/react-query";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { getSafeReturnPath } from "@/lib/return-path";
 import toast from "react-hot-toast";
 import { Trans, useTranslation } from "react-i18next";
 import { Checkbox } from "../ui/checkbox";
@@ -34,10 +35,17 @@ export function LoginForm({
   const navigate = useNavigate();
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
+  const { redirect: redirectParam } = useSearch({ from: "/{-$locale}/login" });
+
   const { mutateAsync: loginAsync, isPending } = useMutation({
     mutationFn: login,
     onSuccess: async () => {
       toast.success(t("login.toast.success"));
+      const returnPath = getSafeReturnPath(redirectParam);
+      if (returnPath) {
+        await navigate({ href: returnPath });
+        return;
+      }
       await navigate({ to: "/{-$locale}/account" });
     },
     onError: (error) => {
