@@ -7,3 +7,5 @@ export { OrderListSkeleton } from "./order-list-skeleton";
 export { CatalogSkeleton } from "./catalog-skeleton";
 export { CheckoutSkeleton } from "./checkout-skeleton";
 export { CartSkeleton } from "./cart-skeleton";
+export { WishlistListSkeleton } from "./wishlist-list-skeleton";
+export { WishlistDetailSkeleton } from "./wishlist-detail-skeleton";
