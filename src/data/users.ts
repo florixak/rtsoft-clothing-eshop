@@ -66,3 +66,18 @@ export const users: MockUser[] = [
     updatedAt: "2026-04-09T11:15:00.000Z",
   },
 ];
+
+const PREPARED_USER_EMAILS = [
+  "customer@example.com",
+  "admin@example.com",
+] as const;
+
+const requireUserByEmail = (email: string): MockUser => {
+  const user = users.find((entry) => entry.email === email);
+  if (!user) {
+    throw new Error(`Prepared User ${email} is missing from users`);
+  }
+  return user;
+};
+
+export const preparedUsers = PREPARED_USER_EMAILS.map(requireUserByEmail);

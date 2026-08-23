@@ -1,4 +1,8 @@
 import { useState } from "react";
+import {
+  PREPARED_USERS_HINT_ID,
+  PreparedUsersHint,
+} from "@/components/auth/prepared-users-hint";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -8,6 +12,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import type { MockUser } from "@/data/users";
 import { login } from "@/lib/auth";
 import { InvalidCredentialsError } from "@/lib/errors";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
@@ -33,6 +38,8 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const { t } = useTranslation([TRANSLATION_NAMESPACES.auth, "common"]);
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   const { redirect: redirectParam } = useSearch({ from: "/{-$locale}/login" });
@@ -62,8 +69,6 @@ export function LoginForm({
     setFieldErrors({});
 
     const formData = new FormData(e.currentTarget as HTMLFormElement);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
     const rememberMe = formData.get("rememberMe") === "on";
 
     const result = loginSchema.safeParse({ email, password, rememberMe });
@@ -90,6 +95,12 @@ export function LoginForm({
     showInfoToast(t("common:toast.comingSoon"));
   };
 
+  const fillPreparedUser = (user: MockUser) => {
+    setEmail(user.email);
+    setPassword(user.password);
+    setFieldErrors({});
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
@@ -114,12 +125,14 @@ export function LoginForm({
                     autoComplete="email"
                     placeholder={t("login.fields.email.placeholder")}
                     required
+                    value={email}
                     aria-invalid={Boolean(fieldErrors.email)}
                     aria-describedby={
                       fieldErrors.email ? "login-email-error" : undefined
                     }
                     className={fieldErrors.email ? "border-destructive" : ""}
-                    onChange={() => {
+                    onChange={(event) => {
+                      setEmail(event.target.value);
                       if (fieldErrors.email) {
                         setFieldErrors((prev) => ({
                           ...prev,
@@ -144,14 +157,12 @@ export function LoginForm({
                   <FieldLabel htmlFor="password">
                     {t("login.fields.password.label")}
                   </FieldLabel>
-                  <Link
-                    to="."
-                    tabIndex={-1}
+                  <a
+                    href={`#${PREPARED_USERS_HINT_ID}`}
                     className="ml-auto text-sm underline-offset-2 hover:underline"
-                    onClick={sendComingSoonToast}
                   >
                     {t("login.fields.forgotPassword")}
-                  </Link>
+                  </a>
                 </div>
                 <div>
                   <Input
@@ -161,12 +172,14 @@ export function LoginForm({
                     autoComplete="current-password"
                     required
                     placeholder={t("login.fields.password.placeholder")}
+                    value={password}
                     aria-invalid={Boolean(fieldErrors.password)}
                     aria-describedby={
                       fieldErrors.password ? "login-password-error" : undefined
                     }
                     className={fieldErrors.password ? "border-destructive" : ""}
-                    onChange={() => {
+                    onChange={(event) => {
+                      setPassword(event.target.value);
                       if (fieldErrors.password) {
                         setFieldErrors((prev) => ({
                           ...prev,
@@ -204,15 +217,16 @@ export function LoginForm({
                 </Button>
               </Field>
 
+              <PreparedUsersHint onFill={fillPreparedUser} />
+
               <FieldDescription className="text-center">
                 {t("login.doesNotHaveAccount")}{" "}
-                <Link
-                  to="."
+                <a
+                  href={`#${PREPARED_USERS_HINT_ID}`}
                   className="hover:underline"
-                  onClick={sendComingSoonToast}
                 >
                   {t("login.register")}
-                </Link>
+                </a>
               </FieldDescription>
             </FieldGroup>
           </form>
