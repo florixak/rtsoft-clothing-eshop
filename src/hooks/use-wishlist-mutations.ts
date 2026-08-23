@@ -1,7 +1,9 @@
 import { QUERY_KEYS } from "@/constants";
 import {
+  addItem,
   createWishlist,
   deleteWishlist,
+  removeItem,
   renameWishlist,
 } from "@/lib/wishlist-storage";
 import type { User, Wishlist } from "@/types";
@@ -49,7 +51,29 @@ const useWishlistMutations = (userId: User["id"]) => {
     },
   });
 
-  return { create, rename, remove };
+  const saveProduct = useMutation({
+    mutationFn: ({
+      wishlistId,
+      productId,
+    }: {
+      wishlistId: Wishlist["id"];
+      productId: string;
+    }) => addItem(userId, wishlistId, productId),
+    onSuccess: (wishlist) => invalidateWishlists(wishlist.id),
+  });
+
+  const removeProduct = useMutation({
+    mutationFn: ({
+      wishlistId,
+      productId,
+    }: {
+      wishlistId: Wishlist["id"];
+      productId: string;
+    }) => removeItem(userId, wishlistId, productId),
+    onSuccess: (wishlist) => invalidateWishlists(wishlist.id),
+  });
+
+  return { create, rename, remove, saveProduct, removeProduct };
 };
 
 export default useWishlistMutations;

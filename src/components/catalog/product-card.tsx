@@ -7,7 +7,7 @@ import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 import type { Product, TypeCode } from "@/types";
 import { Link } from "@tanstack/react-router";
-import { ShoppingBasket, Star } from "lucide-react";
+import { ShoppingBasket, Star, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
@@ -16,13 +16,21 @@ import {
   type FilterPreferences,
 } from "@/lib/product-utils";
 import useLocale from "@/hooks/use-locale";
+import SaveToWishlistButton from "../wishlist/save-to-wishlist-button";
 
 type ProductCardProps = {
   product: Product;
   filterPreferences?: FilterPreferences;
+  wishlistMode?: "save" | "remove";
+  onRemoveFromWishlist?: () => void;
 };
 
-const ProductCard = ({ product, filterPreferences }: ProductCardProps) => {
+const ProductCard = ({
+  product,
+  filterPreferences,
+  wishlistMode = "save",
+  onRemoveFromWishlist,
+}: ProductCardProps) => {
   const { t } = useTranslation(TRANSLATION_NAMESPACES.catalog);
 
   const locale = useLocale();
@@ -61,6 +69,24 @@ const ProductCard = ({ product, filterPreferences }: ProductCardProps) => {
           className="w-full object-cover aspect-square hidden group-hover:block"
           loading="lazy"
         />
+        {wishlistMode === "remove" ? (
+          <Button
+            type="button"
+            variant="secondary"
+            size="icon"
+            className="absolute top-2 right-2 z-10 bg-background/90 hover:bg-background"
+            aria-label={t("productCard.removeFromWishlist")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              onRemoveFromWishlist?.();
+            }}
+          >
+            <X />
+          </Button>
+        ) : (
+          <SaveToWishlistButton productId={product.id} variant="overlay" />
+        )}
         <div className="absolute bottom-2 left-2 flex flex-col text-xs items-start gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity w-[calc(100%-1rem)]">
           {allColors.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-1 bg-background px-2 py-1 rounded">

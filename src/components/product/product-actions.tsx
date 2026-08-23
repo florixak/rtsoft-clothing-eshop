@@ -1,14 +1,16 @@
 import useLocale from "@/hooks/use-locale";
 import { useQuantityCounter } from "@/hooks/use-quantity-counter";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import type { SizeCode, TypeCode } from "@/types";
+import type { Product, SizeCode, TypeCode } from "@/types";
 import { ShoppingBasket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import QuantityCounter from "./quantity-counter";
 import { Badge } from "../ui/badge";
+import SaveToWishlistButton from "../wishlist/save-to-wishlist-button";
 
 type ProductActionsProps = {
+  productId: Product["id"];
   selectedColor: TypeCode | undefined;
   selectedSize: SizeCode | undefined;
   allColors: { code: TypeCode; label: Record<string, string> }[];
@@ -23,6 +25,7 @@ type ProductActionsProps = {
 };
 
 const ProductActions = ({
+  productId,
   selectedColor,
   selectedSize,
   allColors,
@@ -126,6 +129,8 @@ const ProductActions = ({
           <ShoppingBasket size={16} />
           {isOutOfStock ? t("addToCart.outOfStock") : t("addToCart.addToCart")}
         </Button>
+
+        <SaveToWishlistButton productId={productId} />
 
         {quantityInCart > 0 && (
           <Badge variant="outline" className="text-xs uppercase">

@@ -51,11 +51,27 @@
       "description": "Delete \"{{name}}\" and all of its items? This cannot be undone.",
       "action": "Delete"
     },
+    "removeItemDialog": {
+      "title": "Remove product",
+      "description": "Remove \"{{name}}\" from this wishlist?",
+      "action": "Remove"
+    },
+    "picker": {
+      "title": "Your wishlists",
+      "description": "Tap a marked list to remove this product, or an unmarked list to save it."
+    },
+    "aria": {
+      "save": "Save to wishlist",
+      "saved": "Saved to a wishlist"
+    },
     "toast": {
       "created": "Wishlist created.",
       "renamed": "Wishlist renamed.",
       "deleted": "Wishlist deleted.",
-      "limitReached": "You can have at most {{max}} wishlists."
+      "limitReached": "You can have at most {{max}} wishlists.",
+      "saved": "Saved to {{name}}.",
+      "removed": "Removed from {{name}}.",
+      "removedItem": "{{name}} removed from this wishlist."
     }
   },
   "profile": {

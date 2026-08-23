@@ -51,11 +51,27 @@
       "description": "Opravdu smazat „{{name}}“ včetně všech položek? Tuto akci nelze vrátit.",
       "action": "Smazat"
     },
+    "removeItemDialog": {
+      "title": "Odebrat produkt",
+      "description": "Odebrat „{{name}}“ z tohoto seznamu?",
+      "action": "Odebrat"
+    },
+    "picker": {
+      "title": "Vaše seznamy",
+      "description": "Klepněte na označený seznam pro odebrání, nebo na neoznačený pro uložení."
+    },
+    "aria": {
+      "save": "Uložit do seznamu",
+      "saved": "Uloženo v seznamu"
+    },
     "toast": {
       "created": "Seznam byl vytvořen.",
       "renamed": "Seznam byl přejmenován.",
       "deleted": "Seznam byl smazán.",
-      "limitReached": "Můžete mít nejvýše {{max}} seznamů."
+      "limitReached": "Můžete mít nejvýše {{max}} seznamů.",
+      "saved": "Uloženo do seznamu {{name}}.",
+      "removed": "Odebráno ze seznamu {{name}}.",
+      "removedItem": "{{name}} byl odebrán z tohoto seznamu."
     }
   },
   "profile": {
