@@ -213,3 +213,15 @@ export type LoginInput = {
   password: string;
   rememberMe?: boolean;
 };
+
+export type WishlistItem = {
+  productId: string;
+  addedAt: string;
+};
+
+export type Wishlist = {
+  id: string;
+  name: string;
+  createdAt: string;
+  items: WishlistItem[];
+};
