@@ -1,5 +1,4 @@
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { showInfoToast } from "@/lib/toasts";
 import { useCartStore } from "@/stores/cart-store";
 import { Link } from "@tanstack/react-router";
 import {
@@ -80,10 +79,9 @@ const MobileMenuDrawer = () => {
           </li>
           <li>
             <Link
-              to="."
+              to="/{-$locale}/account/wishlists"
               aria-label={t("header.aria.wishlist")}
-              disabled
-              onClick={() => showInfoToast(t("toast.comingSoon"))}
+              onClick={closeDrawer}
               className="flex items-center"
             >
               <Heart size={24} className="inline-block mr-2" />

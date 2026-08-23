@@ -3,7 +3,6 @@ import { Heart, ShoppingBag, ShoppingCart, UserCircle } from "lucide-react";
 
 import useLocale from "@/hooks/use-locale";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
-import { showInfoToast } from "@/lib/toasts";
 import { useCartStore } from "@/stores/cart-store";
 import { useTranslation } from "react-i18next";
 import HeaderSearch from "./header-search";
@@ -38,10 +37,9 @@ const Header = () => {
           <ul className="flex flex-row items-center gap-4">
             <li className="hidden md:block">
               <Link
-                to="."
+                to="/{-$locale}/account/wishlists"
+                params={{ locale }}
                 aria-label={t("header.aria.wishlist")}
-                disabled
-                onClick={() => showInfoToast(t("toast.comingSoon"))}
               >
                 <Heart size={24} />
               </Link>
