@@ -11,21 +11,23 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
-import { Route as Char123LocaleChar125LoginRouteImport } from './routes/{-$locale}/login'
-import { Route as Char123LocaleChar125AdminRouteRouteImport } from './routes/{-$locale}/admin/route'
 import { Route as Char123LocaleChar125AccountRouteRouteImport } from './routes/{-$locale}/account/route'
-import { Route as Char123LocaleChar125CheckoutIndexRouteImport } from './routes/{-$locale}/checkout/index'
-import { Route as Char123LocaleChar125CartIndexRouteImport } from './routes/{-$locale}/cart/index'
-import { Route as Char123LocaleChar125AdminIndexRouteImport } from './routes/{-$locale}/admin/index'
+import { Route as Char123LocaleChar125AdminRouteRouteImport } from './routes/{-$locale}/admin/route'
+import { Route as Char123LocaleChar125LoginRouteImport } from './routes/{-$locale}/login'
 import { Route as Char123LocaleChar125AccountIndexRouteImport } from './routes/{-$locale}/account/index'
-import { Route as Char123LocaleChar125ProductProductSlugRouteImport } from './routes/{-$locale}/product/$productSlug'
-import { Route as Char123LocaleChar125CheckoutSuccessRouteImport } from './routes/{-$locale}/checkout/success'
+import { Route as Char123LocaleChar125AdminIndexRouteImport } from './routes/{-$locale}/admin/index'
 import { Route as Char123LocaleChar125AdminProductsRouteImport } from './routes/{-$locale}/admin/products'
-import { Route as Char123LocaleChar125AdminOrdersIndexRouteImport } from './routes/{-$locale}/admin/orders/index'
-import { Route as Char123LocaleChar125AccountProfileIndexRouteImport } from './routes/{-$locale}/account/profile/index'
+import { Route as Char123LocaleChar125CartIndexRouteImport } from './routes/{-$locale}/cart/index'
+import { Route as Char123LocaleChar125CheckoutIndexRouteImport } from './routes/{-$locale}/checkout/index'
+import { Route as Char123LocaleChar125CheckoutSuccessRouteImport } from './routes/{-$locale}/checkout/success'
+import { Route as Char123LocaleChar125ProductProductSlugRouteImport } from './routes/{-$locale}/product/$productSlug'
 import { Route as Char123LocaleChar125AccountOrdersIndexRouteImport } from './routes/{-$locale}/account/orders/index'
-import { Route as Char123LocaleChar125AdminOrdersOrderIdRouteImport } from './routes/{-$locale}/admin/orders/$orderId'
 import { Route as Char123LocaleChar125AccountOrdersOrderIdRouteImport } from './routes/{-$locale}/account/orders/$orderId'
+import { Route as Char123LocaleChar125AccountProfileIndexRouteImport } from './routes/{-$locale}/account/profile/index'
+import { Route as Char123LocaleChar125AccountWishlistsIndexRouteImport } from './routes/{-$locale}/account/wishlists/index'
+import { Route as Char123LocaleChar125AccountWishlistsWishlistIdRouteImport } from './routes/{-$locale}/account/wishlists/$wishlistId'
+import { Route as Char123LocaleChar125AdminOrdersIndexRouteImport } from './routes/{-$locale}/admin/orders/index'
+import { Route as Char123LocaleChar125AdminOrdersOrderIdRouteImport } from './routes/{-$locale}/admin/orders/$orderId'
 
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
@@ -39,10 +41,10 @@ const Char123LocaleChar125IndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125LoginRoute =
-  Char123LocaleChar125LoginRouteImport.update({
-    id: '/login',
-    path: '/login',
+const Char123LocaleChar125AccountRouteRoute =
+  Char123LocaleChar125AccountRouteRouteImport.update({
+    id: '/account',
+    path: '/account',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125AdminRouteRoute =
@@ -51,10 +53,34 @@ const Char123LocaleChar125AdminRouteRoute =
     path: '/admin',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125AccountRouteRoute =
-  Char123LocaleChar125AccountRouteRouteImport.update({
-    id: '/account',
-    path: '/account',
+const Char123LocaleChar125LoginRoute =
+  Char123LocaleChar125LoginRouteImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AccountIndexRoute =
+  Char123LocaleChar125AccountIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
+  } as any)
+const Char123LocaleChar125AdminIndexRoute =
+  Char123LocaleChar125AdminIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
+  } as any)
+const Char123LocaleChar125AdminProductsRoute =
+  Char123LocaleChar125AdminProductsRouteImport.update({
+    id: '/products',
+    path: '/products',
+    getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
+  } as any)
+const Char123LocaleChar125CartIndexRoute =
+  Char123LocaleChar125CartIndexRouteImport.update({
+    id: '/cart/',
+    path: '/cart/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125CheckoutIndexRoute =
@@ -63,23 +89,11 @@ const Char123LocaleChar125CheckoutIndexRoute =
     path: '/checkout/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125CartIndexRoute =
-  Char123LocaleChar125CartIndexRouteImport.update({
-    id: '/cart/',
-    path: '/cart/',
+const Char123LocaleChar125CheckoutSuccessRoute =
+  Char123LocaleChar125CheckoutSuccessRouteImport.update({
+    id: '/checkout/success',
+    path: '/checkout/success',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125AdminIndexRoute =
-  Char123LocaleChar125AdminIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
-  } as any)
-const Char123LocaleChar125AccountIndexRoute =
-  Char123LocaleChar125AccountIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
   } as any)
 const Char123LocaleChar125ProductProductSlugRoute =
   Char123LocaleChar125ProductProductSlugRouteImport.update({
@@ -87,23 +101,17 @@ const Char123LocaleChar125ProductProductSlugRoute =
     path: '/product/$productSlug',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125CheckoutSuccessRoute =
-  Char123LocaleChar125CheckoutSuccessRouteImport.update({
-    id: '/checkout/success',
-    path: '/checkout/success',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125AdminProductsRoute =
-  Char123LocaleChar125AdminProductsRouteImport.update({
-    id: '/products',
-    path: '/products',
-    getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
-  } as any)
-const Char123LocaleChar125AdminOrdersIndexRoute =
-  Char123LocaleChar125AdminOrdersIndexRouteImport.update({
+const Char123LocaleChar125AccountOrdersIndexRoute =
+  Char123LocaleChar125AccountOrdersIndexRouteImport.update({
     id: '/orders/',
     path: '/orders/',
-    getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
+    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
+  } as any)
+const Char123LocaleChar125AccountOrdersOrderIdRoute =
+  Char123LocaleChar125AccountOrdersOrderIdRouteImport.update({
+    id: '/orders/$orderId',
+    path: '/orders/$orderId',
+    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
   } as any)
 const Char123LocaleChar125AccountProfileIndexRoute =
   Char123LocaleChar125AccountProfileIndexRouteImport.update({
@@ -111,23 +119,29 @@ const Char123LocaleChar125AccountProfileIndexRoute =
     path: '/profile/',
     getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
   } as any)
-const Char123LocaleChar125AccountOrdersIndexRoute =
-  Char123LocaleChar125AccountOrdersIndexRouteImport.update({
+const Char123LocaleChar125AccountWishlistsIndexRoute =
+  Char123LocaleChar125AccountWishlistsIndexRouteImport.update({
+    id: '/wishlists/',
+    path: '/wishlists/',
+    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
+  } as any)
+const Char123LocaleChar125AccountWishlistsWishlistIdRoute =
+  Char123LocaleChar125AccountWishlistsWishlistIdRouteImport.update({
+    id: '/wishlists/$wishlistId',
+    path: '/wishlists/$wishlistId',
+    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
+  } as any)
+const Char123LocaleChar125AdminOrdersIndexRoute =
+  Char123LocaleChar125AdminOrdersIndexRouteImport.update({
     id: '/orders/',
     path: '/orders/',
-    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
+    getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
   } as any)
 const Char123LocaleChar125AdminOrdersOrderIdRoute =
   Char123LocaleChar125AdminOrdersOrderIdRouteImport.update({
     id: '/orders/$orderId',
     path: '/orders/$orderId',
     getParentRoute: () => Char123LocaleChar125AdminRouteRoute,
-  } as any)
-const Char123LocaleChar125AccountOrdersOrderIdRoute =
-  Char123LocaleChar125AccountOrdersOrderIdRouteImport.update({
-    id: '/orders/$orderId',
-    path: '/orders/$orderId',
-    getParentRoute: () => Char123LocaleChar125AccountRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -144,9 +158,11 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/cart/': typeof Char123LocaleChar125CartIndexRoute
   '/{-$locale}/checkout/': typeof Char123LocaleChar125CheckoutIndexRoute
   '/{-$locale}/account/orders/$orderId': typeof Char123LocaleChar125AccountOrdersOrderIdRoute
+  '/{-$locale}/account/wishlists/$wishlistId': typeof Char123LocaleChar125AccountWishlistsWishlistIdRoute
   '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
   '/{-$locale}/account/orders/': typeof Char123LocaleChar125AccountOrdersIndexRoute
   '/{-$locale}/account/profile/': typeof Char123LocaleChar125AccountProfileIndexRoute
+  '/{-$locale}/account/wishlists/': typeof Char123LocaleChar125AccountWishlistsIndexRoute
   '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -160,9 +176,11 @@ export interface FileRoutesByTo {
   '/{-$locale}/cart': typeof Char123LocaleChar125CartIndexRoute
   '/{-$locale}/checkout': typeof Char123LocaleChar125CheckoutIndexRoute
   '/{-$locale}/account/orders/$orderId': typeof Char123LocaleChar125AccountOrdersOrderIdRoute
+  '/{-$locale}/account/wishlists/$wishlistId': typeof Char123LocaleChar125AccountWishlistsWishlistIdRoute
   '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
   '/{-$locale}/account/orders': typeof Char123LocaleChar125AccountOrdersIndexRoute
   '/{-$locale}/account/profile': typeof Char123LocaleChar125AccountProfileIndexRoute
+  '/{-$locale}/account/wishlists': typeof Char123LocaleChar125AccountWishlistsIndexRoute
   '/{-$locale}/admin/orders': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRoutesById {
@@ -180,9 +198,11 @@ export interface FileRoutesById {
   '/{-$locale}/cart/': typeof Char123LocaleChar125CartIndexRoute
   '/{-$locale}/checkout/': typeof Char123LocaleChar125CheckoutIndexRoute
   '/{-$locale}/account/orders/$orderId': typeof Char123LocaleChar125AccountOrdersOrderIdRoute
+  '/{-$locale}/account/wishlists/$wishlistId': typeof Char123LocaleChar125AccountWishlistsWishlistIdRoute
   '/{-$locale}/admin/orders/$orderId': typeof Char123LocaleChar125AdminOrdersOrderIdRoute
   '/{-$locale}/account/orders/': typeof Char123LocaleChar125AccountOrdersIndexRoute
   '/{-$locale}/account/profile/': typeof Char123LocaleChar125AccountProfileIndexRoute
+  '/{-$locale}/account/wishlists/': typeof Char123LocaleChar125AccountWishlistsIndexRoute
   '/{-$locale}/admin/orders/': typeof Char123LocaleChar125AdminOrdersIndexRoute
 }
 export interface FileRouteTypes {
@@ -201,9 +221,11 @@ export interface FileRouteTypes {
     | '/{-$locale}/cart/'
     | '/{-$locale}/checkout/'
     | '/{-$locale}/account/orders/$orderId'
+    | '/{-$locale}/account/wishlists/$wishlistId'
     | '/{-$locale}/admin/orders/$orderId'
     | '/{-$locale}/account/orders/'
     | '/{-$locale}/account/profile/'
+    | '/{-$locale}/account/wishlists/'
     | '/{-$locale}/admin/orders/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -217,9 +239,11 @@ export interface FileRouteTypes {
     | '/{-$locale}/cart'
     | '/{-$locale}/checkout'
     | '/{-$locale}/account/orders/$orderId'
+    | '/{-$locale}/account/wishlists/$wishlistId'
     | '/{-$locale}/admin/orders/$orderId'
     | '/{-$locale}/account/orders'
     | '/{-$locale}/account/profile'
+    | '/{-$locale}/account/wishlists'
     | '/{-$locale}/admin/orders'
   id:
     | '__root__'
@@ -236,9 +260,11 @@ export interface FileRouteTypes {
     | '/{-$locale}/cart/'
     | '/{-$locale}/checkout/'
     | '/{-$locale}/account/orders/$orderId'
+    | '/{-$locale}/account/wishlists/$wishlistId'
     | '/{-$locale}/admin/orders/$orderId'
     | '/{-$locale}/account/orders/'
     | '/{-$locale}/account/profile/'
+    | '/{-$locale}/account/wishlists/'
     | '/{-$locale}/admin/orders/'
   fileRoutesById: FileRoutesById
 }
@@ -262,11 +288,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/login': {
-      id: '/{-$locale}/login'
-      path: '/login'
-      fullPath: '/{-$locale}/login'
-      preLoaderRoute: typeof Char123LocaleChar125LoginRouteImport
+    '/{-$locale}/account': {
+      id: '/{-$locale}/account'
+      path: '/account'
+      fullPath: '/{-$locale}/account'
+      preLoaderRoute: typeof Char123LocaleChar125AccountRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/admin': {
@@ -276,11 +302,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125AdminRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/account': {
-      id: '/{-$locale}/account'
-      path: '/account'
-      fullPath: '/{-$locale}/account'
-      preLoaderRoute: typeof Char123LocaleChar125AccountRouteRouteImport
+    '/{-$locale}/login': {
+      id: '/{-$locale}/login'
+      path: '/login'
+      fullPath: '/{-$locale}/login'
+      preLoaderRoute: typeof Char123LocaleChar125LoginRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/account/': {
+      id: '/{-$locale}/account/'
+      path: '/'
+      fullPath: '/{-$locale}/account/'
+      preLoaderRoute: typeof Char123LocaleChar125AccountIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
+    }
+    '/{-$locale}/admin/': {
+      id: '/{-$locale}/admin/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/'
+      preLoaderRoute: typeof Char123LocaleChar125AdminIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
+    }
+    '/{-$locale}/admin/products': {
+      id: '/{-$locale}/admin/products'
+      path: '/products'
+      fullPath: '/{-$locale}/admin/products'
+      preLoaderRoute: typeof Char123LocaleChar125AdminProductsRouteImport
+      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
+    }
+    '/{-$locale}/cart/': {
+      id: '/{-$locale}/cart/'
+      path: '/cart'
+      fullPath: '/{-$locale}/cart/'
+      preLoaderRoute: typeof Char123LocaleChar125CartIndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/checkout/': {
@@ -290,26 +344,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125CheckoutIndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/cart/': {
-      id: '/{-$locale}/cart/'
-      path: '/cart'
-      fullPath: '/{-$locale}/cart/'
-      preLoaderRoute: typeof Char123LocaleChar125CartIndexRouteImport
+    '/{-$locale}/checkout/success': {
+      id: '/{-$locale}/checkout/success'
+      path: '/checkout/success'
+      fullPath: '/{-$locale}/checkout/success'
+      preLoaderRoute: typeof Char123LocaleChar125CheckoutSuccessRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/admin/': {
-      id: '/{-$locale}/admin/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/'
-      preLoaderRoute: typeof Char123LocaleChar125AdminIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
-    }
-    '/{-$locale}/account/': {
-      id: '/{-$locale}/account/'
-      path: '/'
-      fullPath: '/{-$locale}/account/'
-      preLoaderRoute: typeof Char123LocaleChar125AccountIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
     }
     '/{-$locale}/product/$productSlug': {
       id: '/{-$locale}/product/$productSlug'
@@ -318,47 +358,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125ProductProductSlugRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/checkout/success': {
-      id: '/{-$locale}/checkout/success'
-      path: '/checkout/success'
-      fullPath: '/{-$locale}/checkout/success'
-      preLoaderRoute: typeof Char123LocaleChar125CheckoutSuccessRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/admin/products': {
-      id: '/{-$locale}/admin/products'
-      path: '/products'
-      fullPath: '/{-$locale}/admin/products'
-      preLoaderRoute: typeof Char123LocaleChar125AdminProductsRouteImport
-      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
-    }
-    '/{-$locale}/admin/orders/': {
-      id: '/{-$locale}/admin/orders/'
-      path: '/orders'
-      fullPath: '/{-$locale}/admin/orders/'
-      preLoaderRoute: typeof Char123LocaleChar125AdminOrdersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
-    }
-    '/{-$locale}/account/profile/': {
-      id: '/{-$locale}/account/profile/'
-      path: '/profile'
-      fullPath: '/{-$locale}/account/profile/'
-      preLoaderRoute: typeof Char123LocaleChar125AccountProfileIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
-    }
     '/{-$locale}/account/orders/': {
       id: '/{-$locale}/account/orders/'
       path: '/orders'
       fullPath: '/{-$locale}/account/orders/'
       preLoaderRoute: typeof Char123LocaleChar125AccountOrdersIndexRouteImport
       parentRoute: typeof Char123LocaleChar125AccountRouteRoute
-    }
-    '/{-$locale}/admin/orders/$orderId': {
-      id: '/{-$locale}/admin/orders/$orderId'
-      path: '/orders/$orderId'
-      fullPath: '/{-$locale}/admin/orders/$orderId'
-      preLoaderRoute: typeof Char123LocaleChar125AdminOrdersOrderIdRouteImport
-      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
     }
     '/{-$locale}/account/orders/$orderId': {
       id: '/{-$locale}/account/orders/$orderId'
@@ -367,14 +372,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125AccountOrdersOrderIdRouteImport
       parentRoute: typeof Char123LocaleChar125AccountRouteRoute
     }
+    '/{-$locale}/account/profile/': {
+      id: '/{-$locale}/account/profile/'
+      path: '/profile'
+      fullPath: '/{-$locale}/account/profile/'
+      preLoaderRoute: typeof Char123LocaleChar125AccountProfileIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
+    }
+    '/{-$locale}/account/wishlists/': {
+      id: '/{-$locale}/account/wishlists/'
+      path: '/wishlists'
+      fullPath: '/{-$locale}/account/wishlists/'
+      preLoaderRoute: typeof Char123LocaleChar125AccountWishlistsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
+    }
+    '/{-$locale}/account/wishlists/$wishlistId': {
+      id: '/{-$locale}/account/wishlists/$wishlistId'
+      path: '/wishlists/$wishlistId'
+      fullPath: '/{-$locale}/account/wishlists/$wishlistId'
+      preLoaderRoute: typeof Char123LocaleChar125AccountWishlistsWishlistIdRouteImport
+      parentRoute: typeof Char123LocaleChar125AccountRouteRoute
+    }
+    '/{-$locale}/admin/orders/': {
+      id: '/{-$locale}/admin/orders/'
+      path: '/orders'
+      fullPath: '/{-$locale}/admin/orders/'
+      preLoaderRoute: typeof Char123LocaleChar125AdminOrdersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
+    }
+    '/{-$locale}/admin/orders/$orderId': {
+      id: '/{-$locale}/admin/orders/$orderId'
+      path: '/orders/$orderId'
+      fullPath: '/{-$locale}/admin/orders/$orderId'
+      preLoaderRoute: typeof Char123LocaleChar125AdminOrdersOrderIdRouteImport
+      parentRoute: typeof Char123LocaleChar125AdminRouteRoute
+    }
   }
 }
 
 interface Char123LocaleChar125AccountRouteRouteChildren {
   Char123LocaleChar125AccountIndexRoute: typeof Char123LocaleChar125AccountIndexRoute
   Char123LocaleChar125AccountOrdersOrderIdRoute: typeof Char123LocaleChar125AccountOrdersOrderIdRoute
+  Char123LocaleChar125AccountWishlistsWishlistIdRoute: typeof Char123LocaleChar125AccountWishlistsWishlistIdRoute
   Char123LocaleChar125AccountOrdersIndexRoute: typeof Char123LocaleChar125AccountOrdersIndexRoute
   Char123LocaleChar125AccountProfileIndexRoute: typeof Char123LocaleChar125AccountProfileIndexRoute
+  Char123LocaleChar125AccountWishlistsIndexRoute: typeof Char123LocaleChar125AccountWishlistsIndexRoute
 }
 
 const Char123LocaleChar125AccountRouteRouteChildren: Char123LocaleChar125AccountRouteRouteChildren =
@@ -383,10 +425,14 @@ const Char123LocaleChar125AccountRouteRouteChildren: Char123LocaleChar125Account
       Char123LocaleChar125AccountIndexRoute,
     Char123LocaleChar125AccountOrdersOrderIdRoute:
       Char123LocaleChar125AccountOrdersOrderIdRoute,
+    Char123LocaleChar125AccountWishlistsWishlistIdRoute:
+      Char123LocaleChar125AccountWishlistsWishlistIdRoute,
     Char123LocaleChar125AccountOrdersIndexRoute:
       Char123LocaleChar125AccountOrdersIndexRoute,
     Char123LocaleChar125AccountProfileIndexRoute:
       Char123LocaleChar125AccountProfileIndexRoute,
+    Char123LocaleChar125AccountWishlistsIndexRoute:
+      Char123LocaleChar125AccountWishlistsIndexRoute,
   }
 
 const Char123LocaleChar125AccountRouteRouteWithChildren =

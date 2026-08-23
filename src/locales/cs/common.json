@@ -155,6 +155,10 @@
     "productNotFound": {
       "title": "Produkt nenalezen",
       "description": "Tento produkt jsme nenašli. Mohl být odstraněn nebo odkaz může být nesprávný."
+    },
+    "wishlistNotFound": {
+      "title": "Seznam oblíbených nenalezen",
+      "description": "Tento seznam jsme nenašli. Možná byl smazán."
     }
   }
 }

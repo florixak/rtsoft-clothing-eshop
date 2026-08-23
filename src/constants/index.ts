@@ -4,6 +4,7 @@ import {
   Banknote,
   Contact,
   HandCoins,
+  Heart,
   LayoutDashboard,
   LayoutTemplate,
   Shirt,
@@ -30,6 +31,9 @@ const QUERY_KEYS = {
   adminOrders: ["adminOrders"] as const,
   accountOrders: (userId: string) => ["accountOrders", userId] as const,
   userProfile: (userId: string) => ["userProfile", userId] as const,
+  wishlists: (userId: string) => ["wishlists", userId] as const,
+  wishlist: (userId: string, wishlistId: string) =>
+    ["wishlist", userId, wishlistId] as const,
   adminProducts: ["adminProducts"] as const,
   orderDetails: (orderId: Order["id"], includeSessionFallback = false) =>
     ["orderDetails", orderId, includeSessionFallback] as const,
@@ -46,6 +50,9 @@ const MAX_RECENT_ORDERS_TO_SHOW = 5;
 const FREE_SHIPPING_THRESHOLD = 1000;
 
 const USER_PROFILES_STORAGE_KEY = "userProfiles";
+const WISHLISTS_STORAGE_KEY = "wishlists";
+const MAX_WISHLISTS = 5;
+const MAX_WISHLIST_NAME_LENGTH = 40;
 const MIN_PASSWORD_LENGTH = 6;
 
 const CHECKOUT_STEPS = ["shipping", "payment", "review"] as const;
@@ -62,6 +69,12 @@ const USER_MENU_ITEMS: {
     icon: ShoppingBag,
     label: "nav.orders",
     path: "/{-$locale}/account/orders",
+    adminOnly: false,
+  },
+  {
+    icon: Heart,
+    label: "nav.wishlists",
+    path: "/{-$locale}/account/wishlists",
     adminOnly: false,
   },
   {
@@ -123,6 +136,9 @@ export {
   MAX_COLORS_TO_SHOW_PER_CARD,
   MAX_SIZES_TO_SHOW_PER_CARD,
   USER_PROFILES_STORAGE_KEY,
+  WISHLISTS_STORAGE_KEY,
+  MAX_WISHLISTS,
+  MAX_WISHLIST_NAME_LENGTH,
   QUERY_KEYS,
   SEEN_PRODUCTS_STORAGE_KEY,
   MAX_SEEN_PRODUCTS,

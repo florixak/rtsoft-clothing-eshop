@@ -2,6 +2,7 @@
   "title": "Účet",
   "nav": {
     "orders": "Mé Objednávky",
+    "wishlists": "Oblíbené",
     "profile": "Osobní údaje",
     "admin": "Admin Dashboard",
     "logout": "Odhlásit se"
@@ -24,6 +25,37 @@
       "shipped": "Odesláno",
       "completed": "Dokončeno",
       "cancelled": "Zrušeno"
+    }
+  },
+  "wishlists": {
+    "title": "Oblíbené",
+    "empty": "Zatím nemáte žádné seznamy oblíbených. Vytvořte si první.",
+    "create": "Vytvořit seznam",
+    "back": "Všechny seznamy",
+    "detailEmpty": "V tomto seznamu zatím nejsou žádné produkty.",
+    "itemCount": "{{count}} produkt",
+    "itemCount_few": "{{count}} produkty",
+    "itemCount_other": "{{count}} produktů",
+    "createdAt": "Vytvořeno {{date}}",
+    "nameDialog": {
+      "createTitle": "Vytvořit seznam",
+      "renameTitle": "Přejmenovat seznam",
+      "description": "Pojmenujte seznam tak, abyste ho později poznali.",
+      "nameLabel": "Název",
+      "namePlaceholder": "např. Letní oblíbené",
+      "submitCreate": "Vytvořit",
+      "submitRename": "Uložit"
+    },
+    "deleteDialog": {
+      "title": "Smazat seznam",
+      "description": "Opravdu smazat „{{name}}“ včetně všech položek? Tuto akci nelze vrátit.",
+      "action": "Smazat"
+    },
+    "toast": {
+      "created": "Seznam byl vytvořen.",
+      "renamed": "Seznam byl přejmenován.",
+      "deleted": "Seznam byl smazán.",
+      "limitReached": "Můžete mít nejvýše {{max}} seznamů."
     }
   },
   "profile": {

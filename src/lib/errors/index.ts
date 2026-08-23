@@ -2,6 +2,9 @@ export const ERROR_CODES = {
   invalidCredentials: "INVALID_CREDENTIALS",
   orderNotFound: "ORDER_NOT_FOUND",
   productNotFound: "PRODUCT_NOT_FOUND",
+  wishlistNotFound: "WISHLIST_NOT_FOUND",
+  wishlistLimitReached: "WISHLIST_LIMIT_REACHED",
+  wishlistNameInvalid: "WISHLIST_NAME_INVALID",
 } as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
@@ -10,6 +13,9 @@ const ERROR_MESSAGES: Record<ErrorCode, string> = {
   [ERROR_CODES.invalidCredentials]: "Invalid email or password",
   [ERROR_CODES.orderNotFound]: "Order not found",
   [ERROR_CODES.productNotFound]: "Product not found",
+  [ERROR_CODES.wishlistNotFound]: "Wishlist not found",
+  [ERROR_CODES.wishlistLimitReached]: "Wishlist limit reached",
+  [ERROR_CODES.wishlistNameInvalid]: "Wishlist name is invalid",
 };
 
 export class AppError extends Error {
@@ -29,8 +35,25 @@ export class InvalidCredentialsError extends AppError {
 }
 
 export class NotFoundError extends AppError {
-  constructor(code: typeof ERROR_CODES.orderNotFound | typeof ERROR_CODES.productNotFound) {
+  constructor(
+    code:
+      | typeof ERROR_CODES.orderNotFound
+      | typeof ERROR_CODES.productNotFound
+      | typeof ERROR_CODES.wishlistNotFound,
+  ) {
     super(code);
+  }
+}
+
+export class WishlistLimitError extends AppError {
+  constructor() {
+    super(ERROR_CODES.wishlistLimitReached);
+  }
+}
+
+export class WishlistNameError extends AppError {
+  constructor() {
+    super(ERROR_CODES.wishlistNameInvalid);
   }
 }
 

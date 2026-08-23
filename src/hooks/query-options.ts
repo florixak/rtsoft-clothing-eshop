@@ -7,6 +7,7 @@ import {
 } from "@/lib/dashboard-utils";
 import { getCheckoutOrder } from "@/lib/order-storage";
 import { getUserProfile } from "@/lib/user-utils";
+import { getWishlist, getWishlists } from "@/lib/wishlist-storage";
 import { getOrderById, getOrders } from "@/lib/order-utils";
 import {
   getAdminProducts,
@@ -89,6 +90,22 @@ export const createUserProfileQueryOptions = (userId: string) =>
   queryOptions({
     queryKey: QUERY_KEYS.userProfile(userId),
     queryFn: () => getUserProfile(userId),
+  });
+
+export const createWishlistsQueryOptions = (userId: string) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.wishlists(userId),
+    queryFn: () => getWishlists(userId),
+  });
+
+export const createWishlistQueryOptions = (
+  userId: string,
+  wishlistId: string,
+) =>
+  queryOptions({
+    queryKey: QUERY_KEYS.wishlist(userId, wishlistId),
+    queryFn: () => getWishlist(userId, wishlistId),
+    retry: false,
   });
 
 export const createAdminProductsQueryOptions = () =>

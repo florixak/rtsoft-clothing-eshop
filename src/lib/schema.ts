@@ -1,7 +1,7 @@
 import { dashboardPeriods } from "@/data/stats";
 import { orderStatuses } from "@/data/orders";
 import * as z from "zod";
-import { MIN_PASSWORD_LENGTH } from "@/constants";
+import { MAX_WISHLIST_NAME_LENGTH, MIN_PASSWORD_LENGTH } from "@/constants";
 
 export const ordersSchema = z.object({
   period: z.enum(dashboardPeriods).default("all").catch("all"),
@@ -41,6 +41,15 @@ export const loginSchema = z.object({
   rememberMe: z.boolean().default(false),
 });
 
+export const wishlistNameSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "validation.required")
+    .max(MAX_WISHLIST_NAME_LENGTH, "validation.maxLength"),
+});
+
 export type OrdersSearch = z.infer<typeof ordersSchema>;
 export type ProductsSearch = z.infer<typeof productsSchema>;
 export type LoginCredentials = z.infer<typeof loginSchema>;
+export type WishlistNameInput = z.infer<typeof wishlistNameSchema>;
