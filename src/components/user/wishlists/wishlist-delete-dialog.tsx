@@ -10,10 +10,21 @@ import {
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { useTranslation } from "react-i18next";
 
+type DialogCopyKey =
+  | "wishlists.deleteDialog.title"
+  | "wishlists.deleteDialog.description"
+  | "wishlists.deleteDialog.action"
+  | "wishlists.removeItemDialog.title"
+  | "wishlists.removeItemDialog.description"
+  | "wishlists.removeItemDialog.action";
+
 type WishlistDeleteDialogProps = {
   open: boolean;
   name: string;
   isPending?: boolean;
+  titleKey?: DialogCopyKey;
+  descriptionKey?: DialogCopyKey;
+  actionKey?: DialogCopyKey;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
@@ -22,6 +33,9 @@ const WishlistDeleteDialog = ({
   open,
   name,
   isPending = false,
+  titleKey = "wishlists.deleteDialog.title",
+  descriptionKey = "wishlists.deleteDialog.description",
+  actionKey = "wishlists.deleteDialog.action",
   onOpenChange,
   onConfirm,
 }: WishlistDeleteDialogProps) => {
@@ -34,17 +48,15 @@ const WishlistDeleteDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>{t("wishlists.deleteDialog.title")}</DialogTitle>
-          <DialogDescription>
-            {t("wishlists.deleteDialog.description", { name })}
-          </DialogDescription>
+          <DialogTitle>{t(titleKey)}</DialogTitle>
+          <DialogDescription>{t(descriptionKey, { name })}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             {t("common:buttons.cancel")}
           </Button>
           <Button variant="destructive" disabled={isPending} onClick={onConfirm}>
-            {t("wishlists.deleteDialog.action")}
+            {t(actionKey)}
           </Button>
         </DialogFooter>
       </DialogContent>

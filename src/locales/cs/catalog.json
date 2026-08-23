@@ -41,7 +41,8 @@
     "reviews_few": "({{count}} recenze)",
     "reviews_other": "({{count}} recenzí)",
     "colors": "Barvy",
-    "sizes": "Velikosti"
+    "sizes": "Velikosti",
+    "removeFromWishlist": "Odebrat z tohoto seznamu"
   },
   "pagination": {
     "title": "Navigace stránek",

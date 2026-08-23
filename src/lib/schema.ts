@@ -41,6 +41,10 @@ export const loginSchema = z.object({
   rememberMe: z.boolean().default(false),
 });
 
+export const loginSearchSchema = z.object({
+  redirect: z.string().optional(),
+});
+
 export const wishlistNameSchema = z.object({
   name: z
     .string()
@@ -52,4 +56,5 @@ export const wishlistNameSchema = z.object({
 export type OrdersSearch = z.infer<typeof ordersSchema>;
 export type ProductsSearch = z.infer<typeof productsSchema>;
 export type LoginCredentials = z.infer<typeof loginSchema>;
+export type LoginSearch = z.infer<typeof loginSearchSchema>;
 export type WishlistNameInput = z.infer<typeof wishlistNameSchema>;

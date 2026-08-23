@@ -10,7 +10,7 @@ import useUser from "@/hooks/use-user";
 import { TRANSLATION_NAMESPACES } from "@/lib/i18n";
 import { findProductById } from "@/lib/product-utils";
 import { isDefined } from "@/lib/utils";
-import type { Wishlist } from "@/types";
+import type { Product, Wishlist } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
@@ -46,9 +46,10 @@ const WishlistDetail = ({ wishlistId }: WishlistDetailProps) => {
   const { data: wishlist } = useSuspenseQuery(
     createWishlistQueryOptions(user.id, wishlistId),
   );
-  const { rename, remove } = useWishlistMutations(user.id);
+  const { rename, remove, removeProduct } = useWishlistMutations(user.id);
   const [renameOpen, setRenameOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [productToRemove, setProductToRemove] = useState<Product | null>(null);
 
   const products = resolveWishlistProducts(wishlist);
 
@@ -68,6 +69,25 @@ const WishlistDetail = ({ wishlistId }: WishlistDetailProps) => {
       toast.success(t("wishlists.toast.deleted"));
       setDeleteOpen(false);
       await navigate({ to: "/{-$locale}/account/wishlists" });
+    } catch {
+      toast.error(t("common:toast.genericError"));
+    }
+  };
+
+  const handleRemoveProduct = async () => {
+    if (!productToRemove) {
+      return;
+    }
+
+    try {
+      await removeProduct.mutateAsync({
+        wishlistId,
+        productId: productToRemove.id,
+      });
+      toast.success(
+        t("wishlists.toast.removedItem", { name: productToRemove.name[locale] }),
+      );
+      setProductToRemove(null);
     } catch {
       toast.error(t("common:toast.genericError"));
     }
@@ -108,7 +128,12 @@ const WishlistDetail = ({ wishlistId }: WishlistDetailProps) => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                wishlistMode="remove"
+                onRemoveFromWishlist={() => setProductToRemove(product)}
+              />
             ))}
           </div>
         )}
@@ -128,6 +153,20 @@ const WishlistDetail = ({ wishlistId }: WishlistDetailProps) => {
         isPending={remove.isPending}
         onOpenChange={setDeleteOpen}
         onConfirm={handleDelete}
+      />
+      <WishlistDeleteDialog
+        open={Boolean(productToRemove)}
+        name={productToRemove?.name[locale] ?? ""}
+        isPending={removeProduct.isPending}
+        titleKey="wishlists.removeItemDialog.title"
+        descriptionKey="wishlists.removeItemDialog.description"
+        actionKey="wishlists.removeItemDialog.action"
+        onOpenChange={(open) => {
+          if (!open) {
+            setProductToRemove(null);
+          }
+        }}
+        onConfirm={handleRemoveProduct}
       />
     </Card>
   );

@@ -111,6 +111,7 @@ const ProductHeader = ({ product }: ProductHeaderProps) => {
               </p>
             </div>
             <ProductActions
+              productId={product.id}
               {...productVariants}
               quantityInCart={productVariants.quantity}
             />

@@ -4,9 +4,12 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/{-$locale}/admin")({
   component: AdminLayout,
-  beforeLoad: async (/*{ context }*/) => {
+  beforeLoad: async ({ location }) => {
     if (!isAuthenticated()) {
-      throw redirect({ to: "/{-$locale}/login" });
+      throw redirect({
+        to: "/{-$locale}/login",
+        search: { redirect: location.href },
+      });
     }
     if (!hasRole("admin")) {
       throw redirect({ to: "/{-$locale}/account" });
