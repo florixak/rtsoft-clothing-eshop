@@ -12,7 +12,7 @@
 - 🛒 **Nákupní košík** - Spravujte své položky s možností úpravy quantidade
 - 💳 **Bezpečný checkout** - Vícekrokový proces objednávky s ověřením údajů
 - 🌍 **Vícejazyčnost** - Podpora pro češtinu a angličtinu
-- 👤 **Účty uživatelů** - Registrace, přihlášení a správa objednávek
+- 👤 **Účty uživatelů** - Přihlášení připravenými uživateli a správa objednávek
 - 📊 **Administrační panel** - Dashboard pro správu objednávek, produktů a statistik
 - 📱 **Responzivní design** - Funguje na desktopech, tabletech i mobilních zařízeních
 - 🔍 **Vyhledávání a filtrování** - Pokročilé možnosti pro snadné vyhledání produktů
@@ -29,6 +29,7 @@
 ## Obsah
 
 - [O aplikaci](#o-aplikaci)
+- [Přihlášení](#přihlášení)
 - [Požadavky](#požadavky)
 - [Instalace](#instalace)
 - [Spuštění aplikace](#spuštění-aplikace)
@@ -63,6 +64,17 @@ pnpm dev
 ```
 
 **Hotovo!** 🎉 Aplikace je spuštěná. Teď můžete začít vyvíjet!
+
+---
+
+## Přihlášení
+
+Registrace v aplikaci zatím není. Na přihlašovací stránce jsou dva připravení uživatelé (klepnutí vyplní formulář):
+
+| Uživatel | E-mail | Heslo | Co odemkne |
+|---|---|---|---|
+| Anna Novak | `customer@example.com` | `password123` | Wishlisty a objednávky |
+| Admin User | `admin@example.com` | `admin123` | Admin |
 
 ---
 
