@@ -44,7 +44,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           property: "og:description",
           content: "Modern clothing e-shop with curated collections.",
         },
-        { property: "og:image", content: "/og-image.jpg" },
+        { property: "og:image", content: "/og-image.png" },
 
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: "RTSoft Clothing Eshop" },
@@ -52,7 +52,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           name: "twitter:description",
           content: "Modern clothing e-shop with curated collections.",
         },
-        { name: "twitter:image", content: "/og-image.jpg" },
+        { name: "twitter:image", content: "/og-image.png" },
       ],
       links: [{ rel: "icon", href: "/favicon.ico" }],
     };
